@@ -4,17 +4,23 @@
 /dist
 /tmp
 /out-tsc
+
 # Only exists if Bazel was run
 /bazel-out
 
 # dependencies
 /node_modules
+/public
 
 # profiling files
 chrome-profiler-events.json
 speed-measure-plugin.json
 
 # IDEs and editors
+*~
+\#*#
+.#*
+[a-z].js
 /.idea
 .project
 .classpath
@@ -36,10 +42,14 @@ speed-measure-plugin.json
 /connect.lock
 /coverage
 /libpeerconnection.log
+nohup.out
 npm-debug.log
 yarn-error.log
 testem.log
 /typings
+
+KEEP
+.save
 
 # System Files
 .DS_Store
