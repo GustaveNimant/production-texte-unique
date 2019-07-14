@@ -1,6 +1,9 @@
-# ProductionTexteUnique
+# Willforge 
+Voir le site [Willforge.fr](http://willforge.fr/wikiwil/index.php/Comment_des_millions_de_personnes_peuvent-elles_produire_un_texte_unique_faisant_consensus_%3F)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.1.
+# Angular7crud
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
 
 ## Development server
 
