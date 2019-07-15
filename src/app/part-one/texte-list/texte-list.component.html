@@ -4,7 +4,7 @@
   <div class="texte-pane"
        *ngFor="let texte of texte"
        [ngClass]="{'open': texte._id === chosenId}"
-       [ngStyle]="{'background-image': 'url(' + texte.imageUrl + ')'}"
+       [ngStyle]="{'background-image': 'url(' + texte.shasum + ')'}"
        (click)="onProductClicked(texte._id)">
     <div class="texte-info">
       <h3>

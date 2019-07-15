@@ -6,13 +6,17 @@ import { StateService } from '../services/state.service';
   templateUrl: './part-one.component.html',
   styleUrls: ['./part-one.component.scss']
 })
+
 export class PartOneComponent implements OnInit {
 
-  constructor(private state: StateService) { }
+    constructor(private state: StateService) {
+	console.log('Entrée dans constructor');
+    }
 
-  ngOnInit() {
-    this.state.part$.next(1);
-    this.state.part = 1;
+    ngOnInit() {
+	console.log('Entrée dans ngOnInit');
+	this.state.part$.next(1);
+	this.state.part = 1;
   }
 
 }

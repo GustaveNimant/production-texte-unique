@@ -18,7 +18,7 @@ export class TexteService {
 	    _id: '324sdfmoih3',
 	    titre: 'My texte',
 	    contenu: 'All about my texte',
-	    shasum: 'https://c.pxhere.com/photos/30/d6/photographer_camera_lens_slr_photography_hands-1079029.jpg!d',
+	    shasum: '',
 	    noteMoyenne: 4900,
 	    participantId: 'will'
 	},
@@ -26,15 +26,16 @@ export class TexteService {
 	    _id: '324sdfmoih4',
 	    titre: 'Another texte',
 	    contenu: 'All about my texte',
-	    shasum: 'https://www.publicdomainpictures.net/pictures/10000/velka/1536-1249273362hbHb.jpg',
+	    shasum: '',
 	    noteMoyenne: 2600,
 	    participantId: 'will'
 	},
     ];
+    
     public texte$ = new Subject<Texte[]>();
     
     getTexte() {
-	// console.log('Entering in getTexte');
+	console.log('Entrée dans getTexte');
 	this.http.get(this.uri).subscribe(
 	    (texte: Texte[]) => {
 		if (texte) {

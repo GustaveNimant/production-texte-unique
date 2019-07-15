@@ -16,13 +16,14 @@
 .part {
   transition: all 0.3s ease-in-out;
   position: relative;
-  height: 200px;
-  width: 200px;
+  height: 150px;
+  width: 250px;
   margin: 5px;
-  background: #333333;
+  background: #00AAFF;
   cursor: pointer;
   &:hover {
-    transform: scale(1.05);
+    background: #00FFFF;		
+    transform: scale(1.02);		
   }
   h1 {
     color: white;
@@ -32,4 +33,8 @@
     text-align: center;
     transform: translateY(-50%);
   }
+}
+
+.text-center {
+  text-align: center; 
 }

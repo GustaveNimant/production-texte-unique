@@ -36,9 +36,9 @@ export class SignupComponent implements OnInit {
       () => {
         this.loading = false;
         if (this.state.part === 3) {
-          this.router.navigate(['/part-three/all-stuff']);
+          this.router.navigate(['/part-three/les-textes']);
         } else if (this.state.part === 4) {
-          this.router.navigate(['/part-four/all-stuff']);
+          this.router.navigate(['/part-four/les-textes']);
         }
       }
     ).catch(
