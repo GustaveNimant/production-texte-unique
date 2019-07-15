@@ -1,0 +1,16 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<p class="text-center" *ngIf="texte.length <= 0 && !loading">No texte for sale!</p>
+<div class="texte-grid" *ngIf="texte.length >= 0">
+  <div class="texte-pane"
+       *ngFor="let texte of texte"
+       [ngClass]="{'open': texte._id === chosenId}"
+       [ngStyle]="{'background-image': 'url(' + texte.imageUrl + ')'}"
+       (click)="onProductClicked(texte._id)">
+    <div class="texte-info">
+      <h3>
+        {{ texte.title }}
+      </h3>
+      <h5>{{ texte.price / 100 | currency:'EUR' }}</h5>
+    </div>
+  </div>
+</div>

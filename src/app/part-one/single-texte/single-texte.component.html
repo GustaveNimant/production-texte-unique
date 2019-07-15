@@ -1,0 +1,14 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="!loading">
+  <button class="btn btn-link" (click)="onGoBack()"><< Back</button>
+  <div class="single-texte-pane">
+    <img [src]="texte?.shasum" alt="">
+    <div class="single-texte-info">
+      <h1>{{ texte?.title }}</h1>
+      <h2 class="single-texte-noteMoyenne">{{ texte?.noteMoyenne / 100 | currency:'EUR' }}</h2>
+      <p>{{ texte?.contenu }}</p>
+      <button class="btn btn-success m-1" (click)="onModify()" [disabled]="part >= 3 && participantId !== texte?.participantId">Modify</button>
+      <button class="btn btn-danger m-1" (click)="onDelete()" [disabled]="part >= 3 && participantId !== texte?.participantId">Delete</button>
+    </div>
+  </div>
+</div>
