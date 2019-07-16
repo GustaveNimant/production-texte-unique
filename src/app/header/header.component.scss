@@ -1,7 +1,15 @@
 header {
   display: flex;
   align-items: center;
-  background-color: #333333;
+  background-color: #6eb5ff;
+  color: white;
+  padding: 0.2rem 2%;
+}
+
+header-title {
+  display: flex;
+  text-align: center;
+  background-color: #6eb5ff;;
   color: white;
   padding: 0.2rem 2%;
 }

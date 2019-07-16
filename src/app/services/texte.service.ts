@@ -16,18 +16,18 @@ export class TexteService {
     private texte: Texte[] = [
 	{
 	    _id: '324sdfmoih3',
-	    titre: 'My texte',
-	    contenu: 'All about my texte',
-	    shasum: '',
-	    noteMoyenne: 4900,
+	    titre: 'Mon texte',
+	    contenu: 'Un nouveau texte',
+	    shasum: '5cf15f9b922a5d1b9e34216c',
+	    noteMoyenne: 4.9,
 	    participantId: 'will'
 	},
 	{
 	    _id: '324sdfmoih4',
-	    titre: 'Another texte',
+	    titre: 'Un ancien texte',
 	    contenu: 'All about my texte',
-	    shasum: '',
-	    noteMoyenne: 2600,
+	    shasum: '5d137afeb2019211cf28b273',
+	    noteMoyenne: 2.5,
 	    participantId: 'will'
 	},
     ];

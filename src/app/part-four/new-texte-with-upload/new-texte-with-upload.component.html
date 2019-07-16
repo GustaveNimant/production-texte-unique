@@ -1,29 +1,35 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
-  <form [formGroup]="texteForm">
-    <div class="form-group">
-      <label for="titre">Title</label>
-      <input type="text" placeholder="What are you selling?" id="titre" formControlName="titre" class="form-control">
-    </div>
-    <button class="btn btn-success" type="button" (click)="filePicker.click()">Add Image</button>
-    <input type="file" #filePicker (change)="onImagePick($event)">
-    <div class="image-preview" *ngIf="imagePreview">
-      <img [src]="imagePreview" alt="">
-    </div>
-    <div class="form-group">
-      <label for="noteMoyenne">Price (in €)</label>
-      <input type="number" id="noteMoyenne" class="form-control" formControlName="noteMoyenne" min="0">
-    </div>
-    <div class="form-group">
-      <label for="contenu">Description</label>
-      <textarea name="contenu"
-                id="contenu"
-                cols="30" rows="7"
-                class="form-control"
-                formControlName="contenu"
-                placeholder="Describe your product (type, quality, etc.)"></textarea>
-    </div>
-    <button class="btn btn-primary" (click)="onSubmit()" [disabled]="texteForm.invalid">Submit</button>
-    <p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
-  </form>
+    <form [formGroup]="texteForm">
+	<div class="form-group">
+	    <label for="titre">Titre</label>
+	    <input type="text" placeholder="Titre du texte ?"
+		   id="titre" formControlName="titre" class="form-control">
+	</div>
+	<button class="btn btn-success" type="button"
+		       (click)="filePicker.click()">Ajouter un fichier</button>
+	<input type="file" #filePicker (change)="onImagePick($event)">
+	<div class="image-preview" *ngIf="imagePreview">
+	    <img [src]="imagePreview" alt="">
+	</div>
+	<div class="form-group">
+	    <label for="noteMoyenne">Note Moyenne de 0 à 10</label>
+	    <input type="number" id="noteMoyenne"
+		   class="form-control" formControlName="noteMoyenne"
+		   min="0" max="10">
+	</div>
+	<div class="form-group">
+	    <label for="contenu">Description</label>
+	    <textarea name="contenu"
+                      id="contenu"
+                      cols="30" rows="7"
+                      class="form-control"
+                      formControlName="contenu"
+                      placeholder="Entrer le texte ...">
+	    </textarea>
+	</div>
+	<button class="btn btn-primary" (click)="onSubmit()"
+		[disabled]="texteForm.invalid">Submit</button>
+	<p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
 </div>

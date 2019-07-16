@@ -1,29 +1,35 @@
+<!-- Version bidon changer les ngIf -->
+<h2 class="header-title">
+    Les versions de la Charte
+</h2>
+
 <header>
-    <h1 class="header-title">
-	Les versions de la Charte
-    </h1>
     <ul class="header-navigation">
-	<li class="header-navigation-item" *ngIf="part === 1 || (part >= 3 && isAuth)">
+	<li class="header-navigation-item" *ngIf="part >= 1 || (part >= 3 && !isAuth)">
 	    <a class="header-link" routerLink="/{{ partString }}/les-textes" routerLinkActive="active">Une version du texte</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="part === 1 || (part >= 3 && isAuth)">
+	<li class="header-navigation-item" *ngIf="part >= 1 || (part >= 3 && !isAuth)">
 	    <a class="header-link" routerLink="/{{ partString }}/new-texte" routerLinkActive="active">Entrer une nouvelle version</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="(part >= 3 && isAuth)">
-	    <a class="header-link" style="cursor: pointer" (click)="onLogout()">LOGOUT</a>
+	<li class="header-navigation-item" *ngIf="(part >= 1 && !isAuth)">
+	    <a class="header-link" style="cursor: pointer"
+	       (click)="onLogout()">LOGOUT</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="(part >= 3 && !isAuth)">
+	<li class="header-navigation-item" *ngIf="(part >= 1 && !isAuth)">
 	    <a class="header-link" routerLink="/{{ partString }}/auth/login" routerLinkActive="active">LOGIN</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="(part >= 3 && !isAuth)">
+	<li class="header-navigation-item" *ngIf="(part >= 1 && !isAuth)">
 	    <a class="header-link" routerLink="/{{ partString }}/auth/signup" routerLinkActive="active">S'enregistrer</a>
 	</li>
     </ul>
+    
     <ul class="header-navigation nav-end">
 	<li class="header-navigation-item font-italic">
-	    <a class="header-link" style="cursor:pointer" (click)="onBackToParts()">Retour au menu principal</a>
-    </li>
-  </ul>
+	    <a class="header-link" style="cursor:pointer"
+	       (click)="onBackToParts()">Retour au menu principal</a>
+	</li>
+    </ul>
+    
 </header>
 
 <div class="hero-image" *ngIf="mode === 'list'">

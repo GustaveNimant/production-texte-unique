@@ -1,30 +1,37 @@
 const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const db_config = require('./models/db_config');
+
+const participantRoutes  = require('./routes/participant.routes');
+const texteRoutes = require('./routes/texte.routes');
+
 const app = express();
 
-app.use('/api/les-textes', (req, res, next) => {
+mongoose.Promise = global.Promise;
 
-  const des_textes = [
-    {
-      _id: 'oeihfzeoi',
-      titre: 'La première version',
-      content: 'Sur le plan institutionnel : introduire la possibilité d’intervention directe du peuple dans la démocratie via le Référendum d’Initiative Citoyenne (RIC) en toutes matières.',
-      shasum: '23fc8dcaed0ef2a758555d2117c5534e002e1f54',
-      noteMoyenne: 8.5,
-      participantId: 'qsomjhvqios',
-    },
-
-    {
-      _id: 'oeihfzeomoihi',
-      titre: 'La deuxième version',
-      content: 'Changer les institutions en introduisant la possibilité d’intervention directe du peuple dans la démocratie via le Référendum d’Initiative Citoyenne (RIC) en toutes matières.',
-      shasum: 'e1a398ff436d13a07d267465605856096b6d8259',
-      noteMoyenne: 7.2,
-      participantId: 'rtpniiwrjpt',
-    },
-
-  ];
-
-  res.status(200).json(des_textes);
+app.use((req, res, next) => { /* no route : applies to all incoming requests */
+    res.setHeader('Access-Control-Allow-Origin', '*'); /* always ajout 26 Juin 2019 */
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
 });
+
+app.use(bodyParser.json()); /* receive things as a json Object */
+
+app.use('/api/auth', participantRoutes); /* participant route to /api/auth/login /api/auth/signup */
+app.use('/api/les-textes', texteRoutes); /* main route */
+
+mongoose.connect(db_config.DB_URI, {
+    useCreateIndex: true,
+    useNewUrlParser: true
+}) /* asked when launching nodemon */
+    .then( /* Promise */
+	() => {console.log('La base de données est connectée à Uri', db_config.DB_URI)}
+    )
+    .catch ((error) => {
+	console.log('Impossible de se connecter à la base de données', db_config.DB_URI);
+	console.error(error);
+    });
 
 module.exports = app;

@@ -34,8 +34,8 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	this.texteForm = this.formBuilder.group({
 	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
-	    noteMoyenne: [0, Validators.required],
-	    shasum: [null, Validators.required]
+	    noteMoyenne: [0],
+	    shasum: [null]
 	});
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {
@@ -51,7 +51,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	const texte = new Texte();
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
-	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value * 100;
+	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.shasum = this.texteForm.get('shasum').value;
 	texte._id = new Date().getTime().toString();
 	texte.participantId = this.participantId;
