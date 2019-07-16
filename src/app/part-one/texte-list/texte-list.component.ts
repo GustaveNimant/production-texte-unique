@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './texte-list.component.html',
   styleUrls: ['./texte-list.component.scss']
 })
+
 export class TexteListComponent implements OnInit, OnDestroy {
 
   public texte: Texte[] = [];
@@ -27,8 +28,8 @@ export class TexteListComponent implements OnInit, OnDestroy {
     this.loading = true;
     this.state.mode$.next('list');
     this.texteSub = this.texteService.texte$.subscribe(
-      (texte) => {
-        this.texte = texte;
+      (un_texte) => {
+        this.texte = un_texte;
         this.loading = false;
       }
     );
