@@ -4,7 +4,7 @@ import { PartOneComponent }     from './part-one/part-one.component';
 import { PartThreeComponent }   from './part-three/part-three.component';
 import { PartFourComponent }    from './part-four/part-four.component';
 import { DefaultComponent }     from './default/default.component';
-import { TexteListComponent }   from './part-one/texte-list/texte-list.component';
+import { TextesListComponent }   from './part-one/textes-list/textes-list.component';
 import { NewTexteComponent }    from './part-one/new-texte/new-texte.component';
 import { SingleTexteComponent } from './part-one/single-texte/single-texte.component';
 import { ModifyTexteComponent } from './part-one/modify-texte/modify-texte.component';
@@ -18,7 +18,7 @@ const routes: Routes = [
     { path: 'part-one', component: PartOneComponent,
       children: [
 	  { path: 'new-texte', component: NewTexteComponent },
-	  { path: 'les-textes', component: TexteListComponent },
+	  { path: 'les-textes', component: TextesListComponent },
 	  { path: 'texte/:id', component: SingleTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'les-textes' },
@@ -41,7 +41,7 @@ const routes: Routes = [
     { path: 'part-three', component: PartThreeComponent,
       children: [
 	  { path: 'new-texte', component: NewTexteComponent, canActivate: [AuthGuard] },
-	  { path: 'les-textes', component: TexteListComponent, canActivate: [AuthGuard] },
+	  { path: 'les-textes', component: TextesListComponent, canActivate: [AuthGuard] },
 	  { path: 'texte/:id', component: SingleTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'auth/login', component: LoginComponent },
@@ -53,7 +53,7 @@ const routes: Routes = [
     { path: 'part-four', component: PartFourComponent,
       children: [
 	  { path: 'new-texte', component: NewTexteWithUploadComponent, canActivate: [AuthGuard] },
-	  { path: 'les-textes', component: TexteListComponent, canActivate: [AuthGuard] },
+	  { path: 'les-textes', component: TextesListComponent, canActivate: [AuthGuard] },
 	  { path: 'texte/:id', component: SingleTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'modify-texte/:id', component: ModifyTexteWithUploadComponent, canActivate: [AuthGuard] },
 	  { path: 'auth/login', component: LoginComponent },

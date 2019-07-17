@@ -1,19 +1,19 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-<p class="text-center" *ngIf="texte.length <= 0 && !loading">
+<p class="text-center" *ngIf="les_textes.length <= 0 && !loading">
     Pas de texte enregistré dans la base de données !</p>
 
-<div class="texte-grid" *ngIf="texte.length >= 0">
+<div class="texte-grid" *ngIf="les_textes.length >= 0">
     <div class="texte-pane"
-	 *ngFor="let un_texte of texte"
+	 *ngFor="let un_texte of les_textes"
 	 [ngClass]="{'open': un_texte._id === chosenId}"
 	 [ngStyle]="{'background-image': 'url(' + un_texte.shasum + ')'}"
 	 (click)="onProductClicked(un_texte._id)">
 	<div class="texte-info">
 	    <h3>
-		{{ texte.title }}
+		{{ un_texte.titre }}
 	    </h3>
-	    <h5>{{ texte.noteMoyenne }}</h5>
+	    <h5>{{ un_texte.noteMoyenne }}</h5>
 	</div>
     </div>
 </div>

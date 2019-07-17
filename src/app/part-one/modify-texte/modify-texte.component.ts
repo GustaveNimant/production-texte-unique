@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StateService } from '../../services/state.service';
-import { TexteService } from '../../services/texte.service';
-import { Texte } from '../../models/Texte.model';
+import { TextesService } from '../../services/textes.service';
+import { Un_texte } from '../../models/Un_texte.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ModifyTexteComponent implements OnInit {
 
-    texte: Texte;
+    texte: Un_texte;
     texteForm: FormGroup;
     loading = false;
     errorMessage: string;
@@ -25,7 +25,7 @@ export class ModifyTexteComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private state: StateService,
-		private texteService: TexteService) { }
+		private texteService: TextesService) { }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
@@ -45,7 +45,7 @@ export class ModifyTexteComponent implements OnInit {
 	this.route.params.subscribe(
 	    (params) => {
 		this.texteService.getTexteById(params.id).then(
-		    (texte: Texte) => {
+		    (texte: Un_texte) => {
 			this.texte = texte;
 			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
@@ -61,7 +61,7 @@ export class ModifyTexteComponent implements OnInit {
     onSubmit() {
 	console.log('Entrée dans onSubmit');
 	this.loading = true;
-	const texte = new Texte();
+	const texte = new Un_texte();
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value * 100;

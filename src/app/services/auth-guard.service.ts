@@ -8,12 +8,16 @@ import { StateService } from './state.service';
 
 export class AuthGuard implements CanActivate {
 
-  constructor(private auth: AuthService,
-              private state: StateService,
-              private router: Router) {}
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return Observable.create(
-      (observer) => {
+    constructor(private auth: AuthService,
+		private state: StateService,
+		private router: Router) {
+        console.log('Entrée dans constructor avec state', state);
+    };
+    
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+	console.log('Entrée dans canActivate');
+	return Observable.create(
+	    (observer) => {
         this.auth.isAuth$.subscribe(
           (auth) => {
             if (!auth) {

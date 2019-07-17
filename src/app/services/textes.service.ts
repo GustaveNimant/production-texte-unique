@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Texte } from '../models/Texte.model';
+import { Un_texte } from '../models/Un_texte.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class TexteService {
+export class TextesService {
 
     uri = 'http://localhost:3000/api/les-textes';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {};
 
-    private texte: Texte[] = [
+    private textes: Un_texte[] = [
 	{
 	    _id: '324sdfmoih3',
 	    titre: 'Mon texte',
@@ -32,26 +32,26 @@ export class TexteService {
 	},
     ];
 
-    public texte$ = new Subject<Texte[]>();
+    public textes$ = new Subject<Un_texte[]>();
 
-    getTexte() {
+    getTextes() {
 	console.log('Entrée dans getTexte uri', this.uri);
 	this.http.get(this.uri).subscribe(
-	    (des_textes: Texte[]) => {
+	    (des_textes: Un_texte[]) => {
 		if (des_textes) {
-		    this.texte = des_textes;
+		    this.textes = des_textes;
 		    this.emitTexte();
 		}
 	    },
 	    (error) => {
-		console.log('Erreur dans getTexte ', error);
+		console.log('getTexte Erreur:', error);
 	    }
 	);
     }
 
     emitTexte() {
-	console.log('Entrée dans emitTexte texte est', this.texte);
-	this.texte$.next(this.texte);
+	console.log('Entrée dans emitTexte texte est', this.textes);
+	this.textes$.next(this.textes);
     }
 
     getTexteById(id: string) {
@@ -68,8 +68,9 @@ export class TexteService {
 	});
     }
 
-    createNewTexte(texte: Texte) {
-	console.log('Entrée dans createNewTexte texte est', texte);
+    createNewTexte(texte: Un_texte) {
+	console.log('Entrée dans createNewTexte avec texte', texte);
+
 	return new Promise((resolve, reject) => {
 	    this.http.post(this.uri, texte).subscribe(
 		(response) => {
@@ -82,7 +83,7 @@ export class TexteService {
 	});
     }
 
-    createNewTexteWithFile(texte: Texte, image: File) {
+    createNewTexteWithFile(texte: Un_texte, image: File) {
 	console.log('Entrée dans createNewTexteWithFile texte est', texte);
 	return new Promise((resolve, reject) => {
 	    const texteData = new FormData();
@@ -99,7 +100,7 @@ export class TexteService {
 	});
     }
 
-    modifyTexte(id: string, texte: Texte) {
+    modifyTexte(id: string, texte: Un_texte) {
 	console.log('Entrée dans modifyTexte id est',id, 'texte est', texte);
 	return new Promise((resolve, reject) => {
 	    this.http.put(this.uri + id, texte).subscribe(
@@ -113,10 +114,10 @@ export class TexteService {
 	});
     }
 
-    modifyTexteWithFile(id: string, texte: Texte, image: File | string) {
+    modifyTexteWithFile(id: string, texte: Un_texte, image: File | string) {
 	console.log('Entrée dans modifyTexteWithFile id est',id, 'texte est', texte);
 	return new Promise((resolve, reject) => {
-	    let texteData: Texte | FormData;
+	    let texteData: Un_texte | FormData;
 	    if (typeof image === 'string') {
 		texte.shasum = image;
 		texteData = texte;

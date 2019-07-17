@@ -1,4 +1,4 @@
-export class Texte {
+export class Un_texte {
     _id: string;
     titre: string;
     contenu: string;

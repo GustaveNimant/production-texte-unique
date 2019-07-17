@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Texte } from '../../models/Texte.model';
-import { TexteService } from '../../services/texte.service';
+import { Un_texte } from '../../models/Un_texte.model';
+import { TextesService } from '../../services/textes.service';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 
@@ -13,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
 })
 export class SingleTexteComponent implements OnInit, OnDestroy {
 
-  public texte: Texte;
+  public texte: Un_texte;
   public loading: boolean;
   public participantId: string;
   public part: number;
@@ -23,7 +23,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
   constructor(private state: StateService,
               private router: Router,
               private route: ActivatedRoute,
-              private texteService: TexteService,
+              private textesService: TextesService,
               private auth: AuthService) { }
 
   ngOnInit() {
@@ -32,8 +32,8 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     this.participantId = this.auth.participantId ? this.auth.participantId : 'participantID40282382';
     this.route.params.subscribe(
       (params: Params) => {
-        this.texteService.getTexteById(params.id).then(
-          (texte: Texte) => {
+        this.textesService.getTexteById(params.id).then(
+          (texte: Un_texte) => {
             this.loading = false;
             this.texte = texte;
           }
@@ -77,7 +77,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 
   onDelete() {
     this.loading = true;
-    this.texteService.deleteTexte(this.texte._id).then(
+    this.textesService.deleteTexte(this.texte._id).then(
       () => {
         this.loading = false;
         switch (this.part) {

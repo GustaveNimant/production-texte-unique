@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Texte } from '../../models/Texte.model';
-import { TexteService } from '../../services/texte.service';
+import { Un_texte } from '../../models/Un_texte.model';
+import { TextesService } from '../../services/textes.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
@@ -25,7 +25,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
-		private texteService: TexteService,
+		private texteService: TextesService,
 		private router: Router,
 		private auth: AuthService) { }
 
@@ -48,7 +48,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     onSubmit() {
 	this.loading = true;
 
-	const texte = new Texte();
+	const texte = new Un_texte();
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;

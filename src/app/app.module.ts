@@ -10,7 +10,7 @@ import { DefaultComponent } from './default/default.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
-import { TexteListComponent } from './part-one/texte-list/texte-list.component';
+import { TextesListComponent } from './part-one/textes-list/textes-list.component';
 import { NewTexteComponent } from './part-one/new-texte/new-texte.component';
 import { SingleTexteComponent } from './part-one/single-texte/single-texte.component';
 import { ModifyTexteComponent } from './part-one/modify-texte/modify-texte.component';
@@ -32,7 +32,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
 	PartFourComponent,
 	DefaultComponent,
 	HeaderComponent,
-	TexteListComponent,
+	TextesListComponent,
 	NewTexteComponent,
 	SingleTexteComponent,
 	ModifyTexteComponent,

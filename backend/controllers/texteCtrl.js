@@ -1,13 +1,13 @@
 const texteModel = require('../models/texteModel');
 
 exports.createTexte = (req, res, next) => {
-    // console.log('createTexte req from form ', req);
+    console.log('Entrée dans createTexte avec req.body ', req.body);
 
     const texte = new texteModel({
-	title: req.body.title,
-	description: req.body.description,
-	imageUrl: req.body.imageUrl,
-	price: req.body.price,
+	titre: req.body.titre,
+	contenu: req.body.contenu,
+	shasum: req.body.shasum,
+	noteMoyenne: req.body.noteMoyenne,
 	participantId: req.body.participantId
     });
     
@@ -28,7 +28,8 @@ exports.createTexte = (req, res, next) => {
 };
 
 exports.getOneTexte = (req, res, next) => {
-    // console.log('getOneTexte req ', req);
+    console.log('Entrée dans getOneTexte avec req.body ', req.body);
+    console.log('Entrée dans getOneTexte avec req.params.id ', req.params.id);
     
     texteModel.findOne({
 	_id: req.params.id
@@ -47,14 +48,15 @@ exports.getOneTexte = (req, res, next) => {
 };
 
 exports.modifyTexte = (req, res, next) => {
-    // console.log('modifyTexte req from form ', req);
-
+    console.log('Entrée dans modifyTexte avec req.body ', req.body);
+    console.log('Entrée dans modifyTexte avec req.params.id ', req.params.id);
+    
     const texte = new texteModel({
 	_id: req.params.id, /* to keep the_id */
-	title: req.body.title,
-	description: req.body.description,
-	imageUrl: req.body.imageUrl,
-	price: req.body.price,
+	titre: req.body.titre,
+	contenu: req.body.contenu,
+	shasum: req.body.shasum,
+	noteMoyenne: req.body.noteMoyenne,
 	participantId: req.body.participantId
     });
 
@@ -75,6 +77,9 @@ exports.modifyTexte = (req, res, next) => {
 };
 
 exports.deleteTexte = (req, res, next) => {
+    console.log('Entrée dans deleteTexte avec req.body ', req.body);
+    console.log('Entrée dans deleteTexte avec req.params.id ', req.params.id);
+    
     texteModel.deleteOne({_id: req.params.id})
 	.then(
 	    () => {
@@ -92,10 +97,12 @@ exports.deleteTexte = (req, res, next) => {
 };
 
 exports.getAllTexte = (req, res, next) => {
+    console.log('Entrée dans getAllTexte avec req.body ', req.body);
+
     texteModel.find()
 	.then(
-	    (textes) => {
-		res.status(200).json(textes);
+	    (des_textes) => {
+		res.status(200).json(des_textes);
 	    }
 	).catch(
 	    (error) => {

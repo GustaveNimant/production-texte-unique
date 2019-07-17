@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StateService } from '../../services/state.service';
-import { TexteService } from '../../services/texte.service';
+import { TextesService } from '../../services/textes.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Texte } from '../../models/Texte.model';
+import { Un_texte } from '../../models/Un_texte.model';
 import { mimeType } from '../mime-type.validator';
 
 @Component({
@@ -23,7 +23,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 
   constructor(private state: StateService,
               private formBuilder: FormBuilder,
-              private texteService: TexteService,
+              private texteService: TextesService,
               private router: Router,
               private auth: AuthService) { }
 
@@ -40,7 +40,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
-    const texte = new Texte();
+    const texte = new Un_texte();
     texte.titre = this.texteForm.get('titre').value;
     texte.contenu = this.texteForm.get('contenu').value;
     texte.noteMoyenne = this.texteForm.get('noteMoyenne').value * 100;
