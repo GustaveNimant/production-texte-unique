@@ -23,7 +23,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 
   constructor(private state: StateService,
               private formBuilder: FormBuilder,
-              private texteService: TextesService,
+              private textesService: TextesService,
               private router: Router,
               private auth: AuthService) { }
 
@@ -46,7 +46,7 @@ export class NewTexteWithUploadComponent implements OnInit {
     texte.noteMoyenne = this.texteForm.get('noteMoyenne').value * 100;
     texte.shasum = '';
     texte.participantId = this.participantId;
-    this.texteService.createNewTexteWithFile(texte, this.texteForm.get('image').value).then(
+    this.textesService.createNewTexteWithFile(texte, this.texteForm.get('image').value).then(
       () => {
         this.texteForm.reset();
         this.loading = false;
