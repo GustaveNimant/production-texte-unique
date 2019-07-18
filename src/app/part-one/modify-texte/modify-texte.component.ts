@@ -25,7 +25,7 @@ export class ModifyTexteComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private state: StateService,
-		private texteService: TextesService) { }
+		private textesService: TextesService) { }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
@@ -44,7 +44,7 @@ export class ModifyTexteComponent implements OnInit {
 	this.state.mode$.next('form');
 	this.route.params.subscribe(
 	    (params) => {
-		this.texteService.getTexteById(params.id).then(
+		this.textesService.getTexteById(params.id).then(
 		    (texte: Un_texte) => {
 			this.texte = texte;
 			this.texteForm.get('titre').setValue(this.texte.titre);
@@ -68,7 +68,7 @@ export class ModifyTexteComponent implements OnInit {
 	texte.shasum = this.texteForm.get('shasum').value;
 	texte._id = new Date().getTime().toString();
 	texte.participantId = this.texte.participantId;
-	this.texteService.modifyTexte(this.texte._id, texte).then(
+	this.textesService.modifyTexte(this.texte._id, texte).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;

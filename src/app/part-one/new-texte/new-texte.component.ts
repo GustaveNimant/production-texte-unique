@@ -25,7 +25,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
-		private texteService: TextesService,
+		private textesService: TextesService,
 		private router: Router,
 		private auth: AuthService) { }
 
@@ -56,7 +56,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	texte._id = new Date().getTime().toString();
 	texte.participantId = this.participantId;
 
-	this.texteService.createNewTexte(texte)
+	this.textesService.createNewTexte(texte)
 	    .then(
 		() => {
 		    this.texteForm.reset();

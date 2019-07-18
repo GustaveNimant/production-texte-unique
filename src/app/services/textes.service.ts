@@ -10,6 +10,7 @@ import { HttpClient } from '@angular/common/http';
 export class TextesService {
 
     uri = 'http://localhost:3000/api/les-textes';
+    uri_new = 'http://localhost:3000/api/new-texte';
 
     constructor(private http: HttpClient) {};
 
@@ -35,7 +36,7 @@ export class TextesService {
     public textes$ = new Subject<Un_texte[]>();
 
     getTextes() {
-	console.log('Entrée dans getTexte uri', this.uri);
+	console.log('Entrée dans getTexte avec uri', this.uri);
 	this.http.get(this.uri).subscribe(
 	    (des_textes: Un_texte[]) => {
 		if (des_textes) {
@@ -50,12 +51,13 @@ export class TextesService {
     }
 
     emitTexte() {
-	console.log('Entrée dans emitTexte texte est', this.textes);
+	console.log('Entrée dans emitTexte avec texte', this.textes);
 	this.textes$.next(this.textes);
     }
 
     getTexteById(id: string) {
-	console.log('Entrée dans getTexteById id est', id);
+	console.log('Entrée dans getTexteById avec id', id);
+
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri + id).subscribe(
 		(response) => {
@@ -77,19 +79,25 @@ export class TextesService {
 		    resolve(response);
 		},
 		(error) => {
+		    console.log('Erreur dans createNewTexte');
 		    reject(error);
+		},
+		() => {
+		    console.log('Sortie de createNewTexte');
 		}
 	    );
 	});
     }
 
     createNewTexteWithFile(texte: Un_texte, image: File) {
-	console.log('Entrée dans createNewTexteWithFile texte est', texte);
+	console.log('Entrée dans createNewTexteWithFile avec texte', texte);
 	return new Promise((resolve, reject) => {
 	    const texteData = new FormData();
+	    
 	    texteData.append('texte', JSON.stringify(texte));
 	    texteData.append('image', image, texte.titre);
-	    this.http.post(this.uri, texteData).subscribe(
+	    
+	    this.http.post(this.uri_new, texteData).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -101,7 +109,7 @@ export class TextesService {
     }
 
     modifyTexte(id: string, texte: Un_texte) {
-	console.log('Entrée dans modifyTexte id est',id, 'texte est', texte);
+	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
 	return new Promise((resolve, reject) => {
 	    this.http.put(this.uri + id, texte).subscribe(
 		(response) => {
@@ -115,7 +123,7 @@ export class TextesService {
     }
 
     modifyTexteWithFile(id: string, texte: Un_texte, image: File | string) {
-	console.log('Entrée dans modifyTexteWithFile id est',id, 'texte est', texte);
+	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte);
 	return new Promise((resolve, reject) => {
 	    let texteData: Un_texte | FormData;
 	    if (typeof image === 'string') {
@@ -138,7 +146,8 @@ export class TextesService {
     }
 
     deleteTexte(id: string) {
-	console.log('Entrée dans deleteTexte id est',id);
+	console.log('Entrée dans deleteTexte avec id',id);
+
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri + id).subscribe(
 		(response) => {

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const texteSchema = new Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
+    titre: { type: String, required: true },
+    contenu: { type: String, required: true },
     shasum: { type: String, required: true },
     participantId: { type: String, required: true },
     noteMoyenne: { type: Number, required: true }

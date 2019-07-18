@@ -25,7 +25,7 @@ export class ModifyTexteWithUploadComponent implements OnInit {
 
   constructor(private state: StateService,
               private formBuilder: FormBuilder,
-              private texteService: TextesService,
+              private textesService: TextesService,
               private route: ActivatedRoute,
               private router: Router,
               private auth: AuthService) { }
@@ -36,7 +36,7 @@ export class ModifyTexteWithUploadComponent implements OnInit {
     this.participantId = this.auth.participantId;
     this.route.params.subscribe(
       (params) => {
-        this.texteService.getTexteById(params.id).then(
+        this.textesService.getTexteById(params.id).then(
           (texte: Un_texte) => {
             this.texte = texte;
             this.texteForm = this.formBuilder.group({
@@ -62,7 +62,7 @@ export class ModifyTexteWithUploadComponent implements OnInit {
     texte.noteMoyenne = this.texteForm.get('noteMoyenne').value * 100;
     texte.shasum = '';
     texte.participantId = this.participantId;
-    this.texteService.modifyTexteWithFile(this.texte._id, texte, this.texteForm.get('image').value).then(
+    this.textesService.modifyTexteWithFile(this.texte._id, texte, this.texteForm.get('image').value).then(
       () => {
         this.texteForm.reset();
         this.loading = false;
