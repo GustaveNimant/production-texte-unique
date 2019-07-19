@@ -9,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 
 export class AuthService {
 
-    isAuth$ = new BehaviorSubject<boolean>(false);
-    token: string;
-    participantId: string;
-    
+  isAuth$ = new BehaviorSubject<boolean>(false);
+  token: string;
+  participantId: string;
+
     constructor(private router: Router,
 		private http: HttpClient) {
 	console.log('Entering in constructor with router ', router, ' http client ',http)

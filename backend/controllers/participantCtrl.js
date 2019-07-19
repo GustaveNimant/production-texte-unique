@@ -29,6 +29,8 @@ exports.signup = (req, res, next) => {
 		    .catch(
 			(error) => {
 			    console.log('SIGNUP Error at signup password_hash is',password_hash);
+			    console.log('SIGNUP Erreur dans signup password_hash est >',password_hash,'<');
+			    console.log('SIGNUP Erreur dans signup error est >', error,'<');
 			    res.status(500).json({
 				error: error
 			    });

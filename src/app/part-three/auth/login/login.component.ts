@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
 
     onLogin() {
 	this.loading = true;
-	console.log('Entrée dans onLogin');
 	const email = this.loginForm.get('email').value;
 	const password = this.loginForm.get('password').value;
 	this.auth.login(email, password)
@@ -52,5 +51,5 @@ export class LoginComponent implements OnInit {
 		}
 	    );
     }
-
+    
 }
