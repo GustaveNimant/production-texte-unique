@@ -10,7 +10,7 @@ exports.createTexte = (req, res, next) => {
 	noteMoyenne: req.body.noteMoyenne,
 	participantId: req.body.participantId
     });
-    console.log('le texte', texte);
+    
     texte.save()
 	.then(
 	    () => {

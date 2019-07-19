@@ -50,7 +50,7 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
 	MatProgressSpinnerModule,
 	HttpClientModule
     ],
- // FCC  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
     bootstrap: [AppComponent]
 })
 

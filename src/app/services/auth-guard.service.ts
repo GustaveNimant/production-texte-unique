@@ -15,26 +15,26 @@ export class AuthGuard implements CanActivate {
     };
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-	console.log('Entrée dans canActivate avec state', state);
+	console.log('Entrée dans canActivate');
 	return Observable.create(
 	    (observer) => {
-		this.auth.isAuth$.subscribe(
-		    (auth) => {
-			if (!auth) {
-			    this.state.part$.subscribe(
-				(part) => {
-				    if (part === 3) {
-					this.router.navigate(['/part-three/auth/login']);
-				    } else if (part === 4) {
-					this.router.navigate(['/part-four/auth/signup']);
-				    }
-				}
-			    );
-			}
-			observer.next(true);
-		    }
-		);
-	    }
-	);
+        this.auth.isAuth$.subscribe(
+          (auth) => {
+            if (!auth) {
+              this.state.part$.subscribe(
+                (part) => {
+                  if (part === 3) {
+                    this.router.navigate(['/part-three/auth/login']);
+                  } else if (part === 4) {
+                    this.router.navigate(['/part-four/auth/signup']);
+                  }
+                }
+              );
+            }
+            observer.next(true);
+          }
+        );
+      }
+    );
   }
 }

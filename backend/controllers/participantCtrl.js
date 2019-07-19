@@ -7,20 +7,34 @@ exports.signup = (req, res, next) => {
     console.log('SIGNUP req.body est', req.body);
     const participant = new participantModel(req.body);
     console.log('SIGNUP participant est', participant);
-    participant.save()
+    bcrypt.hash(req.body.password, 10)
 	.then(
-	    () => {
-		res.status(201).json({
-		    message: 'Le participant a été ajouté avec succès !'
+	    (password_hash) => {
+		console.log('SIGNUP req.body.password is', req.body.password);
+		const salt = bcrypt.genSalt(10, function(err, a_salt) {
+		    console.log('SIGNUP salt is', a_salt);
 		});
-	    })
-	.catch(
-	    (error) => {
-		console.log('SIGNUP Erreur dans signup error est >', error,'<');
-		res.status(500).json({
-		    error: error
+		const participant = new participantModel({
+		    email: req.body.email,
+		    password: password_hash
 		});
-	    });
+		
+		participant.save()
+		    .then(
+			() => {
+			    res.status(201).json({
+				message: 'Le participant a été ajouté avec succès !'
+			    });
+			})
+		    .catch(
+			(error) => {
+			    console.log('SIGNUP Error at signup password_hash is',password_hash);
+			    res.status(500).json({
+				error: error
+			    });
+			});
+	    }
+	);
 };
 
 exports.login = (req, res, next) => {
@@ -41,7 +55,7 @@ exports.login = (req, res, next) => {
 				error: new Error('login : Incorrect password!')
 			    });
 			}
-			console.log('LOGIN req.body.password is ', req.body.password);
+			console.log('LOGIN req.body.password est ', req.body.password);
 			console.log('LOGIN participant.password_hash is ', participant.password_hash);
 			
 			const token = jwt.sign(
