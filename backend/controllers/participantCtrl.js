@@ -4,31 +4,30 @@ const participantModel = require('../models/participantModel');
 const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
-    
+    console.log('SIGNUP req.body est', req.body);
     bcrypt.hash(req.body.password, 10)
 	.then(
 	    (password_hash) => {
-		console.log('SIGNUP req.body.password is', req.body.password);
-		console.log('SIGNUP password_hash                 is', password_hash);
-		console.log('SIGNUP password_hash                           1234567890123456789012');
-		const salt = bcrypt.genSalt(10, function(err, a_salt) {
-		    console.log('SIGNUP salt is', a_salt);
-		});
+		console.log('SIGNUP req.body.password est', req.body.password);
+//		const salt = bcrypt.genSalt(10, function(err, a_salt) {
+//		    console.log('SIGNUP salt est', a_salt);
+//		});
 		const participant = new participantModel({
 		    email: req.body.email,
 		    password: password_hash
 		});
-		
+		console.log('SIGNUP participant est', participant);
 		participant.save()
 		    .then(
 			() => {
 			    res.status(201).json({
-				message: 'Participant added successfully!'
+				message: 'Le participant a été ajouté avec succès !'
 			    });
 			})
 		    .catch(
 			(error) => {
-			    console.log('SIGNUP Error at signup password_hash is',password_hash);
+			    console.log('SIGNUP Erreur dans signup password_hash est >',password_hash,'<');
+			    console.log('SIGNUP Erreur dans signup error est >', error,'<');
 			    res.status(500).json({
 				error: error
 			    });

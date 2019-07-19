@@ -7,7 +7,8 @@ const texteCtrl = require('../controllers/texteCtrl');
 router.get('/',   texteCtrl.getAllTexte);
 router.get('/:id',   texteCtrl.getOneTexte);
 
-router.post('/',  texteCtrl.createTexte);
+router.post('/part-one/new-texte',  texteCtrl.createTexte);
+//router.post('/',  texteCtrl.createTexte);
 router.put('/:id',  texteCtrl.modifyTexte);
 router.delete('/:id',   texteCtrl.deleteTexte);
 

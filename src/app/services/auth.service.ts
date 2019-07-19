@@ -15,11 +15,11 @@ export class AuthService {
 
     constructor(private router: Router,
 		private http: HttpClient) {
-	console.log('Entering in constructor with router ', router, ' http client ',http)
+	console.log('Entrée dans constructor avec router ', router, ' et http client ',http)
     }
     
     createNewUser(email: string, password: string) {
-	console.log('Entering in createNewUser with email ', email, ' password ',password);
+	console.log('Entrée dans createNewUser avec email >', email, '< password >',password, '<');
 	return new Promise((resolve, reject) => {
 	    this.http.post(
 		'http://localhost:3000/api/auth/signup',
@@ -45,7 +45,7 @@ export class AuthService {
     }
     
     login(email: string, password: string) {
-	console.log('Entering in login with email >', email, '< password >',password, '<');
+	console.log('Entrée dans login avec email >', email, '< password >',password, '<');
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(
@@ -54,13 +54,15 @@ export class AuthService {
 		.subscribe(
 		    (authData: { token: string, participantId: string }) => {
 			this.token = authData.token;
+			console.log('Dans login.subscribe token est >', this.token,'<');
 			this.participantId = authData.participantId;
+			console.log('Dans login.subscribe participantId est >', this.participantId,'<');
 			this.isAuth$.next(true);
-			console.log('In login.subscribe token is ', this.token);
+			console.log('Dans login.subscribe Isauth$ est >', this.isAuth$,'<');
 			resolve();
 		    },
 		    (error) => {
-			console.log('In login subscribe error ', error);
+			console.log('Dans login subscribe error ', error);
 			reject(error);
           }
 		);
@@ -68,7 +70,7 @@ export class AuthService {
     }
     
     logout() {
-	// console.log('Entering in logout');
+	console.log('Entrée dans logout');
 	this.isAuth$.next(false);
 	this.participantId = null;
 	this.token = null;
