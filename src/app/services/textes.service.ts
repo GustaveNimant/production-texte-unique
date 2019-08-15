@@ -46,7 +46,8 @@ export class TextesService {
 	    },
 	    (error) => {
 		console.log('getTexte Erreur:', error);
-	    }
+	    },
+	    () => {console.log('getTexte fini !')}
 	);
     }
 

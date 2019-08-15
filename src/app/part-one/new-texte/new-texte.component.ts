@@ -30,6 +30,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 		private auth: AuthService) { }
 
     ngOnInit() {
+	console.log('Entrée dans ngOnInit');
 	this.state.mode$.next('form');
 	this.texteForm = this.formBuilder.group({
 	    titre: [null, Validators.required],
@@ -46,6 +47,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
+	console.log('Entrée dans onSubmit');
 	this.loading = true;
 
 	const texte = new Un_texte();

@@ -24,14 +24,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     constructor(private state: StateService,
 		private auth: AuthService,
 		private router: Router) { 
-	// ICI console.log('Entrée dans constructor');
+	console.log('Entrée dans constructor');
     };
     
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	this.modeSub = this.state.mode$.subscribe(
 	    (mode) => {
-		console.log('ngOnInit mode is', mode);
+		console.log('Dans ngOnInit mode est >', mode,'<');
 		this.mode = mode;
 	    }
 	);

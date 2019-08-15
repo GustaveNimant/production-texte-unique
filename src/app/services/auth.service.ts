@@ -45,22 +45,23 @@ export class AuthService {
     }
     
     login(email: string, password: string) {
-	console.log('Entering in login with email >', email, '< password >',password, '<');
+	console.log('Entrée dans login email est >', email, '< et password est >',password, '<');
+	const uri = 'http://localhost:3000/api/auth/login';
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(
-		'http://localhost:3000/api/auth/login',
+		uri,
 		{ email: email, password: password })
 		.subscribe(
 		    (authData: { token: string, participantId: string }) => {
 			this.token = authData.token;
 			this.participantId = authData.participantId;
 			this.isAuth$.next(true);
-			console.log('In login.subscribe token is ', this.token);
+			console.log('Dans login.subscribe token is ', this.token);
 			resolve();
 		    },
 		    (error) => {
-			console.log('In login subscribe error ', error);
+			console.log('Dans login.subscribe error', error, ' pour uri', uri);
 			reject(error);
           }
 		);
@@ -68,7 +69,7 @@ export class AuthService {
     }
     
     logout() {
-	// console.log('Entering in logout');
+	console.log('Entering in logout');
 	this.isAuth$.next(false);
 	this.participantId = null;
 	this.token = null;

@@ -21,6 +21,6 @@
 	<button class="btn btn-primary"
 		(click)="onSubmit()"
 		[disabled]="texteForm.invalid">Submit</button>
-	<p class="alert-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+	<p class="alert-danger" *ngIf="errorMessage">Dans new-texte.component.html.<br>Erreur lors de la création du texte:<br> {{ errorMessage }}</p>
     </form>
 </div>

@@ -3,88 +3,46 @@ const participantModel = require('../models/participantModel');
 
 const jwt = require('jsonwebtoken');
 
-exports.signup = (req, res, next) => {
-    console.log('SIGNUP req.body est', req.body);
-    const participant = new participantModel(req.body);
-    console.log('SIGNUP participant est', participant);
-    bcrypt.hash(req.body.password, 10)
+exports.login = (req, res, next) => {
+    console.log('Dans login req.body est', req.body);
+    console.log('Dans login req.body.email est', req.body.email);
+    participantModel.findOne({ email: req.body.email })
 	.then(
-	    (password_hash) => {
-		console.log('SIGNUP req.body.password is', req.body.password);
-		const salt = bcrypt.genSalt(10, function(err, a_salt) {
-		    console.log('SIGNUP salt is', a_salt);
+	    (participant) => {
+		if (!participant) {
+		    return res.status(401).json({
+			error: new Error('login : Participant not found!')
+		    });
+		}
+		console.log('Dans login participant email', email);
+	    }
+	).catch(
+	    (error) => {
+		console.log('Dans login Erreur est ',error);
+		res.status(500).json({
+		    error: error
 		});
-		const participant = new participantModel({
-		    email: req.body.email,
-		    password: password_hash
-		});
-		
-		participant.save()
-		    .then(
-			() => {
-			    res.status(201).json({
-				message: 'Le participant a été ajouté avec succès !'
-			    });
-			})
-		    .catch(
-			(error) => {
-			    console.log('SIGNUP Error at signup password_hash is',password_hash);
-			    console.log('SIGNUP Erreur dans signup password_hash est >',password_hash,'<');
-			    console.log('SIGNUP Erreur dans signup error est >', error,'<');
-			    res.status(500).json({
-				error: error
-			    });
-			});
 	    }
 	);
 };
 
-exports.login = (req, res, next) => {
-    /* look at database if participant with that email exists */
-    participantModel.findOne({ email: req.body.email }).then(
-	(participant) => {
-	    if (!participant) {
-		return res.status(401).json({
-		    error: new Error('login : Participant not found!')
+exports.signup = (req, res, next) => {
+    console.log('Dans signup req.body est', req.body);
+    const participant = new participantModel(req.body);
+    console.log('Dans signup participant est', participant);
+    participant.save()
+	.then(
+	    () => {
+		res.status(201).json({
+		    message: 'Dans signup Le participant a été ajouté avec succès !'
 		});
-	    }
-	    console.log('LOGIN participant email', email,' participant.password_hash is ', participant.password_hash);
-	    bcrypt.compare(req.body.password, participant.password_hash)
-		.then(
-		    (valid) => {
-			if (!valid) {
-			    return res.status(401).json({
-				error: new Error('login : Incorrect password!')
-			    });
-			}
-			console.log('LOGIN req.body.password est ', req.body.password);
-			console.log('LOGIN participant.password_hash is ', participant.password_hash);
-			
-			const token = jwt.sign(
-			    { participantId: participant._id },
-			    //{ participantPassword : 'truc'},
-				      { participantPassword : participant.password_hash },
-				      { expiresIn: '24h' });
-				  console.log('LOGIN token is', token);
-				  res.status(200).json({
-				      participantId: participant._id,
-				      token: token
-				  });
-			      } 
-			  ).catch(
-			      (err) => {
-				  console.log('LOGIN Error password_hash is',participant.password_hash);
-				  res.status(500).json({
-				      error: err
-				  });
-			      }
-			  );
-	}
-    ).catch(
-	(error) => {
-	    res.status(500).json({
-		error: error
+	    })
+	.catch(
+	    (error) => {
+		console.log('Dans signup Erreur est ', error);
+		res.status(500).json({
+		    error: error
+		});
 	    });
-	}
-    );
 };
+

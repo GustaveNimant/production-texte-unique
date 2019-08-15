@@ -5,9 +5,8 @@ const texteCtrl = require('../controllers/texteCtrl');
 //const auth = require('../middleware/auth');
 
 router.get('/',   texteCtrl.getAllTexte);
-router.get('/:id',   texteCtrl.getOneTexte);
-
 router.post('/',  texteCtrl.createTexte);
+router.get('/:id',   texteCtrl.getOneTexte);
 router.put('/:id',  texteCtrl.modifyTexte);
 router.delete('/:id',   texteCtrl.deleteTexte);
 

@@ -5,21 +5,34 @@
 
 <header>
     <ul class="header-navigation">
-	<li class="header-navigation-item" *ngIf="part >= 1 || (part >= 3 && !isAuth)">
-	    <a class="header-link" routerLink="/{{ partString }}/les-textes" routerLinkActive="active">Une version du texte</a>
+	<li class="header-navigation-item"
+	    *ngIf="part >= 1 || (part >= 3 && !isAuth)">
+	    <a class="header-link"
+	       routerLink="/{{ partString }}/les-textes"
+	       routerLinkActive="active">Une version du texte</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="part >= 1 || (part >= 3 && !isAuth)">
-	    <a class="header-link" routerLink="/{{ partString }}/new-texte" routerLinkActive="active">Entrer une nouvelle version</a>
+	<li class="header-navigation-item"
+	    *ngIf="part >= 1 || (part >= 3 && !isAuth)">
+	    <a class="header-link"
+	       routerLink="/{{ partString }}/new-texte"
+	       routerLinkActive="active">Entrer une nouvelle version</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="(part >= 1 && !isAuth)">
+	<li class="header-navigation-item"
+	    *ngIf="(part >= 1 && !isAuth)">
 	    <a class="header-link" style="cursor: pointer"
 	       (click)="onLogout()">LOGOUT</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="(part >= 1 && !isAuth)">
-	    <a class="header-link" routerLink="/{{ partString }}/auth/login" routerLinkActive="active">LOGIN</a>
+	<li class="header-navigation-item"
+	    *ngIf="(part >= 1 && !isAuth)">
+	    <a class="header-link"
+	       routerLink="/{{ partString }}/auth/login"
+	       routerLinkActive="active">LOGIN</a>
 	</li>
-	<li class="header-navigation-item" *ngIf="(part >= 1 && !isAuth)">
-	    <a class="header-link" routerLink="/{{ partString }}/auth/signup" routerLinkActive="active">S'enregistrer</a>
+	<li class="header-navigation-item"
+	    *ngIf="(part >= 1 && !isAuth)">
+	    <a class="header-link"
+	       routerLink="/{{ partString }}/auth/signup"
+	       routerLinkActive="active">S'enregistrer</a>
 	</li>
     </ul>
     
@@ -32,8 +45,15 @@
     
 </header>
 
-<div class="hero-image" *ngIf="mode === 'list'">
+Debug:Dans header.component.html part = {{part}}
+<div class="texte-image" *ngIf="(mode === 'list' && part == 1)">
     <h2 class="hero-text">
 	Les différentes versions de la Charte
-  </h2>
+    </h2>
 </div>
+<div class="participant-image" *ngIf="(mode === 'list' && part == 2)">
+    <h2 class="hero-text">
+	Les participants
+    </h2>
+</div>
+
