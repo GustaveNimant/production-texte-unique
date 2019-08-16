@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const db_config = require('./models/db_config');
 
+const connexionRoutes  = require('./routes/connexion.routes');
 const participantRoutes  = require('./routes/participant.routes');
 const texteRoutes = require('./routes/texte.routes');
 
@@ -19,8 +20,9 @@ app.use((req, res, next) => { /* no route : applies to all incoming requests */
 
 app.use(bodyParser.json()); /* receive things as a json Object */
 
-app.use('/api/auth', participantRoutes); /* participant route to /api/auth/login /api/auth/signup */
+app.use('/api/auth', connexionRoutes); /* connexion route to /api/auth/login /api/auth/signup */
 app.use('/api/les-textes', texteRoutes); /* main route */
+app.use('/api/les-participants', participantRoutes); 
 
 mongoose.connect(db_config.DB_URI, {
     useCreateIndex: true,

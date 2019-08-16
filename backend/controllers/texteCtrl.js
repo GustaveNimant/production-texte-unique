@@ -1,7 +1,7 @@
 const texteModel = require('../models/texteModel');
 
 exports.createTexte = (req, res, next) => {
-    console.log('Entrée dans le controller createTexte avec req.body ', req.body);
+    console.log('Entrée dans createTexte avec req.body ', req.body);
 
     const texte = new texteModel({
 	titre: req.body.titre,
