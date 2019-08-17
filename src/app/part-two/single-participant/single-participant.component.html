@@ -1,0 +1,17 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="!loading">
+    <button class="btn btn-link" (click)="onGoBack()"><< Back</button>
+    <div class="single-participant-pane">
+
+	<div class="single-participant-info">
+	    <p>email {{ participant.email }}<p>
+	    <p>pseudo {{ participant.pseudo }}</p>
+	    <p>id {{ participant._id }}</p>
+	    <button class="btn btn-success m-1" (click)="onModify()"
+		    [disabled]="part >= 3 && participantId !== participant?.participantId">Modify</button>
+	    <button class="btn btn-danger m-1" (click)="onDelete()"
+		    [disabled]="part >= 3 && participantId !== participant?.participantId">Delete</button>
+	</div>
+    </div>
+</div>

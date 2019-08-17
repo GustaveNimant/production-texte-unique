@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 
 export class ParticipantsService {
 
-    uri_all = 'http://localhost:3000/api/les-participants';
-    uri_new = 'http://localhost:3000/api/new-participant';
+    uri_all = 'http://localhost:3000/api/les-participants/';
+    uri_new = 'http://localhost:3000/api/new-participant/';
 
     constructor(private http: HttpClient) {};
 

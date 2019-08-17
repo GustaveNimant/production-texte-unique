@@ -23,9 +23,11 @@ import { PartOneComponent } from './part-one/part-one.component';
 import { PartThreeComponent } from './part-three/part-three.component';
 import { PartTwoComponent } from './part-two/part-two.component';
 import { SignupComponent } from './part-four/auth/signup/signup.component'; /* CORRECTION 26 juin 2019*/
+
 import { SingleTexteComponent } from './part-one/single-texte/single-texte.component';
 import { TextesListComponent } from './part-one/textes-list/textes-list.component';
 
+import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
 import { ParticipantsListComponent } from './part-two/participants-list/participants-list.component';
 
 @NgModule({
@@ -41,6 +43,7 @@ import { ParticipantsListComponent } from './part-two/participants-list/particip
 	ParticipantsListComponent,
 	NewTexteComponent,
 	SingleTexteComponent,
+	SingleParticipantComponent,
 	ModifyTexteComponent,
 	LoginComponent,
 	SignupComponent,

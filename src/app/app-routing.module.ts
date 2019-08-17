@@ -11,6 +11,7 @@ import { TextesListComponent }  from './part-one/textes-list/textes-list.compone
 
 import { PartTwoComponent }     from './part-two/part-two.component';
 import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
+import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
 
 import { LoginComponent }       from './part-three/auth/login/login.component';
 import { PartThreeComponent }   from './part-three/part-three.component';
@@ -39,8 +40,9 @@ const routes: Routes = [
     { path: 'part-two', component: PartTwoComponent,
       children: [
 	  //	  { path: 'new-participant', component: NewParticipantComponent, canActivate: [AuthGuard] },
-	  //	  { path: 'participant/:id', component: SingleParticipantComponent, canActivate: [AuthGuard] },
 	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [AuthGuard] },
+	  //      { path: 'un_participant/:id', component: SingleParticipantComponent, canActivate: [AuthGuard] },
+	  { path: 'un_participant/:id', component: SingleParticipantComponent },
 	  { path: 'auth/login', component: LoginComponent },
 	  { path: 'auth/signup', component: SignupComponent },
 	  { path: 'les-participants', component: ParticipantsListComponent },

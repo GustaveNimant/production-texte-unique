@@ -46,7 +46,10 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
 
     onParticipantClicked(id: string) {
 	console.log('Entrée dans onParticipantClicked avec id', id);
+	console.log('Entrée dans onParticipantClicked avec part', this.part);
+	
 	if (this.part === 2) {
+	    console.log('Entrée dans onParticipantClicked navigation vers ', '/part-two/un_participant/' + id);
 	    this.router.navigate(['/part-two/un_participant/' + id]);
 	}
     }
