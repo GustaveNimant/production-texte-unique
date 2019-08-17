@@ -1,17 +1,23 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
+
 Debug:Dans participants-liste.component.html:loading = {{loading}} <br>
 Debug:Dans participants-liste.component.html:nombre de participants = {{participants.length}} <br>
-<p class="text-center" *ngIf="participants.length <= 0 && !loading">
+
+<p class="text-center"
+   *ngIf="participants.length <= 0 && !loading">
     La base de données est vide !</p>
 
-<div class="participant-grid" *ngIf="participants.length >= 0">
+<div class="participant-grid"
+     *ngIf="participants.length >= 0">
     <div class="participant-pane"
 	 *ngFor="let un_participant of participants"
 	 (click)="onParticipantClicked(un_participant._id)">
 	<div class="participant-info">
-	    <h3>
-		{{ un_participant.email }}
-	    </h3>
+	    <p>
+		email {{ un_participant.email }}<br>
+		pseudo {{ un_participant.pseudo }}<br>
+		id {{ un_participant._id }}
+	    </p>
 	</div>
     </div>
 </div>

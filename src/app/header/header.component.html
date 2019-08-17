@@ -1,6 +1,12 @@
 <!-- Version bidon changer les ngIf -->
-<h2 class="header-title">
+<h2 class="header-title" *ngIf="part == 1">
     Les versions de la Charte
+</h2>
+<h2 class="header-title" *ngIf="part == 2">
+    Les participants
+</h2>
+<h2 class="header-title" *ngIf="part == 3">
+    La connexion
 </h2>
 
 <header>

@@ -11,7 +11,9 @@ import { AuthService } from '../services/auth.service';
 export class PartTwoComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
-		private auth: AuthService) { }
+		private auth: AuthService) {
+	console.log('Entrée dans constructor');
+    }
     
     ngOnInit() {
 	this.auth.isAuth$.next(false);

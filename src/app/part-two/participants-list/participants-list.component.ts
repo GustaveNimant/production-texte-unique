@@ -20,21 +20,23 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
     private participantsSub: Subscription;
     private partSub: Subscription;
 
-    constructor(private state: StateService,
-		private participantsService: ParticipantsService,
-		private router: Router) { }
+    constructor(private stateService: StateService,               /* BehaviorSubjects */
+		private participantsService: ParticipantsService, /* Subjects */
+		private router: Router) {
+    	console.log('Entrée dans constructor');
+    }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	this.loading = true;
-	this.state.mode$.next('list');
+	this.stateService.mode$.next('list');
 	this.participantsSub = this.participantsService.participants$.subscribe(
 	    (les_participants) => {
 		this.participants = les_participants;
 		this.loading = false;
 	    }
 	);
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (a_part) => {
 		this.part = a_part;
 	    }
@@ -43,12 +45,14 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
     }
 
     onParticipantClicked(id: string) {
+	console.log('Entrée dans onParticipantClicked avec id', id);
 	if (this.part === 2) {
 	    this.router.navigate(['/part-two/un_participant/' + id]);
 	}
     }
 
     ngOnDestroy() {
+	console.log('Entrée dans ngOnDestroy');
 	this.participantsSub.unsubscribe();
 	this.partSub.unsubscribe();
     }
