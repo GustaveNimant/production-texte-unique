@@ -32,7 +32,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans ngOnInit');
 	this.loading = true;
 	this.state.mode$.next('single-participant');
-	this.participantId = this.auth.participantId ? this.auth.participantId : 'participantID40282382';
+	this.participantId = this.auth.connexionId ? this.auth.connexionId : 'participantID40282382';
 	this.route.params.subscribe(
 	    (params: Params) => {
 		this.participantsService.getParticipantById(params.id)
@@ -49,7 +49,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	    (part) => {
 		this.part = part;
 		if (part == 2) {
-		    this.participantId = this.auth.participantId;
+		    this.participantId = this.auth.connexionId;
 		}
 	    }
 	);

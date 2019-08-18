@@ -20,7 +20,7 @@ export class ParticipantsService {
 	    email: 'emile.achadde@free.fr',
 	    pseudo: 'emile',
 	    password: 'azerty',
-	    connexion_id: '324connexion3',
+	    connexionId: '324connexion3',
 	    _v: 0
 	},
     ];

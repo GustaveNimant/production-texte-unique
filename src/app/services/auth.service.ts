@@ -9,10 +9,10 @@ import { HttpClient } from '@angular/common/http';
 
 export class AuthService {
 
-  isAuth$ = new BehaviorSubject<boolean>(false);
-  token: string;
-  participantId: string;
-
+    isAuth$ = new BehaviorSubject<boolean>(false);
+    token: string;
+    connexionId: string;
+    
     constructor(private router: Router,
 		private http: HttpClient) {
 	console.log('Entering in constructor with router ', router, ' http client ',http)
@@ -20,9 +20,11 @@ export class AuthService {
     
     createNewUser(email: string, password: string) {
 	console.log('Entering in createNewUser with email ', email, ' password ',password);
+	const uri = 'http://localhost:3000/api/auth/signup';
+
 	return new Promise((resolve, reject) => {
 	    this.http.post(
-		'http://localhost:3000/api/auth/signup',
+		uri,
 		{ email: email, password: password })
 		.subscribe(
 		    () => {
@@ -53,9 +55,12 @@ export class AuthService {
 		uri,
 		{ email: email, password: password })
 		.subscribe(
-		    (authData: { token: string, participantId: string }) => {
+		    (authData:
+		     { token: string,
+		       connexionId: string
+		     }) => {
 			this.token = authData.token;
-			this.participantId = authData.participantId;
+			this.connexionId = authData.connexionId;
 			this.isAuth$.next(true);
 			console.log('Dans login.subscribe token is ', this.token);
 			resolve();
@@ -71,7 +76,7 @@ export class AuthService {
     logout() {
 	console.log('Entering in logout');
 	this.isAuth$.next(false);
-	this.participantId = null;
+	this.connexionId = null;
 	this.token = null;
     }
 }

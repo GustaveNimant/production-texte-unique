@@ -4,12 +4,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { DefaultComponent }     from './default/default.component';
 
 import { ModifyTexteComponent } from './part-one/modify-texte/modify-texte.component';
-import { NewTexteComponent }    from './part-one/new-texte/new-texte.component';
 import { PartOneComponent }     from './part-one/part-one.component';
 import { SingleTexteComponent } from './part-one/single-texte/single-texte.component';
 import { TextesListComponent }  from './part-one/textes-list/textes-list.component';
 
 import { PartTwoComponent }     from './part-two/part-two.component';
+import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
 import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
 import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
 
@@ -29,7 +29,6 @@ const routes: Routes = [
       children: [
 	  { path: 'auth/signup', component: SignupComponent },
 	  { path: 'auth/login', component: LoginComponent },
-	  { path: 'new-texte', component: NewTexteComponent },
 	  { path: 'les-textes', component: TextesListComponent },
 	  { path: 'texte/:id', component: SingleTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
@@ -39,9 +38,10 @@ const routes: Routes = [
     },
     { path: 'part-two', component: PartTwoComponent,
       children: [
-	  //	  { path: 'new-participant', component: NewParticipantComponent, canActivate: [AuthGuard] },
+	  //      { path: 'new-participant', component: NewParticipantComponent, canActivate: [AuthGuard] },
 	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [AuthGuard] },
 	  //      { path: 'un_participant/:id', component: SingleParticipantComponent, canActivate: [AuthGuard] },
+	  { path: 'new-participant', component: NewParticipantComponent},
 	  { path: 'un_participant/:id', component: SingleParticipantComponent },
 	  { path: 'auth/login', component: LoginComponent },
 	  { path: 'auth/signup', component: SignupComponent },
@@ -52,7 +52,6 @@ const routes: Routes = [
     },
     { path: 'part-three', component: PartThreeComponent,
       children: [
-	  { path: 'new-texte', component: NewTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'les-textes', component: TextesListComponent, canActivate: [AuthGuard] },
 	  { path: 'texte/:id', component: SingleTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent, canActivate: [AuthGuard] },

@@ -21,7 +21,9 @@ export class TextesService {
 	    contenu: 'Un nouveau texte',
 	    shasum: '5cf15f9b922a5d1b9e34216c',
 	    noteMoyenne: 4.9,
-	    participantId: 'will'
+	    noteEcartType: 0.7,
+	    auteurId: 'will',
+	    _v: 0
 	},
 	{
 	    _id: '324sdfmoih4',
@@ -29,7 +31,9 @@ export class TextesService {
 	    contenu: 'All about my texte',
 	    shasum: '5d137afeb2019211cf28b273',
 	    noteMoyenne: 2.5,
-	    participantId: 'will'
+	    noteEcartType: 0.3,
+	    auteurId: 'will',
+	    _v: 0
 	},
     ];
 

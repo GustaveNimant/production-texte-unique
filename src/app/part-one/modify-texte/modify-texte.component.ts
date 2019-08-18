@@ -34,6 +34,7 @@ export class ModifyTexteComponent implements OnInit {
 	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
 	    noteMoyenne: [0, Validators.required],
+	    noteEcartType: [0, Validators.required],
 	    shasum: [null, Validators.required]
 	});
 	this.partSub = this.state.part$.subscribe(
@@ -49,7 +50,8 @@ export class ModifyTexteComponent implements OnInit {
 			this.texte = texte;
 			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
-			this.texteForm.get('noteMoyenne').setValue(this.texte.noteMoyenne / 100);
+			this.texteForm.get('noteMoyenne').setValue(this.texte.noteMoyenne);
+			this.texteForm.get('noteEcartType').setValue(this.texte.noteEcartType);
 			this.texteForm.get('shasum').setValue(this.texte.shasum);
 			this.loading = false;
 		    }
@@ -62,26 +64,31 @@ export class ModifyTexteComponent implements OnInit {
 	console.log('Entrée dans onSubmit');
 	this.loading = true;
 	const texte = new Un_texte();
+
+	texte._id = new Date().getTime().toString();
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
-	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value * 100;
+	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
+	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.shasum = this.texteForm.get('shasum').value;
-	texte._id = new Date().getTime().toString();
-	texte.participantId = this.texte.participantId;
+	texte.auteurId = this.texte.auteurId;
+
 	this.textesService.modifyTexte(this.texte._id, texte).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
 		switch (this.part) {
 		    case 1:
-		    case 2:
 			this.router.navigate(['/part-one/les-textes']);
 			break;
+		    case 2:
+			this.router.navigate(['/part-two/les-participants']);
+			break;
 		    case 3:
-			this.router.navigate(['/part-three/les-textes']);
+			this.router.navigate(['/part-three/new-connexion']);
 			break;
 		    case 4:
-			this.router.navigate(['/part-four/les-textes']);
+			this.router.navigate(['/part-four/new-texte']);
 			break;
 		}
 	    },

@@ -14,7 +14,7 @@ export class PartThreeComponent implements OnInit, OnDestroy {
     
     ngOnInit() {
 	this.auth.isAuth$.next(false);
-	this.auth.participantId = '';
+	this.auth.connexionId = '';
 	this.auth.token = '';
 	
 	this.state.part$.next(3);

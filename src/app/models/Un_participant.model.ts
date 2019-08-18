@@ -3,6 +3,6 @@ export class Un_participant {
     email: string;
     pseudo: string;
     password: string;
-    connexion_id: string;
+    connexionId: string;
     _v: number;
 }

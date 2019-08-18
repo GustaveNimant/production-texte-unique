@@ -18,7 +18,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     public texteForm: FormGroup;
     public loading = false;
     public part: number;
-    public participantId: string;
+    public auteurId: string;
     public errorMessage: string;
 
     private partSub: Subscription;
@@ -36,6 +36,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
 	    noteMoyenne: [0],
+	    noteEcartType: [0],
 	    shasum: [null]
 	});
 	this.partSub = this.state.part$.subscribe(
@@ -43,7 +44,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 		this.part = part;
 	    }
 	);
-	this.participantId = this.part >= 3 ? this.auth.participantId : 'participantID40282382';
+	this.auteurId = this.part >= 3 ? this.auth.connexionId : 'auteurID40282382';
     }
 
     onSubmit() {
@@ -54,9 +55,10 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
+	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.shasum = this.texteForm.get('shasum').value;
 	texte._id = new Date().getTime().toString();
-	texte.participantId = this.participantId;
+	texte.auteurId = this.auteurId;
 
 	this.textesService.createNewTexte(texte)
 	    .then(

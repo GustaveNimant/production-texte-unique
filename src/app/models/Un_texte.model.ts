@@ -4,5 +4,7 @@ export class Un_texte {
     contenu: string;
     shasum: string;
     noteMoyenne: number;
-    participantId: string;
+    noteEcartType: number;
+    auteurId: string;
+    _v : number;
 }
