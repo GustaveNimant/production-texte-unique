@@ -19,10 +19,13 @@ export class LoginComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
 		private router: Router,
 		private auth: AuthService,
-		private state: StateService) { }
-
+		private state: StateService) {
+	console.log('Entrée dans constructor');
+    }
+    
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+	
 	this.state.mode$.next('form');
 	this.loginForm = this.formBuilder.group({
 	    email: [null, [Validators.required, Validators.email]],
@@ -33,6 +36,7 @@ export class LoginComponent implements OnInit {
 
     onLogin() {
 	console.log('Entrée dans onLogin');
+	
 	this.loading = true;
 	const email = this.loginForm.get('email').value;
 	const password = this.loginForm.get('password').value;
@@ -44,10 +48,14 @@ export class LoginComponent implements OnInit {
 	    .then(
 		() => {
 		    this.loading = false;
-		    if (this.state.part === 3) {
-			this.router.navigate(['/part-three/les-textes']);
+		    if (this.state.part === 1) {
+			this.router.navigate(['/part-one/les-textes']);
+		    } else if (this.state.part === 2) {
+			this.router.navigate(['/part-two/les-participants']);
+		    } else if (this.state.part === 3) {
+			this.router.navigate(['/part-three/les-buts']);
 		    } else if (this.state.part === 4) {
-			this.router.navigate(['/part-four/les-textes']);
+			this.router.navigate(['/part-four/les-examens']);
 		    }
 		}
 	    )

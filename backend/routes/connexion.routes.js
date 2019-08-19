@@ -4,6 +4,6 @@ const connexionRoutes = express.Router();
 const connexionCtrl = require('../controllers/connexionCtrl');
 
 connexionRoutes.post('/signup', connexionCtrl.signup);
-connexionRoutes.post('/login', connexionCtrl.login); /* get ? */
+connexionRoutes.get('/login', connexionCtrl.login); /* get ? */
 
 module.exports = connexionRoutes;

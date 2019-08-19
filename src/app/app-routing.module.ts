@@ -12,12 +12,12 @@ import { PartTwoComponent }     from './part-two/part-two.component';
 import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
 import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
 import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
+import { LoginComponent }       from './part-two/auth/login/login.component';
+import { SignupComponent }      from './part-two/auth/signup/signup.component';
 
-import { LoginComponent }       from './part-three/auth/login/login.component';
 import { PartThreeComponent }   from './part-three/part-three.component';
 
 import { PartFourComponent }    from './part-four/part-four.component';
-import { SignupComponent }      from './part-four/auth/signup/signup.component'; /* 26 Juin 2019 */
 
 import { NewTexteWithUploadComponent } from './part-four/new-texte-with-upload/new-texte-with-upload.component';
 import { ModifyTexteWithUploadComponent } from './part-four/modify-texte-with-upload/modify-texte-with-upload.component';
@@ -27,8 +27,6 @@ import { AuthGuard }            from './services/auth-guard.service';
 const routes: Routes = [
     { path: 'part-one', component: PartOneComponent,
       children: [
-	  { path: 'auth/signup', component: SignupComponent },
-	  { path: 'auth/login', component: LoginComponent },
 	  { path: 'les-textes', component: TextesListComponent },
 	  { path: 'texte/:id', component: SingleTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
@@ -55,9 +53,7 @@ const routes: Routes = [
 	  { path: 'les-textes', component: TextesListComponent, canActivate: [AuthGuard] },
 	  { path: 'texte/:id', component: SingleTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent, canActivate: [AuthGuard] },
-	  { path: 'auth/login', component: LoginComponent },
-	  { path: 'auth/signup', component: SignupComponent },
-	  { path: '', pathMatch: 'full', redirectTo: 'auth/login' },
+	  { path: '', pathMatch: 'full', redirectTo: 'les-textes' },
 	  { path: '**', redirectTo: 'les-textes' }
       ]
     },
@@ -67,10 +63,8 @@ const routes: Routes = [
 	  { path: 'les-textes', component: TextesListComponent, canActivate: [AuthGuard] },
 	  { path: 'texte/:id', component: SingleTexteComponent, canActivate: [AuthGuard] },
 	  { path: 'modify-texte/:id', component: ModifyTexteWithUploadComponent, canActivate: [AuthGuard] },
-	  { path: 'auth/login', component: LoginComponent },
-	  { path: 'auth/signup', component: SignupComponent },
-	  { path: '', pathMatch: 'full', redirectTo: 'auth/signup' }, /* CORRECTION */
-	  { path: '**', redirectTo: 'les-textes' }
+	  { path: '', pathMatch: 'full', redirectTo: 'les-participants' }, 
+	  { path: '**', redirectTo: 'les-participants' }
     ]
   },
   { path: 'default', component: DefaultComponent },

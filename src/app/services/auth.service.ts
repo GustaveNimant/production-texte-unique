@@ -15,16 +15,16 @@ export class AuthService {
     
     constructor(private router: Router,
 		private http: HttpClient) {
-	console.log('Entering in constructor with router ', router, ' http client ',http)
+	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
     }
     
     createNewUser(email: string, password: string) {
-	console.log('Entering in createNewUser with email ', email, ' password ',password);
-	const uri = 'http://localhost:3000/api/auth/signup';
+	console.log('Entrée dans createNewUser avec email ', email, ' password ',password);
+	const uri_signup = 'http://localhost:3000/api/auth/signup';
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(
-		uri,
+		uri_signup,
 		{ email: email, password: password })
 		.subscribe(
 		    () => {
@@ -40,6 +40,7 @@ export class AuthService {
 			    );
 		    },
 		    (error) => {
+			console.log('Dans signup.subscribe Erreur est', error, ' pour uri_signup', uri_signup);
 			reject(error);
 		    }
 		);
@@ -48,11 +49,11 @@ export class AuthService {
     
     login(email: string, password: string) {
 	console.log('Entrée dans login email est >', email, '< et password est >',password, '<');
-	const uri = 'http://localhost:3000/api/auth/login';
+	const uri_login = 'http://localhost:3000/api/auth/login';
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(
-		uri,
+		uri_login,
 		{ email: email, password: password })
 		.subscribe(
 		    (authData:
@@ -62,11 +63,11 @@ export class AuthService {
 			this.token = authData.token;
 			this.connexionId = authData.connexionId;
 			this.isAuth$.next(true);
-			console.log('Dans login.subscribe token is ', this.token);
+			console.log('Dans login.subscribe token est >', this.token,'<');
 			resolve();
 		    },
 		    (error) => {
-			console.log('Dans login.subscribe error', error, ' pour uri', uri);
+			console.log('Dans login.subscribe Erreur est', error, ' pour uri_login', uri_login);
 			reject(error);
           }
 		);

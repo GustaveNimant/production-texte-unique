@@ -110,5 +110,3 @@ exports.getAllParticipant = (req, res, next) => {
 	    }
 	);
 };
-
-// module.exports = participantCtrl.js;

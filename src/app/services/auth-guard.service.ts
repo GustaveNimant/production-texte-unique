@@ -23,10 +23,10 @@ export class AuthGuard implements CanActivate {
             if (!auth) {
               this.state.part$.subscribe(
                 (part) => {
-                  if (part === 3) {
-                    this.router.navigate(['/part-three/auth/login']);
-                  } else if (part === 4) {
-                    this.router.navigate(['/part-four/auth/signup']);
+                  if (part === 2) {
+                    this.router.navigate(['/part-two/auth/login']);
+                  } else if (part === 2) {
+                    this.router.navigate(['/part-two/auth/signup']);
                   }
                 }
               );

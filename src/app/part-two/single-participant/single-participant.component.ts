@@ -61,9 +61,9 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	} else if (this.part === 2) {
 	    this.router.navigate(['/part-two/all-participant']);
 	} else if (this.part === 3) {
-	    this.router.navigate(['/part-three/login']);
+	    this.router.navigate(['/part-three/les-buts']);
 	} else if (this.part === 4) {
-	    this.router.navigate(['/part-four/signup']);
+	    this.router.navigate(['/part-four/les-examens']);
 	}
     }
 

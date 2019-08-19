@@ -21,6 +21,7 @@ speed-measure-plugin.json
 \#*#
 .#*
 [a-z].js
+*.tar
 /.idea
 .project
 .classpath
