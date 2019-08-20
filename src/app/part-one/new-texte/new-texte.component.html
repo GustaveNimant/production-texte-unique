@@ -1,9 +1,10 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
-
+<br>
+Debug:Dans new-texte.component.html
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="texteForm">
 	<div class="form-group">
-	    <label for="titre">Titre</label>
+	    <label for="titre">Titre du texte </label>
 	    <input type="text"
 		   placeholder="Titre du texte ?"
 		   id="titre"
@@ -11,7 +12,7 @@
 		   class="form-control">
 	</div>
 	<div class="form-group">
-	    <label for="contenu">Le texte</label>
+	    <label for="contenu">Contenu du texte </label>
 	    <input type="texte"
 		   placeholder="Entrer le texte ..."
 		   id="contenu"
@@ -21,6 +22,7 @@
 	<button class="btn btn-primary"
 		(click)="onSubmit()"
 		[disabled]="texteForm.invalid">Submit</button>
-	<p class="alert-danger" *ngIf="errorMessage">Dans new-texte.component.html.<br>Erreur lors de la création du texte:<br> {{ errorMessage }}</p>
+	<p class="alert-danger"
+	   *ngIf="errorMessage">Dans new-texte.component.html.<br>Erreur lors de la création du texte:<br> {{ errorMessage }}</p>
     </form>
 </div>

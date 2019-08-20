@@ -27,28 +27,32 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
 		private router: Router,
-		private auth: AuthService) { }
+		private auth: AuthService) {
+	console.log('Entrée dans constructor');
+    }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+	
 	this.state.mode$.next('form');
 	this.texteForm = this.formBuilder.group({
-	    titre: [null, Validators.required],
-	    contenu: [null, Validators.required],
+	    titre: [null],
+	    contenu: [null],
+	    auteurId: "someId",
 	    noteMoyenne: [0],
 	    noteEcartType: [0],
-	    shasum: [null]
+	    shasum: ["someShasum"]
 	});
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {
 		this.part = part;
 	    }
 	);
-	this.auteurId = this.part >= 3 ? this.auth.connexionId : 'auteurID40282382';
     }
 
     onSubmit() {
 	console.log('Entrée dans onSubmit');
+	
 	this.loading = true;
 
 	const texte = new Un_texte();
@@ -57,9 +61,18 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.shasum = this.texteForm.get('shasum').value;
-	texte._id = new Date().getTime().toString();
 	texte.auteurId = this.auteurId;
+	texte._id = new Date().getTime().toString();
 
+	if (texte.auteurId == undefined) {
+	    texte.auteurId = "someId";
+	}
+	if (texte.shasum == null) {
+	    texte.shasum = "someShasum";
+	}
+
+	console.log('Dans onSubmit le texte est', texte);
+	
 	this.textesService.createNewTexte(texte)
 	    .then(
 		() => {
@@ -67,8 +80,10 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 		    this.loading = false;
 		    switch (this.part) {
 			case 1:
+			    this.router.navigate(['/part-one/new-texte']);
+			    break;
 			case 2:
-			    this.router.navigate(['/part-one/les-textes']);
+			    this.router.navigate(['/part-two/les-participants']);
 			    break;
 			case 3:
 			    this.router.navigate(['/part-three/les-textes']);
@@ -81,6 +96,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    )
 	    .catch(
 		(error) => {
+		    console.log('Dans onSubmit Erreur est', error);
 		    this.loading = false;
 		    this.errorMessage = error.message;
 		}

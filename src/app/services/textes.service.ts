@@ -9,8 +9,8 @@ import { HttpClient } from '@angular/common/http';
 
 export class TextesService {
 
-    uri = 'http://localhost:3000/api/les-textes';
-    uri_new = 'http://localhost:3000/api/new-texte';
+    uri_all = 'http://localhost:3000/api/all-textes/';
+    uri_new = this.uri_all;
 
     constructor(private http: HttpClient) {};
 
@@ -40,8 +40,8 @@ export class TextesService {
     public textes$ = new Subject<Un_texte[]>();
 
     getTextes() {
-	console.log('Entrée dans getTexte avec uri', this.uri);
-	this.http.get(this.uri).subscribe(
+	console.log('Entrée dans getTexte avec uri_all', this.uri_all);
+	this.http.get(this.uri_all).subscribe(
 	    (des_textes: Un_texte[]) => {
 		if (des_textes) {
 		    this.textes = des_textes;
@@ -56,7 +56,7 @@ export class TextesService {
     }
 
     emitTexte() {
-	console.log('Entrée dans emitTexte avec texte', this.textes);
+	console.log('Entrée dans emitTexte avec les textes', this.textes);
 	this.textes$.next(this.textes);
     }
 
@@ -64,7 +64,7 @@ export class TextesService {
 	console.log('Entrée dans getTexteById avec id', id);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri + id).subscribe(
+	    this.http.get(this.uri_all + id).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -78,8 +78,16 @@ export class TextesService {
     createNewTexte(texte: Un_texte) {
 	console.log('Entrée dans createNewTexte avec texte', texte);
 
+	if (texte.auteurId == undefined) {
+	    texte.auteurId = "someId";
+	}
+	if (texte.shasum == null) {
+	    texte.shasum = "someShasum";
+	}
+	console.log('Dans createNewTexte avec texte', texte);
+	
 	return new Promise((resolve, reject) => {
-	    this.http.post(this.uri, texte).subscribe(
+	    this.http.post(this.uri_new, texte).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -116,7 +124,7 @@ export class TextesService {
     modifyTexte(id: string, texte: Un_texte) {
 	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
 	return new Promise((resolve, reject) => {
-	    this.http.put(this.uri + id, texte).subscribe(
+	    this.http.put(this.uri_all + id, texte).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -129,6 +137,7 @@ export class TextesService {
 
     modifyTexteWithFile(id: string, texte: Un_texte, image: File | string) {
 	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte);
+
 	return new Promise((resolve, reject) => {
 	    let texteData: Un_texte | FormData;
 	    if (typeof image === 'string') {
@@ -139,7 +148,7 @@ export class TextesService {
 		texteData.append('texte', JSON.stringify(texte));
 		texteData.append('image', image, texte.titre);
 	    }
-	    this.http.put(this.uri + id, texteData).subscribe(
+	    this.http.put(this.uri_all + id, texteData).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -154,7 +163,7 @@ export class TextesService {
 	console.log('Entrée dans deleteTexte avec id',id);
 
 	return new Promise((resolve, reject) => {
-	    this.http.delete(this.uri + id).subscribe(
+	    this.http.delete(this.uri_all + id).subscribe(
 		(response) => {
 		    resolve(response);
 		},

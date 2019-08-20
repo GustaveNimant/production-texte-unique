@@ -13,24 +13,28 @@ import { MatProgressSpinnerModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { DefaultComponent } from './default/default.component';
 import { HeaderComponent } from './header/header.component';
-import { ModifyTexteComponent } from './part-one/modify-texte/modify-texte.component';
-import { ModifyTexteWithUploadComponent } from './part-four/modify-texte-with-upload/modify-texte-with-upload.component';
-import { NewTexteWithUploadComponent } from './part-four/new-texte-with-upload/new-texte-with-upload.component';
-import { PartOneComponent } from './part-one/part-one.component';
-import { PartThreeComponent } from './part-three/part-three.component';
-import { PartTwoComponent } from './part-two/part-two.component';
-import { PartFourComponent } from './part-four/part-four.component';
 
-import { LoginComponent } from './part-two/auth/login/login.component';
-import { SignupComponent } from './part-two/auth/signup/signup.component';
+import { PartOneComponent }               from './part-one/part-one.component';
+import { ModifyTexteComponent }           from './part-one/modify-texte/modify-texte.component';
+import { ModifyTexteWithUploadComponent } from './part-one/modify-texte-with-upload/modify-texte-with-upload.component';
+import { NewTexteComponent }              from './part-one/new-texte/new-texte.component';
+import { NewTexteWithUploadComponent }    from './part-one/new-texte-with-upload/new-texte-with-upload.component';
 
-import { SingleTexteComponent } from './part-one/single-texte/single-texte.component';
-import { TextesListComponent } from './part-one/textes-list/textes-list.component';
+
+import { SingleTexteComponent }           from './part-one/single-texte/single-texte.component';
+import { TextesListComponent }            from './part-one/textes-list/textes-list.component';
+
+import { PartTwoComponent }          from './part-two/part-two.component';
 
 import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
-import { NewParticipantComponent } from './part-two/new-participant/new-participant.component';
+import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
 
-import { ParticipantsListComponent } from './part-two/participants-list/participants-list.component';
+import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
+import { LoginComponent }     from './part-two/auth/login/login.component';
+import { SignupComponent }    from './part-two/auth/signup/signup.component';
+
+import { PartThreeComponent } from './part-three/part-three.component';
+import { PartFourComponent }  from './part-four/part-four.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +52,7 @@ import { ParticipantsListComponent } from './part-two/participants-list/particip
 	ModifyTexteComponent,
 	LoginComponent,
 	SignupComponent,
+	NewTexteComponent,
 	NewTexteWithUploadComponent,
 	NewParticipantComponent,
 	ModifyTexteWithUploadComponent

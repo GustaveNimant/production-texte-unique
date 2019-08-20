@@ -9,10 +9,12 @@ import { HttpClient } from '@angular/common/http';
 
 export class ParticipantsService {
 
-    uri_all = 'http://localhost:3000/api/les-participants/';
-    uri_new = 'http://localhost:3000/api/new-participant/';
+    uri_all = 'http://localhost:3000/api/all-participants/';
+    uri_new = this.uri_all;
 
-    constructor(private http: HttpClient) {};
+    constructor(private http: HttpClient) {
+	console.log('Entrée dans constructor');
+    };
 
     private participants: Un_participant[] = [
 	{
@@ -71,6 +73,7 @@ export class ParticipantsService {
 	return new Promise((resolve, reject) => {
 	    this.http.post(this.uri_all, participant).subscribe(
 		(response) => {
+		    console.log('Dans createNewParticipant respons est', response);
 		    resolve(response);
 		},
 		(error) => {

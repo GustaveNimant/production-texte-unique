@@ -29,7 +29,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	this.loading = true;
 	this.state.mode$.next('single-texte');
-	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'participantID40282382';
+	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
 	this.route.params.subscribe(
 	    (params: Params) => {
 		this.textesService.getTexteById(params.id).then(

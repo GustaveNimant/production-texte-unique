@@ -8,10 +8,12 @@
 	    <h1>{{ texte?.titre }}</h1>
 	    <h2 class="single-texte-noteMoyenne">{{ texte?.noteMoyenne }}</h2>
 	    <p>{{ texte?.contenu }}</p>
-	    <button class="btn btn-success m-1" (click)="onModify()"
-		    [disabled]="part >= 3 && participantId !== texte?.participantId">Modify</button>
-	    <button class="btn btn-danger m-1" (click)="onDelete()"
-		    [disabled]="part >= 3 && participantId !== texte?.participantId">Delete</button>
+	    <button class="btn btn-success m-1"
+		    (click)="onModify()"
+		    [disabled]="part >= 3 && auteurId !== texte?.auteurId">Modify</button>
+	    <button class="btn btn-danger m-1"
+		    (click)="onDelete()"
+		    [disabled]="part >= 3 && auteurId !== texte?.auteurId">Delete</button>
 	</div>
     </div>
 </div>
