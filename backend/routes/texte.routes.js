@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const texteCtrl = require('../controllers/texteCtrl');
-//const auth = require('../middleware/auth');
+// Improve const auth = require('../middleware/auth');
 
 router.get('/',   texteCtrl.getAllTexte);
 router.post('/',  texteCtrl.createTexte);

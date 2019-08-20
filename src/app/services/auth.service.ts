@@ -18,8 +18,8 @@ export class AuthService {
 	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
     }
     
-    createNewUser(email: string, password: string) {
-	console.log('Entrée dans createNewUser avec email ', email, ' password ',password);
+    signup(email: string, password: string) {
+	console.log('Entrée dans signup avec email ', email, ' password ',password);
 	const uri_signup = 'http://localhost:3000/api/auth/signup';
 
 	return new Promise((resolve, reject) => {

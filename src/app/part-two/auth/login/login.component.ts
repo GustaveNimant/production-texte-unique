@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
 	console.log('Dans onLogin email est ', email);
 	console.log('Dans onLogin password est ', password);
 	console.log('Dans onLogin id est ', id);
+	
 	this.auth.login(email, password)
 	    .then(
 		() => {

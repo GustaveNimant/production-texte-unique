@@ -65,7 +65,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     }
 
     onLogout() {
-	console.log('Entrée dans onLogout partString', this.partString);
+	console.log('Entrée dans onLogout avec partString', this.partString);
 	this.auth.logout();
 	this.router.navigate(['/' + this.partString +'/auth/login']);
     }

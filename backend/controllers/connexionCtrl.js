@@ -15,7 +15,7 @@ exports.login = (req, res, next) => {
 			error: new Error('Dans connexionCtrl.login Erreur : Participant inconnu!')
 		    });
 		}
-		console.log('Dans connexionCtrl.login email', email, ' connexion est ', connexion);
+		console.log('Dans connexionCtrl.login email', req.body.email, ' connexion est ', connexion);
 	    }
 	).catch(
 	    (error) => {

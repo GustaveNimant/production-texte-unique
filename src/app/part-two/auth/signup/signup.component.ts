@@ -42,7 +42,7 @@ export class SignupComponent implements OnInit {
 	console.log('Dans onSignup email est', email);
 	console.log('Dans onSignup password est', password);
 	
-	this.auth.createNewUser(email, password).
+	this.auth.signup(email, password).
 	     then(
 		 () => {
 		     this.loading = false;

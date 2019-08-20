@@ -11,11 +11,11 @@ const authentification =
 	    
 	    const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
 
-	    const participantId = decodedToken.participantId;
-	    if (req.body.participantId && req.body.participantId !== participantId) {
-		throw 'In auth.js exports : Invalid participant ID';
+	    const connexionId = decodedToken.connexionId;
+	    if (req.body.connexionId && req.body.connexionId !== connexionId) {
+		throw 'In auth.js exports : Invalid connexionId';
 	    } else {/* everything is ok */
-		console.log('Dans authentification : aller à next()');
+		console.log('Dans auth.js.authentification : aller à next()');
 		next();
 	    }
 	} catch {

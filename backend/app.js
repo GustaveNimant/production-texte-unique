@@ -29,10 +29,10 @@ mongoose.connect(db_config.DB_URI, {
     useNewUrlParser: true
 }) /* asked when launching nodemon */
     .then( /* Promise */
-	() => {console.log('La base de données est connectée à Uri', db_config.DB_URI)}
+	() => {console.log('Dans app.js.mongoose.connect La base de données est connectée à', db_config.DB_URI)}
     )
     .catch ((error) => {
-	console.log('Impossible de se connecter à la base de données', db_config.DB_URI);
+	console.log('Dans app.js.mongoose.connect Impossible de se connecter à la base de données', db_config.DB_URI);
 	console.error(error);
     });
 
