@@ -1,19 +1,22 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
-
+<br>Debug:Dans single-texte.component.html
 <div *ngIf="!loading">
-    <button class="btn btn-link" (click)="onGoBack()"><< Back</button>
+
     <div class="single-texte-pane">
-	<img [src]="texte?.shasum" alt="">
+
 	<div class="single-texte-info">
 	    <h1>{{ texte?.titre }}</h1>
-	    <h2 class="single-texte-noteMoyenne">{{ texte?.noteMoyenne }}</h2>
+	    <p>note {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
+	    <p>Shasum {{texte?.shasum}} /p>
 	    <p>{{ texte?.contenu }}</p>
 	    <button class="btn btn-success m-1"
 		    (click)="onModify()"
-		    [disabled]="part >= 3 && auteurId !== texte?.auteurId">Modify</button>
+		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier</button>
 	    <button class="btn btn-danger m-1"
 		    (click)="onDelete()"
-		    [disabled]="part >= 3 && auteurId !== texte?.auteurId">Delete</button>
+		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>
 	</div>
+	<button class="btn btn-link" 
+		       (click)="onGoBack()"><< Retour à la liste des Textes</button>
     </div>
 </div>

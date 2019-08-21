@@ -29,8 +29,8 @@ const routes: Routes = [
     { path: 'part-one', component: PartOneComponent,
       children: [
 	  { path: 'new-texte', component: NewTexteComponent},
+	  { path: 'un_texte/:id', component: SingleTexteComponent },
 	  { path: 'les-textes', component: TextesListComponent },
-	  { path: 'texte/:id', component: SingleTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'les-textes' },
 	  { path: '**', redirectTo: 'les-textes' }
