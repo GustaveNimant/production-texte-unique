@@ -3,25 +3,24 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { DefaultComponent }     from './default/default.component';
 
-import { ModifyTexteComponent } from './part-one/modify-texte/modify-texte.component';
-import { PartOneComponent }     from './part-one/part-one.component';
-import { NewTexteComponent }    from './part-one/new-texte/new-texte.component';
-import { SingleTexteComponent } from './part-one/single-texte/single-texte.component';
-import { TextesListComponent }  from './part-one/textes-list/textes-list.component';
+import { PartOneComponent }               from './part-one/part-one.component';
+import { ModifyTexteComponent }           from './part-one/modify-texte/modify-texte.component';
+import { ModifyTexteWithUploadComponent } from './part-one/modify-texte-with-upload/modify-texte-with-upload.component';
+import { NewTexteComponent }              from './part-one/new-texte/new-texte.component';
+import { NewTexteWithUploadComponent }    from './part-one/new-texte-with-upload/new-texte-with-upload.component';
+import { SingleTexteComponent }           from './part-one/single-texte/single-texte.component';
+import { TextesListComponent }            from './part-one/textes-list/textes-list.component';
 
 import { PartTwoComponent }           from './part-two/part-two.component';
+import { LoginComponent }             from './part-two/auth/login/login.component';
 import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
 import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
-import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
-import { LoginComponent }             from './part-two/auth/login/login.component';
 import { SignupComponent }            from './part-two/auth/signup/signup.component';
+import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
 
 import { PartThreeComponent }   from './part-three/part-three.component';
 
 import { PartFourComponent }    from './part-four/part-four.component';
-
-import { NewTexteWithUploadComponent } from './part-one/new-texte-with-upload/new-texte-with-upload.component';
-import { ModifyTexteWithUploadComponent } from './part-one/modify-texte-with-upload/modify-texte-with-upload.component';
 
 import { AuthGuard }            from './services/auth-guard.service';
 

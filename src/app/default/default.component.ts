@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Debug } from './debug';
 
 @Component({
   selector: 'app-default',
@@ -18,7 +19,7 @@ export class DefaultComponent implements OnInit {
     }
     
     onNavigate(endpoint: string) {
-	console.log('Entrée dans onNavigate avec endpoint ', endpoint)
+	console.log('Entrée dans onNavigate avec endpoint', endpoint)
 	this.router.navigate([endpoint]);
     }
 }

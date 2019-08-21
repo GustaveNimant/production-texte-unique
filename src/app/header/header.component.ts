@@ -70,8 +70,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	this.router.navigate(['/' + this.partString +'/auth/login']);
     }
     
-    onBackToParts() {
-	console.log('Entrée dans onBackToParts');
+    onBackToMainMenu() {
+	console.log('Entrée dans onBackToMainMenu');
 	this.router.navigate(['/default']);
     }
     
