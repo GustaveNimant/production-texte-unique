@@ -11,6 +11,7 @@ const app = express();
 
 mongoose.Promise = global.Promise;
 
+// CORS faire communiquer localhost:3000 et localhost:4200
 app.use((req, res, next) => { /* no route : applies to all incoming requests */
     res.setHeader('Access-Control-Allow-Origin', '*'); /* always ajout 26 Juin 2019 */
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -18,11 +19,11 @@ app.use((req, res, next) => { /* no route : applies to all incoming requests */
     next();
 });
 
-app.use(bodyParser.json()); /* receive things as a json Object */
+app.use(bodyParser.json());              /* reception de la requête sous forme d'Objet JSON */
 
-app.use('/api/auth', connexionRoutes); /* connexion route to /api/auth/login /api/auth/signup */
-app.use('/api/les-textes', texteRoutes); /* main route */
-app.use('/api/les-participants', participantRoutes); 
+app.use('/api/auth', connexionRoutes);   /* connexion route to /api/auth/login /api/auth/signup */
+app.use('/api/all-textes', texteRoutes); /* main route */
+app.use('/api/all-participants', participantRoutes); 
 
 mongoose.connect(db_config.DB_URI, {
     useCreateIndex: true,

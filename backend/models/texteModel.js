@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const texteSchema = new Schema({
     titre: { type: String, required: true },
     contenu: { type: String, required: true },
+    auteurId: { type: String, required: true },
+    noteMoyenne: { type: Number, required: true },
+    noteEcartType: { type: Number, required: true },
     shasum: { type: String, required: true },
-    participantId: { type: String, required: true },
-    noteMoyenne: { type: Number, required: true }
 },{
     collection : 'texte_c'
 });

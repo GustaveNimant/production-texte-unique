@@ -1,25 +1,27 @@
 const texteModel = require('../models/texteModel');
 
-exports.createTexte = (req, res, next) => {
-    console.log('Entrée dans createTexte avec req.body ', req.body);
+exports.createTexteCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.createTexteCtrl avec req.body ', req.body);
 
     const texte = new texteModel({
 	titre: req.body.titre,
 	contenu: req.body.contenu,
 	shasum: req.body.shasum,
 	noteMoyenne: req.body.noteMoyenne,
-	participantId: req.body.participantId
+	noteEcartType: req.body.noteEcartType,
+	auteurId: req.body.auteurId
     });
     
     texte.save()
 	.then(
 	    () => {
 		res.status(201).json({
-		    message: 'Post saved successfully!'
+		    message: 'Post sauvé !'
 		});
 	    }
 	).catch(
 	    (error) => {
+		console.log('Dans texteCtrl.js.createTexteCtrl Erreur ', error);
 		res.status(400).json({
 		    error: error
 		});
@@ -27,9 +29,9 @@ exports.createTexte = (req, res, next) => {
 	);
 };
 
-exports.getOneTexte = (req, res, next) => {
-    console.log('Entrée dans getOneTexte avec req.body ', req.body);
-    console.log('Entrée dans getOneTexte avec req.params.id ', req.params.id);
+exports.getOneTexteCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.body ', req.body);
+    console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.params.id ', req.params.id);
     
     texteModel.findOne({
 	_id: req.params.id
@@ -47,9 +49,9 @@ exports.getOneTexte = (req, res, next) => {
 	);
 };
 
-exports.modifyTexte = (req, res, next) => {
-    console.log('Entrée dans modifyTexte avec req.body ', req.body);
-    console.log('Entrée dans modifyTexte avec req.params.id ', req.params.id);
+exports.modifyTexteCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.modifyTexteCtrl avec req.body ', req.body);
+    console.log('Entrée dans texteCtrl.js.modifyTexteCtrl avec req.params.id ', req.params.id);
     
     const texte = new texteModel({
 	_id: req.params.id, /* to keep the_id */
@@ -57,7 +59,8 @@ exports.modifyTexte = (req, res, next) => {
 	contenu: req.body.contenu,
 	shasum: req.body.shasum,
 	noteMoyenne: req.body.noteMoyenne,
-	participantId: req.body.participantId
+	noteEcartType: req.body.noteEcartType,
+	auteurId: req.body.auteurId
     });
 
     texteModel.updateOne({_id: req.params.id}, texte)
@@ -76,9 +79,9 @@ exports.modifyTexte = (req, res, next) => {
 	);
 };
 
-exports.deleteTexte = (req, res, next) => {
-    console.log('Entrée dans deleteTexte avec req.body ', req.body);
-    console.log('Entrée dans deleteTexte avec req.params.id ', req.params.id);
+exports.deleteTexteCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.deleteTexteCtrl avec req.body ', req.body);
+    console.log('Entrée dans texteCtrl.js.deleteTexteCtrl avec req.params.id ', req.params.id);
     
     texteModel.deleteOne({_id: req.params.id})
 	.then(
@@ -96,8 +99,8 @@ exports.deleteTexte = (req, res, next) => {
 	);
 };
 
-exports.getAllTexte = (req, res, next) => {
-    console.log('Entrée dans getAllTexte avec req.body ', req.body);
+exports.getAllTexteCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.getAllTexteCtrl avec req.body ', req.body);
 
     texteModel.find()
 	.then(
@@ -112,5 +115,3 @@ exports.getAllTexte = (req, res, next) => {
 	    }
 	);
 };
-
-// module.exports = texteCtrl.js;
