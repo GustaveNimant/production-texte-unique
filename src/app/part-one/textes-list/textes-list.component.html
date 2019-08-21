@@ -15,8 +15,14 @@ Debug:Dans textes-liste.component.html:nombre de textes = {{textes.length}} <br>
 		{{ un_texte.titre }}
 	    </h3>
 	    <h5>
-		{{ un_texte.noteMoyenne }}
+		<ul>
+		    <li>Auteur : {{ un_texte.auteurId }}</li>
+		    <li>Note moyenne : {{ un_texte.noteMoyenne }} ( {{un_texte.noteEcartType}} )</li>
+		    <li>Shasum : {{ un_texte.shasum }}</li>
+		</ul>
 	    </h5>
+	    Contenu :
+	    <p>{{ un_texte.contenu }}</p>
 	</div>
     </div>
 </div>
