@@ -5,7 +5,7 @@ import { Un_texte } from '../../models/Un_texte.model';
 import { TextesService } from '../../services/textes.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
     selector: 'app-new-texte',
@@ -27,7 +27,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
 		private router: Router,
-		private auth: AuthService) {
+		private auth: ConnexionsService) {
 	console.log('Entrée dans constructor');
     }
 
@@ -86,10 +86,13 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 			    this.router.navigate(['/part-two/les-participants']);
 			    break;
 			case 3:
-			    this.router.navigate(['/part-three/les-textes']);
+			    this.router.navigate(['/part-three/les-buts']);
 			    break;
 			case 4:
-			    this.router.navigate(['/part-four/les-textes']);
+			    this.router.navigate(['/part-four/les-notations']);
+			    break;
+			case 5:
+			    this.router.navigate(['/part-five/les-connexions']);
 			    break;
 		    }
 		}

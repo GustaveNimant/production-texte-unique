@@ -42,13 +42,13 @@ export class TextesListComponent implements OnInit, OnDestroy {
 	this.textesService.getTextes();
     }
 
-    onProductClicked(id: string) {
+    onTexteClicked(id: string) {
 	if (this.part === 1) {
 	    this.router.navigate(['/part-one/un_texte/' + id]);
 	} else if (this.part === 3) {
-	    this.router.navigate(['/part-three/un_texte/' + id]);
+	    this.router.navigate(['/part-three/un_but/' + id]);
 	} else if (this.part === 4) {
-	    this.router.navigate(['/part-four/un_texte/' + id]);
+	    this.router.navigate(['/part-four/une_notation/' + id]);
 	}
     }
 

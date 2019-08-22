@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Un_participant } from '../../models/Un_participant.model';
 import { ParticipantsService } from '../../services/participants.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
     selector: 'app-single-participant',
@@ -24,7 +24,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private route: ActivatedRoute,
 		private participantsService: ParticipantsService,
-		private auth: AuthService) {
+		private auth: ConnexionsService) {
 	console.log('Entrée dans constructor');
     }
     
@@ -61,9 +61,11 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	} else if (this.part === 2) {
 	    this.router.navigate(['/part-two/all-participant']);
 	} else if (this.part === 3) {
-	    this.router.navigate(['/part-three/les-buts']);
+	    this.router.navigate(['/part-three/all-but']);
 	} else if (this.part === 4) {
-	    this.router.navigate(['/part-four/les-examens']);
+	    this.router.navigate(['/part-four/all-examen']);
+	}  else if (this.part === 5) {
+	this.router.navigate(['/part-five/all-connexion']);
 	}
     }
 

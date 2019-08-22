@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { StateService } from '../services/state.service';
-import { AuthService } from '../services/auth.service';
+import { Subscription }     from 'rxjs';
+import { StateService }     from '../services/state.service';
+import { ConnexionsService } from '../services/connexions.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     constructor(private state: StateService,
-		private auth: AuthService,
+		private connexionsService: ConnexionsService,
 		private router: Router) { 
 	console.log('Entrée dans constructor');
     };
@@ -52,22 +52,25 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		    case 4:
 			this.partString = 'part-four';
 			break;
+		    case 5:
+			this.partString = 'part-five';
+			break;
 		    default:
 			break;
 		}
 	    }
 	);
-	this.isAuthSub = this.auth.isAuth$.subscribe(
-	    (auth) => {
-		this.isAuth = auth;
+	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
+	    (connexionsService) => {
+		this.isAuth = connexionsService;
 	    }
 	);
     }
 
     onLogout() {
 	console.log('Entrée dans onLogout avec partString', this.partString);
-	this.auth.logout();
-	this.router.navigate(['/' + this.partString +'/auth/login']);
+	this.connexionsService.logout();
+	this.router.navigate(['/' + this.partString +'/all-connexions/login']);
     }
     
     onBackToMainMenu() {

@@ -3,24 +3,33 @@
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="participantForm">
 	<div class="form-group">
-	    <label for="email">Titre</label>
+	    <label for="email">Email du Participant </label>
 	    <input type="text"
-		   placeholder="Titre du participant ?"
+		   placeholder="Email du Participant ..."
 		   id="email"
 		   formControlName="email"
 		   class="form-control">
 	</div>
 	<div class="form-group">
-	    <label for="pseudo">Le participant</label>
-	    <input type="participant"
-		   placeholder="Entrer le participant ..."
+	    <label for="pseudo">Pseudo du Participant </label>
+	    <input type="text"
+		   placeholder="Pseudo du Participant ..."
 		   id="pseudo"
 		   formControlName="pseudo"
 		   class="form-control">
 	</div>
+	<div class="form-group">
+	    <label for="password">Password du Participant </label>
+	    <input type="text"
+		   placeholder="Password du Participant ..."
+		   id="password"
+		   formControlName="password"
+		   class="form-control">
+	</div>
 	<button class="btn btn-primary"
-		(click)="onSubmit()"
-		[disabled]="participantForm.invalid">Submit</button>
-	<p class="alert-danger" *ngIf="errorMessage">Dans new-participant.component.html.<br>Erreur lors de la création du participant:<br> {{ errorMessage }}</p>
+		       (click)="onSubmit()"
+		       [disabled]="participantForm.invalid">Submit</button>
+	<p class="alert-danger"
+	   *ngIf="errorMessage">Dans new-participant.component.html.<br>Erreur lors de la création du participant:<br> {{ errorMessage }}</p>
     </form>
 </div>

@@ -40,9 +40,9 @@ export class ParticipantsService {
 		}
 	    },
 	    (error) => {
-		console.log('getParticipant Erreur:', error);
+		console.log('getParticipants Erreur:', error);
 	    },
-	    () => {console.log('getParticipant fini !')}
+	    () => {console.log('getParticipants fini !')}
 	);
     }
 

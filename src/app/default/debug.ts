@@ -1,3 +1,3 @@
 export class Debug {
-    debugLevel = 0;
+    debugActive = true;
 }

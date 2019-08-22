@@ -1,0 +1,23 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+Debug:Dans connexions-liste.component.html:loading = {{loading}} <br>
+Debug:Dans connexions-liste.component.html:nombre de connexions = {{connexions.length}} <br>
+
+<p class="text-center"
+   *ngIf="connexions.length <= 0 && !loading">
+    La base de données est vide !</p>
+
+<div class="connexion-grid"
+     *ngIf="connexions.length >= 0">
+    <div class="connexion-pane"
+	 *ngFor="let un_connexion of connexions"
+	 (click)="onConnexionClicked(un_connexion._id)">
+	<div class="connexion-info">
+	    <p>
+		email {{ un_connexion.email }}<br>
+		pseudo {{ un_connexion.pseudo }}<br>
+		id {{ un_connexion._id }}
+	    </p>
+	</div>
+    </div>
+</div>

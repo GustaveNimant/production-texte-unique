@@ -6,9 +6,10 @@
 
 	<div class="single-texte-info">
 	    <h1>{{ texte?.titre }}</h1>
-	    <p>note {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
-	    <p>Shasum {{texte?.shasum}} /p>
-	    <p>{{ texte?.contenu }}</p>
+	    <p>note : {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
+	    <p>Id : {{ texte?._id }}</p>
+	    <p>Shasum : {{texte?.shasum}} </p>
+	    <p>Contenu : {{ texte?.contenu }}</p>
 	    <button class="btn btn-success m-1"
 		    (click)="onModify()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier</button>

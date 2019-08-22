@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { StateService } from '../../services/state.service';
 import { TextesService } from '../../services/textes.service';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
+import { ConnexionsService } from '../../services/connexions.service';
 import { Un_texte } from '../../models/Un_texte.model';
 import { mimeType } from '../mime-type.validator';
 
@@ -26,7 +26,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
 		private router: Router,
-		private auth: AuthService) { }
+		private auth: ConnexionsService) { }
 
     ngOnInit() {
 	this.state.mode$.next('form');

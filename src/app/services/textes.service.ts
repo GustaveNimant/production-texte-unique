@@ -40,7 +40,7 @@ export class TextesService {
     public textes$ = new Subject<Un_texte[]>();
 
     getTextes() {
-	console.log('Entrée dans getTexte avec uri_all', this.uri_all);
+	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
 	this.http.get(this.uri_all).subscribe(
 	    (des_textes: Un_texte[]) => {
 		if (des_textes) {
@@ -49,9 +49,9 @@ export class TextesService {
 		}
 	    },
 	    (error) => {
-		console.log('getTexte Erreur:', error);
+		console.log('Dans getTextes Erreur:', error);
 	    },
-	    () => {console.log('getTexte fini !')}
+	    () => {console.log('Dans getTextes fini !')}
 	);
     }
 

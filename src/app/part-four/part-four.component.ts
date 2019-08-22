@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
-import { AuthService } from '../services/auth.service';
+import { ConnexionsService } from '../services/connexions.service';
 
 @Component({
   selector: 'app-part-four',
@@ -10,7 +10,7 @@ import { AuthService } from '../services/auth.service';
 export class PartFourComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
-		private auth: AuthService) { }
+		private auth: ConnexionsService) { }
     
     ngOnInit() {
 	this.auth.isAuth$.next(false);

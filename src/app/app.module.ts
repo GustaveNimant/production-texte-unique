@@ -1,4 +1,4 @@
-import { AuthInterceptor } from './interceptors/auth-interceptor';
+import { ConnexionInterceptor } from './interceptors/connexion-interceptor';
 
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,13 +28,14 @@ import { PartTwoComponent }          from './part-two/part-two.component';
 
 import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
 import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
-
 import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
-import { LoginComponent }     from './part-two/auth/login/login.component';
-import { SignupComponent }    from './part-two/auth/signup/signup.component';
 
 import { PartThreeComponent } from './part-three/part-three.component';
 import { PartFourComponent }  from './part-four/part-four.component';
+import { PartFiveComponent } from './part-five/part-five.component';
+import { SingleConnexionComponent } from './part-five/single-connexion/single-connexion.component';
+import { NewConnexionComponent }    from './part-five/new-connexion/new-connexion.component';
+import { ConnexionsListComponent }  from './part-five/connexions-list/connexions-list.component';
 
 @NgModule({
     declarations: [
@@ -47,15 +48,17 @@ import { PartFourComponent }  from './part-four/part-four.component';
 	HeaderComponent,
 	TextesListComponent,
 	ParticipantsListComponent,
+	ConnexionsListComponent,
 	SingleTexteComponent,
 	SingleParticipantComponent,
+	SingleConnexionComponent,
 	ModifyTexteComponent,
-	LoginComponent,
-	SignupComponent,
 	NewTexteComponent,
 	NewTexteWithUploadComponent,
 	NewParticipantComponent,
-	ModifyTexteWithUploadComponent
+	NewConnexionComponent,
+	ModifyTexteWithUploadComponent,
+	PartFiveComponent
     ],
     imports: [
 	BrowserModule,
@@ -66,7 +69,7 @@ import { PartFourComponent }  from './part-four/part-four.component';
 	MatProgressSpinnerModule,
 	HttpClientModule
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
+    providers: [{provide: HTTP_INTERCEPTORS, useClass: ConnexionInterceptor, multi: true}],
     bootstrap: [AppComponent]
 })
 

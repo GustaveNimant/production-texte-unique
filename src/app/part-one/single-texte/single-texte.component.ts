@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Un_texte } from '../../models/Un_texte.model';
 import { TextesService } from '../../services/textes.service';
 import { Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
+import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
     selector: 'app-single-texte',
@@ -24,7 +24,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private route: ActivatedRoute,
 		private textesService: TextesService,
-		private auth: AuthService) { }
+		private auth: ConnexionsService) { }
 
     ngOnInit() {
 	this.loading = true;
@@ -61,44 +61,20 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onModify() {
-	switch (this.part) {
-	    case 1:
-	    case 2:
-		this.router.navigate(['/part-one/modify-texte/' + this.texte._id]);
-		break;
-	    case 3:
-		this.router.navigate(['/part-three/modify-texte/' + this.texte._id]);
-		break;
-	    case 4:
-		this.router.navigate(['/part-four/modify-texte/' + this.texte._id]);
-		break;
-	}
+	this.router.navigate(['/part-one/modify-texte/' + this.texte._id]);
     }
-
+    
     onDelete() {
 	this.loading = true;
 	this.textesService.deleteTexte(this.texte._id).then(
 	    () => {
 		this.loading = false;
-		switch (this.part) {
-		    case 1:
-			this.router.navigate(['/part-one/all-texte']);
-			break;
-		    case 2:
-			this.router.navigate(['/part-two/all-participant']);
-			break;
-		    case 3:
-			this.router.navigate(['/part-three/all-texte']);
-			break;
-		    case 4:
-			this.router.navigate(['/part-four/all-texte']);
-			break;
-		}
-      }
-    );
-  }
-
-  ngOnDestroy() {
-    this.partSub.unsubscribe();
-  }
+		this.router.navigate(['/part-one/all-texte']);
+	    }
+	);
+    }
+    
+    ngOnDestroy() {
+	this.partSub.unsubscribe();
+    }
 }

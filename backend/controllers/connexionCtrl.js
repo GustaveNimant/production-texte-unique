@@ -1,50 +1,109 @@
-const bcrypt = require('bcrypt');
 const connexionModel = require('../models/connexionModel');
 
-const jwt = require('jsonwebtoken');
+exports.createConnexionCtrl = (req, res, next) => {
+    console.log('Entrée dans connexionCtrl.js.createConnexionCtrl avec req.body ', req.body);
 
-exports.login = (req, res, next) => {
-    console.log('Dans connexionCtrl.login req.body est', req.body);
-    console.log('Dans connexionCtrl.login req.body.email est', req.body.email);
-
-    connexionModel.findOne({ email: req.body.email })
+    const connexion = new connexionModel({
+	email: req.body.email,
+	password: req.body.password,
+    });
+    
+    connexion.save()
 	.then(
-	    (connexion) => {
-		if (!connexion) {
-		    return res.status(401).json({
-			error: new Error('Dans connexionCtrl.login Erreur : Participant inconnu!')
-		    });
-		}
-		console.log('Dans connexionCtrl.login email', req.body.email, ' connexion est ', connexion);
+	    () => {
+		res.status(201).json({
+		    message: 'Post sauvé !'
+		});
 	    }
 	).catch(
 	    (error) => {
-		console.log('Dans connexionCtrl.login Erreur est ', error);
-		res.status(500).json({
+		console.log('Dans connexionCtrl.js.createConnexionCtrl Erreur ', error);
+		res.status(400).json({
 		    error: error
 		});
 	    }
 	);
 };
 
-exports.signup = (req, res, next) => {
-    console.log('Dans signup req.body est', req.body);
-    const connexion = new connexionModel(req.body);
-    console.log('Dans signup connexion est', connexion);
+exports.getOneConnexionCtrl = (req, res, next) => {
+    console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.body ', req.body);
+    console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.params.id ', req.params.id);
+    
+    connexionModel.findOne({
+	_id: req.params.id
+    })
+	.then(
+	    (connexion) => {
+		res.status(200).json(connexion);
+	    }
+	).catch(
+	    (error) => {
+		res.status(404).json({
+		    error: error
+		});
+	    }
+	);
+};
 
-    connexion.save()
+exports.modifyConnexionCtrl = (req, res, next) => {
+    console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.body ', req.body);
+    console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.params.id ', req.params.id);
+    
+    const connexion = new connexionModel({
+	_id: req.params.id, /* to keep the_id */
+	email: req.body.email,
+	password: req.body.password,
+    });
+
+    connexionModel.updateOne({_id: req.params.id}, connexion)
 	.then(
 	    () => {
 		res.status(201).json({
-		    message: 'Dans signup Le connexion a été ajouté avec succès !'
+		    message: 'connexionModel updated successfully!'
 		});
-	    })
-	.catch(
+	    }
+	).catch(
 	    (error) => {
-		console.log('Dans signup Erreur est ', error);
-		res.status(500).json({
+		res.status(400).json({
 		    error: error
 		});
-	    });
+	    }
+	);
 };
 
+exports.deleteConnexionCtrl = (req, res, next) => {
+    console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.body ', req.body);
+    console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.params.id ', req.params.id);
+    
+    connexionModel.deleteOne({_id: req.params.id})
+	.then(
+	    () => {
+		res.status(200).json({
+		    message: 'Deleted!'
+		});
+	    }
+	).catch(
+	    (error) => {
+		res.status(400).json({
+		    error: error
+		});
+	    }
+	);
+};
+
+exports.getAllConnexionCtrl = (req, res, next) => {
+    console.log('Entrée dans connexionCtrl.js.getAllConnexionCtrl avec req.body ', req.body);
+
+    connexionModel.find()
+	.then(
+	    (des_connexions) => {
+		res.status(200).json(des_connexions);
+	    }
+	).catch(
+	    (error) => {
+		res.status(400).json({
+		    error: error
+		});
+	    }
+	);
+};
