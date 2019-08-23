@@ -1,5 +1,5 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
-<br>Debug:Dans single-texte.component.html
+<div *ngIf="debug">Debug:Dans single-texte.component.html</div>
 <div *ngIf="!loading">
 
     <div class="single-texte-pane">
@@ -17,7 +17,7 @@
 		    (click)="onDelete()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>
 	</div>
-	<button class="btn btn-link" 
+	<button class="btn btn-link"
 		       (click)="onGoBack()"><< Retour à la liste des Textes</button>
     </div>
 </div>

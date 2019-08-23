@@ -16,7 +16,9 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
     public participants: Un_participant[] = [];
     public part: number;
     public loading: boolean;
+    public debug: boolean;
 
+    private debugSub: Subscription;
     private participantsSub: Subscription;
     private partSub: Subscription;
 
@@ -28,7 +30,10 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+
 	this.loading = true;
+	this.debugSub = this.stateService.debug$.subscribe((bol) => {this.debug = bol;});
+	
 	this.stateService.mode$.next('list');
 	this.participantsSub = this.participantsService.participants$.subscribe(
 	    (les_participants) => {
@@ -36,22 +41,15 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
 		this.loading = false;
 	    }
 	);
-	this.partSub = this.stateService.part$.subscribe(
-	    (a_part) => {
-		this.part = a_part;
-	    }
-	);
+	this.partSub = this.stateService.part$.subscribe((num) => {this.part = num;});
 	this.participantsService.getParticipants();
     }
 
     onParticipantClicked(id: string) {
 	console.log('Entrée dans onParticipantClicked avec id', id);
 	console.log('Entrée dans onParticipantClicked avec part', this.part);
-	
-	if (this.part === 2) {
-	    console.log('Entrée dans onParticipantClicked navigation vers ', '/part-two/un_participant/' + id);
-	    this.router.navigate(['/part-two/un_participant/' + id]);
-	}
+	console.log('Entrée dans onParticipantClicked navigation vers ', '/part-two/un_participant/' + id);
+	this.router.navigate(['/part-two/un_participant/' + id]);
     }
 
     ngOnDestroy() {

@@ -1,7 +1,7 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-Debug:Dans participants-liste.component.html:loading = {{loading}} <br>
-Debug:Dans participants-liste.component.html:nombre de participants = {{participants.length}} <br>
+<div *ngIf="debug">Debug:Dans participants-liste.component.html:loading = {{loading}}</div>
+<div *ngIf="debug">Debug:Dans participants-liste.component.html:nombre de participants = {{participants.length}}</div>
 
 <p class="text-center"
    *ngIf="participants.length <= 0 && !loading">

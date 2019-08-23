@@ -8,5 +8,9 @@ import { Injectable } from '@angular/core';
 export class StateService {
     public part$ = new BehaviorSubject<number>(0);
     public part = 0;
+    
     public mode$ = new BehaviorSubject<string>('');
+
+    public debug$ = new BehaviorSubject<boolean>(true);
+    public debug = false;
 }

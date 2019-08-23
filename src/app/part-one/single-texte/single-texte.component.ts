@@ -17,9 +17,11 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public loading: boolean;
     public auteurId: string;
     public part: number;
+    public debug: boolean;
 
+    private debugSub: Subscription;
     private partSub: Subscription;
-
+    
     constructor(private state: StateService,
 		private router: Router,
 		private route: ActivatedRoute,
@@ -27,37 +29,38 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		private auth: ConnexionsService) { }
 
     ngOnInit() {
+	console.log('Entrée dans ngOnInit');
+	
 	this.loading = true;
+
+	this.debugSub = this.state.debug$.subscribe((x) => {this.debug = x;});
+	
 	this.state.mode$.next('single-texte');
 	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
+
+	console.log('Dans ngOnInit debug',this.debug);
+	
 	this.route.params.subscribe(
 	    (params: Params) => {
 		this.textesService.getTexteById(params.id).then(
-		    (texte: Un_texte) => {
+		    (a_text: Un_texte) => {
 			this.loading = false;
-			this.texte = texte;
+			this.texte = a_text;
 		    }
 		);
 	    }
 	);
 	this.partSub = this.state.part$.subscribe(
-	    (part) => {
-		this.part = part;
-		if (part >= 3) {
-		    this.auteurId = this.auth.connexionId;
-		}
+	    (a_part) => {
+		this.part = a_part;
+		this.auteurId = this.auth.connexionId;
 	    }
 	);
+
     }
 
     onGoBack() {
-	if (this.part === 1) {
-	    this.router.navigate(['/part-one/all-texte']);
-	} else if (this.part === 3) {
-	    this.router.navigate(['/part-three/all-texte']);
-	} else if (this.part === 4) {
-	    this.router.navigate(['/part-four/all-texte']);
-	}
+	this.router.navigate(['/part-one/all-texte']);
     }
 
     onModify() {
