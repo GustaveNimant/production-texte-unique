@@ -48,10 +48,8 @@ export class ConnexionsListComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans onConnexionClicked avec id', id);
 	console.log('Entrée dans onConnexionClicked avec part', this.part);
 	
-	if (this.part === 5) {
-	    console.log('Entrée dans onConnexionClicked navigation vers ', '/part-five/une_connexion/' + id);
+	console.log('Entrée dans onConnexionClicked navigation vers ', '/part-five/une_connexion/' + id);
 	    this.router.navigate(['/part-five/une_connexion/' + id]);
-	}
     }
 
     ngOnDestroy() {

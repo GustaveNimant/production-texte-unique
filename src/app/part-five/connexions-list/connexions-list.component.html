@@ -10,13 +10,13 @@ Debug:Dans connexions-liste.component.html:nombre de connexions = {{connexions.l
 <div class="connexion-grid"
      *ngIf="connexions.length >= 0">
     <div class="connexion-pane"
-	 *ngFor="let un_connexion of connexions"
-	 (click)="onConnexionClicked(un_connexion._id)">
+	 *ngFor="let une_connexion of connexions"
+	 (click)="onConnexionClicked(une_connexion._id)">
 	<div class="connexion-info">
 	    <p>
-		email {{ un_connexion.email }}<br>
-		pseudo {{ un_connexion.pseudo }}<br>
-		id {{ un_connexion._id }}
+		email {{ une_connexion.email }}<br>
+		password {{ une_connexion.password }}<br>
+		id {{ une_connexion._id }}
 	    </p>
 	</div>
     </div>
