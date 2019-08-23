@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Debug } from './debug';
 
 @Component({
   selector: 'app-default',

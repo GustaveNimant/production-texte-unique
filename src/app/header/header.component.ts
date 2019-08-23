@@ -23,7 +23,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
     private isAuthSub: Subscription;
 
-    constructor(private state: StateService,
+    constructor(private stateService: StateService,
 		private connexionsService: ConnexionsService,
 		private router: Router)
 		{ 
@@ -33,15 +33,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
-	this.debugSub = this.state.debug$.subscribe((x) => {this.debug = x;});
+	this.debugSub = this.stateService.debug$.subscribe((x) => {this.debug = x;});
 	
-	this.modeSub = this.state.mode$.subscribe(
+	this.modeSub = this.stateService.mode$.subscribe(
 	    (mode) => {
 		console.log('Dans ngOnInit mode est >', mode,'<');
 		this.mode = mode;
 	    }
 	);
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (part) => {
 		console.log('ngOnInit part is', part);
 		this.part = part;
