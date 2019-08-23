@@ -31,6 +31,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+	
 	this.state.mode$.next('form');
 	this.connexionForm = this.formBuilder.group({
 	    email: [null, Validators.required],
@@ -45,6 +46,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 
     onSubmit() {
 	console.log('Entrée dans onSubmit');
+	
 	this.loading = true;
 
 	const connexion = new Une_connexion();
@@ -52,32 +54,19 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 	connexion.password = this.connexionForm.get('password').value;
 	connexion._id = new Date().getTime().toString();
 
+	console.log('Dans onSubmit connexion est', connexion);
+	
 	this.connexionsService.createNewConnexion(connexion)
 	    .then(
 		() => {
 		    this.connexionForm.reset();
 		    this.loading = false;
-		    switch (this.part) {
-			case 1:
-			    this.router.navigate(['/part-one/les-textes']);
-			    break;
-			case 2:
-			    this.router.navigate(['/part-two/les-participants']);
-			    break;
-			case 3:
-			    this.router.navigate(['/part-three/les-buts']);
-			    break;
-			case 4:
-			    this.router.navigate(['/part-four/les-notations']);
-			    break;
-			case 5:
-			    this.router.navigate(['/part-five/les-connexions']);
-			    break;
+		    this.router.navigate(['/part-five/les-connexions']);
 		    }
-		}
 	    )
 	    .catch(
 		(error) => {
+		    console.log('Dans onSubmit Erreur est', error);
 		    this.loading = false;
 		    this.errorMessage = error.message;
 		}

@@ -71,30 +71,14 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    texte.shasum = "someShasum";
 	}
 
-	console.log('Dans onSubmit le texte est', texte);
+	console.log('Dans onSubmit texte est', texte);
 	
 	this.textesService.createNewTexte(texte)
 	    .then(
 		() => {
 		    this.texteForm.reset();
 		    this.loading = false;
-		    switch (this.part) {
-			case 1:
-			    this.router.navigate(['/part-one/new-texte']);
-			    break;
-			case 2:
-			    this.router.navigate(['/part-two/les-participants']);
-			    break;
-			case 3:
-			    this.router.navigate(['/part-three/les-buts']);
-			    break;
-			case 4:
-			    this.router.navigate(['/part-four/les-notations']);
-			    break;
-			case 5:
-			    this.router.navigate(['/part-five/les-connexions']);
-			    break;
-		    }
+		    this.router.navigate(['/part-one/les-textes']);
 		}
 	    )
 	    .catch(

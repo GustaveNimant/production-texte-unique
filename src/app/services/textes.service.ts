@@ -92,7 +92,7 @@ export class TextesService {
 		    resolve(response);
 		},
 		(error) => {
-		    console.log('Erreur dans createNewTexte');
+		    console.log('Dans createNewTexte Erreur', error);
 		    reject(error);
 		},
 		() => {

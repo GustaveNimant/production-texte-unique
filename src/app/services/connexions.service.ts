@@ -39,27 +39,45 @@ export class ConnexionsService {
 	const uri_signup = 'http://localhost:3000/api/all-connexions/';
 
 	return new Promise((resolve, reject) => {
-	    this.http.post(
-		uri_signup,
-		connexion)
-		.subscribe(
-		    () => {
-			this.login(connexion.email, connexion.password)
-			    .then(
-				() => {
-				    resolve();
-				}
-			    ).catch(
-				(error) => {
-				    reject(error);
-				}
-			    );
-		    },
-		    (error) => {
-			console.log('Dans createNewConnexion.subscribe Erreur est', error, ' pour uri_signup', uri_signup);
-			reject(error);
-		    }
-		);
+	    this.http.post(uri_signup, connexion).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    console.log('Dans createNewConnexion Erreur, error')
+		    reject(error);
+		},
+	    	() => {
+		    console.log('Sortie de createNewConnexion');
+		}
+	    );
+	});
+    }
+    
+    createNewConnexionWithLogin(connexion: Une_connexion) { /* signup */
+	console.log('Entrée dans createNewConnexion avec connexion ', connexion);
+
+	const uri_signup = 'http://localhost:3000/api/all-connexions/';
+
+	return new Promise((resolve, reject) => {
+	    this.http.post(uri_signup, connexion).subscribe(
+		() => {
+		    this.login(connexion.email, connexion.password)
+			.then(
+			    () => {
+				resolve();
+			    }
+			).catch(
+			    (error) => {
+				reject(error);
+			    }
+			);
+		},
+		(error) => {
+		    console.log('Dans createNewConnexion.subscribe Erreur est', error, ' pour uri_signup', uri_signup);
+		    reject(error);
+		}
+	    );
 	});
     }
     
