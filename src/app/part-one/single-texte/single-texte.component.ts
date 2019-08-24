@@ -19,10 +19,9 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public part: number;
     public debug: boolean;
 
-    private debugSub: Subscription;
     private partSub: Subscription;
     
-    constructor(private state: StateService,
+    constructor(private stateService: StateService,
 		private router: Router,
 		private route: ActivatedRoute,
 		private textesService: TextesService,
@@ -33,9 +32,10 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	
 	this.loading = true;
 
-	this.debugSub = this.state.debug$.subscribe((x) => {this.debug = x;});
-	
-	this.state.mode$.next('single-texte');
+	this.debug = this.stateService.debug;
+	console.log('Dans ngOnInit debug', this.debug);
+
+	this.stateService.mode$.next('single-texte');
 	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
 
 	console.log('Dans ngOnInit debug',this.debug);
@@ -50,9 +50,9 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		);
 	    }
 	);
-	this.partSub = this.state.part$.subscribe(
-	    (a_part) => {
-		this.part = a_part;
+	this.partSub = this.stateService.part$.subscribe(
+	    (num) => {
+		this.part = num;
 		this.auteurId = this.auth.connexionId;
 	    }
 	);

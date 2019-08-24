@@ -26,8 +26,10 @@ export class TextesListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+	
 	this.loading = true;
 	this.state.mode$.next('list');
+	
 	this.textesSub = this.textesService.textes$.subscribe(
 	    (les_textes) => {
 		this.textes = les_textes;

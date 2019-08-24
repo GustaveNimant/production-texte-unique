@@ -10,32 +10,10 @@ import { HttpClient } from '@angular/common/http';
 export class TextesService {
 
     uri_all = 'http://localhost:3000/api/all-textes/';
-    uri_new = this.uri_all;
-
+ 
     constructor(private http: HttpClient) {};
 
-    private textes: Un_texte[] = [
-	{
-	    _id: '324sdfmoih3',
-	    titre: 'Mon texte',
-	    contenu: 'Un nouveau texte',
-	    shasum: '5cf15f9b922a5d1b9e34216c',
-	    noteMoyenne: 4.9,
-	    noteEcartType: 0.7,
-	    auteurId: 'will',
-	    _v: 0
-	},
-	{
-	    _id: '324sdfmoih4',
-	    titre: 'Un ancien texte',
-	    contenu: 'All about my texte',
-	    shasum: '5d137afeb2019211cf28b273',
-	    noteMoyenne: 2.5,
-	    noteEcartType: 0.3,
-	    auteurId: 'will',
-	    _v: 0
-	},
-    ];
+    private textes: Un_texte[] = [];
 
     public textes$ = new Subject<Un_texte[]>();
 
@@ -84,10 +62,10 @@ export class TextesService {
 	if (texte.shasum == null) {
 	    texte.shasum = "someShasum";
 	}
-	console.log('Dans createNewTexte avec texte', texte);
+	console.log('Dans createNewTexte texte', texte);
 	
 	return new Promise((resolve, reject) => {
-	    this.http.post(this.uri_new, texte).subscribe(
+	    this.http.post(this.uri_all, texte).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -103,14 +81,15 @@ export class TextesService {
     }
 
     createNewTexteWithFile(texte: Un_texte, image: File) {
-	console.log('Entrée dans createNewTexteWithFile avec texte', texte);
+	console.log('Entrée dans createNewTexteWithFile avec texte', texte,' et image',image);
+
 	return new Promise((resolve, reject) => {
 	    const texteData = new FormData();
 	    
 	    texteData.append('texte', JSON.stringify(texte));
 	    texteData.append('image', image, texte.titre);
 	    
-	    this.http.post(this.uri_new, texteData).subscribe(
+	    this.http.post(this.uri_all, texteData).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -123,6 +102,7 @@ export class TextesService {
 
     modifyTexte(id: string, texte: Un_texte) {
 	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
+
 	return new Promise((resolve, reject) => {
 	    this.http.put(this.uri_all + id, texte).subscribe(
 		(response) => {
@@ -136,7 +116,7 @@ export class TextesService {
     }
 
     modifyTexteWithFile(id: string, texte: Un_texte, image: File | string) {
-	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte);
+	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte,' et image',image);
 
 	return new Promise((resolve, reject) => {
 	    let texteData: Un_texte | FormData;

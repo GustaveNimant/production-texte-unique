@@ -18,7 +18,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public isAuth: boolean;
     public debug: boolean;
     
-    private debugSub: Subscription;
     private modeSub: Subscription;
     private partSub: Subscription;
     private isAuthSub: Subscription;
@@ -33,14 +32,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
-	this.debugSub = this.stateService.debug$.subscribe((x) => {this.debug = x;});
-	
 	this.modeSub = this.stateService.mode$.subscribe(
 	    (mode) => {
 		console.log('Dans ngOnInit mode est >', mode,'<');
 		this.mode = mode;
 	    }
 	);
+
 	this.partSub = this.stateService.part$.subscribe(
 	    (part) => {
 		console.log('ngOnInit part is', part);
@@ -66,6 +64,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	    }
 	);
+	
 	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
 	    (connexionsService) => {
 		this.isAuth = connexionsService;
@@ -86,7 +85,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     onDebugSwitch() {
 	console.log('Entrée dans onDebugSwitch');
-	this.debug = !this.debug;
+	this.stateService.debugSwitch();
+	this.debug = this.stateService.debug;
 	console.log('Dans onDebugSwitch debug', this.debug);
     }
 

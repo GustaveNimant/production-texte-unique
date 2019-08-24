@@ -20,10 +20,11 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     public part: number;
     public auteurId: string;
     public errorMessage: string;
-
+    public debug: boolean;
+    
     private partSub: Subscription;
 
-    constructor(private state: StateService,
+    constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
 		private router: Router,
@@ -34,7 +35,11 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	
-	this.state.mode$.next('form');
+	this.stateService.mode$.next('form');
+
+	this.debug = this.stateService.debug;
+    	console.log('Dans ngOnInit debug', this.debug);
+
 	this.texteForm = this.formBuilder.group({
 	    titre: [null],
 	    contenu: [null],
@@ -43,9 +48,10 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    noteEcartType: [0],
 	    shasum: ["someShasum"]
 	});
-	this.partSub = this.state.part$.subscribe(
-	    (part) => {
-		this.part = part;
+	
+	this.partSub = this.stateService.part$.subscribe(
+	    (num) => {
+		this.part = num;
 	    }
 	);
     }

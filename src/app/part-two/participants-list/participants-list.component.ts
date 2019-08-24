@@ -18,7 +18,6 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
     public loading: boolean;
     public debug: boolean;
 
-    private debugSub: Subscription;
     private participantsSub: Subscription;
     private partSub: Subscription;
 
@@ -32,7 +31,9 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans ngOnInit');
 
 	this.loading = true;
-	this.debugSub = this.stateService.debug$.subscribe((bol) => {this.debug = bol;});
+
+	this.debug = this.stateService.debug;
+	console.log('Dans ngOnInit debug', this.debug);
 	
 	this.stateService.mode$.next('list');
 	this.participantsSub = this.participantsService.participants$.subscribe(

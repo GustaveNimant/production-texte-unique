@@ -1,6 +1,5 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
-<br>
-Debug:Dans new-texte.component.html
+<div *ngIf="debug">Debug:Dans new-texte.component.html</div>
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="texteForm">
 	<div class="form-group">

@@ -16,7 +16,8 @@ export class ConnexionsListComponent implements OnInit, OnDestroy {
     public connexions: Une_connexion[] = [];
     public part: number;
     public loading: boolean;
-
+    public debug: boolean;
+    
     private connexionsSub: Subscription;
     private partSub: Subscription;
 
@@ -28,7 +29,12 @@ export class ConnexionsListComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+
 	this.loading = true;
+
+	this.debug = this.stateService.debug;
+	console.log('Dans ngOnInit debug', this.debug);
+	
 	this.stateService.mode$.next('list');
 	this.connexionsSub = this.connexionsService.connexions$.subscribe(
 	    (les_connexions) => {

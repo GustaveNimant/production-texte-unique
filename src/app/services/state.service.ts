@@ -13,4 +13,10 @@ export class StateService {
 
     public debug$ = new BehaviorSubject<boolean>(true);
     public debug = false;
+
+    debugSwitch() {
+	console.log('Entrée dans debugSwitch');
+	this.debug = !this.debug;
+	console.log('Dans debugSwitch debug', this.debug);
+    }
 }
