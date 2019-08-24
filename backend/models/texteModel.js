@@ -8,6 +8,7 @@ const texteSchema = new Schema({
     noteMoyenne: { type: Number, required: true },
     noteEcartType: { type: Number, required: true },
     shasum: { type: String, required: true },
+    imageUrl: { type: String },
 },{
     collection : 'texte_c'
 });

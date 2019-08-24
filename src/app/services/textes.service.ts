@@ -100,7 +100,7 @@ export class TextesService {
 	});
     }
 
-    modifyTexte(id: string, texte: Un_texte) {
+    modifyTexte(id: string, texte: Un_texte) { /* update id ? */
 	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
 
 	return new Promise((resolve, reject) => {
@@ -128,6 +128,7 @@ export class TextesService {
 		texteData.append('texte', JSON.stringify(texte));
 		texteData.append('image', image, texte.titre);
 	    }
+	    
 	    this.http.put(this.uri_all + id, texteData).subscribe(
 		(response) => {
 		    resolve(response);
@@ -153,4 +154,5 @@ export class TextesService {
 	    );
 	});
     }
+
 }

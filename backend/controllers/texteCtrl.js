@@ -29,6 +29,39 @@ exports.createTexteCtrl = (req, res, next) => {
 	);
 };
 
+exports.createTexteWithImageCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.createTexteCtrl avec req.body ', req.body);
+
+    req.body.texte = JSON.parse(req.body.texte); /* string => JSON */
+    const url = req.protocol + '://' + req.get('host');
+    
+    const texte = new texteModel({
+	titre: req.body.texte.titre,
+	contenu: req.body.texte.contenu,
+	imageUrl: url + '/images/' + req.file.filename, /* provided by multer */
+	shasum: req.body.texte.shasum,
+	noteMoyenne: req.body.texte.noteMoyenne,
+	noteEcartType: req.body.texte.noteEcartType,
+	auteurId: req.body.texte.auteurId
+    });
+    
+    texte.save()
+	.then(
+	    () => {
+		res.status(201).json({
+		    message: 'Post sauvé !'
+		});
+	    }
+	).catch(
+	    (error) => {
+		console.log('Dans texteCtrl.js.createTexteCtrl Erreur ', error);
+		res.status(400).json({
+		    error: error
+		});
+	    }
+	);
+};
+
 exports.getOneTexteCtrl = (req, res, next) => {
     console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.body ', req.body);
     console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.params.id ', req.params.id);

@@ -24,6 +24,12 @@
 	       routerLinkActive="active">Entrer une nouvelle version</a>
 	</li>
 	<li class="header-navigation-item"
+	    *ngIf="part == 1 || (part == 1 && !isAuth)">
+	    <a class="header-link"
+	       routerLink="/{{ partString }}/new-texte-with-image"
+	       routerLinkActive="active">Entrer une nouvelle version avec image</a>
+	</li>
+	<li class="header-navigation-item"
 	    *ngIf="(part == 2 && !isAuth)">
 	    <a class="header-link"
 	       routerLink="/{{ partString }}/new-participant"

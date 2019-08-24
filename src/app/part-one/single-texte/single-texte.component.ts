@@ -19,6 +19,10 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public part: number;
     public debug: boolean;
 
+    fileIsUploading = false;
+    fileUrl: string;
+    fileUploaded = false;
+
     private partSub: Subscription;
     
     constructor(private stateService: StateService,
@@ -38,25 +42,27 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.stateService.mode$.next('single-texte');
 	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
 
-	console.log('Dans ngOnInit debug',this.debug);
-	
 	this.route.params.subscribe(
 	    (params: Params) => {
-		this.textesService.getTexteById(params.id).then(
-		    (a_text: Un_texte) => {
-			this.loading = false;
-			this.texte = a_text;
-		    }
-		);
+		this.textesService.getTexteById(params.id)
+		    .then(
+			(tex: Un_texte) => {
+			    this.loading = false;
+			    this.texte = tex;
+			}
+		    );
 	    }
 	);
+
+	console.log('Dans ngOnInit texte',this.texte);
+	
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
 		this.part = num;
 		this.auteurId = this.auth.connexionId;
 	    }
 	);
-
+	console.log('Dans ngOnInit part',this.part);
     }
 
     onGoBack() {
@@ -80,4 +86,5 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 	this.partSub.unsubscribe();
     }
+
 }
