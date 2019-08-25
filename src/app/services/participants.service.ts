@@ -33,14 +33,14 @@ export class ParticipantsService {
 	console.log('Entrée dans getParticipants avec uri', this.uri_all);
 
 	this.http.get(this.uri_all).subscribe(
-	    (les_participants: Un_participant[]) => {
-		if (les_participants) {
-		    this.participants = les_participants;
+	    (par_a: Un_participant[]) => {
+		if (par_a) {
+		    this.participants = par_a;
 		    this.emitParticipants();
 		}
 	    },
 	    (error) => {
-		console.log('getParticipants Erreur:', error);
+		console.log('Dans getParticipants Erreur:', error);
 	    },
 	    () => {console.log('getParticipants fini !')}
 	);
@@ -71,19 +71,20 @@ export class ParticipantsService {
 	console.log('Entrée dans createNewParticipant avec participant', participant);
 
 	return new Promise((resolve, reject) => {
-	    this.http.post(this.uri_all, participant).subscribe(
-		(response) => {
-		    console.log('Dans createNewParticipant respons est', response);
-		    resolve(response);
-		},
-		(error) => {
-		    console.log('Erreur dans createNewParticipant');
-		    reject(error);
-		},
-		() => {
-		    console.log('Sortie de createNewParticipant');
-		}
-	    );
+	    this.http.post(this.uri_all, participant) /* POST => createParticipantCtrl par uri_all */
+		.subscribe(
+		    (response) => {
+			console.log('Dans createNewParticipant respons est', response);
+			resolve(response);
+		    },
+		    (error) => {
+			console.log('Erreur dans createNewParticipant');
+			reject(error);
+		    },
+		    () => {
+			console.log('Sortie de createNewParticipant');
+		    }
+		);
 	});
     }
 

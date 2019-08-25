@@ -9,7 +9,8 @@ exports.createTexteCtrl = (req, res, next) => {
 	shasum: req.body.shasum,
 	noteMoyenne: req.body.noteMoyenne,
 	noteEcartType: req.body.noteEcartType,
-	auteurId: req.body.auteurId
+	auteurId: req.body.auteurId,
+	imageUrl: req.body.imageUrl
     });
     
     texte.save()
@@ -42,7 +43,8 @@ exports.createTexteWithImageCtrl = (req, res, next) => {
 	shasum: req.body.texte.shasum,
 	noteMoyenne: req.body.texte.noteMoyenne,
 	noteEcartType: req.body.texte.noteEcartType,
-	auteurId: req.body.texte.auteurId
+	auteurId: req.body.texte.auteurId,
+	imageUrl: req.body.texte.imageUrl
     });
     
     texte.save()
@@ -93,7 +95,8 @@ exports.modifyTexteCtrl = (req, res, next) => {
 	shasum: req.body.shasum,
 	noteMoyenne: req.body.noteMoyenne,
 	noteEcartType: req.body.noteEcartType,
-	auteurId: req.body.auteurId
+	auteurId: req.body.auteurId,
+	imageUrl: req.body.imageUrl
     });
 
     texteModel.updateOne({_id: req.params.id}, texte)

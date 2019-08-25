@@ -18,7 +18,6 @@ export class NewTexteWithImageComponent implements OnInit {
     public texteForm: FormGroup;
     public loading = false;
     public part: number;
-    public auteurId: string;
     public imagePreview: string;
     public errorMessage: string;
     public debug: boolean;
@@ -44,12 +43,12 @@ export class NewTexteWithImageComponent implements OnInit {
 	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
 	    shasum: [null, Validators.required],
-	    auteurId: [null, Validators.required],
 	    noteMoyenne: [0, Validators.required],
 	    noteEcartType: [0, Validators.required],
+	    auteurId: [null, Validators.required],
 	    imageUrl: [null, Validators.required, mimeType],
 	});
-	this.auteurId = this.auth.connexionId;
+
 	console.log('Dans ngOnInit ');
     }
 
@@ -62,7 +61,8 @@ export class NewTexteWithImageComponent implements OnInit {
 	texte.shasum = 'someShasumWithImage';
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
-	texte.auteurId = this.auteurId;
+	texte.auteurId = this.texteForm.get('auteurId').value;
+	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
 	console.log('Dans onSubmit texte', texte);
 	

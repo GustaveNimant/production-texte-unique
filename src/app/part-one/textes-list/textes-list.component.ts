@@ -31,27 +31,21 @@ export class TextesListComponent implements OnInit, OnDestroy {
 	this.state.mode$.next('list');
 	
 	this.textesSub = this.textesService.textes$.subscribe(
-	    (les_textes) => {
-		this.textes = les_textes;
+	    (tex_a) => {
+		this.textes = tex_a;
 		this.loading = false;
 	    }
 	);
 	this.partSub = this.state.part$.subscribe(
-	    (a_part) => {
-		this.part = a_part;
+	    (num) => {
+		this.part = num;
 	    }
 	);
 	this.textesService.getTextes();
     }
 
     onTexteClicked(id: string) {
-	if (this.part === 1) {
-	    this.router.navigate(['/part-one/un_texte/' + id]);
-	} else if (this.part === 3) {
-	    this.router.navigate(['/part-three/un_but/' + id]);
-	} else if (this.part === 4) {
-	    this.router.navigate(['/part-four/une_notation/' + id]);
-	}
+	this.router.navigate(['/part-one/un_texte/' + id]);
     }
 
     ngOnDestroy() {

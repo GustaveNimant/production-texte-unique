@@ -6,6 +6,6 @@ export class Un_texte {
     noteMoyenne: number;
     noteEcartType: number;
     auteurId: string;
-    imageUrl?: string;
+    imageUrl: string;
     _v : number;
 }

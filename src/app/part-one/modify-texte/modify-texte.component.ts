@@ -29,13 +29,16 @@ export class ModifyTexteComponent implements OnInit {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+
 	this.loading = true;
 	this.texteForm = this.formBuilder.group({
 	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
-	    noteMoyenne: [0, Validators.required],
-	    noteEcartType: [0, Validators.required],
-	    shasum: [null, Validators.required]
+	    shasum: [null, Validators.required],
+	    noteMoyenne: [6, Validators.required],
+	    noteEcartType: [7, Validators.required],
+	    auteurId: [null, Validators.required],
+	    imageUrl: [null, Validators.required]
 	});
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {
@@ -50,9 +53,11 @@ export class ModifyTexteComponent implements OnInit {
 			this.texte = texte;
 			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
+			this.texteForm.get('shasum').setValue(this.texte.shasum);
 			this.texteForm.get('noteMoyenne').setValue(this.texte.noteMoyenne);
 			this.texteForm.get('noteEcartType').setValue(this.texte.noteEcartType);
-			this.texteForm.get('shasum').setValue(this.texte.shasum);
+			this.texteForm.get('auteurId').setValue(this.texte.auteurId);
+			this.texteForm.get('imageUrl').setValue(this.texte.imageUrl);
 			this.loading = false;
 		    }
 		);
@@ -71,28 +76,17 @@ export class ModifyTexteComponent implements OnInit {
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.shasum = this.texteForm.get('shasum').value;
-	texte.auteurId = this.texte.auteurId;
+	texte.auteurId = this.texteForm.get('auteurId').value;
+	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
 	this.textesService.modifyTexte(this.texte._id, texte).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
-		switch (this.part) {
-		    case 1:
 			this.router.navigate(['/part-one/les-textes']);
-			break;
-		    case 2:
-			this.router.navigate(['/part-two/les-participants']);
-			break;
-		    case 3:
-			this.router.navigate(['/part-three/new-connexion']);
-			break;
-		    case 4:
-			this.router.navigate(['/part-four/new-texte']);
-			break;
-		}
 	    },
 	    (error) => {
+		console.log('Dans onSubmit Erreur', error);
 		this.loading = false;
 		this.errorMessage = error.message;
 	    }

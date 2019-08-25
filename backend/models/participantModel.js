@@ -5,7 +5,7 @@ const uniqueValidator = require('mongoose-unique-validator');
 const participantSchema = new Schema({
     pseudo: { type: String, required: true },
     email: { type: String, required: true },
-    cle_publique: { type: String},
+    cle_publique: { type: String },
     connexionId: { type: Number }
 },{
     collection : 'participant_c'			    

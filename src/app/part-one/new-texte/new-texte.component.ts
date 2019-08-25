@@ -18,7 +18,6 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     public texteForm: FormGroup;
     public loading = false;
     public part: number;
-    public auteurId: string;
     public errorMessage: string;
     public debug: boolean;
     
@@ -45,9 +44,10 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    titre: [null],
 	    contenu: [null],
 	    shasum: ["someShasum_0"],
-	    auteurId: ["someAuteurId_0"],
 	    noteMoyenne: [4],
-	    noteEcartType: [5]
+	    noteEcartType: [5],
+	    auteurId: ["someAuteurId_0"],
+	    imageUrl: ["imageUrl_0"]
 	});
 	
 	this.partSub = this.stateService.part$.subscribe(
@@ -70,6 +70,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.auteurId = this.texteForm.get('auteurId').value;
+	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
 	texte._id = new Date().getTime().toString();
 
