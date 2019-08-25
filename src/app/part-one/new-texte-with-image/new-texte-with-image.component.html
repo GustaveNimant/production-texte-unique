@@ -13,7 +13,7 @@
 		   class="form-control">
 	</div>
 	<button class="btn btn-success" type="button"
-		       (click)="filePicker.click()">Ajouter un fichier</button>
+		       (click)="filePicker.click()">Ajouter une Image</button>
 
 	<input type="file" #filePicker (change)="onImagePick($event)">
 
@@ -24,11 +24,13 @@
 
 	<div class="form-group">
 	    <label for="noteMoyenne">Note Moyenne de 0 à 10</label>
-	    <input type="number" id="noteMoyenne"
-		   class="form-control" formControlName="noteMoyenne"
+	    <input type="number"
+		   id="noteMoyenne"
+		   class="form-control"
+		   formControlName="noteMoyenne"
 		   min="0" max="10">
 	</div>
-
+	
 	<div class="form-group">
 	    <label for="contenu">Description</label>
 	    <input type="text"

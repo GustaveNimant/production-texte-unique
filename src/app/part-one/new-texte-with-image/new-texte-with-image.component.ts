@@ -21,7 +21,8 @@ export class NewTexteWithImageComponent implements OnInit {
     public auteurId: string;
     public imagePreview: string;
     public errorMessage: string;
-
+    public debug: boolean;
+    
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
@@ -35,15 +36,21 @@ export class NewTexteWithImageComponent implements OnInit {
 	console.log('Entrée dans ngOnInit');
 	
 	this.stateService.mode$.next('form');
+
+	this.debug = this.stateService.debug;
+    	console.log('Dans ngOnInit debug', this.debug);
 	
 	this.texteForm = this.formBuilder.group({
 	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
+	    shasum: [null, Validators.required],
+	    auteurId: [null, Validators.required],
 	    noteMoyenne: [0, Validators.required],
 	    noteEcartType: [0, Validators.required],
-	    image: [null, Validators.required, mimeType]
+	    imageUrl: [null, Validators.required, mimeType],
 	});
 	this.auteurId = this.auth.connexionId;
+	console.log('Dans ngOnInit ');
     }
 
     onSubmit() {
@@ -52,9 +59,9 @@ export class NewTexteWithImageComponent implements OnInit {
 	this.loading = true;
 	const texte = new Un_texte();
 	texte.titre = this.texteForm.get('titre').value;
+	texte.shasum = 'someShasumWithImage';
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
-	texte.shasum = 'someShasum';
 	texte.auteurId = this.auteurId;
 
 	console.log('Dans onSubmit texte', texte);

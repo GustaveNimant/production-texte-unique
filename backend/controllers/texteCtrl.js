@@ -100,7 +100,7 @@ exports.modifyTexteCtrl = (req, res, next) => {
 	.then(
 	    () => {
 		res.status(201).json({
-		    message: 'texteModel updated successfully!'
+		    message: 'texteCtrl.js.modifyTexteCtrl le texte a été mis à jour!'
 		});
 	    }
 	).catch(
@@ -132,6 +132,35 @@ exports.deleteTexteCtrl = (req, res, next) => {
 	);
 };
 
+exports.deleteTexteWithImageCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.deleteTexteWithImageCtrl avec req.body ', req.body);
+    console.log('Entrée dans texteCtrl.js.deleteTexteWithImageCtrl avec req.params.id ', req.params.id);
+    
+    texteModel.findOne({_id: req.params.id}).
+	then(
+	    (tex) => {
+		const filename = tex.imageUrl.split('/images/')[1];
+		console.log('Dans texteCtrl.js.deleteTexteWithImageCtrl filename', filename);
+
+		fs.unlink('images/' + filename, () => {
+		    texteModel.deleteOne({_id: req.params.id}).then(
+			() => {
+			    res.status(200).json({
+				message: 'File '+filename+' Deleted!'
+			    });
+			}
+		    ).catch(
+			(error) => {
+			    res.status(400).json({
+				error: error
+            });
+			}
+		    );
+		});
+	    }
+	);
+};
+
 exports.getAllTexteCtrl = (req, res, next) => {
     console.log('Entrée dans texteCtrl.js.getAllTexteCtrl avec req.body ', req.body);
 
@@ -148,3 +177,58 @@ exports.getAllTexteCtrl = (req, res, next) => {
 	    }
 	);
 };
+
+exports.modifyTexteWithImageCtrl = (req, res, next) => {
+    console.log('Entrée dans texteCtrl.js.modifyTexteWithImageCtrl avec req.body ', req.body);
+    console.log('Entrée dans texteCtrl.js.modifyTexteWithImageCtrl avec req.params.id ', req.params.id);
+    
+    let texte = new texteModel({_id: req.params.id}); /* to keep the_id */
+    console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl texte', texte);
+
+    console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl req.file', req.file);
+    if (req.file) {
+	const url = req.protocol + '://' + req.get('host');
+	console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl url', url);
+
+	req.body.texte = JSON.parse(req.body.texte);
+	texte = {
+	    _id: req.params.id,
+	    titre: req.body.texte.titre,
+	    contenu: req.body.texte.contenu,
+	    imageUrl: url + '/images/' + req.file.filename,
+	    noteMoyenne: req.body.texte.noteMoyenne,
+	    noteEcartType: req.body.texte.noteEcartType,
+	    shasum: req.body.texte.shasum,
+	    auteurId: req.body.texte.auteurId
+    };
+    } else {
+	texte = {
+	    _id: req.params.id,
+	    titre: req.body.titre,
+	    contenu: req.body.contenu,
+	    imageUrl: req.body.imageUrl,
+	    noteMoyenne: req.body.noteMoyenne,
+	    noteEcartType: req.body.texte.noteEcartType,
+	    shasum: req.body.texte.shasum,
+	    auteurId: req.body.auteurId
+	};
+    }
+    console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl avant updateOne texte', texte);
+    texteModel.updateOne({_id: req.params.id}, texte)
+	.then(
+	    () => {
+		res.status(201).json({
+		    message: 'texteModel updated successfully!'
+		});
+	    }
+	).catch(
+	    (error) => {
+		console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl Erreur', error);
+		res.status(400).json({
+		    error: error
+		});
+	    }
+	);
+};
+
+

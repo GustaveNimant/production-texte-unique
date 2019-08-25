@@ -72,7 +72,11 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     onModify() {
 	this.router.navigate(['/part-one/modify-texte/' + this.texte._id]);
     }
-    
+
+    onModifyWithImage() {
+	this.router.navigate(['/part-one/modify-texte-with-image/' + this.texte._id]);
+    }
+
     onDelete() {
 	this.loading = true;
 	this.textesService.deleteTexte(this.texte._id).then(

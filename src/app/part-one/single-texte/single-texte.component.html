@@ -13,6 +13,9 @@
 	    <button class="btn btn-success m-1"
 		    (click)="onModify()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier</button>
+	    <button class="btn btn-success m-1"
+		    (click)="onModifyWithImage()"
+		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier avec Image</button>
 	    <button class="btn btn-danger m-1"
 		    (click)="onDelete()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>

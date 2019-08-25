@@ -56,30 +56,23 @@ export class TextesService {
     createNewTexte(texte: Un_texte) {
 	console.log('Entrée dans createNewTexte avec texte', texte);
 
-	if (texte.auteurId == undefined) {
-	    texte.auteurId = "someId";
-	}
-	if (texte.shasum == null) {
-	    texte.shasum = "someShasum";
-	}
-	console.log('Dans createNewTexte texte', texte);
-	
 	return new Promise((resolve, reject) => {
-	    this.http.post(this.uri_all, texte).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    console.log('Dans createNewTexte Erreur', error);
-		    reject(error);
-		},
-		() => {
-		    console.log('Sortie de createNewTexte');
-		}
-	    );
+	    this.http.post(this.uri_all, texte)
+		.subscribe( /* POST => createTexteCtrl par uri_all */
+			    (response) => {
+				resolve(response);
+			    },
+			    (error) => {
+				console.log('Dans createNewTexte Erreur', error);
+				reject(error);
+			    },
+			    () => {
+				console.log('Sortie de createNewTexte');
+			    }
+		);
 	});
     }
-
+    
     createNewTexteWithFile(texte: Un_texte, image: File) {
 	console.log('Entrée dans createNewTexteWithFile avec texte', texte,' et image',image);
 
@@ -89,17 +82,18 @@ export class TextesService {
 	    texteData.append('texte', JSON.stringify(texte));
 	    texteData.append('image', image, texte.titre);
 	    
-	    this.http.post(this.uri_all, texteData).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    reject(error);
+	    this.http.post(this.uri_all, texteData)
+		.subscribe(
+		    (response) => {
+			resolve(response);
+		    },
+		    (error) => {
+			reject(error);
 		}
-	    );
+		);
 	});
     }
-
+    
     modifyTexte(id: string, texte: Un_texte) { /* update id ? */
 	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
 

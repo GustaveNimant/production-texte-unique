@@ -5,6 +5,7 @@ import { DefaultComponent }     from './default/default.component';
 
 import { PartOneComponent }               from './part-one/part-one.component';
 import { ModifyTexteComponent }           from './part-one/modify-texte/modify-texte.component';
+import { ModifyTexteWithImageComponent } from './part-one/modify-texte-with-image/modify-texte-with-image.component';
 import { ModifyTexteWithUploadComponent } from './part-one/modify-texte-with-upload/modify-texte-with-upload.component';
 import { NewTexteComponent }              from './part-one/new-texte/new-texte.component';
 import { NewTexteWithImageComponent }     from './part-one/new-texte-with-image/new-texte-with-image.component';
@@ -45,6 +46,8 @@ const routes: Routes = [
 	  { path: 'un_texte/:id', component: SingleTexteComponent },
 	  { path: 'les-textes', component: TextesListComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
+	  { path: 'modify-texte-with-image/:id', component: ModifyTexteWithImageComponent },
+	  { path: 'modify-texte-with-upload/:id', component: ModifyTexteWithUploadComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'les-textes' },
 	  { path: '**', redirectTo: 'les-textes' }
       ]
