@@ -59,7 +59,8 @@ export class NewTexteWithImageComponent implements OnInit {
 	this.loading = true;
 	const texte = new Un_texte();
 	texte.titre = this.texteForm.get('titre').value;
-	texte.shasum = 'someShasumWithImage';
+	texte.contenu = this.texteForm.get('contenu').value;
+	texte.shasum = this.texteForm.get('shasum').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.auteurId = this.texteForm.get('auteurId').value; /* null */

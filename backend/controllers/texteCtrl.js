@@ -33,12 +33,17 @@ exports.createTexteCtrl = (req, res, next) => {
 exports.createTexteWithImageCtrl = (req, res, next) => {
     console.log('Entrée dans texteCtrl.js.createTexteWithImageCtrl avec req.body ', req.body);
 
+    /* provided by multer */
     req.body.texte = JSON.parse(req.body.texte); /* string => JSON */
     const url = req.protocol + '://' + req.get('host');
 
     console.log('Dans texteCtrl.js.createTexteWithImageCtrl url', url);
-    const imageUrl = url + '/images/' + req.file.filename; /* provided by multer */
+    const imageUrl = url + '/images/' + req.file.filename;
+    /* end of multer provision */
+
     console.log('Dans texteCtrl.js.createTexteWithImageCtrl imageUrl', imageUrl);
+
+    console.log('Dans texteCtrl.js.createTexteWithImageCtrl req.body.texte', req.body.texte);
     
     const texte = new texteModel({
 	titre: req.body.texte.titre,
@@ -47,8 +52,10 @@ exports.createTexteWithImageCtrl = (req, res, next) => {
 	noteMoyenne: req.body.texte.noteMoyenne,
 	noteEcartType: req.body.texte.noteEcartType,
 	auteurId: req.body.texte.auteurId,
-	imageUrl: url + '/images/' + req.file.filename /* provided by multer */
+	imageUrl: imageUrl
     });
+
+    console.log('Dans texteCtrl.js.createTexteWithImageCtrl texte', texte);
     
     texte.save()
 	.then(
