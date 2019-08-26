@@ -46,7 +46,8 @@ export class NewTexteWithImageComponent implements OnInit {
 	    noteMoyenne: [0, Validators.required],
 	    noteEcartType: [0, Validators.required],
 	    auteurId: [null, Validators.required],
-	    imageUrl: [null, Validators.required, mimeType],
+	    imageUrl: [null]
+	    //	    imageUrl: [null, Validators.required, mimeType],
 	});
 
 	console.log('Dans ngOnInit ');
@@ -61,12 +62,12 @@ export class NewTexteWithImageComponent implements OnInit {
 	texte.shasum = 'someShasumWithImage';
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
-	texte.auteurId = this.texteForm.get('auteurId').value;
+	texte.auteurId = this.texteForm.get('auteurId').value; /* null */
 	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
 	console.log('Dans onSubmit texte', texte);
 	
-	this.textesService.createNewTexteWithFile(texte, this.texteForm.get('image').value)
+	this.textesService.createNewTexteWithFile(texte, this.texteForm.get('imageUrl').value)
 	    .then(
 		() => {
 		    this.texteForm.reset();
@@ -84,19 +85,24 @@ export class NewTexteWithImageComponent implements OnInit {
 	console.log('Entrée dans onImagePick avec event', event);
 	
 	const file = (event.target as HTMLInputElement).files[0];
+
 	console.log('Dans onImagePick file', file);
-	this.texteForm.get('image').patchValue(file);
-	this.texteForm.get('image').updateValueAndValidity();
+	this.texteForm.get('imageUrl').patchValue(file);
+	this.texteForm.get('imageUrl').updateValueAndValidity();
+	console.log('Dans onImagePick texteForm', this.texteForm);
 
 	const reader = new FileReader();
 
+	console.log('Dans onImagePick reader', reader);
 	reader.onload = () => {
-	    if (this.texteForm.get('image').valid) {
+	    if (this.texteForm.get('imageUrl').valid) {
 		this.imagePreview = <string>reader.result;
 	    } else {
 		this.imagePreview = null;
 	    }
 	};
+	console.log('Dans onImagePick imagePreview', this.imagePreview);
 	reader.readAsDataURL(file);
+	console.log('Dans onImagePick Sortie reader', reader);
     }
 }

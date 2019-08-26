@@ -5,15 +5,17 @@
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="texteForm">
 	<div class="form-group">
-	    <label for="titre">Titre</label>
+	    <label for="titre">Titre </label>
 	    <input type="text"
 		   placeholder="Titre du texte ?"
 		   id="titre"
 		   formControlName="titre"
 		   class="form-control">
 	</div>
-	<button class="btn btn-success" type="button"
-		       (click)="filePicker.click()">Ajouter une Image</button>
+	<button class="btn btn-success"
+		type="button"
+		(click)="filePicker.click()">Ajouter une Image
+	</button>
 
 	<input type="file" #filePicker (change)="onImagePick($event)">
 
@@ -23,7 +25,7 @@
 	</div>
 
 	<div class="form-group">
-	    <label for="noteMoyenne">Note Moyenne de 0 à 10</label>
+	    <label for="noteMoyenne">Note Moyenne de 0 à 10 </label>
 	    <input type="number"
 		   id="noteMoyenne"
 		   class="form-control"
@@ -32,15 +34,34 @@
 	</div>
 	
 	<div class="form-group">
-	    <label for="contenu">Description</label>
+	    <label for="contenu">Contenu </label>
 	    <input type="text"
                    id="contenu"
 		   class="form-control"
 		   formControlName="contenu"
                    placeholder="Entrer le texte ...">
 	</div>
+
+	<div class="form-group">
+	    <label for="auteurId">AuteurId </label>
+	    <input type="text"
+                   id="auteurId"
+		   class="form-control"
+		   formControlName="auteurId"
+                   placeholder="someAuteurId">
+	</div>
+
+	<div class="form-group">
+	    <label for="shasum">Shasum </label>
+	    <input type="text"
+                   id="shasum"
+		   class="form-control"
+		   formControlName="shasum"
+                   placeholder="Entrer la shasum">
+	</div>
+
 	<button class="btn btn-primary" (click)="onSubmit()"
-		[disabled]="texteForm.invalid">Submit</button>
+		       [disabled]="texteForm.invalid">Submit</button>
 	<p class="alert-danger"
 	   *ngIf="errorMessage">{{ errorMessage }}</p>
     </form>

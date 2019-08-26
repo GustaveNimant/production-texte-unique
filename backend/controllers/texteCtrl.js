@@ -31,20 +31,23 @@ exports.createTexteCtrl = (req, res, next) => {
 };
 
 exports.createTexteWithImageCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.createTexteCtrl avec req.body ', req.body);
+    console.log('Entrée dans texteCtrl.js.createTexteWithImageCtrl avec req.body ', req.body);
 
     req.body.texte = JSON.parse(req.body.texte); /* string => JSON */
     const url = req.protocol + '://' + req.get('host');
+
+    console.log('Dans texteCtrl.js.createTexteWithImageCtrl url', url);
+    const imageUrl = url + '/images/' + req.file.filename; /* provided by multer */
+    console.log('Dans texteCtrl.js.createTexteWithImageCtrl imageUrl', imageUrl);
     
     const texte = new texteModel({
 	titre: req.body.texte.titre,
 	contenu: req.body.texte.contenu,
-	imageUrl: url + '/images/' + req.file.filename, /* provided by multer */
 	shasum: req.body.texte.shasum,
 	noteMoyenne: req.body.texte.noteMoyenne,
 	noteEcartType: req.body.texte.noteEcartType,
 	auteurId: req.body.texte.auteurId,
-	imageUrl: req.body.texte.imageUrl
+	imageUrl: url + '/images/' + req.file.filename /* provided by multer */
     });
     
     texte.save()

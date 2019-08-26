@@ -8,7 +8,7 @@ const texteCtrl = require('../controllers/texteCtrl');
 
 // auth as 2nd argument 
 router.get('/', texteCtrl.getAllTexteCtrl);
-router.post('/', texteCtrl.createTexteCtrl);
+// Improve router.post('/', texteCtrl.createTexteCtrl);
 router.post('/', multer, texteCtrl.createTexteWithImageCtrl); /* post route modified */ 
 router.get('/:id', texteCtrl.getOneTexteCtrl);
 router.put('/:id', multer, texteCtrl.modifyTexteCtrl);        /* put  route modified */

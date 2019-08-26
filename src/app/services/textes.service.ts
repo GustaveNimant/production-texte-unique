@@ -111,7 +111,7 @@ export class TextesService {
 
     modifyTexteWithFile(id: string, texte: Un_texte, image: File | string) {
 	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte,' et image',image);
-
+	console.log('Dans modifyTexteWithFile typeof image',(typeof image));
 	return new Promise((resolve, reject) => {
 	    let texteData: Un_texte | FormData;
 	    if (typeof image === 'string') {
