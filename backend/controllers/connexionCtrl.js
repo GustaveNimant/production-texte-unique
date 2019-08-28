@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 exports.signup = (req, res, next) => {
 
-    bcrypt.hash(req.body.password, 8)
+    bcrypt.hash(req.body.password, 10)
 	.then(
 	    (a_password_hash) => {
 		console.log('Dans connexionCtrl.js.signup a_password_hash', a_password_hash);
@@ -16,12 +16,22 @@ exports.signup = (req, res, next) => {
 		    email: req.body.email,
 		    password: a_password_hash
 		});
+
+		bcrypt.compare(req.body.password, a_password_hash).then (
+		    (res) => {
+			console.log('Dans connexionCtrl.js.signup bcrypt.compare est', res);
+		    }).catch (
+			(error) => {
+			    console.log('Dans connexionCtrl.js.signup bcrypt.compare Erreur', error);
+			}
+		    );
+		
 		console.log('Dans connexionCtrl.js.signup connexion', connexion);
 		connexion.save() /* dans BD */
 		    .then(
 			() => {
 			    res.status(201).json({
-				message: 'Connexion added successfully!'
+				message: 'Connexion ajoutée avec succès!'
 			    });
 			})
 		    .catch(
@@ -33,7 +43,14 @@ exports.signup = (req, res, next) => {
 			    });
 			});
 	    }
-	);
+	)
+	.catch(
+	    (error) => {
+		console.log('Dans connexionCtrl.js.signup Erreur', error);
+		res.status(550).json({
+		    error: error
+		});
+	    });
 };
 
 exports.login = (req, res, next) => {
@@ -46,7 +63,46 @@ exports.login = (req, res, next) => {
 
 		if (!une_connexion) {
 		    return res.status(401).json({
-			error: new Error('connexionCtrl.js.login : Connexion not found!')
+			error: new Error('Dans connexionCtrl.js.login Erreur : Connexion inconnue!')
+		    });
+		}
+		console.log('Dans connexionCtrl.js.login req.body.password', req.body.password);
+		console.log('Dans connexionCtrl.js.login une_connexion.password', une_connexion.password);
+		bcrypt.compare(req.body.password, une_connexion.password)
+		    .then(
+			(valid) => {
+			    console.log('Dans connexionCtrl.js.login bcrypt.compare est', valid);
+			} 
+		    ).catch(
+			(error) => {
+			    console.log('Dans connexionCtrl.js.login Erreur req.body.password et a_password_hash diffèrent');
+			    res.status(500).json({
+				error: error
+			    });
+			}
+		    );
+	    }
+	).catch(
+	    (error) => {
+		console.log('Dans connexionCtrl.js.login email inconnu',req.body.email);
+		res.status(500).json({
+		    error: error
+		});
+	    }
+	);
+};
+
+exports.loginComplet = (req, res, next) => {
+    console.log('Entrée dans connexionCtrl.js.login avec req.body',req.body);
+    console.log('Dans connexionCtrl.js.login req.body.email', req.body.email);
+    connexionModel.findOne({ email: req.body.email }).
+	then( /* mongoose method */
+	    (une_connexion) => {
+		console.log('Dans connexionCtrl.js.login une_connexion', une_connexion);
+
+		if (!une_connexion) {
+		    return res.status(401).json({
+			error: new Error('Dans connexionCtrl.js.login Erreur : Connexion inconnue!')
 		    });
 		}
 		console.log('Dans connexionCtrl.js.login req.body.password', req.body.password);
@@ -56,16 +112,14 @@ exports.login = (req, res, next) => {
 			(valid) => {
 			    if (!valid) {
 				return res.status(401).json({
-				    error: new Error('connexionCtrl.js.login : Incorrect password!')
+				    error: new Error('connexionCtrl.js.login : password incorrect!')
 				});
 			    }
-			    console.log('Dans connexionCtrl.js.login req.body.password', req.body.password);
-			    console.log('Dans connexionCtrl.js.login une_connexion.password', une_connexion.password);
-			    
 			    const token = jwt.sign( /* JWT encode new token */
 				{ connexionId: connexion._id },
 				'RANDOM_TOKEN_SECRET',
-				{ expiresIn: '24h' });
+				{ expiresIn: '7d' });
+			   
 			    console.log('Dans connexionCtrl.js.login nouveau token', token);
 			    res.status(200).json({
 				connexionId: connexion._id,
@@ -74,8 +128,6 @@ exports.login = (req, res, next) => {
 			} 
 		    ).catch(
 			(error) => {
-			    console.log('Dans connexionCtrl.js.login req.body.password', req.body.password);
-			    console.log('Dans connexionCtrl.js.login une_connexion.password', une_connexion.password);
 			    console.log('Dans connexionCtrl.js.login Erreur req.body.password et a_password_hash diffèrent');
 			    res.status(500).json({
 				error: error
