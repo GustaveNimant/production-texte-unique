@@ -7,9 +7,6 @@ import { ConnexionsService } from '../../services/connexions.service';
 import { Un_texte } from '../../models/Un_texte.model';
 import { mimeType } from '../mime-type.validator';
 
-import { createHash } from "bcrypt";
-
-
 @Component({
     selector: 'app-new-texte-with-image',
     templateUrl: './new-texte-with-image.component.html',
@@ -66,21 +63,6 @@ export class NewTexteWithImageComponent implements OnInit {
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.auteurId = this.texteForm.get('auteurId').value; /* null */
 
-	const o = {
-	    titre:texte.titre,
-	    contenu:texte.contenu,
-	    auteurId:texte.auteurId
-	};
-	console.log('o',o);
-
-//	createHash.hash (o, 10).then (
-//	    (hash) => {
-//	    	console.log('Dans onSubmit hash', hash);
-//	    });
-
-	    //	texte.shasum = shasum (o);
-	//	console.log('texte.shasum',texte.shasum);
-	
 	texte.shasum = this.texteForm.get('shasum').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;

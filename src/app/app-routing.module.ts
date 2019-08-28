@@ -33,6 +33,7 @@ import { NewConnexionComponent }          from './part-five/new-connexion/new-co
 import { ConnexionsListComponent }        from './part-five/connexions-list/connexions-list.component';
 import { SingleConnexionComponent }       from './part-five/single-connexion/single-connexion.component';
 
+import { LoginComponent } from './login/login.component';
 
 import { ConnexionGuard }                 from './services/connexion-guard.service';
 
@@ -88,6 +89,7 @@ const routes: Routes = [
       children: [
 	  { path: 'new-connexion', component: NewConnexionComponent},
 	  { path: 'les-connexions', component: ConnexionsListComponent },
+	  { path: 'login', component: LoginComponent },
 	  { path: 'une_connexion/:id', component: SingleConnexionComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'les-connexions' }, 
 	  { path: '**', redirectTo: 'les-connexions' }

@@ -33,17 +33,17 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans ngOnInit');
 
 	this.modeSub = this.stateService.mode$.subscribe(
-	    (mode) => {
-		console.log('Dans ngOnInit mode est >', mode,'<');
-		this.mode = mode;
+	    (a_mode) => {
+		console.log('Dans ngOnInit mode >', a_mode,'<');
+		this.mode = a_mode;
 	    }
 	);
 
 	this.partSub = this.stateService.part$.subscribe(
-	    (part) => {
-		console.log('ngOnInit part is', part);
-		this.part = part;
-		switch (part) {
+	    (num) => {
+		console.log('ngOnInit num is', num);
+		this.part = num;
+		switch (num) {
 		    case 1:
 			this.partString = 'part-one';
 			break;

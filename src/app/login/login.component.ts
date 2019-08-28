@@ -1,18 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService }                 from '../../services/state.service';
+import { StateService }                 from '../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Une_connexion }                from '../../models/Une_connexion.model';
+import { Une_connexion }                from '../models/Une_connexion.model';
 import { Router }                       from '@angular/router';
 import { Subscription }                 from 'rxjs';
-import { ConnexionsService }            from '../../services/connexions.service';
+import { ConnexionsService }            from '../services/connexions.service';
 
 @Component({
-    selector: 'app-new-connexion',
-    templateUrl: './new-connexion.component.html',
-    styleUrls: ['./new-connexion.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss']
 })
 
-export class NewConnexionComponent implements OnInit, OnDestroy {
+export class LoginComponent implements OnInit, OnDestroy {
 
     public connexionForm: FormGroup;
     public loading = false;
@@ -56,7 +56,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 
 	console.log('Dans onSubmit connexion', connexion);
 	
-	this.connexionsService.createNewConnexion(connexion)
+	this.connexionsService.login(connexion.email, connexion.password)
 	    .then(
 		() => {
 		    this.connexionForm.reset();

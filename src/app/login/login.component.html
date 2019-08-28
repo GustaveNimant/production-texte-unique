@@ -1,5 +1,7 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
+<div *ngIf="debug">Debug:Dans connexions-liste.component.html:loading = {{loading}}</div>
+
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="connexionForm">
 	<div class="form-group">
@@ -22,6 +24,7 @@
 		(click)="onSubmit()"
 		[disabled]="connexionForm.invalid">Submit</button>
 	<p class="alert-danger"
-	   *ngIf="errorMessage">Dans new-connexion.component.html.<br>Erreur lors de la création de la connexion:<br> {{ errorMessage }}</p>
+	   *ngIf="errorMessage">Dans login.component.html.<br>Erreur lors du Login<br> {{ errorMessage }}</p>
     </form>
 </div>
+

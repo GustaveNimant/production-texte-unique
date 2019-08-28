@@ -1,6 +1,7 @@
-import { HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpHandler, HttpEvent, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ConnexionsService } from '../services/connexions.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 
@@ -10,13 +11,13 @@ export class ConnexionInterceptor implements HttpInterceptor {
 	console.log('Entrée dans constructor');
     }
 
-    intercept(req: HttpRequest<any>, next: HttpHandler) {
-	console.log('Entrée dans intercept with req ', req);
+    intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>> {
+	console.log('Entrée dans intercept with req.headers', req.headers);
 
-	const authToken = this.auth.token;
-	console.log('Dans intercept authToken est >', authToken,'<');
+	const authToken = this.auth.token; /* Improve */
+	console.log('Dans intercept authToken >',authToken,'<');
 
-	const newRequest = req.clone({
+	const newRequest = req.clone({ /* req est inchangé. */
 	    headers: req.headers.set('Authorization', 'Bearer ' + authToken)
 	});
 	

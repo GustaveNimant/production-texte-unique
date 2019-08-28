@@ -22,8 +22,8 @@ app.use((req, res, next) => { /* no route : applies to all incoming requests */
 app.use(bodyParser.json());              /* reception de la requête sous forme d'Objet JSON */
 
 app.use('/api/all-connexions', connexionRoutes);
-app.use('/api/all-textes', texteRoutes); 
 app.use('/api/all-participants', participantRoutes); 
+app.use('/api/all-textes', texteRoutes); 
 
 mongoose.connect(db_config.DB_URI, {
     useCreateIndex: true,

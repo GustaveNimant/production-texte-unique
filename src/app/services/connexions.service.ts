@@ -12,11 +12,11 @@ import { Une_connexion } from '../models/Une_connexion.model';
 export class ConnexionsService {
 
     isAuth$ = new BehaviorSubject<boolean>(false);
-    token: string;
+    token: string; /* utilisé dans intercept */
     connexionId: string;
 
     uri_all = 'http://localhost:3000/api/all-connexions/';
-    
+
     constructor(private router: Router,
 		private http: HttpClient) {
 	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
@@ -32,32 +32,43 @@ export class ConnexionsService {
     ];
 
     public connexions$ = new Subject<Une_connexion[]>();
-    
+
     createNewConnexion(connexion: Une_connexion) { /* signup */
 	console.log('Entrée dans createNewConnexion avec connexion ', connexion);
 
-	const uri_signup = 'http://localhost:3000/api/all-connexions/';
+	const uri_signup = this.uri_all + 'signup';
 
 	return new Promise((resolve, reject) => {
-	    this.http.post(uri_signup, connexion).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    console.log('Dans createNewConnexion Erreur, error')
-		    reject(error);
-		},
-	    	() => {
-		    console.log('Sortie de createNewConnexion');
-		}
-	    );
+	    this.http.post(uri_signup, connexion) /* utilise connexionCtrl.js.signup */
+		.subscribe(
+		    (res) => {
+			resolve(res)
+		    },
+// Improve			this.login (connexion.email, connexion.password)
+//			    .then(
+//				(res) => {
+//				    resolve(res);
+//				},
+//			    ).catch (
+//				(error) => {
+//				    console.log('Dans createNewConnexion Erreur', error)
+//				    reject(error);
+//				}
+//			    );
+//		    },
+		    (error) => {
+			console.log('Dans createNewConnexion Erreur, error')
+			reject(error);
+		    }
+		);
 	});
+	console.log('Sortie de createNewConnexion');
     }
-    
-    createNewConnexionWithLogin(connexion: Une_connexion) { /* signup */
-	console.log('Entrée dans createNewConnexion avec connexion ', connexion);
 
-	const uri_signup = 'http://localhost:3000/api/all-connexions/';
+    createNewConnexionWithLogin(connexion: Une_connexion) { /* signup */
+	console.log('Entrée dans createNewConnexionWithLogin avec connexion ', connexion);
+	
+	const uri_signup = this.uri_all + 'signup';
 
 	return new Promise((resolve, reject) => {
 	    this.http.post(uri_signup, connexion).subscribe(
@@ -74,17 +85,18 @@ export class ConnexionsService {
 			);
 		},
 		(error) => {
-		    console.log('Dans createNewConnexion.subscribe Erreur est', error, ' pour uri_signup', uri_signup);
+		    console.log('Dans createNewConnexionWithLogin.subscribe Erreur', error, ' pour uri_signup', uri_signup);
 		    reject(error);
 		}
 	    );
 	});
     }
-    
-    login(email: string, password: string) {
-	console.log('Entrée dans login email est >', email, '< et password est >',password, '<');
-	const uri_login = 'http://localhost:3000/api/all-connexions/';
 
+    login(email: string, password: string) {
+	console.log('Entrée dans login email >', email, '< et password >',password, '<');
+
+	const uri_login = this.uri_all + 'login';
+	
 	return new Promise((resolve, reject) => {
 	    this.http.post(
 		uri_login,
@@ -97,17 +109,17 @@ export class ConnexionsService {
 			 this.token = authData.token;
 			 this.connexionId = authData.connexionId;
 			 this.isAuth$.next(true);
-			 console.log('Dans login.subscribe token est >', this.token,'<');
+			 console.log('Dans login.subscribe token >', this.token,'<');
 			 resolve();
 		     },
 		    (error) => {
-			console.log('Dans login.subscribe Erreur est', error, ' pour uri_login', uri_login);
+			console.log('Dans login.subscribe Erreur', error, ' pour uri_login', uri_login);
 			reject(error);
 		    }
 		);
 	});
     }
-    
+
     logout() {
 	console.log('Entering in logout');
 	this.isAuth$.next(false);

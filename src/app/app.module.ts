@@ -38,6 +38,7 @@ import { PartFiveComponent } from './part-five/part-five.component';
 import { SingleConnexionComponent } from './part-five/single-connexion/single-connexion.component';
 import { NewConnexionComponent }    from './part-five/new-connexion/new-connexion.component';
 import { ConnexionsListComponent }  from './part-five/connexions-list/connexions-list.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
     declarations: [
@@ -63,6 +64,7 @@ import { ConnexionsListComponent }  from './part-five/connexions-list/connexions
 	SingleParticipantComponent,
 	SingleTexteComponent,
 	TextesListComponent,
+	LoginComponent,
     ],
     imports: [
 	BrowserModule,
@@ -73,7 +75,13 @@ import { ConnexionsListComponent }  from './part-five/connexions-list/connexions
 	MatProgressSpinnerModule,
 	HttpClientModule
     ],
-    providers: [{provide: HTTP_INTERCEPTORS, useClass: ConnexionInterceptor, multi: true}],
+    providers: [
+	{
+	    provide: HTTP_INTERCEPTORS,
+	    useClass: ConnexionInterceptor,
+	    multi: true
+	}
+    ],
     bootstrap: [AppComponent]
 })
 

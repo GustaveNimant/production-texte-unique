@@ -2,10 +2,10 @@ const express = require('express');
 const connexionRoutes = express.Router();
 
 const connexionCtrl = require('../controllers/connexionCtrl');
-// FCC const auth = require('../middleware/auth');
+//const auth = require('../middleware/auth');
 
-//connexionRoutes.post('/signup', connexionCtrl.signup);
-//connexionRoutes.post('/login', connexionCtrl.login); /* post => empty output */
+connexionRoutes.post('/signup', connexionCtrl.signup);
+connexionRoutes.post('/login', connexionCtrl.login); 
 connexionRoutes.get('/',   connexionCtrl.getAllConnexionCtrl);
 connexionRoutes.post('/',  connexionCtrl.createConnexionCtrl);
 connexionRoutes.get('/:id',   connexionCtrl.getOneConnexionCtrl);
