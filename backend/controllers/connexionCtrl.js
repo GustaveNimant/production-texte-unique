@@ -72,63 +72,27 @@ exports.login = (req, res, next) => {
 		    .then(
 			(valid) => {
 			    console.log('Dans connexionCtrl.js.login bcrypt.compare est', valid);
-			} 
-		    ).catch(
-			(error) => {
-			    console.log('Dans connexionCtrl.js.login Erreur req.body.password et a_password_hash diffèrent');
-			    res.status(500).json({
-				error: error
-			    });
-			}
-		    );
-	    }
-	).catch(
-	    (error) => {
-		console.log('Dans connexionCtrl.js.login email inconnu',req.body.email);
-		res.status(500).json({
-		    error: error
-		});
-	    }
-	);
-};
-
-exports.loginComplet = (req, res, next) => {
-    console.log('Entrée dans connexionCtrl.js.login avec req.body',req.body);
-    console.log('Dans connexionCtrl.js.login req.body.email', req.body.email);
-    connexionModel.findOne({ email: req.body.email }).
-	then( /* mongoose method */
-	    (une_connexion) => {
-		console.log('Dans connexionCtrl.js.login une_connexion', une_connexion);
-
-		if (!une_connexion) {
-		    return res.status(401).json({
-			error: new Error('Dans connexionCtrl.js.login Erreur : Connexion inconnue!')
-		    });
-		}
-		console.log('Dans connexionCtrl.js.login req.body.password', req.body.password);
-		console.log('Dans connexionCtrl.js.login une_connexion.password', une_connexion.password);
-		bcrypt.compare(req.body.password, une_connexion.password)
-		    .then(
-			(valid) => {
+			    
 			    if (!valid) {
 				return res.status(401).json({
-				    error: new Error('connexionCtrl.js.login : password incorrect!')
+				    error: new Error('connexionCtrl.js.login : le password est incorrect!')
 				});
 			    }
+
 			    const token = jwt.sign( /* JWT encode new token */
-				{ connexionId: connexion._id },
+				{ connexionId: une_connexion._id },
 				'RANDOM_TOKEN_SECRET',
 				{ expiresIn: '7d' });
-			   
+			    
 			    console.log('Dans connexionCtrl.js.login nouveau token', token);
 			    res.status(200).json({
-				connexionId: connexion._id,
+				connexionId: une_connexion._id,
 				token: token
-			    });
-			} 
+			    });   
+			}
 		    ).catch(
 			(error) => {
-			    console.log('Dans connexionCtrl.js.login Erreur req.body.password et a_password_hash diffèrent');
+			    console.log('Dans connexionCtrl.js.login Erreur', error);
 			    res.status(500).json({
 				error: error
 			    });
