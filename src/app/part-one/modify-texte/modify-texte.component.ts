@@ -20,7 +20,8 @@ export class ModifyTexteComponent implements OnInit {
     part: number;
 
     private partSub: Subscription;
-
+    private texteVersion: number;
+    
     constructor(private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
@@ -49,9 +50,9 @@ export class ModifyTexteComponent implements OnInit {
 	this.route.params.subscribe(
 	    (params) => {
 		this.textesService.getTexteById(params.id).then(
-		    (texte: Un_texte) => {
-			console.log('Dans ngOnInit texte',texte);
-			this.texte = texte;
+		    (tex: Un_texte) => {
+			console.log('Dans ngOnInit tex',tex);
+			this.texte = tex;
 			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
 			this.texteForm.get('shasum').setValue(this.texte.shasum);
@@ -66,9 +67,10 @@ export class ModifyTexteComponent implements OnInit {
 	);
     }
 
-    onSubmit() {
-	console.log('Entrée dans onSubmit');
+    onModifyTexte() {
+	console.log('Entrée dans onModifyTexte');
 	this.loading = true;
+
 	const texte = new Un_texte();
 
 	texte._id = new Date().getTime().toString();
@@ -81,18 +83,21 @@ export class ModifyTexteComponent implements OnInit {
 	texte.auteurId = this.texteForm.get('auteurId').value;
 	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
-	//	texte.__v = (this.texteForm.get('__v').value) +1;
+	texte.__v = (this.texte.__v +1);
+
+	console.log('Dans onModifyTexte texte', texte);
 	
 	this.textesService.modifyTexte(this.texte._id, texte).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
-			this.router.navigate(['/part-one/les-textes']);
+		this.router.navigate(['/part-one/les-textes']);
 	    },
 	    (error) => {
-		console.log('Dans onSubmit Erreur', error);
+		console.log('Dans onModifyTexte Erreur', error);
 		this.loading = false;
 		this.errorMessage = error.message;
+		
 	    }
 	);
     }

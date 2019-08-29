@@ -41,6 +41,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {
 		this.part = part;
+		console.log('Dans ngOnInit part', part);
 	    }
 	);
 	this.partString = this.state.partStringOfNumber(this.part);

@@ -10,7 +10,7 @@
   transition: transform 0.3s ease-in-out;
   position: relative;
   width: 270px;
-  height: 270px;
+  height: 350px;
   margin: 5px;
   background-size: cover;
   background-position: center;
@@ -22,19 +22,19 @@
 }
 
 .texte-info {
-  width: 85%;
+  width: 90%;
   position: absolute;
   bottom: 10;
-  height: 80%;
+  height: 95%;
   background-color: rgba(200, 200, 0, 0.4);
   color: black;
   padding: 10px;
   p {
-      font-weight: 500;
+      font-weight: 300;
       color: #0000ff;	
   }   
   h3 {
-    font-weight: 800;
+    font-weight: 400;
   }
   h5 {
     color: #6eb5ff;

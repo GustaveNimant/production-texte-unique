@@ -11,7 +11,7 @@
 	 *ngFor="let un_texte of textes"
 	 [ngClass]="{'open': un_texte._id === chosenId}"
 	 [ngStyle]="{'background-image': 'url(' + un_texte.shasum + ')'}"
-	 (click)="onTexteClicked(un_texte._id, un_texte.__v)">
+	 (click)="onTexteClicked(un_texte._id)">
 	<div class="texte-info">
 	    <h3>
 		{{ un_texte.titre }}

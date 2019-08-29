@@ -14,13 +14,14 @@ export class PartFiveComponent implements OnInit, OnDestroy {
 		private auth: ConnexionsService) { }
     
     ngOnInit() {
+	console.log('Entrée dans ngOnInit');
 	this.auth.isAuth$.next(false);
 	this.auth.connexionId = '';
 	this.auth.token = '';
 
 	this.state.part$.next(5);
 	this.state.part = 5;
-	console.log('Dans ngOnInit part est', this.state.part);
+	console.log('Dans ngOnInit part', this.state.part);
     }
     
     ngOnDestroy() {

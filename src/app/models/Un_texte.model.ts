@@ -7,5 +7,5 @@ export class Un_texte {
     noteEcartType: number;
     auteurId: string;
     imageUrl: string;
-    _v : number;
+    __v : number;
 }

@@ -15,6 +15,9 @@
     Les Connexions
 </h2>
 
+<div *ngIf="debug">Debug:Dans header.component.html part = {{part}}</div>
+<div *ngIf="debug">Debug:Dans header.component.html isAuth = {{isAuth}}</div>
+
 <header>
     <ul class="header-navigation">
 	<li class="header-navigation-item"
@@ -73,6 +76,7 @@
 </header>
 
 <div *ngIf="debug">Debug:Dans header.component.html part = {{part}}</div>
+
 <div class="texte-image"
      *ngIf="(mode === 'list' && part == 1)">
     <h2 class="image-legende">
