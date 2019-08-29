@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	this.modeSub = this.stateService.mode$.subscribe(
 	    (a_mode) => {
-		console.log('Dans ngOnInit mode >', a_mode,'<');
+		console.log('Dans ngOnInit a_mode >',a_mode,'<');
 		this.mode = a_mode;
 	    }
 	);
@@ -66,8 +66,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	);
 	
 	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
-	    (connexionsService) => {
-		this.isAuth = connexionsService;
+	    (boo) => {
+		this.isAuth = boo;
 	    }
 	);
     }
@@ -75,7 +75,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     onLogout() {
 	console.log('Entrée dans onLogout avec partString', this.partString);
 	this.connexionsService.logout();
-	this.router.navigate(['/' + this.partString +'/all-connexions/login']);
+	this.router.navigate(['/default']);
     }
     
     onBackToMainMenu() {

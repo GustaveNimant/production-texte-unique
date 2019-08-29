@@ -7,8 +7,6 @@
 	    <p>email {{ connexion.email }}<p>
 		<p>pseudo {{ connexion.pseudo }}</p>
 		<p>id {{ connexion._id }}</p>
-		<button class="btn btn-success m-1" (click)="onModify()"
-			[disabled]="part != 5 && connexionId !== connexion?.connexionId">Modifier</button>
 		<button class="btn btn-danger m-1" (click)="onDelete()"
 			[disabled]="part != 5 && connexionId !== connexion?.connexionId">Supprimer</button>
 	</div>

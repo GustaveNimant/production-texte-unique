@@ -89,12 +89,12 @@ const routes: Routes = [
       children: [
 	  { path: 'new-connexion', component: NewConnexionComponent},
 	  { path: 'les-connexions', component: ConnexionsListComponent },
-	  { path: 'login', component: LoginComponent },
 	  { path: 'une_connexion/:id', component: SingleConnexionComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'les-connexions' }, 
 	  { path: '**', redirectTo: 'les-connexions' }
       ]
     },
+    { path: 'login', component: LoginComponent },
     { path: 'default', component: DefaultComponent },
     { path: '', pathMatch: 'full', component: DefaultComponent },
     { path: '**', redirectTo: '' }

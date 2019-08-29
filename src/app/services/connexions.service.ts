@@ -42,20 +42,18 @@ export class ConnexionsService {
 	    this.http.post(uri_signup, connexion) /* utilise connexionCtrl.js.signup */
 		.subscribe(
 		    (res) => {
-			resolve(res)
+			this.login (connexion.email, connexion.password)
+			    .then(
+				(res) => {
+				    resolve(res);
+				},
+			    ).catch (
+				(error) => {
+				    console.log('Dans createNewConnexion Erreur', error)
+				    reject(error);
+				}
+			    );
 		    },
-// Improve			this.login (connexion.email, connexion.password)
-//			    .then(
-//				(res) => {
-//				    resolve(res);
-//				},
-//			    ).catch (
-//				(error) => {
-//				    console.log('Dans createNewConnexion Erreur', error)
-//				    reject(error);
-//				}
-//			    );
-//		    },
 		    (error) => {
 			console.log('Dans createNewConnexion Erreur, error')
 			reject(error);
