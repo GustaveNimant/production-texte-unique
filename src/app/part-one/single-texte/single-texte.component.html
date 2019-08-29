@@ -7,15 +7,18 @@
 	<div class="single-texte-info">
 	    <h1>{{ texte?.titre }}</h1>
 	    <p>note : {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
-	    <p>Id : {{ texte?._id }}</p>
+	    <p>Id : {{ texte._id }} ( {{ texte.__v }} ) </p>
 	    <p>Shasum : {{texte?.shasum}} </p>
 	    <p>Contenu : {{ texte?.contenu }}</p>
+
 	    <button class="btn btn-success m-1"
 		    (click)="onModify()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier</button>
+
 	    <button class="btn btn-success m-1"
 		    (click)="onModifyWithImage()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier avec Image</button>
+
 	    <button class="btn btn-danger m-1"
 		    (click)="onDelete()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>

@@ -17,6 +17,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public partString: string;
     public isAuth: boolean;
     public debug: boolean;
+    public trace: boolean;
     
     private modeSub: Subscription;
     private partSub: Subscription;
@@ -70,6 +71,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	this.stateService.debugSwitch();
 	this.debug = this.stateService.debug;
 	console.log('Dans onDebugSwitch debug', this.debug);
+    }
+
+    onTraceSwitch() {
+	console.log('Entrée dans onTraceSwitch');
+	this.stateService.traceSwitch();
+	this.trace = this.stateService.trace;
+	console.log('Dans onTraceSwitch trace', this.trace);
     }
 
     ngOnDestroy() {

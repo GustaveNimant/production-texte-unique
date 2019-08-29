@@ -20,6 +20,15 @@ export class StateService {
 	console.log('Dans debugSwitch debug', this.debug);
     }
 
+    public trace$ = new BehaviorSubject<boolean>(true);
+    public trace = false;
+
+    traceSwitch() {
+	console.log('Entrée dans traceSwitch');
+	this.trace = !this.trace;
+	console.log('Dans traceSwitch trace', this.trace);
+    }
+
     partStringOfNumber(num : number) {
 	switch (num) {
 	    case 1:

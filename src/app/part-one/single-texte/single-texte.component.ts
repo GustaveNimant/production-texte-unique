@@ -18,6 +18,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public auteurId: string;
     public part: number;
     public debug: boolean;
+    public trace: boolean;
 
     fileIsUploading = false;
     fileUrl: string;
@@ -32,29 +33,28 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		private auth: ConnexionsService) { }
 
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	this.debug = this.stateService.debug;
+	if(this.trace) {console.log('Entrée dans ngOnInit');}
+	if(this.debug) {console.log('Dans ngOnInit avec debug', this.debug);}
 	
 	this.loading = true;
-
-	this.debug = this.stateService.debug;
-	console.log('Dans ngOnInit debug', this.debug);
 
 	this.stateService.mode$.next('single-texte');
 	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
 
 	this.route.params.subscribe(
 	    (params: Params) => {
+		if(this.debug) {console.log('Dans ngOnInit params', params);}
 		this.textesService.getTexteById(params.id)
 		    .then(
 			(tex: Un_texte) => {
 			    this.loading = false;
 			    this.texte = tex;
+			    if(this.debug) {console.log('Dans ngOnInit texte',this.texte);}
 			}
 		    );
 	    }
 	);
-
-	console.log('Dans ngOnInit texte',this.texte);
 	
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
@@ -62,7 +62,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		this.auteurId = this.auth.connexionId;
 	    }
 	);
-	console.log('Dans ngOnInit part',this.part);
+	if(this.debug) {console.log('Dans ngOnInit part',this.part);}
     }
 
     onGoBack() {
