@@ -34,40 +34,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	this.modeSub = this.stateService.mode$.subscribe(
 	    (a_mode) => {
-		console.log('Dans ngOnInit a_mode >',a_mode,'<');
 		this.mode = a_mode;
+		console.log('Dans ngOnInit mode',this.mode);
 	    }
 	);
 
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
-		console.log('ngOnInit num is', num);
-		this.part = num;
-		switch (num) {
-		    case 1:
-			this.partString = 'part-one';
-			break;
-		    case 2:
-			this.partString = 'part-two';
-			break;
-		    case 3:
-			this.partString = 'part-three';
-			break;
-		    case 4:
-			this.partString = 'part-four';
-			break;
-		    case 5:
-			this.partString = 'part-five';
-			break;
-		    default:
-			break;
-		}
+		this.partString = this.stateService.partStringOfNumber(num);
+		console.log('Dans ngOnInit partString', this.partString);
 	    }
 	);
 	
 	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
+		console.log('Dans ngOnInit isAuth', this.isAuth);
 	    }
 	);
     }

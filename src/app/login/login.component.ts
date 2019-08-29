@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     public connexionForm: FormGroup;
     public loading = false;
     public part: number;
+    public partString: string;
     public connexionId: string;
     public errorMessage: string;
 
@@ -42,6 +43,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.part = part;
 	    }
 	);
+	this.partString = this.state.partStringOfNumber(this.part);
     }
 
     onSubmit() {
@@ -59,10 +61,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 	this.connexionsService.login(connexion.email, connexion.password)
 	    .then(
 		() => {
+		    console.log('Dans onSubmit part', this.part);
 		    this.connexionForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-five/les-connexions']);
-		    }
+		    this.router.navigate(['/', this.partString]);
+		}
 	    )
 	    .catch(
 		(error) => {

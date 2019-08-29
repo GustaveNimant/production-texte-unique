@@ -50,6 +50,7 @@ export class ModifyTexteComponent implements OnInit {
 	    (params) => {
 		this.textesService.getTexteById(params.id).then(
 		    (texte: Un_texte) => {
+			console.log('Dans ngOnInit texte',texte);
 			this.texte = texte;
 			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
@@ -71,6 +72,7 @@ export class ModifyTexteComponent implements OnInit {
 	const texte = new Un_texte();
 
 	texte._id = new Date().getTime().toString();
+
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
@@ -79,6 +81,8 @@ export class ModifyTexteComponent implements OnInit {
 	texte.auteurId = this.texteForm.get('auteurId').value;
 	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
+	//	texte.__v = (this.texteForm.get('__v').value) +1;
+	
 	this.textesService.modifyTexte(this.texte._id, texte).then(
 	    () => {
 		this.texteForm.reset();

@@ -11,7 +11,7 @@
 	 *ngFor="let un_texte of textes"
 	 [ngClass]="{'open': un_texte._id === chosenId}"
 	 [ngStyle]="{'background-image': 'url(' + un_texte.shasum + ')'}"
-	 (click)="onTexteClicked(un_texte._id)">
+	 (click)="onTexteClicked(un_texte._id, un_texte.__v)">
 	<div class="texte-info">
 	    <h3>
 		{{ un_texte.titre }}
@@ -23,7 +23,7 @@
 		    <li>Note moyenne : {{ un_texte.noteMoyenne }} ( {{ un_texte.noteEcartType }} )</li>
 		    <li>Shasum : {{ un_texte.shasum }}</li>
 		    <li>imageUrl : {{ un_texte.imageUrl }}</li>
-		    <li>Id : {{ un_texte._id }}</li>
+		    <li>Id : {{ un_texte._id }} ( {{ un_texte.__v }} ) </li>
 		</ul>
 	    </h5>
 	    Texte :

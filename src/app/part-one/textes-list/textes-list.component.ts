@@ -44,7 +44,8 @@ export class TextesListComponent implements OnInit, OnDestroy {
 	this.textesService.getTextes();
     }
 
-    onTexteClicked(id: string) {
+    onTexteClicked(id: string, version: number) {
+	console.log('Entrée dans onTexteClicked avec id', id, 'et version', version);
 	this.router.navigate(['/part-one/un_texte/' + id]);
     }
 
