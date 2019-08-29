@@ -26,18 +26,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
+		private auth: ConnexionsService,
 		private connexionsService: ConnexionsService){
 	console.log('Entrée dans constructor');
     }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
-	
+
+	this.auth.isAuth$.next(true);
+
 	this.state.mode$.next('form');
+
 	this.connexionForm = this.formBuilder.group({
 	    email: [null, Validators.required],
 	    password: [null, Validators.required],
 	});
+	
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {
 		this.part = part;

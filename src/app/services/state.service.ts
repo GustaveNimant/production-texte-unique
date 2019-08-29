@@ -47,6 +47,7 @@ export class StateService {
 		return 'part-five';
 		break;
 	    default:
+		this.part = 5
 		return 'part-five';
 		break;
 	}

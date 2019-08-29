@@ -39,9 +39,9 @@
 	       routerLinkActive="active">Entrer un nouveau participant</a>
 	</li>
 	<li class="header-navigation-item"
-	    *ngIf="(part == 5 && !isAuth)">
+	    *ngIf="(!isAuth)">
 	    <a class="header-link"
-	       routerLink="/{{ partString }}/new-connexion"
+	       routerLink="/part-five/new-connexion"
 	       routerLinkActive="active">Entrer une nouvelle connexion</a>
 	</li>
 	<li class="header-navigation-item">

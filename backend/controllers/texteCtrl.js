@@ -111,10 +111,13 @@ exports.modifyTexteCtrl = (req, res, next) => {
 	noteMoyenne: req.body.noteMoyenne,
 	noteEcartType: req.body.noteEcartType,
 	auteurId: req.body.auteurId,
-	imageUrl: req.body.imageUrl
+	imageUrl: req.body.imageUrl,
+	__v: req.body.__v
     });
 
-    texteModel.updateOne({_id: req.params.id}, texte)
+    console.log('Dans texteCtrl.js.modifyTexteCtrl texte ', texte);
+    
+    texteModel.updateOne({_id: req.params.id}, texte)  /* version updated ??? */
 	.then(
 	    () => {
 		res.status(201).json({

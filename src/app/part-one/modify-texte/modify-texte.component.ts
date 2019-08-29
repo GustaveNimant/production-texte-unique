@@ -73,8 +73,6 @@ export class ModifyTexteComponent implements OnInit {
 
 	const texte = new Un_texte();
 
-	texte._id = new Date().getTime().toString();
-
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
@@ -83,6 +81,7 @@ export class ModifyTexteComponent implements OnInit {
 	texte.auteurId = this.texteForm.get('auteurId').value;
 	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
+	texte._id = this.texte._id;
 	texte.__v = (this.texte.__v +1);
 
 	console.log('Dans onModifyTexte texte', texte);
