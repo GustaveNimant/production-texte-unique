@@ -34,8 +34,8 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 	
 	this.state.mode$.next('form');
 	this.connexionForm = this.formBuilder.group({
-	    email: [null, Validators.required],
-	    password: [null, Validators.required],
+	    email: [null, Validators.required, Validators.email],
+	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {

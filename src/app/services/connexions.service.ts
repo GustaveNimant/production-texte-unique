@@ -59,8 +59,8 @@ export class ConnexionsService {
 			reject(error);
 		    }
 		);
+	    console.log('Sortie de createNewConnexion');
 	});
-	console.log('Sortie de createNewConnexion');
     }
 
     createNewConnexionWithLogin(connexion: Une_connexion) { /* signup */

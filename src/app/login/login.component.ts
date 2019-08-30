@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService }                 from '../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Une_connexion }                from '../models/Une_connexion.model';
-//import { Outils }                from '../models/outils';
+//import { partStringOfNumber }                from '../models/outils';
 import { Router }                       from '@angular/router';
 import { Subscription }                 from 'rxjs';
 import { ConnexionsService }            from '../services/connexions.service';
@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	this.state.mode$.next('form');
 
 	this.connexionForm = this.formBuilder.group({
-	    email: [null, Validators.required],
-	    password: [null, Validators.required],
+	    email: [null, [Validators.required, Validators.email]],
+	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
 	
 	this.partSub = this.state.part$.subscribe(
