@@ -7,11 +7,11 @@ const multer = require('../middleware/multer-config')
 const texteCtrl = require('../controllers/texteCtrl');
 
 // auth as 2nd argument 
-router.get('/', texteCtrl.getAllTexteCtrl);
+router.get('/', auth, texteCtrl.getAllTexteCtrl);
 // Improve router.post('/', texteCtrl.createTexteCtrl);
-router.post('/', multer, texteCtrl.createTexteWithImageCtrl); /* post route modified */ 
-router.get('/:id', texteCtrl.getOneTexteCtrl);
+router.post('/', auth, multer, texteCtrl.createTexteWithImageCtrl); /* post route modified */ 
+router.get('/:id', auth, texteCtrl.getOneTexteCtrl);
 router.put('/:id', auth, multer, texteCtrl.modifyTexteCtrl);  /* put  route modified */
-router.delete('/:id', texteCtrl.deleteTexteCtrl);
+router.delete('/:id', auth, texteCtrl.deleteTexteCtrl);
 
 module.exports = router;

@@ -27,9 +27,10 @@ export class TextesService {
 		}
 	    },
 	    (error) => {
-		console.log('Dans getTextes Erreur:', error);
+		console.log('Dans getTextes Erreur', error);
+		console.log('Dans getTextes error.status', error.status);
 	    },
-	    () => {console.log('Dans getTextes fini !')}
+	    () => {console.log('Dans getTextes terminé!')}
 	);
     }
 

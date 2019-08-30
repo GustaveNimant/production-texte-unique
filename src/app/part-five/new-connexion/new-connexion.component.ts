@@ -67,6 +67,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 	    .catch(
 		(error) => {
 		    console.log('Dans onSubmit Erreur', error);
+		    console.log('Dans onSubmit Erreur.status', error.status);
 		    this.loading = false;
 		    this.errorMessage = error.message;
 		}

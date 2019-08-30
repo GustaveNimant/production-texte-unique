@@ -58,6 +58,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
+		console.log('Dans ngOnInit num',num);
 		this.part = num;
 		this.auteurId = this.auth.connexionId;
 	    }

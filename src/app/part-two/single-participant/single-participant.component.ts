@@ -46,9 +46,10 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	    }
 	);
 	this.partSub = this.state.part$.subscribe(
-	    (part) => {
-		this.part = part;
-		if (part == 2) {
+	    (num) => {
+		console.log('Dans ngOnInit num',num);
+		this.part = num;
+		if (num == 2) {
 		    this.participantId = this.auth.connexionId;
 		}
 	    }
@@ -70,18 +71,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
     }
 
     onModify() {
-	switch (this.part) {
-	    case 1:
-	    case 2:
-		this.router.navigate(['/part-one/modify-participant/' + this.participant._id]);
-		break;
-	    case 3:
-		this.router.navigate(['/part-three/modify-participant/' + this.participant._id]);
-		break;
-	    case 4:
-		this.router.navigate(['/part-four/modify-participant/' + this.participant._id]);
-		break;
-	}
+	this.router.navigate(['/part-two/modify-participant/' + this.participant._id]);
     }
 
     onDelete() {

@@ -50,8 +50,9 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 	    }
 	);
 	this.partSub = this.state.part$.subscribe(
-	    (part) => {
-		this.part = part;
+	    (num) => {
+		console.log('Dans ngOnInit num',num);
+		this.part = num;
 		this.connexionId = this.auth.connexionId;
 	    }
 	);

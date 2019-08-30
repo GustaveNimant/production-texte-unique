@@ -56,6 +56,7 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.login avec req.body',req.body);}
     if (Debug.debug) {console.log('Dans connexionCtrl.js.login req.body.email', req.body.email);}
+
     connexionModel.findOne({ email: req.body.email }).
 	then( /* mongoose method */
 	    (une_connexion) => {

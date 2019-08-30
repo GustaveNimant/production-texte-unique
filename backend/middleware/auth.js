@@ -1,13 +1,14 @@
 const jwt = require('jsonwebtoken');
 
-module.exports = (req, res, next) => { /* lambda function */
+module.exports = (req, res, next) => { 
     try {
 	console.log('Entrée dans auth.js avec req.body', req.body);
-
 	console.log('Dans auth.js req.headers', req.headers);
+
 	const authHeader = req.headers.authorization;
-	console.log('Dans auth.js authHeader', authHeader);
 	const token = authHeader.split(' ')[1];
+
+	console.log('Dans auth.js authHeader', authHeader);
 	console.log('Dans auth.js : JWT token >',token,'<');
 	
 	const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
@@ -19,7 +20,7 @@ module.exports = (req, res, next) => { /* lambda function */
 	
 	if (req.body.connexionId && req.body.connexionId !== connexionId) {
 	    throw 'Dans auth.js : connexionId invalide';
-	} else {/* everything is ok */
+	} else {
 	    console.log('Dans auth.js : aller à next()');
 	    next();
 	}

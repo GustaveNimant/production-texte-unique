@@ -6,6 +6,15 @@
    *ngIf="textes.length <= 0 && !loading">
     La base de données est vide !</p>
 
+<p class="alert-danger" *ngIf="!isAuth"><br>
+    Il faut <a class="header-link"
+	       routerLink="/login"
+	       routerLinkActive="active">
+    <button class="btn btn-success">se connecter</button>
+    </a>
+    pour afficher les textes
+</p>
+
 <div class="texte-grid" *ngIf="textes.length >= 0">
     <div class="texte-pane"
 	 *ngFor="let un_texte of textes"

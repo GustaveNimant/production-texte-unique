@@ -41,15 +41,20 @@ export class ModifyTexteComponent implements OnInit {
 	    auteurId: [null, Validators.required],
 	    imageUrl: [null, Validators.required]
 	});
+
 	this.partSub = this.state.part$.subscribe(
-	    (part) => {
-		this.part = part;
+	    (num) => {
+		console.log('Dans ngOnInit num',num);
+		this.part = num;
 	    }
 	);
+	
 	this.state.mode$.next('form');
+
 	this.route.params.subscribe(
-	    (params) => {
-		this.textesService.getTexteById(params.id).then(
+	    (par) => {
+		console.log('Dans ngOnInit par',par);
+		this.textesService.getTexteById(par.id).then(
 		    (tex: Un_texte) => {
 			console.log('Dans ngOnInit tex',tex);
 			this.texte = tex;
@@ -93,10 +98,9 @@ export class ModifyTexteComponent implements OnInit {
 		this.router.navigate(['/part-one/les-textes']);
 	    },
 	    (error) => {
-		console.log('Dans onModifyTexte Erreur', error);
+		console.log('Dans onModifyTexte Erreur', error.status);
 		this.loading = false;
 		this.errorMessage = error.message;
-		
 	    }
 	);
     }

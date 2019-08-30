@@ -19,12 +19,15 @@ export class ConnexionGuard implements CanActivate {
 		    console.log('Entrée dans canActivate');
 		    return Observable.create(
 			(observer) => {
+			    console.log('Dans canActivate observer',observer);
 			    this.auth.isAuth$.subscribe(
 				(auth) => {
+				    console.log('Dans canActivate auth',auth);
 				    if (!auth) {
 					this.state.part$.subscribe(
-					    (part) => {
-						if (part === 5) {
+					    (num) => {
+						console.log('Dans canActivate num',num);
+						if (num === 5) {
 						    this.router.navigate(['/part-five/all-connexions/single-connexion']);
 						    this.router.navigate(['/part-five/all-connexions/new-connexion']);
 						}
