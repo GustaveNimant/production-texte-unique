@@ -54,13 +54,13 @@
 	       (click)="onLogout()">LOGOUT</a>
 	</li>
 	<li>
-	    <button class="btn btn-success" *ngIf="debug" (click)="onDebugSwitch()">Fin de Debug</button>
-	    <button class="btn btn-danger" *ngIf="!debug" (click)="onDebugSwitch()">Debug</button>
+	    <button class="btn btn-danger" *ngIf="debug" (click)="onDebugSwitch()">Fin de Debug</button>
+	    <button class="btn btn-success" *ngIf="!debug" (click)="onDebugSwitch()">Debug</button>
 
 	</li>
 	<li>
-	    <button class="btn btn-success" *ngIf="trace" (click)="onTraceSwitch()">Fin de Trace</button>
-	    <button class="btn btn-danger" *ngIf="!trace" (click)="onTraceSwitch()">Trace</button>
+	    <button class="btn btn-danger" *ngIf="trace" (click)="onTraceSwitch()">Fin de Trace</button>
+	    <button class="btn btn-success" *ngIf="!trace" (click)="onTraceSwitch()">Trace</button>
 	</li>
     </ul>
 
