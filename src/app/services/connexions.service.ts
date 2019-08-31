@@ -35,7 +35,7 @@ export class ConnexionsService {
 	    this.http.post(uri_signup, connexion) /* utilise connexionCtrl.js.signup */
 		.subscribe(
 		    (resp) => {
-			this.login (connexion.email, connexion.password)
+			this.login (connexion)
 			    .then(
 				(res) => {
 				    resolve(res);
@@ -56,17 +56,15 @@ export class ConnexionsService {
 	});
     }
 
-    login(email: string, password: string) {
-	console.log('Entrée dans login email >', email, '< et password >',password, '<');
+    login(connexion: Une_connexion) {
+	console.log('Entrée dans login avec connexion',connexion);
 
 	const uri_login = this.uri_all + 'login';
 	
 	return new Promise((resolve, reject) => {
-	    this.http.post( /* get authData from middleware/auth.js from 3000 */
-		uri_login,
-		{ email: email, password: password })
+	    this.http.post(uri_login, connexion)
 		.subscribe(
-		    (authData:
+		    (authData: /* get authData from middleware/auth.js from 3000 */
 		     { token: string,
 		       connexionId: string
 		     }) => {

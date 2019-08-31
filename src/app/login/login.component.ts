@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	console.log('Dans onLogin connexion', connexion);
 	
-	this.connexionsService.login(connexion.email, connexion.password)
+	this.connexionsService.login(connexion)
 	    .then(
 		() => {
 		    console.log('Dans onLogin part', this.part);
