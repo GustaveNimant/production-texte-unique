@@ -7,14 +7,13 @@ module.exports = (req, res, next) => {
 
 	const authHeader = req.headers.authorization;
 	const token = authHeader.split(' ')[1];
+	const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
 
 	console.log('Dans auth.js authHeader', authHeader);
-	console.log('Dans auth.js : JWT token >',token,'<');
-	
-	const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
 	console.log('Dans auth.js decodedToken',decodedToken);
 	
 	const connexionId = decodedToken.connexionId;
+	console.log('Dans auth.js token >',token,'<');
 	console.log('Dans auth.js connexionId',connexionId);
 	console.log('Dans auth.js req.body.connexionId', req.body.connexionId);
 	

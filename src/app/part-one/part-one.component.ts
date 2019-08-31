@@ -17,6 +17,7 @@ export class PartOneComponent implements OnInit {
 	console.log('Entrée dans ngOnInit');
 	this.state.part$.next(1);
 	this.state.part = 1;
-  }
+	console.log('Dans ngOnInit part assigné à', this.state.part);
+    }
 
 }

@@ -2,10 +2,10 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService }                 from '../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Une_connexion }                from '../models/Une_connexion.model';
-//import { partStringOfNumber }                from '../models/outils';
 import { Router }                       from '@angular/router';
 import { Subscription }                 from 'rxjs';
 import { ConnexionsService }            from '../services/connexions.service';
+import * as outils from '../models/outils';
 
 @Component({
     selector: 'app-login',
@@ -48,30 +48,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		switch (num) {
-		    case 1:
-			this.partString = 'part-one';
-			break;
-		    case 2:
-			this.partString = 'part-two';
-			break;
-		    case 3:
-			this.partString = 'part-three';
-			break;
-		    case 4:
-			this.partString = 'part-four';
-			break;
-		    case 5:
-			this.partString = 'part-five';
-			break;
-		    default:
-			this.partString = 'part-five';
-			break;
-		}
+		this.partString = outils.partStringOfNumber(num);
+		console.log('Dans ngOnInit partString', this.partString);
 	    }
 	);
-//	this.partString = this.outils.partStringOfNumber(this.part);
-	console.log('Dans ngOnInit partString',this.partString);
     }
 
     onSubmit() {

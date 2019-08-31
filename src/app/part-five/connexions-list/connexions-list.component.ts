@@ -37,14 +37,16 @@ export class ConnexionsListComponent implements OnInit, OnDestroy {
 	
 	this.stateService.mode$.next('list');
 	this.connexionsSub = this.connexionsService.connexions$.subscribe(
-	    (les_connexions) => {
-		this.connexions = les_connexions;
+	    (con_a) => {
+		console.log('Dans ngOnInit con_a',con_a);
+		this.connexions = con_a;
 		this.loading = false;
 	    }
 	);
 	this.partSub = this.stateService.part$.subscribe(
-	    (a_part) => {
-		this.part = a_part;
+	    (num) => {
+		console.log('Dans ngOnInit num',num);
+		this.part = num;
 	    }
 	);
 	this.connexionsService.getConnexions();

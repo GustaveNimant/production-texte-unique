@@ -22,14 +22,7 @@ export class ConnexionsService {
 	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
     }
 
-    private connexions: Une_connexion[] = [
-	{
-	    _id: 'idconnexion',
-	    email: 'machin@truc.fr',
-	    password: 'un mot de passe',
-	    _v: 0
-	}
-    ];
+    private connexions: Une_connexion[] = [];
 
     public connexions$ = new Subject<Une_connexion[]>();
 
@@ -41,7 +34,7 @@ export class ConnexionsService {
 	return new Promise((resolve, reject) => {
 	    this.http.post(uri_signup, connexion) /* utilise connexionCtrl.js.signup */
 		.subscribe(
-		    (res) => {
+		    (resp) => {
 			this.login (connexion.email, connexion.password)
 			    .then(
 				(res) => {
@@ -63,40 +56,13 @@ export class ConnexionsService {
 	});
     }
 
-    createNewConnexionWithLogin(connexion: Une_connexion) { /* signup */
-	console.log('Entrée dans createNewConnexionWithLogin avec connexion ', connexion);
-	
-	const uri_signup = this.uri_all + 'signup';
-
-	return new Promise((resolve, reject) => {
-	    this.http.post(uri_signup, connexion).subscribe(
-		() => {
-		    this.login(connexion.email, connexion.password)
-			.then(
-			    () => {
-				resolve();
-			    }
-			).catch(
-			    (error) => {
-				reject(error);
-			    }
-			);
-		},
-		(error) => {
-		    console.log('Dans createNewConnexionWithLogin.subscribe Erreur', error, ' pour uri_signup', uri_signup);
-		    reject(error);
-		}
-	    );
-	});
-    }
-
     login(email: string, password: string) {
 	console.log('Entrée dans login email >', email, '< et password >',password, '<');
 
 	const uri_login = this.uri_all + 'login';
 	
 	return new Promise((resolve, reject) => {
-	    this.http.post(
+	    this.http.post( /* get authData from middleware/auth.js from 3000 */
 		uri_login,
 		{ email: email, password: password })
 		.subscribe(
@@ -104,10 +70,12 @@ export class ConnexionsService {
 		     { token: string,
 		       connexionId: string
 		     }) => {
+			 console.log('Dans login.subscribe authData',authData);
+
 			 this.token = authData.token;
 			 this.connexionId = authData.connexionId;
 			 this.isAuth$.next(true);
-			 console.log('Dans login.subscribe token >', this.token,'<');
+			 console.log('Dans login.subscribe isAuth$ assigné à true');
 			 resolve();
 		     },
 		    (error) => {

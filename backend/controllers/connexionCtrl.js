@@ -17,15 +17,6 @@ exports.signup = (req, res, next) => {
 		    password: a_password_hash
 		});
 
-		bcrypt.compare(req.body.password, a_password_hash).then (
-		    (res) => {
-			if (Debug.debug) {console.log('Dans connexionCtrl.js.signup bcrypt.compare est', res);}
-		    }).catch (
-			(error) => {
-			    if (Debug.debug) {console.log('Dans connexionCtrl.js.signup bcrypt.compare Erreur', error);}
-			}
-		    );
-		
 		if (Debug.debug) {console.log('Dans connexionCtrl.js.signup connexion', connexion);}
 		connexion.save() /* dans BD */
 		    .then(
