@@ -1,3 +1,3 @@
 module.exports = {
-    debug : true
+    debug : process.env.NODE_DEBUG
 };

@@ -21,8 +21,8 @@
 		   class="form-control">
 	</div>
 	<button class="btn btn-primary"
-		(click)="onSubmit()"
-		[disabled]="connexionForm.invalid">Submit</button>
+		(click)="onLogin()"
+		[disabled]="connexionForm.invalid">Login</button>
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans login.component.html.<br>Erreur lors du Login<br> {{ errorMessage }}</p>
     </form>

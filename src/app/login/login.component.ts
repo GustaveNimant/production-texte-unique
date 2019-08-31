@@ -54,8 +54,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	);
     }
 
-    onSubmit() {
-	console.log('Entrée dans onSubmit');
+    onLogin() {
+	console.log('Entrée dans onLogin');
 	
 	this.loading = true;
 
@@ -64,12 +64,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 	connexion.password = this.connexionForm.get('password').value;
 	connexion._id = new Date().getTime().toString();
 
-	console.log('Dans onSubmit connexion', connexion);
+	console.log('Dans onLogin connexion', connexion);
 	
 	this.connexionsService.login(connexion.email, connexion.password)
 	    .then(
 		() => {
-		    console.log('Dans onSubmit part', this.part);
+		    console.log('Dans onLogin part', this.part);
 		    this.connexionForm.reset();
 		    this.loading = false;
 		    this.router.navigate(['/', this.partString]);
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	    )
 	    .catch(
 		(error) => {
-		    console.log('Dans onSubmit Erreur', error);
+		    console.log('Dans onLogin Erreur', error);
 		    this.loading = false;
 		    this.errorMessage = error.message;
 		}
