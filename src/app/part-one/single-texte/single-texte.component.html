@@ -5,11 +5,15 @@
     <div class="single-texte-pane">
 
 	<div class="single-texte-info">
-	    <h1>{{ texte?.titre }}</h1>
+	    <h1>{{ texte.titre }}</h1>
 	    <p>note : {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
 	    <p>Id : {{ texte._id }} ( {{ texte.__v }} ) </p>
 	    <p>Shasum : {{texte?.shasum}} </p>
-	    <p>Contenu : {{ texte?.contenu }}</p>
+	    <p>Contenu : {{ texte.contenu }}</p>
+
+	    <button class="btn btn-success m-1"
+		    (click)="onNotate()"
+		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Noter</button>
 
 	    <button class="btn btn-success m-1"
 		    (click)="onModify()"
@@ -24,6 +28,18 @@
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>
 	</div>
 	<button class="btn btn-link"
-		       (click)="onGoBack()"><< Retour à la liste des Textes</button>
+		(click)="onGoBack()"><< Retour à la liste des Textes</button>
+
+	<p class="alert-danger"
+	   *ngIf="errorMessage">Dans single-texte.component.html.<br>Erreur<br> {{ errorMessage }}</p>
+	
+	<p class="alert-danger" *ngIf="!isAuth"><br>
+	    Il faut <a class="header-link"
+		       routerLink="/login"
+		       routerLinkActive="active">
+	    <button class="btn btn-primary">se connecter</button>
+	    </a> pour modifier un texte
+	</p>
+
     </div>
 </div>

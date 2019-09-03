@@ -1,48 +1,10 @@
-<!-- Version bidon changer les ngIf -->
-<h2 class="header-title" *ngIf="part == 1">
-    Les différentes versions du Texte
-</h2>
-<h2 class="header-title" *ngIf="part == 2">
-    La liste des Participants
-</h2>
-<h2 class="header-title" *ngIf="part == 3">
-    Les différentes versions du But du Texte
-</h2>
-<h2 class="header-title" *ngIf="part == 4">
-    Les notes des versions du Texte
-</h2>
-<h2 class="header-title" *ngIf="part == 5">
-    Les Connexions
-</h2>
-
-<div *ngIf="debug">Debug:Dans header.component.html part = {{part}}</div>
-<div *ngIf="debug">Debug:Dans header.component.html isAuth = {{isAuth}}</div>
-
 <header>
     <ul class="header-navigation">
-	<li class="header-navigation-item"
-	    *ngIf="(part == 1 && isAuth)">
-	    <a class="header-link"
-	       routerLink="/{{ partString }}/new-texte"
-	       routerLinkActive="active">Entrer une nouvelle version</a>
-	</li>
-	<li class="header-navigation-item"
-	    *ngIf="(part == 1 && isAuth)">
-	    <a class="header-link"
-	       routerLink="/{{ partString }}/new-texte-with-image"
-	       routerLinkActive="active">Entrer une nouvelle version avec image</a>
-	</li>
-	<li class="header-navigation-item"
-	    *ngIf="(part == 2 && isAuth)">
-	    <a class="header-link"
-	       routerLink="/{{ partString }}/new-participant"
-	       routerLinkActive="active">Entrer un nouveau participant</a>
-	</li>
 	<li class="header-navigation-item"
 	    *ngIf="(!isAuth)">
 	    <a class="header-link"
 	       routerLink="/part-five/new-connexion"
-	       routerLinkActive="active">Entrer une nouvelle connexion</a>
+	       routerLinkActive="active">S'enregistrer</a>
 	</li>
 	<li class="header-navigation-item">
 	    <a class="header-link"
@@ -75,17 +37,6 @@
 </header>
 
 <div *ngIf="debug">Debug:Dans header.component.html part = {{part}}</div>
+<div *ngIf="debug">Debug:Dans header.component.html isAuth = {{isAuth}}</div>
 
-<div class="texte-image"
-     *ngIf="(mode === 'list' && part == 1)">
-    <h2 class="image-legende">
-	Les différentes versions du Texte
-    </h2>
-</div>
-<div class="participant-image"
-     *ngIf="(mode === 'list' && part == 2)">
-    <h2 class="image-legende">
-	La liste des Participants
-    </h2>
-</div>
 

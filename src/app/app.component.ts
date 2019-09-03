@@ -7,5 +7,4 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  titre = 'Production d\'un texte unique';
 }

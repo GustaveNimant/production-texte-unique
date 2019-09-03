@@ -30,6 +30,9 @@ export class ConnexionGuard implements CanActivate {
 						if (num === 5) {
 						    this.router.navigate(['/part-five/all-connexions/single-connexion']);
 						    this.router.navigate(['/part-five/all-connexions/new-connexion']);
+						} else if (num === 1) {
+						    console.log('Dans canActivate aller à login');
+						    this.router.navigate(['/login']);
 						}
 					    }
 					);

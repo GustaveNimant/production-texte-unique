@@ -11,8 +11,7 @@
 	       routerLink="/login"
 	       routerLinkActive="active">
     <button class="btn btn-primary">se connecter</button>
-    </a>
-    pour afficher les textes
+    </a> pour afficher les textes
 </p>
 
 <div class="texte-grid" *ngIf="textes.length >= 0">
@@ -21,10 +20,12 @@
 	 [ngClass]="{'open': un_texte._id === chosenId}"
 	 [ngStyle]="{'background-image': 'url(' + un_texte.shasum + ')'}"
 	 (click)="onTexteClicked(un_texte._id)">
-	<div class="texte-info">
+	<div class="texte-titre">
 	    <h3>
 		{{ un_texte.titre }}
 	    </h3>
+	</div>
+	<div class="texte-info">
 	    <h5>
 		<ul>
 		    <li>AuteurId : {{ un_texte.auteurId }}</li>
@@ -35,7 +36,9 @@
 		    <li>Id : {{ un_texte._id }} ( {{ un_texte.__v }} ) </li>
 		</ul>
 	    </h5>
-	    Texte :
+	</div>
+	Texte :
+	<div class="texte-contenu">
 	    <p>{{ un_texte.contenu }}</p>
 	</div>
     </div>

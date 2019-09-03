@@ -68,6 +68,7 @@ export class TextesListComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans ngOnDestroy');
 	this.textesSub.unsubscribe();
 	this.partSub.unsubscribe();
+	console.log('Dans ngOnDestroy partSub.unsubscribe');
     }
 
 }

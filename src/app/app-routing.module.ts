@@ -1,7 +1,7 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { DefaultComponent }     from './default/default.component';
+import { MainMenuComponent }     from './main-menu/main-menu.component';
 
 import { PartOneComponent }               from './part-one/part-one.component';
 import { ModifyTexteComponent }           from './part-one/modify-texte/modify-texte.component';
@@ -46,6 +46,7 @@ const routes: Routes = [
 	  { path: 'new-texte-with-upload', component: NewTexteWithUploadComponent},
 	  { path: 'un_texte/:id', component: SingleTexteComponent },
 	  { path: 'les-textes', component: TextesListComponent },
+//	  { path: 'notate-texte/:id', component: NotateTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
 	  { path: 'modify-texte-with-image/:id', component: ModifyTexteWithImageComponent },
 	  { path: 'modify-texte-with-upload/:id', component: ModifyTexteWithUploadComponent },
@@ -95,8 +96,8 @@ const routes: Routes = [
       ]
     },
     { path: 'login', component: LoginComponent },
-    { path: 'default', component: DefaultComponent },
-    { path: '', pathMatch: 'full', component: DefaultComponent },
+    { path: 'main-menu', component: MainMenuComponent },
+    { path: '', pathMatch: 'full', component: MainMenuComponent },
     { path: '**', redirectTo: '' }
 ];
 

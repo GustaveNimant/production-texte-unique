@@ -5,7 +5,7 @@ import { Une_connexion }                from '../models/Une_connexion.model';
 import { Router }                       from '@angular/router';
 import { Subscription }                 from 'rxjs';
 import { ConnexionsService }            from '../services/connexions.service';
-import * as outils from '../models/outils';
+import { partStringOfNumber }           from '../models/outils';
 
 @Component({
     selector: 'app-login',
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		this.partString = outils.partStringOfNumber(num);
+		this.partString = partStringOfNumber(num);
 		console.log('Dans ngOnInit partString', this.partString);
 	    }
 	);
@@ -77,9 +77,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 	    )
 	    .catch(
 		(error) => {
+		    switch (error.status) {
+			case 0:
+			    this.errorMessage = 'Dans backend lancer nodemon server';
+			    break;
+			case 401:
+			    this.errorMessage = 'Erreur d\'authentification';
+			    break;
+			default:
+			    this.errorMessage = error.message;
+			    break;
+		    }
 		    console.log('Dans onLogin Erreur', error);
 		    this.loading = false;
-		    this.errorMessage = error.message;
 		}
 	    );
     }

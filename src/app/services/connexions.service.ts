@@ -99,16 +99,16 @@ export class ConnexionsService {
     getConnexions() {
 	console.log('Entrée dans getConnexions avec uri_all', this.uri_all);
 	this.http.get(this.uri_all).subscribe(
-	    (des_connexions: Une_connexion[]) => {
-		if (des_connexions) {
-		    this.connexions = des_connexions;
+	    (con_a: Une_connexion[]) => {
+		if (con_a) {
+		    this.connexions = con_a;
 		    this.emitConnexion();
 		}
 	    },
 	    (error) => {
-		console.log('getConnexions Erreur:', error);
+		console.log('Dabs getConnexions Erreur:', error);
 	    },
-	    () => {console.log('getConnexions fini !')}
+	    () => {console.log('Dans getConnexions fini !')}
 	);
     }
 

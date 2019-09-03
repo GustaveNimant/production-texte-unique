@@ -11,7 +11,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
-import { DefaultComponent } from './default/default.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HeaderComponent } from './header/header.component';
 
 import { PartOneComponent }               from './part-one/part-one.component';
@@ -44,7 +44,7 @@ import { LoginComponent } from './login/login.component';
     declarations: [
 	AppComponent,
 	ConnexionsListComponent,
-	DefaultComponent,
+	MainMenuComponent,
 	HeaderComponent,
 	ModifyTexteComponent,
 	ModifyTexteWithImageComponent,

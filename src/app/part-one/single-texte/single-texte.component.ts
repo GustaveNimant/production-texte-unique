@@ -17,6 +17,9 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public loading: boolean;
     public auteurId: string;
     public part: number;
+    public isAuth: boolean;
+    public errorMessage: string;
+
     public debug: boolean;
     public trace: boolean;
 
@@ -25,32 +28,46 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     fileUploaded = false;
 
     private partSub: Subscription;
+    private isAuthSub: Subscription;
     
     constructor(private stateService: StateService,
 		private router: Router,
 		private route: ActivatedRoute,
 		private textesService: TextesService,
-		private auth: ConnexionsService) { }
+		private connexionsService: ConnexionsService) { }
 
     ngOnInit() {
 	this.debug = this.stateService.debug;
-	if(this.trace) {console.log('Entrée dans ngOnInit');}
-	if(this.debug) {console.log('Dans ngOnInit avec debug', this.debug);}
+	console.log('Entrée dans ngOnInit');
+	console.log('Dans ngOnInit avec debug', this.debug);
 	
 	this.loading = true;
 
 	this.stateService.mode$.next('single-texte');
-	this.auteurId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
+	this.auteurId = this.connexionsService.connexionId ? this.connexionsService.connexionId : 'connexionID40282382';
 
 	this.route.params.subscribe(
 	    (params: Params) => {
-		if(this.debug) {console.log('Dans ngOnInit params', params);}
+		console.log('Dans ngOnInit params.id', params.id);
 		this.textesService.getTexteById(params.id)
 		    .then(
 			(tex: Un_texte) => {
 			    this.loading = false;
 			    this.texte = tex;
-			    if(this.debug) {console.log('Dans ngOnInit texte',this.texte);}
+			    console.log('Dans ngOnInit texte',this.texte);
+			}
+		    ).catch(
+			(error) => {
+			    switch (error.status) {
+				case 401:
+				    this.errorMessage = 'Erreur d\'authentification';
+				    break;
+				default:
+				    this.errorMessage = error.message;
+				    break;
+			    }
+			    console.log('Dans ngOnInit Erreur', error);
+			    this.loading = false;
 			}
 		    );
 	    }
@@ -60,14 +77,25 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		this.auteurId = this.auth.connexionId;
+		this.auteurId = this.connexionsService.connexionId;
 	    }
 	);
-	if(this.debug) {console.log('Dans ngOnInit part',this.part);}
+	console.log('Dans ngOnInit part',this.part);
+
+	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
+	    (boo) => {  /* Pour afficher les textes */
+		this.isAuth = boo;
+		console.log('Dans ngOnInit isAuth', this.isAuth);
+	    }
+	);
     }
 
     onGoBack() {
 	this.router.navigate(['/part-one/all-texte']);
+    }
+
+    onNotate() {
+	this.router.navigate(['/part-one/notate-texte/' + this.texte._id]);
     }
 
     onModify() {

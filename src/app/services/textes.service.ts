@@ -20,9 +20,9 @@ export class TextesService {
     getTextes() {
 	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
 	this.http.get(this.uri_all).subscribe(
-	    (des_textes: Un_texte[]) => {
-		if (des_textes) {
-		    this.textes = des_textes;
+	    (tex_a: Un_texte[]) => {
+		if (tex_a) {
+		    this.textes = tex_a;
 		    this.emitTexte();
 		}
 	    },
@@ -83,7 +83,7 @@ export class TextesService {
 	    texteData.append('texte', JSON.stringify(texte));
 	    texteData.append('image', image, texte.titre);
 	    
-	    this.http.post(this.uri_all, texteData)
+	    this.http.post(this.uri_all + 'withFile', texteData)
 		.subscribe(
 		    (response) => {
 			resolve(response);

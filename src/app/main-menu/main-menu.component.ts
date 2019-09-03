@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-default',
-  templateUrl: './default.component.html',
-  styleUrls: ['./default.component.scss']
+  selector: 'app-main-menu',
+  templateUrl: './main-menu.component.html',
+  styleUrls: ['./main-menu.component.scss']
 })
 
-export class DefaultComponent implements OnInit {
+export class MainMenuComponent implements OnInit {
 
     constructor(private router: Router) {
 	console.log('Entrée dans constructor')
