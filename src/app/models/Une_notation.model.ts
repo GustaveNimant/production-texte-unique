@@ -4,5 +4,5 @@ export class Une_notation {
     participantId: string;
     note: number;
     date: string;
-    _v : number;
+    __v : number;
 }
