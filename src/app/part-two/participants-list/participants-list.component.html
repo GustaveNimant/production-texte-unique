@@ -3,6 +3,10 @@
 <div *ngIf="debug">Debug:Dans participants-liste.component.html:loading = {{loading}}</div>
 <div *ngIf="debug">Debug:Dans participants-liste.component.html:nombre de participants = {{participants.length}}</div>
 
+<h2 class="image-legende">
+    Les participants
+</h2>
+
 <p class="text-center"
    *ngIf="participants.length <= 0 && !loading">
     La base de données est vide !</p>

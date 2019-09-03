@@ -104,7 +104,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onNotate() {
-	this.router.navigate(['/part-one/notate-texte/' + this.texte._id]);
+	this.router.navigate(['/part-four/notate-texte/' + this.texte._id]);
     }
 
     onModify() {

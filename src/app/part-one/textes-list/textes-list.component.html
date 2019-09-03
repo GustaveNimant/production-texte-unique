@@ -2,17 +2,13 @@
 <div *ngIf="debug">Debug:Dans textes-liste.component.html:loading = {{loading}}</div>
 <div *ngIf="debug">Debug:Dans textes-liste.component.html:nombre de textes = {{textes.length}}</div>
 
+<h2 class="image-legende">
+    Les textes
+</h2>
+
 <p class="text-center"
    *ngIf="textes.length <= 0 && !loading">
     La base de données est vide !</p>
-
-<p class="alert-danger" *ngIf="!isAuth"><br>
-    Il faut <a class="header-link"
-	       routerLink="/login"
-	       routerLinkActive="active">
-    <button class="btn btn-primary">se connecter</button>
-    </a> pour afficher les textes
-</p>
 
 <div class="texte-grid" *ngIf="textes.length >= 0">
     <div class="texte-pane"

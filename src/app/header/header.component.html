@@ -1,7 +1,6 @@
 <header>
     <ul class="header-navigation">
-	<li class="header-navigation-item"
-	    *ngIf="(!isAuth)">
+	<li class="header-navigation-item" *ngIf="(!isAuth)">
 	    <a class="header-link"
 	       routerLink="/part-five/new-connexion"
 	       routerLinkActive="active">S'enregistrer</a>
@@ -9,28 +8,28 @@
 	<li class="header-navigation-item">
 	    <a class="header-link"
 	       routerLink="/login"
-	       routerLinkActive="active">LOGIN</a>
+	       routerLinkActive="active">Login</a>
+	</li>
+	<li class="header-navigation-item" *ngIf="(isAuth)">
+	    <a class="header-link"
+	       style="cursor: pointer"
+	       (click)="onLogout()">Logout</a>
 	</li>
 	<li class="header-navigation-item">
-	    <a class="header-link" style="cursor: pointer"
-	       (click)="onLogout()">LOGOUT</a>
-	</li>
-	<li>
 	    <button class="btn btn-danger" *ngIf="debug" (click)="onDebugSwitch()">Fin de Debug</button>
 	    <button class="btn btn-success" *ngIf="!debug" (click)="onDebugSwitch()">Debug</button>
 
 	</li>
-	<li>
+	<li class="header-navigation-item">
 	    <button class="btn btn-danger" *ngIf="trace" (click)="onTraceSwitch()">Fin de Trace</button>
 	    <button class="btn btn-success" *ngIf="!trace" (click)="onTraceSwitch()">Trace</button>
 	</li>
     </ul>
 
     <ul class="header-navigation nav-end">
-	
 	<li class="header-navigation-item font-italic">
 	    <a class="header-link" style="cursor:pointer"
-	       (click)="onBackToMainMenu()">Retour au menu principal</a>
+	       (click)="onBackToMainMenu()">Vers le menu principal</a>
 	</li>
     </ul>
     
