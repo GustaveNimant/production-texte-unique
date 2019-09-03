@@ -24,7 +24,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public trace: boolean;
 
     fileIsUploading = false;
-    fileUrl: string;
+    currentUrl: string;
     fileUploaded = false;
 
     private partSub: Subscription;
@@ -40,7 +40,11 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.debug = this.stateService.debug;
 	console.log('Entrée dans ngOnInit');
 	console.log('Dans ngOnInit avec debug', this.debug);
-	
+
+	this.currentUrl = this.router.url;
+	this.stateService.currentUrl$.next(this.currentUrl);
+	console.log('Dans ngOnInit currentUrl', this.currentUrl);
+
 	this.loading = true;
 
 	this.stateService.mode$.next('single-texte');
@@ -48,7 +52,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 
 	this.route.params.subscribe(
 	    (params: Params) => {
-		console.log('Dans ngOnInit params.id', params.id);
+		console.log('Dans ngOnInit params', params);
 		this.textesService.getTexteById(params.id)
 		    .then(
 			(tex: Un_texte) => {
@@ -60,7 +64,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 			(error) => {
 			    switch (error.status) {
 				case 401:
-				    this.errorMessage = 'Erreur d\'authentification';
+				    this.onGoBack()
 				    break;
 				default:
 				    this.errorMessage = error.message;
@@ -91,6 +95,10 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onGoBack() {
+	this.router.navigate([this.currentUrl]);
+    }
+
+    onGoAllTexte() {
 	this.router.navigate(['/part-one/all-texte']);
     }
 

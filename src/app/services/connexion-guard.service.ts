@@ -8,10 +8,10 @@ import { StateService } from './state.service';
 
 export class ConnexionGuard implements CanActivate {
 
-    constructor(private auth: ConnexionsService,
-		private state: StateService,
+    constructor(private connexionsService: ConnexionsService,
+		private stateService: StateService,
 		private router: Router) {
-        console.log('Entrée dans constructor avec state', state);
+        console.log('Entrée dans constructor avec stateService', stateService);
     };
 
     canActivate(route: ActivatedRouteSnapshot,
@@ -20,11 +20,11 @@ export class ConnexionGuard implements CanActivate {
 		    return Observable.create(
 			(observer) => {
 			    console.log('Dans canActivate observer',observer);
-			    this.auth.isAuth$.subscribe(
+			    this.connexionsService.isAuth$.subscribe(
 				(auth) => {
 				    console.log('Dans canActivate auth',auth);
 				    if (!auth) {
-					this.state.part$.subscribe(
+					this.stateService.part$.subscribe(
 					    (num) => {
 						console.log('Dans canActivate num',num);
 						if (num === 5) {

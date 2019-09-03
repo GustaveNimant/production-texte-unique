@@ -18,11 +18,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     public connexionForm: FormGroup;
     public loading = false;
     public part: number;
+    public currentUrl: string;
     public partString: string;
     public connexionId: string;
     public errorMessage: string;
 
     private partSub: Subscription;
+    private currentUrlSub: Subscription;
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
@@ -52,6 +54,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit partString', this.partString);
 	    }
 	);
+
+    	this.currentUrlSub = this.state.currentUrl$.subscribe(
+	    (url) => {
+		console.log('Dans ngOnInit url',url);
+		this.currentUrl = url;
+		console.log('Dans ngOnInit currentUrl', this.currentUrl);
+	    }
+	);
     }
 
     onLogin() {
@@ -72,7 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		    console.log('Dans onLogin part', this.part);
 		    this.connexionForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/', this.partString]);
+		    this.router.navigate([this.currentUrl]);
 		}
 	    )
 	    .catch(
@@ -82,7 +92,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 			    this.errorMessage = 'Dans backend lancer nodemon server';
 			    break;
 			case 401:
-			    this.errorMessage = 'Erreur d\'authentification';
+			    this.router.navigate(['/', this.currentUrl]);
 			    break;
 			default:
 			    this.errorMessage = error.message;
@@ -96,6 +106,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 	this.partSub.unsubscribe();
+	this.currentUrlSub.unsubscribe();
     }
 
 }

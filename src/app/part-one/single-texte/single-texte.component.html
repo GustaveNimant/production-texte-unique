@@ -8,7 +8,7 @@
 	    <h1>{{ texte.titre }}</h1>
 	    <p>note : {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
 	    <p>Id : {{ texte._id }} ( {{ texte.__v }} ) </p>
-	    <p>Shasum : {{texte?.shasum}} </p>
+	    <p>Shasum : {{texte.shasum}} </p>
 	    <p>Contenu : {{ texte.contenu }}</p>
 
 	    <button class="btn btn-success m-1"
@@ -28,7 +28,7 @@
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>
 	</div>
 	<button class="btn btn-link"
-		(click)="onGoBack()"><< Retour à la liste des Textes</button>
+		(click)="onGoAllTexte()"><< Retour à la liste des Textes</button>
 
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans single-texte.component.html.<br>Erreur<br> {{ errorMessage }}</p>
