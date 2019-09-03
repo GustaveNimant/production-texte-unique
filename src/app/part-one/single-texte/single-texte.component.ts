@@ -24,8 +24,9 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public trace: boolean;
 
     fileIsUploading = false;
-    currentUrl: string;
     fileUploaded = false;
+
+    currentUrl: string;
 
     private partSub: Subscription;
     private isAuthSub: Subscription;

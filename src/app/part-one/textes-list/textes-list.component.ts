@@ -18,12 +18,14 @@ export class TextesListComponent implements OnInit, OnDestroy {
     public part: number;
     public loading: boolean;
     public isAuth: boolean;
+
+    currentUrl: string;
     
     private textesSub: Subscription;
     private partSub: Subscription;
     private isAuthSub: Subscription;
     
-    constructor(private state: StateService,
+    constructor(private stateService: StateService,
 		private connexionsService: ConnexionsService,
 		private textesService: TextesService,
 		private router: Router) { }
@@ -32,8 +34,12 @@ export class TextesListComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans ngOnInit');
 	
 	this.loading = true;
-	this.state.mode$.next('list');
-	
+	this.stateService.mode$.next('list');
+
+	this.currentUrl = this.router.url;
+	this.stateService.currentUrl$.next(this.currentUrl);
+	console.log('Dans ngOnInit currentUrl', this.currentUrl);
+
 	this.textesSub = this.textesService.textes$.subscribe(
 	    (tex_a) => {
 		console.log('Dans ngOnInit tex_a',tex_a);
@@ -42,7 +48,7 @@ export class TextesListComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
