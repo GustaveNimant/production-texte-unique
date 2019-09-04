@@ -3,10 +3,9 @@ const Schema = mongoose.Schema;
 const uniqueValidator = require('mongoose-unique-validator');
     
 const participantSchema = new Schema({
-    pseudo: { type: String, required: true },
-    email: { type: String, required: true },
-    cle_publique: { type: String },
-    connexionId: { type: Number }
+    email: { type: String, required: true, unique: true },
+    pseudo: { type: String, required: true, unique: true },
+    cle_publique: { type: String, unique: true }
 },{
     collection : 'participant_c'			    
 });

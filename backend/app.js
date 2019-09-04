@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const db_config = require('./models/db_config');
+const dbConfig = require('./models/dbConfig');
 
 const connexionRoutes  = require('./routes/connexion.routes');
 const participantRoutes  = require('./routes/participant.routes');
@@ -25,15 +25,15 @@ app.use('/api/all-connexions', connexionRoutes);
 app.use('/api/all-participants', participantRoutes); 
 app.use('/api/all-textes', texteRoutes); 
 
-mongoose.connect(db_config.DB_URI, {
+mongoose.connect(dbConfig.DB_URI, {
     useCreateIndex: true,
     useNewUrlParser: true
 }) /* asked when launching nodemon */
     .then( /* Promise */
-	() => {console.log('Dans app.js.mongoose.connect La base de données est connectée à', db_config.DB_URI)}
+	() => {console.log('Dans app.js.mongoose.connect La base de données est connectée à', dbConfig.DB_URI)}
     )
     .catch ((error) => {
-	console.log('Dans app.js.mongoose.connect Impossible de se connecter à la base de données', db_config.DB_URI);
+	console.log('Dans app.js.mongoose.connect Impossible de se connecter à la base de données', dbConfig.DB_URI);
 	console.error(error);
     });
 

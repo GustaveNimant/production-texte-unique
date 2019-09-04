@@ -10,8 +10,8 @@ import { HttpClient } from '@angular/common/http';
 export class TextesService {
 
     uri_all = 'http://localhost:3000/api/all-textes/';
- 
-    constructor(private http: HttpClient) {};
+    
+    constructor(private http: HttpClient){};
 
     private textes: Un_texte[] = [];
 
@@ -19,21 +19,35 @@ export class TextesService {
 
     getTextes() {
 	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
-	this.http.get(this.uri_all).subscribe(
-	    (tex_a: Un_texte[]) => {
-		if (tex_a) {
-		    this.textes = tex_a;
-		    this.emitTexte();
-		}
-	    },
-	    (error) => {
-		console.log('Dans getTextes Erreur', error);
-		console.log('Dans getTextes error.status', error.status);
-	    },
-	    () => {console.log('Dans getTextes terminé!')}
-	);
-    }
 
+	return new Promise((resolve, reject) => {
+	    console.log('Dans getTextes resolve', resolve);
+	    this.http.get(this.uri_all).subscribe(
+		(tex_a: Un_texte[]) => {
+		    if (tex_a) {
+			this.textes = tex_a;
+			this.emitTexte();
+		    }
+		},
+		(error) => {
+		    console.log('Dans getTextes Erreur', error);
+		    console.log('Dans getTextes error.status', error.status);
+		    switch (error.status) {
+			case 0:
+			    console.log('Dans getTextes run nodemon server');
+			    break;
+			default:
+			    break;
+		    }
+		},
+		() => {
+		    console.log('Dans getTextes terminé!')
+		}
+	    );
+	});
+	
+    }
+    
     emitTexte() {
 	console.log('Entrée dans emitTexte avec les textes', this.textes);
 	this.textes$.next(this.textes);

@@ -17,7 +17,6 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
     public connexionForm: FormGroup;
     public loading = false;
     public part: number;
-    public connexionId: string;
     public errorMessage: string;
 
     private partSub: Subscription;
@@ -25,18 +24,21 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private connexionsService: ConnexionsService){
-	console.log('Entrée dans constructor');
-    }
-
+		private connexionsService: ConnexionsService)
+		{
+		    console.log('Entrée dans constructor');
+		}
+    
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	
 	this.state.mode$.next('form');
+
 	this.connexionForm = this.formBuilder.group({
 	    email: [null, Validators.required, Validators.email],
 	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
+	
 	this.partSub = this.state.part$.subscribe(
 	    (part) => {
 		this.part = part;
