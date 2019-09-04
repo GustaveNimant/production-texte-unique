@@ -39,6 +39,9 @@ import { SingleConnexionComponent } from './part-five/single-connexion/single-co
 import { NewConnexionComponent }    from './part-five/new-connexion/new-connexion.component';
 import { ConnexionsListComponent }  from './part-five/connexions-list/connexions-list.component';
 import { LoginComponent } from './login/login.component';
+import { NewNotationComponent } from './part-four/new-notation/new-notation.component';
+import { SingleNotationComponent } from './part-four/single-notation/single-notation.component';
+import { NotationsListComponent } from './part-four/notations-list/notations-list.component';
 
 @NgModule({
     declarations: [
@@ -65,6 +68,9 @@ import { LoginComponent } from './login/login.component';
 	SingleTexteComponent,
 	TextesListComponent,
 	LoginComponent,
+	NewNotationComponent,
+	SingleNotationComponent,
+	NotationsListComponent,
     ],
     imports: [
 	BrowserModule,

@@ -1,2 +1,28 @@
 <app-header></app-header>
+
+<h2>
+<ul>
+    <li	*ngIf="(!isAuth)">
+	<a
+	    routerLink="/login"
+	    routerLinkActive="active">S'enregistrer</a>
+    </li>
+    <li>
+	<a
+	    routerLink="/part-one/textes-list"
+	    routerLinkActive="active">Les textes</a>
+    </li>
+    <li *ngIf="(isAuth)">
+	<a
+	    routerLink="/part-one/new-texte"
+	    routerLinkActive="active">Entrer un nouveau texte</a>
+    </li>
+    <li *ngIf="(isAuth)">
+	<a
+	    routerLink="/part-one/new-texte-with-image"
+	    routerLinkActive="active">Entrer un nouveau texte avec image</a>
+    </li>
+</ul>
+</h2>
+
 <router-outlet></router-outlet>

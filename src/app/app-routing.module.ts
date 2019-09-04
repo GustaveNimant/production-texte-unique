@@ -19,14 +19,14 @@ import { ParticipantsListComponent }      from './part-two/participants-list/par
 import { SingleParticipantComponent }     from './part-two/single-participant/single-participant.component';
 
 import { PartThreeComponent }             from './part-three/part-three.component';
-//import { NewButComponent }                from './part-five/new-but/new-but.component';
-//import { ButsListComponent }              from './part-five/buts-list/buts-list.component';
-//import { SingleButComponent }             from './part-five/single-but/single-but.component';
+//import { NewButComponent }                from './part-three/new-but/new-but.component';
+//import { ButsListComponent }              from './part-three/buts-list/buts-list.component';
+//import { SingleButComponent }             from './part-three/single-but/single-but.component';
 
 import { PartFourComponent }              from './part-four/part-four.component';
-//import { NewNotationComponent }           from './part-five/new-notation/new-notation.component';
-//import { NotationsListComponent }         from './part-five/notations-list/notations-list.component';
-//import { SingleNotationComponent }        from './part-five/single-notation/single-notation.component';
+import { NewNotationComponent }           from './part-four/new-notation/new-notation.component';
+import { NotationsListComponent }         from './part-four/notations-list/notations-list.component';
+import { SingleNotationComponent }        from './part-four/single-notation/single-notation.component';
 
 import { PartFiveComponent }              from './part-five/part-five.component';
 import { NewConnexionComponent }          from './part-five/new-connexion/new-connexion.component';
@@ -46,11 +46,10 @@ const routes: Routes = [
 	  { path: 'new-texte-with-upload', component: NewTexteWithUploadComponent},
 	  { path: 'un_texte/:id', component: SingleTexteComponent },
 	  { path: 'les-textes', component: TextesListComponent },
-//	  { path: 'notate-texte/:id', component: NotateTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
 	  { path: 'modify-texte-with-image/:id', component: ModifyTexteWithImageComponent },
 	  { path: 'modify-texte-with-upload/:id', component: ModifyTexteWithUploadComponent },
-	  { path: '', pathMatch: 'full', redirectTo: 'les-textes' },
+	  { path: '', pathMatch: 'full', redirectTo: '' },
 	  { path: '**', redirectTo: 'les-textes' }
       ]
     },
@@ -78,11 +77,10 @@ const routes: Routes = [
     },
     { path: 'part-four', component: PartFourComponent,
       children: [
-	  // { path: 'new-notation', component: NewNotationComponent},
-	  // { path: 'les-notations', component: NotationsListComponent, canActivate: [ConnexionGuard] },
-	  // { path: 'une_notation/:id', component: SingleNotationComponent, canActivate: [ConnexionGuard] },
-	  // { path: 'modify-notation/:id', component: ModifyNotationWithUploadComponent, canActivate: [ConnexionGuard] },
-	  { path: '', pathMatch: 'full', redirectTo: 'les-notations' }, 
+	  { path: 'new-notation', component: NewNotationComponent},
+	  { path: 'les-notations', component: NotationsListComponent, canActivate: [ConnexionGuard] },
+	  { path: 'une_notation/:id', component: SingleNotationComponent, canActivate: [ConnexionGuard] },
+	  { path: '', pathMatch: 'full', redirectTo: '' }, 
 	  { path: '**', redirectTo: 'les-notations' }
       ]
     },
