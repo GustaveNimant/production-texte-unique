@@ -16,10 +16,10 @@ import { HeaderComponent } from './header/header.component';
 
 import { PartOneComponent }               from './part-one/part-one.component';
 import { ModifyTexteComponent }           from './part-one/modify-texte/modify-texte.component';
-import { ModifyTexteWithImageComponent } from './part-one/modify-texte-with-image/modify-texte-with-image.component';
+import { ModifyTexteWithImageComponent }  from './part-one/modify-texte-with-image/modify-texte-with-image.component';
 import { ModifyTexteWithUploadComponent } from './part-one/modify-texte-with-upload/modify-texte-with-upload.component';
 import { NewTexteComponent }              from './part-one/new-texte/new-texte.component';
-import { NewTexteWithImageComponent }    from './part-one/new-texte-with-image/new-texte-with-image.component';
+import { NewTexteWithImageComponent }     from './part-one/new-texte-with-image/new-texte-with-image.component';
 import { NewTexteWithUploadComponent }    from './part-one/new-texte-with-upload/new-texte-with-upload.component';
 
 

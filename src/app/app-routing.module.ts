@@ -78,8 +78,8 @@ const routes: Routes = [
     { path: 'part-four', component: PartFourComponent,
       children: [
 	  { path: 'new-notation', component: NewNotationComponent},
-	  { path: 'les-notations', component: NotationsListComponent, canActivate: [ConnexionGuard] },
-	  { path: 'une_notation/:id', component: SingleNotationComponent, canActivate: [ConnexionGuard] },
+	  { path: 'les-notations', component: NotationsListComponent},
+	  { path: 'une_notation/:id', component: SingleNotationComponent},
 	  { path: '', pathMatch: 'full', redirectTo: '' }, 
 	  { path: '**', redirectTo: 'les-notations' }
       ]

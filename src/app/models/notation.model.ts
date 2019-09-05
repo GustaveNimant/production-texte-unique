@@ -1,6 +1,6 @@
-export class notationModelTs {
+export class NotationModelTs {
     _id: string;
-    textId: string;
+    texteId: string;
     participantId: string;
     note: number;
     date: string;

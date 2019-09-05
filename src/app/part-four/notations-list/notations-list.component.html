@@ -1,1 +1,31 @@
-<p>notations-list works!</p>
+<mat-spinner *ngIf="loading"></mat-spinner>
+<div *ngIf="debug">Debug:Dans notations-liste.component.html:loading = {{loading}}</div>
+<div *ngIf="debug">Debug:Dans notations-liste.component.html:nombre de notations = {{notations.length}}</div>
+
+<p class="text-center"
+   *ngIf="notations.length <= 0 && !loading">
+    La collection de la base de données est vide !</p>
+
+<p class="text-center"
+   *ngIf="notations.length <= 0">
+    La collection de la base de données est vide !</p>
+
+<div class="notation-grid" *ngIf="notations.length >= 0">
+    <div class="notation-pane"
+	 *ngFor="let une_notation of notations"
+	 [ngClass]="{'open': une_notation._id === chosenId}"
+	 [ngStyle]="{'background-image': 'url(' + une_notation.shasum + ')'}"
+	 (click)="onNotationClicked(une_notation._id)">
+	<div class="notation-info">
+	    <h5>
+		<ul>
+		    <li>ParticipantId : {{ une_notation.participantId }}</li>
+		    <li>TexteId : {{ une_notation.texteId }}</li>
+		    <li>Note : {{ une_notation.note }}</li>
+		    <li>Date : {{ une_notation.date }}</li>
+		    <li>Id : {{ une_notation._id }} ( {{ une_notation.__v }} ) </li>
+		</ul>
+	    </h5>
+	</div>
+    </div>
+</div>

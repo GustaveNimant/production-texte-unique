@@ -17,37 +17,6 @@ export class TextesService {
 
     public textes$ = new Subject<Un_texte[]>();
 
-    getTextes() {
-	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
-
-	return new Promise((resolve, reject) => {
-	    console.log('Dans getTextes resolve', resolve);
-	    this.http.get(this.uri_all).subscribe(
-		(tex_a: Un_texte[]) => {
-		    if (tex_a) {
-			this.textes = tex_a;
-			this.emitTexte();
-		    }
-		},
-		(error) => {
-		    console.log('Dans getTextes Erreur', error);
-		    console.log('Dans getTextes error.status', error.status);
-		    switch (error.status) {
-			case 0:
-			    console.log('Dans getTextes run nodemon server');
-			    break;
-			default:
-			    break;
-		    }
-		},
-		() => {
-		    console.log('Dans getTextes terminé!')
-		}
-	    );
-	});
-	
-    }
-    
     emitTexte() {
 	console.log('Entrée dans emitTexte avec les textes', this.textes);
 	this.textes$.next(this.textes);
@@ -104,9 +73,40 @@ export class TextesService {
 		    },
 		    (error) => {
 			reject(error);
-		}
+		    }
 		);
 	});
+    }
+    
+    getTextes() {
+	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
+
+	return new Promise((resolve, reject) => {
+	    console.log('Dans getTextes resolve', resolve);
+	    this.http.get(this.uri_all).subscribe(
+		(tex_a: Un_texte[]) => {
+		    if (tex_a) {
+			this.textes = tex_a;
+			this.emitTexte();
+		    }
+		},
+		(error) => {
+		    console.log('Dans getTextes Erreur', error);
+		    console.log('Dans getTextes error.status', error.status);
+		    switch (error.status) {
+			case 0:
+			    console.log('Dans getTextes run nodemon server');
+			    break;
+			default:
+			    break;
+		    }
+		},
+		() => {
+		    console.log('Dans getTextes terminé!')
+		}
+	    );
+	});
+	
     }
     
     modifyTexte(id: string, texte: Un_texte) { /* update id ? */
