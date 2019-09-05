@@ -1,13 +1,14 @@
-const notationModelJs = require('../models/notationModel');
+const notationModel = require('../models/notationModel');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const Debug = require('../models/debug');
 
 exports.createNotationCtrl = (req, res, next) => {
     console.log('Entrée dans notationCtrl.js.createNotationCtrl avec req.body ', req.body);
 
-    const notation = new notationModelJs({
-	texteId: req.body.texteId,
-	date: req.body.date,
-	note: req.body.note,
-	participantId: req.body.participantId,
+    const notation = new notationModel({
+	email: req.body.email,
+	password: req.body.password,
     });
     
     notation.save()
@@ -19,7 +20,7 @@ exports.createNotationCtrl = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		console.log('Dans notationCtrl.js.createNotationCtrl Erreur ', error);
+		if (Debug.debug) {console.log('Dans notationCtrl.js.createNotationCtrl Erreur ', error);}
 		res.status(400).json({
 		    error: error
 		});
@@ -28,10 +29,10 @@ exports.createNotationCtrl = (req, res, next) => {
 };
 
 exports.getOneNotationCtrl = (req, res, next) => {
-    console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.body ', req.body);
-    console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.body ', req.body);}
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.params.id ', req.params.id);}
     
-    notationModelJs.findOne({
+    notationModel.findOne({
 	_id: req.params.id
     })
 	.then(
@@ -48,10 +49,10 @@ exports.getOneNotationCtrl = (req, res, next) => {
 };
 
 exports.deleteNotationCtrl = (req, res, next) => {
-    console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.body ', req.body);
-    console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.body ', req.body);}
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.params.id ', req.params.id);}
     
-    notationModelJs.deleteOne({_id: req.params.id})
+    notationModel.deleteOne({_id: req.params.id})
 	.then(
 	    () => {
 		res.status(200).json({
@@ -70,7 +71,7 @@ exports.deleteNotationCtrl = (req, res, next) => {
 exports.getAllNotationCtrl = (req, res, next) => {
     console.log('Entrée dans notationCtrl.js.getAllNotationCtrl avec req.body ', req.body);
 
-    notationModelJs.find()
+    notationModel.find()
 	.then(
 	    (des_notations) => {
 		res.status(200).json(des_notations);
@@ -83,5 +84,3 @@ exports.getAllNotationCtrl = (req, res, next) => {
 	    }
 	);
 };
-
-

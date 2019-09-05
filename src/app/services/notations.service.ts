@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { NotationModelTs } from '../models/notation.model';
+import { Une_notation } from '../models/Une_notation.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,11 +13,11 @@ export class NotationsService {
     
     constructor(private http: HttpClient){};
 
-    private notations: NotationModelTs[] = [];
+    private notations: Une_notation[] = [];
 
-    public notations$ = new Subject<NotationModelTs[]>();
+    public notations$ = new Subject<Une_notation[]>();
 
-    createNewNotation(notation: NotationModelTs) {
+    createNewNotation(notation: Une_notation) {
 	console.log('Entrée dans createNewNotation avec notation', notation);
 
 	return new Promise((resolve, reject) => {
@@ -43,7 +43,7 @@ export class NotationsService {
 	return new Promise((resolve, reject) => {
 	    console.log('Dans getNotations resolve', resolve);
 	    this.http.get(this.uri_all).subscribe(
-		(not_a: NotationModelTs[]) => {
+		(not_a: Une_notation[]) => {
 		    if (not_a) {
 			this.notations = not_a;
 			this.emitNotation();

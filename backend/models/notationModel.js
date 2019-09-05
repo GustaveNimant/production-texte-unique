@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 const uniqueValidator = require('mongoose-unique-validator');
     
 const notationSchema = new Schema({
-    texteId: { type: String, required: true},
-    participantId: { type: String, unique: true }
-    note: { type: number, required:true },
-    date: { type: string, required:true },
+    texteId: { type: String},
+    participantId: { type: String},
+    note: { type: Number},
+    date: { type: String}, /* créée par Service */
 },{
     collection : 'notation_c'			    
 });

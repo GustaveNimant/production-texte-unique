@@ -59,11 +59,11 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
     };
 
     onGoBack() {
-	this.router.navigate(['/part-five/all-connexion']);
+	this.router.navigate(['/part-five/les-connexions']);
     };
 
     onModify() {
-	this.router.navigate(['/part-five/all-connexion/']);
+	this.router.navigate(['/part-five/les-connexions/']);
     };
 
     onDelete() {
@@ -71,7 +71,7 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 	this.connexionsService.deleteConnexion(this.connexion._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/part-five/all-connexion']);
+		this.router.navigate(['/part-five/les-connexions']);
 	    }
 	);
     };

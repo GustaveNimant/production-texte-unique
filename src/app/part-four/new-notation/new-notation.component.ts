@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
+import { StateService }                 from '../../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NotationModelTs } from '../../models/notation.model';
-import { NotationsService } from '../../services/notations.service';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Une_notation }                 from '../../models/Une_notation.model';
+import { Router }                       from '@angular/router';
+import { Subscription }                 from 'rxjs';
+import { NotationsService }             from '../../services/notations.service';
 
 @Component({
     selector: 'app-new-notation',
@@ -18,66 +18,61 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     public loading = false;
     public part: number;
     public errorMessage: string;
-    public debug: boolean;
 
     private partSub: Subscription;
 
-    constructor(private stateService: StateService,
+    constructor(private state: StateService,
 		private formBuilder: FormBuilder,
-		private notationsService: NotationsService,
-		private router: Router)
+		private router: Router,
+		private notationsService: NotationsService)
 		{
 		    console.log('Entrée dans constructor');
 		}
-
-
+    
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
-
-	this.loading = true;
-
-	this.stateService.mode$.next('form');
+	
+	this.state.mode$.next('form');
 
 	this.notationForm = this.formBuilder.group({
 	    texteId: [null],
-	    date: [null],
+	    participantId: [null],
 	    note: [6],
-	    participantId: [null]
+	    date: [null]
 	});
-	console.log('Dans ngOnInit notationForm',this.notationForm);
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
+	
+	this.partSub = this.state.part$.subscribe(
+	    (part) => {
+		this.part = part;
 	    }
 	);
     }
 
     onSubmit() {
 	console.log('Entrée dans onSubmit');
-
+	
 	this.loading = true;
 
-	/* copie le contenu du notationForm */
-	const notation = new NotationModelTs();
+	const notation = new Une_notation();
 	notation.texteId = this.notationForm.get('texteId').value;
 	notation.participantId = this.notationForm.get('participantId').value;
 	notation.note = this.notationForm.get('note').value;
-	notation.date = new Date().getTime().toString(); 
-	
-	console.log('Dans onSubmit notation', notation);
+	notation.date = new Date().getTime().toString();
 
+	console.log('Dans onSubmit notation', notation);
+	
 	this.notationsService.createNewNotation(notation)
 	    .then(
 		() => {
 		    this.notationForm.reset();
 		    this.loading = false;
-	//	    this.router.navigate(['/part-four/les-notations']);
-		}
+		    this.router.navigate(['/part-four/les-notations']);
+		    }
 	    )
 	    .catch(
 		(error) => {
-		    console.log('Dans onSubmit Erreur est', error);
+		    console.log('Dans onSubmit Erreur', error);
+		    console.log('Dans onSubmit Erreur.status', error.status);
 		    this.loading = false;
 		    this.errorMessage = error.message;
 		}
@@ -89,4 +84,3 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     }
 
 }
-

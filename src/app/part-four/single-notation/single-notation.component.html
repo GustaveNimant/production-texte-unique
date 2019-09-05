@@ -1,34 +1,18 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 <div *ngIf="debug">Debug:Dans single-notation.component.html</div>
 <div *ngIf="!loading">
+    <div class="notation-pane">
 
-    <div class="single-notation-pane">
-
-	<div class="single-notation-info">
-	    <p>note : {{ notation.note }}</p>
-	    <p>Id : {{ notation._id }} ( {{ notation.__v }} ) </p>
-	    <p>Date : {{notation.date}} </p>
-	    <p>texteId : {{ notation.texteId }}</p>
-	    <p>participnatId : {{ notation.participantId }}</p>
-
-	    <button class="btn btn-danger m-1"
-		    (click)="onDelete()"
-		    [disabled]="part != 4">Supprimer</button>
+	<div class="notation-info">
+	    <p>texteId {{ notation.texteId }}<p>
+		<p>participantId {{ notation.participantId }}</p>
+		<p>id {{ notation._id }}</p>
+		<p>note {{ notation.note }}</p>
+		<p>date {{ notation.date }}</p>
+		<button class="btn btn-danger m-1" (click)="onDelete()"
+			[disabled]="part != 4">Supprimer</button>
 	</div>
 	<button class="btn btn-link"
-		(click)="onGoAllNotation()"><< Retour à la liste des Notations</button>
-
-	<p class="alert-danger"
-	   *ngIf="errorMessage">Dans single-notation.component.html.<br>Erreur<br> {{ errorMessage }}</p>
-	
-	<p class="alert-danger" *ngIf="!isAuth"><br>
-	    Il faut <a class="header-link"
-		       routerLink="/login"
-		       routerLinkActive="active">
-	    <button class="btn btn-primary">se connecter</button>
-	    </a> pour modifier un notation
-	</p>
-
+		(click)="onGoBack()"><< Retour à la liste des Notations</button>
     </div>
 </div>
-

@@ -106,7 +106,7 @@ export class ConnexionsService {
 		}
 	    },
 	    (error) => {
-		console.log('Dabs getConnexions Erreur:', error);
+		console.log('Dans getConnexions Erreur:', error);
 	    },
 	    () => {console.log('Dans getConnexions fini !')}
 	);

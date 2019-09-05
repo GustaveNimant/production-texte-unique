@@ -1,20 +1,19 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
-<div *ngIf="debug">Debug:Dans new-notation.component.html</div>
-<div class="col-sm-6 offset-sm-3 mt-2">
-    
+
+<div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="notationForm">
 	<div class="form-group">
-	    <label for="texteId">Id du texte à noter</label>
+	    <label for="texteId">TexteId</label>
 	    <input type="text"
-		   placeholder="Entrer l'Id du texte ..."
+		   placeholder="Entrer un texteId ..."
 		   id="texteId"
 		   formControlName="texteId"
 		   class="form-control">
 	</div>
 	<div class="form-group">
-	    <label for="participantId">Id du participant qui note</label>
-	    <input type="text"
-		   placeholder="Entrer l'Id du participant ..."
+	    <label for="participantId">ParticipantId</label>
+	    <input type="participantId"
+		   placeholder="Entrer un participantId ..."
 		   id="participantId"
 		   formControlName="participantId"
 		   class="form-control">
@@ -22,17 +21,15 @@
 	<div class="form-group">
 	    <label for="note">Note</label>
 	    <input type="number"
-		   placeholder="Entrer la note ..."
+		   placeholder="Entrer un note ..."
 		   id="note"
 		   formControlName="note" min="0" max="10"
 		   class="form-control">
 	</div>
-	
 	<button class="btn btn-primary"
-		(click)="onSubmit()"
-		[disabled]="notationForm.invalid">Submit</button>
+		       (click)="onSubmit()"
+		       [disabled]="notationForm.invalid">Submit</button>
 	<p class="alert-danger"
-	   *ngIf="errorMessage">Dans new-notation.component.html.<br>Erreur lors de la création du notation:<br> {{ errorMessage }}</p>
+	   *ngIf="errorMessage">Dans new-notation.component.html.<br>Erreur lors de la création de la notation:<br> {{ errorMessage }}</p>
     </form>
 </div>
-

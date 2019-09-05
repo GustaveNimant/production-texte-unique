@@ -78,7 +78,7 @@ export class ModifyTexteWithImageComponent implements OnInit {
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
-		this.router.navigate(['/part-four/les-textes']);
+		this.router.navigate(['/part-one/les-textes']);
 	    },
 	    (error) => {
 		this.loading = false;

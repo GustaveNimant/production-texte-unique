@@ -1,4 +1,4 @@
-export class NotationModelTs {
+export class Une_notation {
     _id: string;
     texteId: string;
     participantId: string;
