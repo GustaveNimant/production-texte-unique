@@ -17,6 +17,8 @@ export class StateService {
     public currentUrl$ = new BehaviorSubject<string>('');
     public currentUrl = '';
 
+    public currentConnexionId$ = new BehaviorSubject<string>('');
+    public currentConnexionId = '';
     
     debugSwitch() {
 	console.log('Entrée dans debugSwitch');

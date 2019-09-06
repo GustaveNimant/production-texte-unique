@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private auth: ConnexionsService,
 		private connexionsService: ConnexionsService){
 	console.log('Entrée dans constructor');
     }
@@ -37,7 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
-	this.auth.isAuth$.next(true);
+	this.connexionsService.isAuth$.next(true);
 
 	this.stateService.mode$.next('form');
 
@@ -75,6 +74,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	connexion._id = new Date().getTime().toString();
 
 	console.log('Dans onLogin connexion', connexion);
+
+	this.stateService.currentConnexionId$.next(connexion._id);
 	
 	this.connexionsService.login(connexion)
 	    .then(

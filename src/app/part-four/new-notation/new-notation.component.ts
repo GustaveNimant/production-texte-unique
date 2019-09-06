@@ -20,9 +20,13 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     public errorMessage: string;
 
     private partSub: Subscription;
-    private texteId: string;
+    private currentConnexionIdSub: Subscription;
     
-    constructor(private state: StateService,
+    private texteId: string;
+    private participantId: string;
+    private currentDate: string;
+    
+    constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
@@ -33,8 +37,11 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+
+	this.currentDate = new Date().toString();
+	console.log('Dans ngOnInit currentDate', this.currentDate);
 	
-	this.state.mode$.next('form');
+	this.stateService.mode$.next('form');
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
@@ -44,16 +51,28 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	);
 
 	this.notationForm = this.formBuilder.group({
-	    texteId:[this.texteId],
-	    participantId: [null],
 	    note: [6],
-	    date: [null]
 	});
 	
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (part) => {
 		this.part = part;
 	    }
+	);
+
+    	this.currentConnexionIdSub = this.stateService.currentConnexionId$.subscribe(
+	    (id) => {
+		console.log('Dans ngOnInit id >', id,'<');
+		if (id) {
+		    this.participantId = id;
+		} else {
+		    this.router.navigate(['/login']);
+		}
+	    }, 
+	    (error) => {
+		console.log('Dans ngOnInit Erreur', error);
+	    }
+
 	);
     }
 
@@ -65,10 +84,10 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	const notation = new Une_notation();
 	
 	notation.texteId = this.texteId;
-	notation.participantId = this.notationForm.get('participantId').value;
-	notation.note = this.notationForm.get('note').value;
-	notation.date = new Date().getTime().toString();
+	notation.participantId = this.participantId;
+	notation.date = this.currentDate;
 
+	notation.note = this.notationForm.get('note').value;
 	console.log('Dans onSubmit notation', notation);
 	
 	this.notationsService.createNewNotation(notation)

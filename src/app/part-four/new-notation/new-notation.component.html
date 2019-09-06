@@ -2,23 +2,11 @@
 
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="notationForm">
-	<div class="form-group">
-	    <label for="texteId">TexteId</label>
-	    <input type="text"
-		   placeholder={{texteId}}
-		   id="texteId"
-		   formControlName="texteId"
-		   class="form-control"
-		   disabled>
-	</div>
-	<div class="form-group">
-	    <label for="participantId">ParticipantId</label>
-	    <input type="participantId"
-		   placeholder="Entrer un participantId ..."
-		   id="participantId"
-		   formControlName="participantId"
-		   class="form-control">
-	</div>
+	<ul>
+	    <li> Id du texte : {{texteId}}</li>
+	    <li> Id du participant : {{participantId}}</li>
+	    <li> Date : {{currentDate}}</li>
+	</ul>
 	<div class="form-group">
 	    <label for="note">Note</label>
 	    <input type="number"
