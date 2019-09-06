@@ -47,6 +47,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 		    );
 	    }
 	);
+	
 	this.partSub = this.state.part$.subscribe(
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
@@ -74,7 +75,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
     };
 
     ngOnDestroy() {
-    this.partSub.unsubscribe();
+	this.partSub.unsubscribe();
   };
 
 };

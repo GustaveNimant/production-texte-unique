@@ -64,6 +64,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 
 	/* copie le contenu du texteForm */
 	const texte = new Un_texte();
+
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
 	texte.shasum = this.texteForm.get('shasum').value;

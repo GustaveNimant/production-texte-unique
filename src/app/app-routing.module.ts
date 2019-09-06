@@ -78,6 +78,7 @@ const routes: Routes = [
     { path: 'part-four', component: PartFourComponent,
       children: [
 	  { path: 'new-notation', component: NewNotationComponent},
+	  { path: 'new-notation/:id', component: NewNotationComponent},
 	  { path: 'les-notations', component: NotationsListComponent},
 	  { path: 'une_notation/:id', component: SingleNotationComponent},
 	  { path: '', pathMatch: 'full', redirectTo: '' }, 

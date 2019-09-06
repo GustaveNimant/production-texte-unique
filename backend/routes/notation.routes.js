@@ -6,7 +6,7 @@ const multer = require('../middleware/multer-config')
 
 const notationCtrl = require('../controllers/notationCtrl');
 
-router.get('/', auth, notationCtrl.getAllNotationCtrl);
+router.get('/', notationCtrl.getAllNotationCtrl);
 router.post('/', auth, notationCtrl.createNotationCtrl); 
 router.get('/:id', auth, notationCtrl.getOneNotationCtrl);
 router.delete('/:id', auth, notationCtrl.deleteNotationCtrl);

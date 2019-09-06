@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		    console.log('Dans onLogin part', this.part);
 		    this.connexionForm.reset();
 		    this.loading = false;
+		    console.log('Dans onLogin currentUrl', this.currentUrl);
 		    this.router.navigate([this.currentUrl]);
 		}
 	    )

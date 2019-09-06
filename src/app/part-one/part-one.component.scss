@@ -1,15 +1,12 @@
-ul {
-  list-style: none;
-  display: flex;
-  align-items: center;
-  margin: 0 0 0 5%;
-  padding: 0;
-}
+a {
+    font-size: 70%;
+    color: #ffffff;	
+}   
 
 li {
-  display: inline-block;
-  margin: 0 14px;
-}
+    font-size: 70%;
+    color: #ffffff;	
+}   
 
 h2 {
   margin: 1% 0% 1% 0%;
@@ -18,5 +15,13 @@ h2 {
   background-color: #6eb5ff;
   color: white;
   padding: 0.2rem 8%;
+}
+
+h3 {
+    font-size: 120%;
+}
+
+h5 {
+    color: #6eb5ff;
 }
 

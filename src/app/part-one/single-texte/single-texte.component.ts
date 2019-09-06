@@ -33,7 +33,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     
     constructor(private stateService: StateService,
 		private router: Router,
-		private route: ActivatedRoute,
+		private activatedRoute: ActivatedRoute,
 		private textesService: TextesService,
 		private connexionsService: ConnexionsService) { }
 
@@ -51,7 +51,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.stateService.mode$.next('single-texte');
 	this.auteurId = this.connexionsService.connexionId ? this.connexionsService.connexionId : 'connexionID40282382';
 
-	this.route.params.subscribe(
+	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		console.log('Dans ngOnInit params', params);
 		this.textesService.getTexteById(params.id)
@@ -104,7 +104,8 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onNotate() {
-	this.router.navigate(['/part-four/notate-texte/' + this.texte._id]);
+	console.log('Entrée dans onNotate navigation vers /part-four/new-notation/'+this.texte._id);
+	this.router.navigate(['/part-four/new-notation/' + this.texte._id]);
     }
 
     onModify() {
