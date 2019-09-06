@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
     private currentUrlSub: Subscription;
 
-    constructor(private state: StateService,
+    constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private auth: ConnexionsService,
@@ -39,14 +39,14 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	this.auth.isAuth$.next(true);
 
-	this.state.mode$.next('form');
+	this.stateService.mode$.next('form');
 
 	this.connexionForm = this.formBuilder.group({
 	    email: [null, [Validators.required, Validators.email]],
 	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
 	
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-    	this.currentUrlSub = this.state.currentUrl$.subscribe(
+    	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {
 		console.log('Dans ngOnInit url',url);
 		this.currentUrl = url;

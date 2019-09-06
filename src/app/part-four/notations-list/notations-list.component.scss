@@ -1,5 +1,5 @@
 .notation-grid {
-  width: 80%;
+  width: 95%;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
@@ -9,36 +9,69 @@
 .notation-pane {
   transition: transform 0.3s ease-in-out;
   position: relative;
-  width: 290px;
-  height: 130px;
+  width: 270px;
   margin: 5px;
-  padding: 10px;
-  border-radius: 25px;
   background-size: cover;
   background-position: center;
   box-shadow: 1px 1px 3px #333333;
   cursor: pointer;
   &:hover {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 }
 
 .notation-info {
-  width: 85%;
-  position: absolute;
-  bottom: 50;
-  height: 50%;
-  border-radius: 25px;
-  background-color: rgba(0, 0, 200, 0.3);
-  color: blue;
-  padding: 5px;
-  p {
-    font-weight: 500;
-  }
+  position: relative;
+  margin: 5px;
+  background-color: rgba(200, 200, 0, 0.2);
+  color: black;
+  word-wrap:break-word;
+  li {
+      font-size: 70%;
+      color: #0000ff;	
+  }   
   h3 {
-    font-weight: 800;
+    font-size: 120%;
   }
   h5 {
     color: #6eb5ff;
   }
 }
+
+.notation-titre {
+  position: relative;
+  margin: 5px;
+  background-color: rgba(200, 200, 0, 0.2);
+  color: black;
+  word-wrap:break-word;
+  h3 {
+    font-size: 120%;
+  }
+}
+
+.notation-contenu {
+  position: relative;
+  margin: 5px;
+  background-color: rgba(200, 200, 200, 0.2);
+  color: black;
+  li {
+      font-size: 70%;
+      color: #0000ff;	
+  }   
+  h3 {
+    font-size: 120%;
+  }
+  h5 {
+    color: #6eb5ff;
+  }
+}
+
+h2 {
+  margin: 1% 0% 1% 0%;
+  display: flex;
+  align-items: center;
+  background-color: #6eb5ff;
+  color: white;
+  padding: 0.2rem 8%;
+}
+

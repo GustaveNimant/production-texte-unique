@@ -14,7 +14,6 @@ export class NotationsService {
     constructor(private http: HttpClient){};
 
     private notations: Une_notation[] = [];
-
     public notations$ = new Subject<Une_notation[]>();
 
     createNewNotation(notation: Une_notation) {
@@ -65,7 +64,6 @@ export class NotationsService {
 		}
 	    );
 	});
-	
     }
     
     emitNotation() {

@@ -7,8 +7,10 @@ exports.createNotationCtrl = (req, res, next) => {
     console.log('Entrée dans notationCtrl.js.createNotationCtrl avec req.body ', req.body);
 
     const notation = new notationModel({
-	email: req.body.email,
-	password: req.body.password,
+	participantId: req.body.participantId,
+	texteId: req.body.texteId,
+	note: req.body.note,
+	date: req.body.date,
     });
     
     notation.save()
@@ -36,8 +38,10 @@ exports.getOneNotationCtrl = (req, res, next) => {
 	_id: req.params.id
     })
 	.then(
-	    (notation) => {
-		res.status(200).json(notation);
+	    (not) => {
+		console.log('Dans notationCtrl.js.getOneNotationCtrl not', not);
+		res.status(200).json(not);
+		
 	    }
 	).catch(
 	    (error) => {
@@ -73,8 +77,9 @@ exports.getAllNotationCtrl = (req, res, next) => {
 
     notationModel.find()
 	.then(
-	    (des_notations) => {
-		res.status(200).json(des_notations);
+	    (not_a) => {
+		console.log('Dans notationCtrl.js.getAllNotationCtrl not_a', not_a);
+		res.status(200).json(not_a);
 	    }
 	).catch(
 	    (error) => {

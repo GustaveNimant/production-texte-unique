@@ -61,7 +61,8 @@ export class TextesListComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit isAuth', this.isAuth);
 	    }
 	);
-	
+
+	console.log('Dans ngOnInit loading', this.loading);
 	this.textesService.getTextes(); /* afficher les textes */
     }
 
