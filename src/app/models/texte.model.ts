@@ -6,6 +6,5 @@ export class TexteModel {
     noteMoyenne: number;
     noteEcartType: number;
     auteurId: string;
-    imageUrl: string;
     __v : number;
 }

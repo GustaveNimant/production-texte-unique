@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { TexteModel } from '../models/texte.model';
 import { Subject } from 'rxjs';
+import { TexteModel } from '../models/texte.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -57,6 +57,27 @@ export class TexteService {
 	});
     }
     
+    createNewTexteWithFile(texte: TexteModel, image: File) {
+	console.log('Entrée dans createNewTexteWithFile avec texte', texte,' et image',image);
+
+	return new Promise((resolve, reject) => {
+	    const texteData = new FormData();
+	    
+	    texteData.append('texte', JSON.stringify(texte));
+	    texteData.append('image', image, texte.titre);
+	    
+	    this.http.post(this.uri_all + 'withFile', texteData)
+		.subscribe(
+		    (response) => {
+			resolve(response);
+		    },
+		    (error) => {
+			reject(error);
+		    }
+		);
+	});
+    }
+    
     getTextes() {
 	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
 
@@ -93,6 +114,31 @@ export class TexteService {
 
 	return new Promise((resolve, reject) => {
 	    this.http.put(this.uri_all + id, texte).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
+
+    modifyTexteWithFile(id: string, texte: TexteModel, image: File | string) {
+	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte,' et image',image);
+	console.log('Dans modifyTexteWithFile typeof image',(typeof image));
+	return new Promise((resolve, reject) => {
+	    let texteData: TexteModel | FormData;
+	    if (typeof image === 'string') {
+		texte.shasum = image;
+		texteData = texte;
+	    } else {
+		texteData = new FormData();
+		texteData.append('texte', JSON.stringify(texte));
+		texteData.append('image', image, texte.titre);
+	    }
+	    
+	    this.http.put(this.uri_all + id, texteData).subscribe(
 		(response) => {
 		    resolve(response);
 		},

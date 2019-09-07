@@ -23,10 +23,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public debug: boolean;
     public trace: boolean;
 
-    fileIsUploading = false;
-    fileUploaded = false;
-
-    currentUrl: string;
+    private currentUrl: string;
 
     private partSub: Subscription;
     private isAuthSub: Subscription;
@@ -110,10 +107,6 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 
     onModify() {
 	this.router.navigate(['/part-one/modify-texte/' + this.texte._id]);
-    }
-
-    onModifyWithImage() {
-	this.router.navigate(['/part-one/modify-texte-with-image/' + this.texte._id]);
     }
 
     onDelete() {
