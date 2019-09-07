@@ -7,12 +7,12 @@ import { Router } from '@angular/router';
 import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
-    selector: 'app-textes-list',
-    templateUrl: './textes-list.component.html',
-    styleUrls: ['./textes-list.component.scss']
+    selector: 'app-list-texte',
+    templateUrl: './list-texte.component.html',
+    styleUrls: ['./list-texte.component.scss']
 })
 
-export class TextesListComponent implements OnInit, OnDestroy {
+export class ListTexteComponent implements OnInit, OnDestroy {
 
     public textes: Un_texte[] = [];
     public part: number;

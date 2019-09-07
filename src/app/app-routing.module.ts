@@ -11,7 +11,7 @@ import { NewTexteComponent }              from './part-one/new-texte/new-texte.c
 import { NewTexteWithImageComponent }     from './part-one/new-texte-with-image/new-texte-with-image.component';
 import { NewTexteWithUploadComponent }    from './part-one/new-texte-with-upload/new-texte-with-upload.component';
 import { SingleTexteComponent }           from './part-one/single-texte/single-texte.component';
-import { TextesListComponent }            from './part-one/textes-list/textes-list.component';
+import { ListTexteComponent }            from './part-one/list-texte/list-texte.component';
 
 import { PartTwoComponent }               from './part-two/part-two.component';
 import { NewParticipantComponent }        from './part-two/new-participant/new-participant.component';
@@ -45,12 +45,12 @@ const routes: Routes = [
 	  { path: 'new-texte-with-image', component: NewTexteWithImageComponent},
 	  { path: 'new-texte-with-upload', component: NewTexteWithUploadComponent},
 	  { path: 'un_texte/:id', component: SingleTexteComponent },
-	  { path: 'les-textes', component: TextesListComponent },
+	  { path: 'list-texte', component: ListTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
 	  { path: 'modify-texte-with-image/:id', component: ModifyTexteWithImageComponent },
 	  { path: 'modify-texte-with-upload/:id', component: ModifyTexteWithUploadComponent },
 	  { path: '', pathMatch: 'full', redirectTo: '' },
-	  { path: '**', redirectTo: 'les-textes' }
+	  { path: '**', redirectTo: 'list-texte' }
       ]
     },
     { path: 'part-two', component: PartTwoComponent,

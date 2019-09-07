@@ -24,7 +24,7 @@ import { NewTexteWithUploadComponent }    from './part-one/new-texte-with-upload
 
 
 import { SingleTexteComponent }           from './part-one/single-texte/single-texte.component';
-import { TextesListComponent }            from './part-one/textes-list/textes-list.component';
+import { ListTexteComponent }            from './part-one/list-texte/list-texte.component';
 
 import { PartTwoComponent }          from './part-two/part-two.component';
 
@@ -66,7 +66,7 @@ import { NotationsListComponent } from './part-four/notations-list/notations-lis
 	SingleConnexionComponent,
 	SingleParticipantComponent,
 	SingleTexteComponent,
-	TextesListComponent,
+	ListTexteComponent,
 	LoginComponent,
 	NewNotationComponent,
 	SingleNotationComponent,
