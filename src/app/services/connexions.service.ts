@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Une_connexion } from '../models/Une_connexion.model';
+import { ConnexionModel } from '../models/connexion.model';
 
 @Injectable({
     providedIn: 'root'
@@ -22,11 +22,11 @@ export class ConnexionsService {
 	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
     }
 
-    private connexions: Une_connexion[] = [];
+    private connexions: ConnexionModel[] = [];
 
-    public connexions$ = new Subject<Une_connexion[]>();
+    public connexions$ = new Subject<ConnexionModel[]>();
 
-    createNewConnexion(connexion: Une_connexion) { /* signup */
+    createNewConnexion(connexion: ConnexionModel) { /* signup */
 	console.log('Entrée dans createNewConnexion avec connexion ', connexion);
 
 	const uri_signup = this.uri_all + 'signup';
@@ -56,7 +56,7 @@ export class ConnexionsService {
 	});
     }
 
-    login(connexion: Une_connexion) {
+    login(connexion: ConnexionModel) {
 	console.log('Entrée dans login avec connexion',connexion);
 
 	const uri_login = this.uri_all + 'login';
@@ -99,7 +99,7 @@ export class ConnexionsService {
     getConnexions() {
 	console.log('Entrée dans getConnexions avec uri_all', this.uri_all);
 	this.http.get(this.uri_all).subscribe(
-	    (con_a: Une_connexion[]) => {
+	    (con_a: ConnexionModel[]) => {
 		if (con_a) {
 		    this.connexions = con_a;
 		    this.emitConnexion();

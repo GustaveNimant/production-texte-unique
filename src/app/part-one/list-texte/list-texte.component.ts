@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { TextesService } from '../../services/textes.service';
 import { Subscription } from 'rxjs';
-import { Un_texte } from '../../models/Un_texte.model';
+import { TexteModel } from '../../models/texte.model';
 import { Router } from '@angular/router';
 import { ConnexionsService } from '../../services/connexions.service';
 
@@ -14,13 +14,13 @@ import { ConnexionsService } from '../../services/connexions.service';
 
 export class ListTexteComponent implements OnInit, OnDestroy {
 
-    public textes: Un_texte[] = [];
     public part: number;
     public loading: boolean;
     public isAuth: boolean;
 
     currentUrl: string;
     
+    public textes: TexteModel[] = [];
     private textesSub: Subscription;
     private partSub: Subscription;
     private isAuthSub: Subscription;

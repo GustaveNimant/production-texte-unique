@@ -7,14 +7,14 @@ import { Observable } from 'rxjs';
 
 export class ConnexionInterceptor implements HttpInterceptor {
 
-    constructor(private auth: ConnexionsService) {
+    constructor(private connexionsService: ConnexionsService) {
 	console.log('Entrée dans constructor');
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler) : Observable<HttpEvent<any>> {
-	console.log('Entrée dans intercept with req.headers', req.headers);
+	console.log('Entrée dans intercept req.headers', req.headers);
 
-	const authToken = this.auth.token; /* Improve */
+	const authToken = this.connexionsService.token; /* Improve */
 	console.log('Dans intercept authToken >',authToken,'<');
 
 	const newRequest = req.clone({ /* req est inchangé. */

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Un_texte } from '../../models/Un_texte.model';
-import { TextesService } from '../../services/textes.service';
-import { Subscription } from 'rxjs';
+import { TexteModel } from '../../models/texte.model';
+import { TextesService }     from '../../services/textes.service';
 import { ConnexionsService } from '../../services/connexions.service';
+import { StateService }      from '../../services/state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-single-texte',
@@ -13,7 +13,7 @@ import { ConnexionsService } from '../../services/connexions.service';
 })
 export class SingleTexteComponent implements OnInit, OnDestroy {
 
-    public texte: Un_texte;
+    public texte: TexteModel;
     public loading: boolean;
     public auteurId: string;
     public part: number;
@@ -56,7 +56,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit params', params);
 		this.textesService.getTexteById(params.id)
 		    .then(
-			(tex: Un_texte) => {
+			(tex: TexteModel) => {
 			    this.loading = false;
 			    this.texte = tex;
 			    console.log('Dans ngOnInit texte',this.texte);

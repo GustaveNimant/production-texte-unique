@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { mimeType } from '../mime-type.validator';
+import { Component, OnInit }                  from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router }             from '@angular/router';
+import { TexteModel } from '../../models/texte.model';
+import { ConnexionsService } from '../../services/connexions.service';
 import { StateService } from '../../services/state.service';
 import { TextesService } from '../../services/textes.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ConnexionsService } from '../../services/connexions.service';
-import { mimeType } from '../mime-type.validator';
-import { Un_texte } from '../../models/Un_texte.model';
 
 @Component({
     selector: 'app-modify-texte-with-upload',
@@ -16,7 +16,7 @@ import { Un_texte } from '../../models/Un_texte.model';
 export class ModifyTexteWithUploadComponent implements OnInit {
 
     public texteForm: FormGroup;
-    public texte: Un_texte;
+    public texte: TexteModel;
     public loading = false;
     public part: number;
     public auteurId: string;
@@ -37,7 +37,7 @@ export class ModifyTexteWithUploadComponent implements OnInit {
 	this.activatedRoute.params.subscribe(
 	    (params) => {
 		this.textesService.getTexteById(params.id).then(
-		    (texte: Un_texte) => {
+		    (texte: TexteModel) => {
 			this.texte = texte;
 			this.texteForm = this.formBuilder.group({
 			    titre: [texte.titre, Validators.required],
@@ -56,7 +56,7 @@ export class ModifyTexteWithUploadComponent implements OnInit {
 
     onSubmit() {
 	this.loading = true;
-	const texte = new Un_texte();
+	const texte = new TexteModel();
 	texte._id = this.texte._id;
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;

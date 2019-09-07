@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Un_texte } from '../models/Un_texte.model';
+import { TexteModel } from '../models/texte.model';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,9 +13,9 @@ export class TextesService {
     
     constructor(private http: HttpClient){};
 
-    private textes: Un_texte[] = [];
+    private textes: TexteModel[] = [];
 
-    public textes$ = new Subject<Un_texte[]>();
+    public textes$ = new Subject<TexteModel[]>();
 
     emitTexte() {
 	console.log('Entrée dans emitTexte avec les textes', this.textes);
@@ -37,7 +37,7 @@ export class TextesService {
 	});
     }
 
-    createNewTexte(texte: Un_texte) {
+    createNewTexte(texte: TexteModel) {
 	console.log('Entrée dans createNewTexte avec texte', texte);
 
 	return new Promise((resolve, reject) => {
@@ -57,7 +57,7 @@ export class TextesService {
 	});
     }
     
-    createNewTexteWithFile(texte: Un_texte, image: File) {
+    createNewTexteWithFile(texte: TexteModel, image: File) {
 	console.log('Entrée dans createNewTexteWithFile avec texte', texte,' et image',image);
 
 	return new Promise((resolve, reject) => {
@@ -84,7 +84,7 @@ export class TextesService {
 	return new Promise((resolve, reject) => {
 	    console.log('Dans getTextes resolve', resolve);
 	    this.http.get(this.uri_all).subscribe(
-		(tex_a: Un_texte[]) => {
+		(tex_a: TexteModel[]) => {
 		    if (tex_a) {
 			this.textes = tex_a;
 			this.emitTexte();
@@ -109,7 +109,7 @@ export class TextesService {
 	
     }
     
-    modifyTexte(id: string, texte: Un_texte) { /* update id ? */
+    modifyTexte(id: string, texte: TexteModel) { /* update id ? */
 	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
 
 	return new Promise((resolve, reject) => {
@@ -124,11 +124,11 @@ export class TextesService {
 	});
     }
 
-    modifyTexteWithFile(id: string, texte: Un_texte, image: File | string) {
+    modifyTexteWithFile(id: string, texte: TexteModel, image: File | string) {
 	console.log('Entrée dans modifyTexteWithFile avec id',id, 'et texte', texte,' et image',image);
 	console.log('Dans modifyTexteWithFile typeof image',(typeof image));
 	return new Promise((resolve, reject) => {
-	    let texteData: Un_texte | FormData;
+	    let texteData: TexteModel | FormData;
 	    if (typeof image === 'string') {
 		texte.shasum = image;
 		texteData = texte;

@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Une_notation } from '../models/Une_notation.model';
-import { HttpClient } from '@angular/common/http';
+import { Injectable }    from '@angular/core';
+import { HttpClient }    from '@angular/common/http';
+import { NotationModel } from '../models/notation.model';
+import { Subject }       from 'rxjs';
+
 
 @Injectable({
     providedIn: 'root'
@@ -13,10 +14,10 @@ export class NotationsService {
     
     constructor(private http: HttpClient){};
 
-    private notations: Une_notation[] = [];
-    public notations$ = new Subject<Une_notation[]>();
+    private notations: NotationModel[] = [];
+    public notations$ = new Subject<NotationModel[]>();
 
-    createNewNotation(notation: Une_notation) {
+    createNewNotation(notation: NotationModel) {
 	console.log('Entrée dans createNewNotation avec notation', notation);
 
 	return new Promise((resolve, reject) => {
@@ -42,7 +43,7 @@ export class NotationsService {
 	return new Promise((resolve, reject) => {
 	    console.log('Dans getNotations resolve', resolve);
 	    this.http.get(this.uri_all).subscribe(
-		(not_a: Une_notation[]) => {
+		(not_a: NotationModel[]) => {
 		    if (not_a) {
 			this.notations = not_a;
 			this.emitNotation();

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Une_notation } from '../../models/Une_notation.model';
-import { NotationsService } from '../../services/notations.service';
+import { NotationModel }     from '../../models/notation.model';
+import { NotationsService }  from '../../services/notations.service';
 import { ConnexionsService } from '../../services/connexions.service';
+import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 
 export class SingleNotationComponent implements OnInit, OnDestroy {
 
-    public notation: Une_notation;
+    public notation: NotationModel;
     public loading: boolean;
     public part: number;
 
@@ -40,7 +40,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 	    (params: Params) => {
 		this.notationsService.getNotationById(params.id)
 		    .then(
-			(not: Une_notation) => {
+			(not: NotationModel) => {
 			    console.log('Dans ngOnInit notation', not);
 			    this.loading = false;
 			    this.notation = not;

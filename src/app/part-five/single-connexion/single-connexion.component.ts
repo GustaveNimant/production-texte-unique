@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Une_connexion } from '../../models/Une_connexion.model';
+import { ConnexionModel } from '../../models/connexion.model';
 import { ConnexionsService } from '../../services/connexions.service';
 import { Subscription } from 'rxjs';
 
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 
 export class SingleConnexionComponent implements OnInit, OnDestroy {
 
-    public connexion: Une_connexion;
+    public connexion: ConnexionModel;
     public loading: boolean;
     public connexionId: string;
     public part: number;
@@ -40,7 +40,7 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 	    (params: Params) => {
 		this.connexionsService.getConnexionById(params.id)
 		    .then(
-			(connexion: Une_connexion) => {
+			(connexion: ConnexionModel) => {
 			    console.log('Dans ngOnInit connexion', connexion);
 			    this.loading = false;
 			    this.connexion = connexion;

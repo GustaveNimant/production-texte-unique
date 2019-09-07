@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { ConnexionsService } from '../../services/connexions.service';
 import { Subscription } from 'rxjs';
-import { Une_connexion } from '../../models/Une_connexion.model';
+import { ConnexionModel } from '../../models/connexion.model';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 export class ListConnexionComponent implements OnInit, OnDestroy {
 
-    public connexions: Une_connexion[] = [];
+    public connexions: ConnexionModel[] = [];
     public part: number;
     public loading: boolean;
     public debug: boolean;

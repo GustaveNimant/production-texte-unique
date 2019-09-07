@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StateService } from '../../services/state.service';
-import { TextesService } from '../../services/textes.service';
-import { Router } from '@angular/router';
-import { ConnexionsService } from '../../services/connexions.service';
-import { Un_texte } from '../../models/Un_texte.model';
 import { mimeType } from '../mime-type.validator';
+import { Component, OnInit }                  from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router }                             from '@angular/router';
+import { TexteModel }   from '../../models/texte.model';
+import { ConnexionsService } from '../../services/connexions.service';
+import { StateService }      from '../../services/state.service';
+import { TextesService }     from '../../services/textes.service';
 
 @Component({
     selector: 'app-new-texte-with-image',
@@ -26,7 +26,7 @@ export class NewTexteWithImageComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
 		private router: Router,
-		private auth: ConnexionsService)
+		private connexionsService: ConnexionsService)
 		{
 		    console.log('Entrée dans constructor');
 		}
@@ -57,7 +57,7 @@ export class NewTexteWithImageComponent implements OnInit {
 	console.log('Entrée dans onSubmit');
 	
 	this.loading = true;
-	const texte = new Un_texte();
+	const texte = new TexteModel();
 	
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;

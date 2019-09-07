@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { StateService } from '../../services/state.service';
-import { TextesService } from '../../services/textes.service';
-import { Router } from '@angular/router';
-import { ConnexionsService } from '../../services/connexions.service';
-import { Un_texte } from '../../models/Un_texte.model';
 import { mimeType } from '../mime-type.validator';
+import { Router }                             from '@angular/router';
+import { Component, OnInit }                  from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TexteModel } from '../../models/texte.model';
+import { StateService }      from '../../services/state.service';
+import { TextesService }     from '../../services/textes.service';
+import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
     selector: 'app-new-texte-with-upload',
@@ -26,7 +26,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
 		private router: Router,
-		private auth: ConnexionsService) { }
+		private connexionsService: ConnexionsService) { }
 
     ngOnInit() {
 	this.state.mode$.next('form');
@@ -37,12 +37,12 @@ export class NewTexteWithUploadComponent implements OnInit {
 	    noteEcartType: [0, Validators.required],
 	    image: [null, Validators.required, mimeType]
 	});
-	this.auteurId = this.auth.connexionId;
+	this.auteurId = this.connexionsService.connexionId;
     }
 
     onSubmit() {
 	this.loading = true;
-	const texte = new Un_texte();
+	const texte = new TexteModel();
 	texte.titre = this.texteForm.get('titre').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;

@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Un_participant } from '../../models/Un_participant.model';
+import { ParticipantModel } from '../../models/participant.model';
 import { ParticipantsService } from '../../services/participants.service';
+import { ConnexionsService }   from '../../services/connexions.service';
+import { StateService }        from '../../services/state.service';
 import { Subscription } from 'rxjs';
-import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
     selector: 'app-single-participant',
@@ -13,7 +13,7 @@ import { ConnexionsService } from '../../services/connexions.service';
 })
 export class SingleParticipantComponent implements OnInit, OnDestroy {
 
-    public participant: Un_participant;
+    public participantModel: ParticipantModel;
     public loading: boolean;
     public participantId: string;
     public part: number;
@@ -37,10 +37,10 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	    (params: Params) => {
 		this.participantsService.getParticipantById(params.id)
 		    .then(
-			(participant: Un_participant) => {
-			    console.log('Dans ngOnInit participant', participant);
+			(par: ParticipantModel) => {
+			    console.log('Dans ngOnInit par', par);
 			    this.loading = false;
-			    this.participant = participant;
+			    this.participantModel = par;
 			}
 		    );
 	    }
@@ -49,50 +49,25 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		if (num == 2) {
-		    this.participantId = this.auth.connexionId;
-		}
+		this.participantId = this.auth.connexionId;
 	    }
 	);
     }
 
     onGoBack() {
-	if (this.part === 1) {
-	    this.router.navigate(['/part-one/all-texte']);
-	} else if (this.part === 2) {
-	    this.router.navigate(['/part-two/all-participant']);
-	} else if (this.part === 3) {
-	    this.router.navigate(['/part-three/all-but']);
-	} else if (this.part === 4) {
-	    this.router.navigate(['/part-four/all-examen']);
-	}  else if (this.part === 5) {
-	this.router.navigate(['/part-five/all-connexion']);
-	}
+	this.router.navigate(['/part-two/list-participant']);
     }
 
     onModify() {
-	this.router.navigate(['/part-two/modify-participant/' + this.participant._id]);
+	this.router.navigate(['/part-two/modify-participant/' + this.participantModel._id]);
     }
 
     onDelete() {
 	this.loading = true;
-	this.participantsService.deleteParticipant(this.participant._id).then(
+	this.participantsService.deleteParticipant(this.participantModel._id).then(
 	    () => {
 		this.loading = false;
-		switch (this.part) {
-		    case 1:
-			this.router.navigate(['/part-one/all-texte']);
-			break;
-		    case 2:
-			this.router.navigate(['/part-two/all-participant']);
-			break;
-		    case 3:
-			this.router.navigate(['/part-three/all-participant']);
-			break;
-		    case 4:
-			this.router.navigate(['/part-four/all-participant']);
-			break;
-		}
+			this.router.navigate(['/part-two/list-participant']);
 	    }
 	);
     }

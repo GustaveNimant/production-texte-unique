@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { Un_participant } from '../models/Un_participant.model';
 import { HttpClient } from '@angular/common/http';
+import { ParticipantModel } from '../models/participant.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +16,7 @@ export class ParticipantsService {
 	console.log('Entrée dans constructor');
     };
 
-    private participants: Un_participant[] = [
+    private participants: ParticipantModel[] = [
 	{
 	    _id: '324sdfmoih3',
 	    email: 'emile.achadde@free.fr',
@@ -27,13 +27,13 @@ export class ParticipantsService {
 	},
     ];
 
-    public participants$ = new Subject<Un_participant[]>();
+    public participants$ = new Subject<ParticipantModel[]>();
 
     getParticipants() {
 	console.log('Entrée dans getParticipants avec uri', this.uri_all);
 
 	this.http.get(this.uri_all).subscribe(
-	    (par_a: Un_participant[]) => {
+	    (par_a: ParticipantModel[]) => {
 		if (par_a) {
 		    this.participants = par_a;
 		    this.emitParticipants();
@@ -67,7 +67,7 @@ export class ParticipantsService {
 	    });
     }
     
-    createNewParticipant(participant: Un_participant) {
+    createNewParticipant(participant: ParticipantModel) {
 	console.log('Entrée dans createNewParticipant avec participant', participant);
 
 	return new Promise((resolve, reject) => {
@@ -88,7 +88,7 @@ export class ParticipantsService {
 	});
     }
 
-    createNewParticipantWithFile(participant: Un_participant, image: File) { /* pas d'image */
+    createNewParticipantWithFile(participant: ParticipantModel, image: File) { /* pas d'image */
 	console.log('Entrée dans createNewParticipantWithFile avec participant', participant);
 
 	return new Promise((resolve, reject) => {
@@ -108,7 +108,7 @@ export class ParticipantsService {
 	});
     }
 
-    modifyParticipant(id: string, participant: Un_participant) {
+    modifyParticipant(id: string, participant: ParticipantModel) {
 	console.log('Entrée dans modifyParticipant avec id',id, 'et participant', participant);
 
 	return new Promise((resolve, reject) => {

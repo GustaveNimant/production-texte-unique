@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService }                 from '../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Une_connexion }                from '../models/Une_connexion.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router }                       from '@angular/router';
-import { Subscription }                 from 'rxjs';
-import { ConnexionsService }            from '../services/connexions.service';
+import { ConnexionModel }               from '../models/connexion.model';
 import { partStringOfNumber }           from '../models/outils';
+import { ConnexionsService }            from '../services/connexions.service';
+import { StateService }                 from '../services/state.service';
+import { Subscription }                 from 'rxjs';
 
 @Component({
     selector: 'app-login',
@@ -68,7 +68,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	
 	this.loading = true;
 
-	const connexion = new Une_connexion();
+	const connexion = new ConnexionModel();
 	connexion.email = this.connexionForm.get('email').value;
 	connexion.password = this.connexionForm.get('password').value;
 	connexion._id = new Date().getTime().toString();

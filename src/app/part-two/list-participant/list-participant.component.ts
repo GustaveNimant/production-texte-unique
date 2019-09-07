@@ -1,9 +1,9 @@
+import { Router }                       from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
+import { StateService }        from '../../services/state.service';
 import { ParticipantsService } from '../../services/participants.service';
+import { ParticipantModel }    from '../../models/participant.model';
 import { Subscription } from 'rxjs';
-import { Un_participant } from '../../models/Un_participant.model';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-list-participant',
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 
 export class ListParticipantComponent implements OnInit, OnDestroy {
 
-    public participants: Un_participant[] = [];
+    public participants: ParticipantModel[] = [];
     public part: number;
     public loading: boolean;
     public debug: boolean;

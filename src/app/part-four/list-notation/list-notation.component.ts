@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
-import { NotationsService } from '../../services/notations.service';
-import { Subscription } from 'rxjs';
-import { Une_notation } from '../../models/Une_notation.model';
 import { Router } from '@angular/router';
 import { ConnexionsService } from '../../services/connexions.service';
+import { StateService }      from '../../services/state.service';
+import { NotationsService }  from '../../services/notations.service';
+import { NotationModel } from '../../models/notation.model';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-list-notation',
@@ -14,7 +14,7 @@ import { ConnexionsService } from '../../services/connexions.service';
 
 export class ListNotationComponent implements OnInit, OnDestroy {
 
-    public notations: Une_notation[] = [];
+    public notations: NotationModel[] = [];
     public part: number;
     public loading: boolean;
     public debug: boolean;
@@ -25,9 +25,9 @@ export class ListNotationComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
     private isAuthSub: Subscription;
 
-    constructor(private stateService: StateService,           /* BehaviorSubjects */
+    constructor(private stateService: StateService,
 		private connexionsService: ConnexionsService,
-		private notationsService: NotationsService, /* Subjects */
+		private notationsService: NotationsService, 
 		private router: Router) {
     	console.log('Entrée dans constructor');
     }

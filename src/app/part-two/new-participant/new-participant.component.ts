@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router }                       from '@angular/router';
-import { Subscription }                 from 'rxjs';
-import { Un_participant }               from '../../models/Un_participant.model';
+import { Router }                             from '@angular/router';
+import { ParticipantModel }             from '../../models/participant.model';
 import { ConnexionsService }            from '../../services/connexions.service';
 import { ParticipantsService }          from '../../services/participants.service';
 import { StateService }                 from '../../services/state.service';
+import { Subscription }                 from 'rxjs';
 
 @Component({
     selector: 'app-new-participant',
@@ -52,11 +52,10 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
 	
 	this.loading = true;
 
-	const participant = new Un_participant();
+	const participant = new ParticipantModel();
 	participant.email = this.participantForm.get('email').value;
 	participant.pseudo = this.participantForm.get('pseudo').value;
 	participant.password = this.participantForm.get('password').value;
-//	participant.connexionId = this.participantForm.get('connection_id').value;
 	participant._id = new Date().getTime().toString();
 
 	console.log('Dans onSubmit le participant est', participant);

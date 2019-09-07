@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit }       from '@angular/core';
-import { StateService }                       from '../../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Une_notation }                       from '../../models/Une_notation.model';
 import { ActivatedRoute, Params, Router }     from '@angular/router';
-import { Subscription }                       from 'rxjs';
+import { NotationModel }                      from '../../models/notation.model';
 import { NotationsService }                   from '../../services/notations.service';
+import { StateService }                       from '../../services/state.service';
+import { Subscription }                       from 'rxjs';
 
 @Component({
     selector: 'app-new-notation',
@@ -85,7 +85,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	
 	this.loading = true;
 
-	const notation = new Une_notation();
+	const notation = new NotationModel();
 	
 	notation.texteId = this.texteId;
 	notation.participantId = this.participantId;

@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit }                  from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { StateService } from '../../services/state.service';
+import { ActivatedRoute, Router }             from '@angular/router';
+import { TexteModel } from '../../models/texte.model';
+import { StateService }  from '../../services/state.service';
 import { TextesService } from '../../services/textes.service';
-import { Un_texte } from '../../models/Un_texte.model';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 })
 export class ModifyTexteComponent implements OnInit {
 
-    texte: Un_texte;
+    texte: TexteModel;
     texteForm: FormGroup;
     loading = false;
     errorMessage: string;
@@ -55,7 +55,7 @@ export class ModifyTexteComponent implements OnInit {
 	    (par) => {
 		console.log('Dans ngOnInit par',par);
 		this.textesService.getTexteById(par.id).then(
-		    (tex: Un_texte) => {
+		    (tex: TexteModel) => {
 			console.log('Dans ngOnInit tex',tex);
 			this.texte = tex;
 			this.texteForm.get('titre').setValue(this.texte.titre);
@@ -76,7 +76,7 @@ export class ModifyTexteComponent implements OnInit {
 	console.log('Entrée dans onModifyTexte');
 	this.loading = true;
 
-	const texte = new Un_texte();
+	const texte = new TexteModel();
 
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;

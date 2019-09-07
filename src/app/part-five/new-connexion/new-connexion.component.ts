@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService }                 from '../../services/state.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Une_connexion }                from '../../models/Une_connexion.model';
+import { ConnexionModel }                from '../../models/connexion.model';
 import { Router }                       from '@angular/router';
 import { Subscription }                 from 'rxjs';
 import { ConnexionsService }            from '../../services/connexions.service';
@@ -51,7 +51,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 	
 	this.loading = true;
 
-	const connexion = new Une_connexion();
+	const connexion = new ConnexionModel();
 	connexion.email = this.connexionForm.get('email').value;
 	connexion.password = this.connexionForm.get('password').value;
 	connexion._id = new Date().getTime().toString();

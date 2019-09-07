@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
+import { Router }                             from '@angular/router';
+import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Un_texte } from '../../models/Un_texte.model';
-import { TextesService } from '../../services/textes.service';
-import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { TexteModel }        from '../../models/texte.model';
+import { TextesService }     from '../../services/textes.service';
 import { ConnexionsService } from '../../services/connexions.service';
+import { StateService }      from '../../services/state.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-new-texte',
@@ -64,7 +64,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	this.loading = true;
 
 	/* copie le contenu du texteForm */
-	const texte = new Un_texte();
+	const texte = new TexteModel();
 
 	texte.titre = this.texteForm.get('titre').value;
 	texte.contenu = this.texteForm.get('contenu').value;
