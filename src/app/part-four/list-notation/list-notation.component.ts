@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConnexionsService } from '../../services/connexions.service';
+import { ConnexionService } from '../../services/connexion.service';
 import { StateService }      from '../../services/state.service';
-import { NotationsService }  from '../../services/notations.service';
+import { NotationService }  from '../../services/notation.service';
 import { NotationModel } from '../../models/notation.model';
 import { Subscription } from 'rxjs';
 
@@ -26,8 +26,8 @@ export class ListNotationComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
-		private connexionsService: ConnexionsService,
-		private notationsService: NotationsService, 
+		private connexionService: ConnexionService,
+		private notationService: NotationService, 
 		private router: Router) {
     	console.log('Entrée dans constructor');
     }
@@ -53,7 +53,7 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	this.notationsSub = this.notationsService.notations$.subscribe(
+	this.notationsSub = this.notationService.notations$.subscribe(
 	    (con_a) => {
 		console.log('Dans ngOnInit con_a',con_a);
 		this.notations = con_a; /* on charge les notations ici */
@@ -65,7 +65,7 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	    () => {console.log('Dans notationsSub fini !')}
 	);
 
-	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
+	this.isAuthSub = this.connexionService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les notations */
 		this.isAuth = boo;
 	    }
@@ -75,7 +75,7 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	    this.router.navigate(['/login']);
 	}
 	console.log('Dans ngOnInit before getNotations loading', this.loading);
-	this.notationsService.getNotations();
+	this.notationService.getNotations();
 	console.log('Dans ngOnInit after  getNotations loading', this.loading);
     }
 

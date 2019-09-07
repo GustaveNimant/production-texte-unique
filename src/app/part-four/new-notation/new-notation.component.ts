@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router }     from '@angular/router';
 import { NotationModel }                      from '../../models/notation.model';
-import { NotationsService }                   from '../../services/notations.service';
+import { NotationService }                   from '../../services/notation.service';
 import { StateService }                       from '../../services/state.service';
 import { Subscription }                       from 'rxjs';
 
@@ -30,7 +30,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private notationsService: NotationsService)
+		private notationService: NotationService)
 		{
 		    console.log('Entrée dans constructor');
 		}
@@ -94,7 +94,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	notation.note = this.notationForm.get('note').value;
 	console.log('Dans onSubmit notation', notation);
 	
-	this.notationsService.createNewNotation(notation)
+	this.notationService.createNewNotation(notation)
 	    .then(
 		() => {
 		    this.notationForm.reset();

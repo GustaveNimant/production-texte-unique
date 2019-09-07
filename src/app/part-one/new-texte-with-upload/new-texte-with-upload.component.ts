@@ -4,8 +4,8 @@ import { Component, OnInit }                  from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TexteModel } from '../../models/texte.model';
 import { StateService }      from '../../services/state.service';
-import { TextesService }     from '../../services/textes.service';
-import { ConnexionsService } from '../../services/connexions.service';
+import { TexteService }     from '../../services/texte.service';
+import { ConnexionService } from '../../services/connexion.service';
 
 @Component({
     selector: 'app-new-texte-with-upload',
@@ -24,9 +24,9 @@ export class NewTexteWithUploadComponent implements OnInit {
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
-		private textesService: TextesService,
+		private texteService: TexteService,
 		private router: Router,
-		private connexionsService: ConnexionsService) { }
+		private connexionService: ConnexionService) { }
 
     ngOnInit() {
 	this.state.mode$.next('form');
@@ -37,7 +37,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 	    noteEcartType: [0, Validators.required],
 	    image: [null, Validators.required, mimeType]
 	});
-	this.auteurId = this.connexionsService.connexionId;
+	this.auteurId = this.connexionService.connexionId;
     }
 
     onSubmit() {
@@ -48,7 +48,7 @@ export class NewTexteWithUploadComponent implements OnInit {
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.shasum = '';
 	texte.auteurId = this.auteurId;
-	this.textesService.createNewTexteWithFile(texte, this.texteForm.get('image').value).then(
+	this.texteService.createNewTexteWithFile(texte, this.texteForm.get('image').value).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;

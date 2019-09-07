@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
-import { NotationsService } from '../services/notations.service';
+import { NotationService } from '../services/notation.service';
 
 @Component({
     selector: 'app-part-four',

@@ -7,7 +7,7 @@ import { Subject } from 'rxjs';
     providedIn: 'root'
 })
 
-export class ParticipantsService {
+export class ParticipantService {
 
     uri_all = 'http://localhost:3000/api/all-participants/';
     uri_new = this.uri_all;

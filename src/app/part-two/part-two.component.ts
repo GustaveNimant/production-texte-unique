@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
-import { ConnexionsService } from '../services/connexions.service';
+import { ConnexionService } from '../services/connexion.service';
 
 @Component({
     selector: 'app-part-two',
@@ -11,7 +11,7 @@ import { ConnexionsService } from '../services/connexions.service';
 export class PartTwoComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
-		private auth: ConnexionsService) {
+		private auth: ConnexionService) {
 	console.log('Entrée dans constructor');
     }
     

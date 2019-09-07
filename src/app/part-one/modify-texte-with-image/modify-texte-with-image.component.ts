@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router }             from '@angular/router';
 import { TexteModel } from '../../models/texte.model';
 import { StateService }      from '../../services/state.service';
-import { TextesService }     from '../../services/textes.service';
-import { ConnexionsService } from '../../services/connexions.service';
+import { TexteService }     from '../../services/texte.service';
+import { ConnexionService } from '../../services/connexion.service';
 
 @Component({
     selector: 'app-modify-texte-with-image',
@@ -25,10 +25,10 @@ export class ModifyTexteWithImageComponent implements OnInit {
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
-		private textesService: TextesService,
+		private texteService: TexteService,
 		private activatedRoute: ActivatedRoute,
 		private router: Router,
-		private connexionsService: ConnexionsService)
+		private connexionService: ConnexionService)
 		{
 		    console.log('Entrée dans constructor')
 		}
@@ -38,10 +38,10 @@ export class ModifyTexteWithImageComponent implements OnInit {
 	
 	this.loading = true;
 	this.state.mode$.next('form');
-	this.auteurId = this.connexionsService.connexionId;
+	this.auteurId = this.connexionService.connexionId;
 	this.activatedRoute.params.subscribe(
 	    (params) => {
-		this.textesService.getTexteById(params.id).then(
+		this.texteService.getTexteById(params.id).then(
 		    (tex: TexteModel) => {
 			this.texte = tex;
 			this.texteForm = this.formBuilder.group({
@@ -74,7 +74,7 @@ export class ModifyTexteWithImageComponent implements OnInit {
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.auteurId = this.auteurId;
 	
-	this.textesService.modifyTexteWithFile(this.texte._id, texte, this.texteForm.get('image').value).then(
+	this.texteService.modifyTexteWithFile(this.texte._id, texte, this.texteForm.get('image').value).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;

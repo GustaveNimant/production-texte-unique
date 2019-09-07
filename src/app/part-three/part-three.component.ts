@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
-import { ConnexionsService } from '../services/connexions.service';
+import { ConnexionService } from '../services/connexion.service';
 
 @Component({
   selector: 'app-part-three',
@@ -10,12 +10,12 @@ import { ConnexionsService } from '../services/connexions.service';
 export class PartThreeComponent implements OnInit, OnDestroy {
 
     constructor(private stateService: StateService,
-		private connexionsService: ConnexionsService) { }
+		private connexionService: ConnexionService) { }
     
     ngOnInit() {
-	this.connexionsService.isAuth$.next(false);
-	this.connexionsService.connexionId = '';
-	this.connexionsService.token = '';
+	this.connexionService.isAuth$.next(false);
+	this.connexionService.connexionId = '';
+	this.connexionService.token = '';
 	
 	this.stateService.part$.next(3);
 	this.stateService.part = 3;

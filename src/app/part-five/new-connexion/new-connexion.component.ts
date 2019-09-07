@@ -4,7 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ConnexionModel }                from '../../models/connexion.model';
 import { Router }                       from '@angular/router';
 import { Subscription }                 from 'rxjs';
-import { ConnexionsService }            from '../../services/connexions.service';
+import { ConnexionService }            from '../../services/connexion.service';
 
 @Component({
     selector: 'app-new-connexion',
@@ -24,7 +24,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private connexionsService: ConnexionsService)
+		private connexionService: ConnexionService)
 		{
 		    console.log('Entrée dans constructor');
 		}
@@ -58,7 +58,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 
 	console.log('Dans onSubmit connexion', connexion);
 	
-	this.connexionsService.createNewConnexion(connexion)
+	this.connexionService.createNewConnexion(connexion)
 	    .then(
 		() => {
 		    this.connexionForm.reset();

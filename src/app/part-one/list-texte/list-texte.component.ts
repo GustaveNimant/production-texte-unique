@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
-import { TextesService } from '../../services/textes.service';
+import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
 import { TexteModel } from '../../models/texte.model';
 import { Router } from '@angular/router';
-import { ConnexionsService } from '../../services/connexions.service';
+import { ConnexionService } from '../../services/connexion.service';
 
 @Component({
     selector: 'app-list-texte',
@@ -26,8 +26,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
     
     constructor(private stateService: StateService,
-		private connexionsService: ConnexionsService,
-		private textesService: TextesService,
+		private connexionService: ConnexionService,
+		private texteService: TexteService,
 		private router: Router) { }
 
     ngOnInit() {
@@ -40,7 +40,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	this.stateService.currentUrl$.next(this.currentUrl);
 	console.log('Dans ngOnInit currentUrl', this.currentUrl);
 
-	this.textesSub = this.textesService.textes$.subscribe(
+	this.textesSub = this.texteService.textes$.subscribe(
 	    (tex_a) => {
 		console.log('Dans ngOnInit tex_a',tex_a);
 		this.textes = tex_a;
@@ -55,7 +55,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
+	this.isAuthSub = this.connexionService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
 		console.log('Dans ngOnInit isAuth', this.isAuth);
@@ -63,7 +63,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	);
 
 	console.log('Dans ngOnInit loading', this.loading);
-	this.textesService.getTextes(); /* afficher les textes */
+	this.texteService.getTextes(); /* afficher les textes */
     }
 
     onTexteClicked(id: string) {

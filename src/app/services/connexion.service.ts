@@ -9,7 +9,7 @@ import { ConnexionModel } from '../models/connexion.model';
     providedIn: 'root'
 })
 
-export class ConnexionsService {
+export class ConnexionService {
 
     isAuth$ = new BehaviorSubject<boolean>(false);
     token: string; /* utilisé dans intercept */

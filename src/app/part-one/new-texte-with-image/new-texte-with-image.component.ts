@@ -3,9 +3,9 @@ import { Component, OnInit }                  from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router }                             from '@angular/router';
 import { TexteModel }   from '../../models/texte.model';
-import { ConnexionsService } from '../../services/connexions.service';
+import { ConnexionService } from '../../services/connexion.service';
 import { StateService }      from '../../services/state.service';
-import { TextesService }     from '../../services/textes.service';
+import { TexteService }     from '../../services/texte.service';
 
 @Component({
     selector: 'app-new-texte-with-image',
@@ -24,9 +24,9 @@ export class NewTexteWithImageComponent implements OnInit {
     
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
-		private textesService: TextesService,
+		private texteService: TexteService,
 		private router: Router,
-		private connexionsService: ConnexionsService)
+		private connexionService: ConnexionService)
 		{
 		    console.log('Entrée dans constructor');
 		}
@@ -70,7 +70,7 @@ export class NewTexteWithImageComponent implements OnInit {
 
 	console.log('Dans onSubmit texte', texte);
 	
-	this.textesService.createNewTexteWithFile(texte, this.texteForm.get('imageUrl').value)
+	this.texteService.createNewTexteWithFile(texte, this.texteForm.get('imageUrl').value)
 	    .then(
 		() => {
 		    this.texteForm.reset();

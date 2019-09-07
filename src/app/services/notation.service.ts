@@ -8,7 +8,7 @@ import { Subject }       from 'rxjs';
     providedIn: 'root'
 })
 
-export class NotationsService {
+export class NotationService {
 
     uri_all = 'http://localhost:3000/api/all-notations/';
     

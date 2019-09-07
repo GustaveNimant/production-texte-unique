@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TexteModel } from '../../models/texte.model';
-import { TextesService }     from '../../services/textes.service';
-import { ConnexionsService } from '../../services/connexions.service';
+import { TexteService }     from '../../services/texte.service';
+import { ConnexionService } from '../../services/connexion.service';
 import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -34,8 +34,8 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     constructor(private stateService: StateService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private textesService: TextesService,
-		private connexionsService: ConnexionsService) { }
+		private texteService: TexteService,
+		private connexionService: ConnexionService) { }
 
     ngOnInit() {
 	this.debug = this.stateService.debug;
@@ -49,12 +49,12 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.loading = true;
 
 	this.stateService.mode$.next('single-texte');
-	this.auteurId = this.connexionsService.connexionId ? this.connexionsService.connexionId : 'connexionID40282382';
+	this.auteurId = this.connexionService.connexionId ? this.connexionService.connexionId : 'connexionID40282382';
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		console.log('Dans ngOnInit params', params);
-		this.textesService.getTexteById(params.id)
+		this.texteService.getTexteById(params.id)
 		    .then(
 			(tex: TexteModel) => {
 			    this.loading = false;
@@ -82,12 +82,12 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		this.auteurId = this.connexionsService.connexionId;
+		this.auteurId = this.connexionService.connexionId;
 	    }
 	);
 	console.log('Dans ngOnInit part',this.part);
 
-	this.isAuthSub = this.connexionsService.isAuth$.subscribe(
+	this.isAuthSub = this.connexionService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
 		console.log('Dans ngOnInit isAuth', this.isAuth);
@@ -118,7 +118,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 
     onDelete() {
 	this.loading = true;
-	this.textesService.deleteTexte(this.texte._id).then(
+	this.texteService.deleteTexte(this.texte._id).then(
 	    () => {
 		this.loading = false;
 		this.router.navigate(['/part-one/all-texte']);

@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { ConnexionsService } from './connexions.service';
 import { Observable } from 'rxjs';
 import { StateService } from './state.service';
+import { ConnexionService } from './connexion.service';
 
 @Injectable()
 
 export class ConnexionGuard implements CanActivate {
 
-    constructor(private connexionsService: ConnexionsService,
+    constructor(private connexionService: ConnexionService,
 		private stateService: StateService,
 		private router: Router) {
         console.log('Entrée dans constructor avec stateService', stateService);
@@ -20,7 +20,7 @@ export class ConnexionGuard implements CanActivate {
 		    return Observable.create(
 			(observer) => {
 			    console.log('Dans canActivate observer',observer);
-			    this.connexionsService.isAuth$.subscribe(
+			    this.connexionService.isAuth$.subscribe(
 				(auth) => {
 				    console.log('Dans canActivate auth',auth);
 				    if (!auth) {

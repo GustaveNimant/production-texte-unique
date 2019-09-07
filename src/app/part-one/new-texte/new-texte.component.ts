@@ -2,8 +2,8 @@ import { Router }                             from '@angular/router';
 import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TexteModel }        from '../../models/texte.model';
-import { TextesService }     from '../../services/textes.service';
-import { ConnexionsService } from '../../services/connexions.service';
+import { TexteService }     from '../../services/texte.service';
+import { ConnexionService } from '../../services/connexion.service';
 import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -26,8 +26,8 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     constructor(
 	private formBuilder: FormBuilder,
 	private stateService: StateService,
-	private textesService: TextesService,
-	private connexionsService: ConnexionsService,
+	private texteService: TexteService,
+	private connexionService: ConnexionService,
     	private router: Router)
 		{
 		    console.log('Entrée dans constructor');
@@ -78,7 +78,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 
 	console.log('Dans onSubmit texte', texte);
 	
-	this.textesService.createNewTexte(texte)
+	this.texteService.createNewTexte(texte)
 	    .then(
 		() => {
 		    this.texteForm.reset();

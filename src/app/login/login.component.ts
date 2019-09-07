@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router }                       from '@angular/router';
 import { ConnexionModel }               from '../models/connexion.model';
 import { partStringOfNumber }           from '../models/outils';
-import { ConnexionsService }            from '../services/connexions.service';
+import { ConnexionService }            from '../services/connexion.service';
 import { StateService }                 from '../services/state.service';
 import { Subscription }                 from 'rxjs';
 
@@ -29,14 +29,14 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private connexionsService: ConnexionsService){
+		private connexionService: ConnexionService){
 	console.log('Entrée dans constructor');
     }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
-	this.connexionsService.isAuth$.next(true);
+	this.connexionService.isAuth$.next(true);
 
 	this.stateService.mode$.next('form');
 
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	this.stateService.currentConnexionId$.next(connexion._id);
 	
-	this.connexionsService.login(connexion)
+	this.connexionService.login(connexion)
 	    .then(
 		() => {
 		    console.log('Dans onLogin part', this.part);

@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router }                             from '@angular/router';
 import { ParticipantModel }             from '../../models/participant.model';
-import { ConnexionsService }            from '../../services/connexions.service';
-import { ParticipantsService }          from '../../services/participants.service';
+import { ConnexionService }            from '../../services/connexion.service';
+import { ParticipantService }          from '../../services/participant.service';
 import { StateService }                 from '../../services/state.service';
 import { Subscription }                 from 'rxjs';
 
@@ -25,9 +25,9 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
-		private participantsService: ParticipantsService,
+		private participantService: ParticipantService,
 		private router: Router,
-		private connexionService: ConnexionsService) { }
+		private connexionService: ConnexionService) { }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
@@ -60,7 +60,7 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
 
 	console.log('Dans onSubmit le participant est', participant);
 	
-	this.participantsService.createNewParticipant(participant)
+	this.participantService.createNewParticipant(participant)
 	    .then(
 		() => {
 		    this.participantForm.reset();

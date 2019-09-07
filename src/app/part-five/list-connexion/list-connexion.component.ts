@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
-import { ConnexionsService } from '../../services/connexions.service';
+import { ConnexionService } from '../../services/connexion.service';
 import { Subscription } from 'rxjs';
 import { ConnexionModel } from '../../models/connexion.model';
 import { Router } from '@angular/router';
@@ -22,7 +22,7 @@ export class ListConnexionComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
 
     constructor(private stateService: StateService,           /* BehaviorSubjects */
-		private connexionsService: ConnexionsService, /* Subjects */
+		private connexionService: ConnexionService, /* Subjects */
 		private router: Router) {
     	console.log('Entrée dans constructor');
     }
@@ -36,7 +36,7 @@ export class ListConnexionComponent implements OnInit, OnDestroy {
 	console.log('Dans ngOnInit debug', this.debug);
 	
 	this.stateService.mode$.next('list');
-	this.connexionsSub = this.connexionsService.connexions$.subscribe(
+	this.connexionsSub = this.connexionService.connexions$.subscribe(
 	    (con_a) => {
 		console.log('Dans ngOnInit con_a',con_a);
 		this.connexions = con_a;
@@ -49,7 +49,7 @@ export class ListConnexionComponent implements OnInit, OnDestroy {
 		this.part = num;
 	    }
 	);
-	this.connexionsService.getConnexions();
+	this.connexionService.getConnexions();
     }
 
     onConnexionClicked(id: string) {

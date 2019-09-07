@@ -1,7 +1,7 @@
 import { Router }                       from '@angular/router';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService }        from '../../services/state.service';
-import { ParticipantsService } from '../../services/participants.service';
+import { ParticipantService } from '../../services/participant.service';
 import { ParticipantModel }    from '../../models/participant.model';
 import { Subscription } from 'rxjs';
 
@@ -22,7 +22,7 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
 
     constructor(private stateService: StateService,               /* BehaviorSubjects */
-		private participantsService: ParticipantsService, /* Subjects */
+		private participantService: ParticipantService, /* Subjects */
 		private router: Router) {
     	console.log('Entrée dans constructor');
     }
@@ -36,7 +36,7 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
 	console.log('Dans ngOnInit debug', this.debug);
 	
 	this.stateService.mode$.next('list');
-	this.participantsSub = this.participantsService.participants$.subscribe(
+	this.participantsSub = this.participantService.participants$.subscribe(
 	    (par_a) => {
 		this.participants = par_a;
 		this.loading = false;
@@ -47,7 +47,7 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
 		this.part = num;
 	    }
 	);
-	this.participantsService.getParticipants();
+	this.participantService.getParticipants();
     }
 
     onParticipantClicked(id: string) {

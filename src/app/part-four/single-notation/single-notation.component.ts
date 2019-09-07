@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotationModel }     from '../../models/notation.model';
-import { NotationsService }  from '../../services/notations.service';
-import { ConnexionsService } from '../../services/connexions.service';
+import { NotationService }  from '../../services/notation.service';
+import { ConnexionService } from '../../services/connexion.service';
 import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -23,8 +23,8 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
     constructor(private state: StateService,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
-		private notationsService: NotationsService,
-		private connexionsService: ConnexionsService)
+		private notationService: NotationService,
+		private connexionService: ConnexionService)
 		{
 		    console.log('Entrée dans constructor');
 		};
@@ -38,7 +38,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
-		this.notationsService.getNotationById(params.id)
+		this.notationService.getNotationById(params.id)
 		    .then(
 			(not: NotationModel) => {
 			    console.log('Dans ngOnInit notation', not);
@@ -67,7 +67,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 
     onDelete() {
 	this.loading = true;
-	this.notationsService.deleteNotation(this.notation._id).then(
+	this.notationService.deleteNotation(this.notation._id).then(
 	    () => {
 		this.loading = false;
 		this.router.navigate(['/part-four/list-notation']);

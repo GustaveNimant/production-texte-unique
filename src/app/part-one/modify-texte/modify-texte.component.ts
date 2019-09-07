@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router }             from '@angular/router';
 import { TexteModel } from '../../models/texte.model';
 import { StateService }  from '../../services/state.service';
-import { TextesService } from '../../services/textes.service';
+import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -26,7 +26,7 @@ export class ModifyTexteComponent implements OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		private stateService: StateService,
-		private textesService: TextesService) { }
+		private texteService: TexteService) { }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
@@ -54,7 +54,7 @@ export class ModifyTexteComponent implements OnInit {
 	this.route.params.subscribe(
 	    (par) => {
 		console.log('Dans ngOnInit par',par);
-		this.textesService.getTexteById(par.id).then(
+		this.texteService.getTexteById(par.id).then(
 		    (tex: TexteModel) => {
 			console.log('Dans ngOnInit tex',tex);
 			this.texte = tex;
@@ -91,7 +91,7 @@ export class ModifyTexteComponent implements OnInit {
 
 	console.log('Dans onModifyTexte texte', texte);
 	
-	this.textesService.modifyTexte(this.texte._id, texte).then(
+	this.texteService.modifyTexte(this.texte._id, texte).then(
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
