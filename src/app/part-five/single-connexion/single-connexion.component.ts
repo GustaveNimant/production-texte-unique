@@ -20,11 +20,10 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 
     private partSub: Subscription;
 
-    constructor(private state: StateService,
+    constructor(private stateService: StateService,
 		private router: Router,
 		private route: ActivatedRoute,
-		private connexionsService: ConnexionsService,
-		private auth: ConnexionsService)
+		private connexionsService: ConnexionsService)
 		{
 		    console.log('Entrée dans constructor');
 		};
@@ -34,8 +33,8 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 
 	this.loading = true;
 
-	this.state.mode$.next('single-connexion');
-	this.connexionId = this.auth.connexionId ? this.auth.connexionId : 'connexionID40282382';
+	this.stateService.mode$.next('single-connexion');
+	this.connexionId = this.connexionsService.connexionId ? this.connexionsService.connexionId : 'connexionID40282382';
 
 	this.route.params.subscribe(
 	    (params: Params) => {
@@ -49,21 +48,21 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 		    );
 	    }
 	);
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		this.connexionId = this.auth.connexionId;
+		this.connexionId = this.connexionsService.connexionId;
 	    }
 	);
     };
 
     onGoBack() {
-	this.router.navigate(['/part-five/les-connexions']);
+	this.router.navigate(['/part-five/list-connexions']);
     };
 
     onModify() {
-	this.router.navigate(['/part-five/les-connexions/']);
+	this.router.navigate(['/part-five/list-connexions/']);
     };
 
     onDelete() {
@@ -71,7 +70,7 @@ export class SingleConnexionComponent implements OnInit, OnDestroy {
 	this.connexionsService.deleteConnexion(this.connexion._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/part-five/les-connexions']);
+		this.router.navigate(['/part-five/list-connexions']);
 	    }
 	);
     };

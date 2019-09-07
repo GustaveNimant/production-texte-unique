@@ -99,7 +99,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		() => {
 		    this.notationForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-four/les-notations']);
+		    this.router.navigate(['/part-four/list-notation']);
 		    }
 	    )
 	    .catch(

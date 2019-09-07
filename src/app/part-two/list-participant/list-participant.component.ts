@@ -37,12 +37,16 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
 	
 	this.stateService.mode$.next('list');
 	this.participantsSub = this.participantsService.participants$.subscribe(
-	    (les_participants) => {
-		this.participants = les_participants;
+	    (par_a) => {
+		this.participants = par_a;
 		this.loading = false;
 	    }
 	);
-	this.partSub = this.stateService.part$.subscribe((num) => {this.part = num;});
+	this.partSub = this.stateService.part$.subscribe(
+	    (num) =>{
+		this.part = num;
+	    }
+	);
 	this.participantsService.getParticipants();
     }
 

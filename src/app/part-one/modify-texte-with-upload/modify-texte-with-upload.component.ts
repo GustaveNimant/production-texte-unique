@@ -26,15 +26,15 @@ export class ModifyTexteWithUploadComponent implements OnInit {
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
-		private route: ActivatedRoute,
+		private activatedRoute: ActivatedRoute,
 		private router: Router,
-		private auth: ConnexionsService) { }
+		private connexionsService: ConnexionsService) { }
 
     ngOnInit() {
 	this.loading = true;
 	this.state.mode$.next('form');
-	this.auteurId = this.auth.connexionId;
-	this.route.params.subscribe(
+	this.auteurId = this.connexionsService.connexionId;
+	this.activatedRoute.params.subscribe(
 	    (params) => {
 		this.textesService.getTexteById(params.id).then(
 		    (texte: Un_texte) => {
@@ -68,7 +68,7 @@ export class ModifyTexteWithUploadComponent implements OnInit {
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
-		this.router.navigate(['/part-one/les-textes']);
+		this.router.navigate(['/part-one/list-texte']);
 	    },
 	    (error) => {
 		this.loading = false;

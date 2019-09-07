@@ -25,7 +25,7 @@ export class ModifyTexteComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
 		private route: ActivatedRoute,
 		private router: Router,
-		private state: StateService,
+		private stateService: StateService,
 		private textesService: TextesService) { }
 
     ngOnInit() {
@@ -42,14 +42,14 @@ export class ModifyTexteComponent implements OnInit {
 	    imageUrl: [null, Validators.required]
 	});
 
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
 	    }
 	);
 	
-	this.state.mode$.next('form');
+	this.stateService.mode$.next('form');
 
 	this.route.params.subscribe(
 	    (par) => {
@@ -95,7 +95,7 @@ export class ModifyTexteComponent implements OnInit {
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
-		this.router.navigate(['/part-one/les-textes']);
+		this.router.navigate(['/part-one/list-texte']);
 	    },
 	    (error) => {
 		console.log('Dans onModifyTexte Erreur', error.status);

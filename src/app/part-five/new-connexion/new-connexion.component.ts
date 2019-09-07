@@ -63,7 +63,7 @@ export class NewConnexionComponent implements OnInit, OnDestroy {
 		() => {
 		    this.connexionForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-five/les-connexions']);
+		    this.router.navigate(['/part-five/list-connexion']);
 		    }
 	    )
 	    .catch(

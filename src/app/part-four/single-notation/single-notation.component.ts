@@ -3,6 +3,7 @@ import { StateService } from '../../services/state.service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Une_notation } from '../../models/Une_notation.model';
 import { NotationsService } from '../../services/notations.service';
+import { ConnexionsService } from '../../services/connexions.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -21,9 +22,9 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 
     constructor(private state: StateService,
 		private router: Router,
-		private route: ActivatedRoute,
+		private activatedRoute: ActivatedRoute,
 		private notationsService: NotationsService,
-		private auth: NotationsService)
+		private connexionsService: ConnexionsService)
 		{
 		    console.log('Entrée dans constructor');
 		};
@@ -35,7 +36,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 
 	this.state.mode$.next('single-notation');
 
-	this.route.params.subscribe(
+	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		this.notationsService.getNotationById(params.id)
 		    .then(
@@ -57,11 +58,11 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
     };
 
     onGoBack() {
-	this.router.navigate(['/part-four/les-notations']);
+	this.router.navigate(['/part-four/list-notation']);
     };
 
     onModify() {
-	this.router.navigate(['/part-four/les-notations/']);
+	this.router.navigate(['/part-four/list-notation/']);
     };
 
     onDelete() {
@@ -69,7 +70,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 	this.notationsService.deleteNotation(this.notation._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/part-four/les-notations']);
+		this.router.navigate(['/part-four/list-notation']);
 	    }
 	);
     };

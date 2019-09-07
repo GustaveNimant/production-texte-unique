@@ -26,9 +26,9 @@ export class ModifyTexteWithImageComponent implements OnInit {
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
 		private textesService: TextesService,
-		private route: ActivatedRoute,
+		private activatedRoute: ActivatedRoute,
 		private router: Router,
-		private auth: ConnexionsService)
+		private connexionsService: ConnexionsService)
 		{
 		    console.log('Entrée dans constructor')
 		}
@@ -38,8 +38,8 @@ export class ModifyTexteWithImageComponent implements OnInit {
 	
 	this.loading = true;
 	this.state.mode$.next('form');
-	this.auteurId = this.auth.connexionId;
-	this.route.params.subscribe(
+	this.auteurId = this.connexionsService.connexionId;
+	this.activatedRoute.params.subscribe(
 	    (params) => {
 		this.textesService.getTexteById(params.id).then(
 		    (tex: Un_texte) => {
@@ -78,7 +78,7 @@ export class ModifyTexteWithImageComponent implements OnInit {
 	    () => {
 		this.texteForm.reset();
 		this.loading = false;
-		this.router.navigate(['/part-one/les-textes']);
+		this.router.navigate(['/part-one/list-texte']);
 	    },
 	    (error) => {
 		this.loading = false;
