@@ -1,4 +1,4 @@
-export class Une_connexion {
+export class ConnexionModel {
     _id: string;
     email: string;
     password: string;

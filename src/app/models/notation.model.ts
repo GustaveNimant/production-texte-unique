@@ -1,4 +1,4 @@
-export class Une_notation {
+export class NotationModel {
     _id: string;
     texteId: string;
     participantId: string;

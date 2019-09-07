@@ -1,4 +1,4 @@
-export class Un_participant {
+export class ParticipantModel {
     _id: string;
     email: string;
     pseudo: string;
