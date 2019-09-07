@@ -7,12 +7,12 @@ import { Router } from '@angular/router';
 import { ConnexionsService } from '../../services/connexions.service';
 
 @Component({
-    selector: 'app-notations-list',
-    templateUrl: './notations-list.component.html',
-    styleUrls: ['./notations-list.component.scss']
+    selector: 'app-list-notation',
+    templateUrl: './list-notation.component.html',
+    styleUrls: ['./list-notation.component.scss']
 })
 
-export class NotationsListComponent implements OnInit, OnDestroy {
+export class ListNotationComponent implements OnInit, OnDestroy {
 
     public notations: Une_notation[] = [];
     public part: number;
@@ -83,8 +83,8 @@ export class NotationsListComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans onNotationClicked avec id', id);
 	console.log('Entrée dans onNotationClicked avec part', this.part);
 	
-	console.log('Entrée dans onNotationClicked navigation vers ', '/part-four/une_notation/' + id);
-	this.router.navigate(['/part-four/une_notation/' + id]);
+	console.log('Entrée dans onNotationClicked navigation vers ', '/part-four/single-notation/' + id);
+	this.router.navigate(['/part-four/single-notation/' + id]);
     }
 
     ngOnDestroy() {

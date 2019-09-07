@@ -46,7 +46,11 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		console.log('Dans ngOnInit params', params);
+		if (params.id) {
 		this.texteId = params.id;
+		} else {
+		    this.router.navigate(['/part-one/list-texte']);
+		}
 	    }
 	);
 

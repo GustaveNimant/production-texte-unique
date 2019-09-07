@@ -15,22 +15,22 @@ import { ListTexteComponent }            from './part-one/list-texte/list-texte.
 
 import { PartTwoComponent }               from './part-two/part-two.component';
 import { NewParticipantComponent }        from './part-two/new-participant/new-participant.component';
-import { ParticipantsListComponent }      from './part-two/participants-list/participants-list.component';
+import { ListParticipantComponent }      from './part-two/list-participant/list-participant.component';
 import { SingleParticipantComponent }     from './part-two/single-participant/single-participant.component';
 
 import { PartThreeComponent }             from './part-three/part-three.component';
 //import { NewButComponent }                from './part-three/new-but/new-but.component';
-//import { ButsListComponent }              from './part-three/buts-list/buts-list.component';
+//import { ListButComponent }              from './part-three/list-but/list-but.component';
 //import { SingleButComponent }             from './part-three/single-but/single-but.component';
 
 import { PartFourComponent }              from './part-four/part-four.component';
 import { NewNotationComponent }           from './part-four/new-notation/new-notation.component';
-import { NotationsListComponent }         from './part-four/notations-list/notations-list.component';
+import { ListNotationComponent }         from './part-four/list-notation/list-notation.component';
 import { SingleNotationComponent }        from './part-four/single-notation/single-notation.component';
 
 import { PartFiveComponent }              from './part-five/part-five.component';
 import { NewConnexionComponent }          from './part-five/new-connexion/new-connexion.component';
-import { ConnexionsListComponent }        from './part-five/connexions-list/connexions-list.component';
+import { ListConnexionComponent }        from './part-five/list-connexion/list-connexion.component';
 import { SingleConnexionComponent }       from './part-five/single-connexion/single-connexion.component';
 
 import { LoginComponent } from './login/login.component';
@@ -44,7 +44,7 @@ const routes: Routes = [
 	  { path: 'new-texte', component: NewTexteComponent},
 	  { path: 'new-texte-with-image', component: NewTexteWithImageComponent},
 	  { path: 'new-texte-with-upload', component: NewTexteWithUploadComponent},
-	  { path: 'un_texte/:id', component: SingleTexteComponent },
+	  { path: 'single-texte/:id', component: SingleTexteComponent },
 	  { path: 'list-texte', component: ListTexteComponent },
 	  { path: 'modify-texte/:id', component: ModifyTexteComponent },
 	  { path: 'modify-texte-with-image/:id', component: ModifyTexteWithImageComponent },
@@ -57,41 +57,41 @@ const routes: Routes = [
       children: [
 	  //      { path: 'new-participant', component: NewParticipantComponent, canActivate: [ConnexionGuard] },
 	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [ConnexionGuard] },
-	  //      { path: 'un_participant/:id', component: SingleParticipantComponent, canActivate: [ConnexionGuard] },
+	  //      { path: 'single-participant/:id', component: SingleParticipantComponent, canActivate: [ConnexionGuard] },
 	  { path: 'new-participant', component: NewParticipantComponent},
-	  { path: 'un_participant/:id', component: SingleParticipantComponent },
-	  { path: 'les-participants', component: ParticipantsListComponent },
-	  { path: '', pathMatch: 'full', redirectTo: 'les-participants' },
-	  { path: '**', redirectTo: 'les-participants' }
+	  { path: 'list-participant', component: ListParticipantComponent },
+	  { path: 'single-participant/:id', component: SingleParticipantComponent },
+	  { path: '', pathMatch: 'full', redirectTo: 'list-participant' },
+	  { path: '**', redirectTo: 'list-participant' }
       ]
     },
     { path: 'part-three', component: PartThreeComponent,
       children: [
 	  // { path: 'new-but', component: NewButComponent},
-	  // { path: 'les-buts', component: ButsListComponent, canActivate: [ConnexionGuard] },
-	  // { path: 'un_but/:id', component: SingleButComponent, canActivate: [ConnexionGuard] },
+	  // { path: 'list-but', component: ListButComponent, canActivate: [ConnexionGuard] },
+	  // { path: 'single-but/:id', component: SingleButComponent, canActivate: [ConnexionGuard] },
 	  // { path: 'modify-but/:id', component: ModifyButComponent, canActivate: [ConnexionGuard] },
-	  { path: '', pathMatch: 'full', redirectTo: 'les-buts' },
-	  { path: '**', redirectTo: 'les-buts' }
+	  { path: '', pathMatch: 'full', redirectTo: 'list-but' },
+	  { path: '**', redirectTo: 'list-but' }
       ]
     },
     { path: 'part-four', component: PartFourComponent,
       children: [
 	  { path: 'new-notation', component: NewNotationComponent},
 	  { path: 'new-notation/:id', component: NewNotationComponent},
-	  { path: 'les-notations', component: NotationsListComponent},
-	  { path: 'une_notation/:id', component: SingleNotationComponent},
+	  { path: 'list-notation', component: ListNotationComponent},
+	  { path: 'single-notation/:id', component: SingleNotationComponent},
 	  { path: '', pathMatch: 'full', redirectTo: '' }, 
-	  { path: '**', redirectTo: 'les-notations' }
+	  { path: '**', redirectTo: 'list-notation' }
       ]
     },
     { path: 'part-five', component: PartFiveComponent,
       children: [
 	  { path: 'new-connexion', component: NewConnexionComponent},
-	  { path: 'les-connexions', component: ConnexionsListComponent },
-	  { path: 'une_connexion/:id', component: SingleConnexionComponent },
-	  { path: '', pathMatch: 'full', redirectTo: 'les-connexions' }, 
-	  { path: '**', redirectTo: 'les-connexions' }
+	  { path: 'list-connexion', component: ListConnexionComponent },
+	  { path: 'single-connexion/:id', component: SingleConnexionComponent },
+	  { path: '', pathMatch: 'full', redirectTo: 'list-connexion' }, 
+	  { path: '**', redirectTo: 'list-connexion' }
       ]
     },
     { path: 'login', component: LoginComponent },

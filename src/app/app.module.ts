@@ -30,23 +30,23 @@ import { PartTwoComponent }          from './part-two/part-two.component';
 
 import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
 import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
-import { ParticipantsListComponent }  from './part-two/participants-list/participants-list.component';
+import { ListParticipantComponent }  from './part-two/list-participant/list-participant.component';
 
 import { PartThreeComponent } from './part-three/part-three.component';
 import { PartFourComponent }  from './part-four/part-four.component';
 import { PartFiveComponent } from './part-five/part-five.component';
 import { SingleConnexionComponent } from './part-five/single-connexion/single-connexion.component';
 import { NewConnexionComponent }    from './part-five/new-connexion/new-connexion.component';
-import { ConnexionsListComponent }  from './part-five/connexions-list/connexions-list.component';
+import { ListConnexionComponent }  from './part-five/list-connexion/list-connexion.component';
 import { LoginComponent } from './login/login.component';
 import { NewNotationComponent } from './part-four/new-notation/new-notation.component';
 import { SingleNotationComponent } from './part-four/single-notation/single-notation.component';
-import { NotationsListComponent } from './part-four/notations-list/notations-list.component';
+import { ListNotationComponent } from './part-four/list-notation/list-notation.component';
 
 @NgModule({
     declarations: [
 	AppComponent,
-	ConnexionsListComponent,
+	ListConnexionComponent,
 	MainMenuComponent,
 	HeaderComponent,
 	ModifyTexteComponent,
@@ -62,7 +62,7 @@ import { NotationsListComponent } from './part-four/notations-list/notations-lis
 	PartOneComponent,
 	PartThreeComponent,
 	PartTwoComponent,
-	ParticipantsListComponent,
+	ListParticipantComponent,
 	SingleConnexionComponent,
 	SingleParticipantComponent,
 	SingleTexteComponent,
@@ -70,7 +70,7 @@ import { NotationsListComponent } from './part-four/notations-list/notations-lis
 	LoginComponent,
 	NewNotationComponent,
 	SingleNotationComponent,
-	NotationsListComponent,
+	ListNotationComponent,
     ],
     imports: [
 	BrowserModule,

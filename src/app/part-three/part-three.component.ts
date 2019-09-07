@@ -9,16 +9,16 @@ import { ConnexionsService } from '../services/connexions.service';
 })
 export class PartThreeComponent implements OnInit, OnDestroy {
 
-    constructor(private state: StateService,
-		private auth: ConnexionsService) { }
+    constructor(private stateService: StateService,
+		private connexionsService: ConnexionsService) { }
     
     ngOnInit() {
-	this.auth.isAuth$.next(false);
-	this.auth.connexionId = '';
-	this.auth.token = '';
+	this.connexionsService.isAuth$.next(false);
+	this.connexionsService.connexionId = '';
+	this.connexionsService.token = '';
 	
-	this.state.part$.next(3);
-	this.state.part = 3;
+	this.stateService.part$.next(3);
+	this.stateService.part = 3;
     }
     
     ngOnDestroy() {

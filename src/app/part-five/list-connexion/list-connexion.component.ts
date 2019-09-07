@@ -6,12 +6,12 @@ import { Une_connexion } from '../../models/Une_connexion.model';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-connexions-list',
-    templateUrl: './connexions-list.component.html',
-    styleUrls: ['./connexions-list.component.scss']
+    selector: 'app-list-connexion',
+    templateUrl: './list-connexion.component.html',
+    styleUrls: ['./list-connexion.component.scss']
 })
 
-export class ConnexionsListComponent implements OnInit, OnDestroy {
+export class ListConnexionComponent implements OnInit, OnDestroy {
 
     public connexions: Une_connexion[] = [];
     public part: number;
@@ -56,8 +56,8 @@ export class ConnexionsListComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans onConnexionClicked avec id', id);
 	console.log('Entrée dans onConnexionClicked avec part', this.part);
 	
-	console.log('Entrée dans onConnexionClicked navigation vers ', '/part-five/une_connexion/' + id);
-	    this.router.navigate(['/part-five/une_connexion/' + id]);
+	console.log('Entrée dans onConnexionClicked navigation vers ', '/part-five/single-connexion/' + id);
+	    this.router.navigate(['/part-five/single-connexion/' + id]);
     }
 
     ngOnDestroy() {

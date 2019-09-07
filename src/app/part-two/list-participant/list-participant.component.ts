@@ -6,12 +6,12 @@ import { Un_participant } from '../../models/Un_participant.model';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-participants-list',
-    templateUrl: './participants-list.component.html',
-    styleUrls: ['./participants-list.component.scss']
+    selector: 'app-list-participant',
+    templateUrl: './list-participant.component.html',
+    styleUrls: ['./list-participant.component.scss']
 })
 
-export class ParticipantsListComponent implements OnInit, OnDestroy {
+export class ListParticipantComponent implements OnInit, OnDestroy {
 
     public participants: Un_participant[] = [];
     public part: number;
@@ -49,8 +49,8 @@ export class ParticipantsListComponent implements OnInit, OnDestroy {
     onParticipantClicked(id: string) {
 	console.log('Entrée dans onParticipantClicked avec id', id);
 	console.log('Entrée dans onParticipantClicked avec part', this.part);
-	console.log('Entrée dans onParticipantClicked navigation vers ', '/part-two/un_participant/' + id);
-	this.router.navigate(['/part-two/un_participant/' + id]);
+	console.log('Entrée dans onParticipantClicked navigation vers ', '/part-two/single-participant/' + id);
+	this.router.navigate(['/part-two/single-participant/' + id]);
     }
 
     ngOnDestroy() {

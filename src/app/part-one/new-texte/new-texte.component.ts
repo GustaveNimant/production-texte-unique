@@ -23,11 +23,12 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     
     private partSub: Subscription;
 
-    constructor(private stateService: StateService,
-		private formBuilder: FormBuilder,
-		private textesService: TextesService,
-		private router: Router,
-		private auth: ConnexionsService)
+    constructor(
+	private formBuilder: FormBuilder,
+	private stateService: StateService,
+	private textesService: TextesService,
+	private connexionsService: ConnexionsService,
+    	private router: Router)
 		{
 		    console.log('Entrée dans constructor');
 		}

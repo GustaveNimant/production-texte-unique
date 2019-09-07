@@ -1,8 +1,5 @@
 .main-pane {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  position: relative;
   h1 {
     color: #333333
   }
@@ -16,8 +13,8 @@
 .part {
   transition: all 0.3s ease-in-out;
   position: relative;
-  height: 150px;
-  width: 250px;
+  height: 100px;
+  width: 150px;
   margin: 5px;
   background: #00AAFF;
   cursor: pointer;
@@ -25,10 +22,12 @@
     background: #00FFFF;		
     transform: scale(1.02);		
   }
+
   h1 {
+    font-size: 140%;
     color: white;
     position: absolute;
-    width: 100%;
+    width: 90%;
     top: 50%;
     text-align: center;
     transform: translateY(-50%);

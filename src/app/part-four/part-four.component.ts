@@ -10,14 +10,14 @@ import { NotationsService } from '../services/notations.service';
 
 export class PartFourComponent implements OnInit, OnDestroy {
 
-    constructor(private state: StateService) {}
+    constructor(private stateService: StateService) {}
     
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	
-	this.state.part$.next(4);
-	this.state.part = 4;
-	console.log('Dans ngOnInit part assigné à', this.state.part);
+	this.stateService.part$.next(4);
+	this.stateService.part = 4;
+	console.log('Dans ngOnInit part assigné à', this.stateService.part);
     }
     
     ngOnDestroy() {
