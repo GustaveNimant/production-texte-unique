@@ -39,7 +39,6 @@ export class ModifyTexteComponent implements OnInit {
 	    noteMoyenne: [6, Validators.required],
 	    noteEcartType: [7, Validators.required],
 	    auteurId: [null, Validators.required],
-	    imageUrl: [null, Validators.required]
 	});
 
 	this.partSub = this.stateService.part$.subscribe(
@@ -64,7 +63,6 @@ export class ModifyTexteComponent implements OnInit {
 			this.texteForm.get('noteMoyenne').setValue(this.texte.noteMoyenne);
 			this.texteForm.get('noteEcartType').setValue(this.texte.noteEcartType);
 			this.texteForm.get('auteurId').setValue(this.texte.auteurId);
-			this.texteForm.get('imageUrl').setValue(this.texte.imageUrl);
 			this.loading = false;
 		    }
 		);
@@ -84,7 +82,6 @@ export class ModifyTexteComponent implements OnInit {
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.shasum = this.texteForm.get('shasum').value;
 	texte.auteurId = this.texteForm.get('auteurId').value;
-	texte.imageUrl = this.texteForm.get('imageUrl').value;
 
 	texte._id = this.texte._id;
 	texte.__v = (this.texte.__v +1);
