@@ -1,7 +1,7 @@
 const participantModel = require('../models/participantModel');
 
 exports.createParticipant = (req, res, next) => {
-    console.log('Entrée dans createParticipant avec req.body ', req.body);
+    if (Debug.debug) {console.log('Entrée dans createParticipant avec req.body ', req.body)};
 
     const participant = new participantModel({
 	pseudo: req.body.pseudo,
@@ -27,8 +27,8 @@ exports.createParticipant = (req, res, next) => {
 };
 
 exports.getOneParticipant = (req, res, next) => {
-    console.log('Entrée dans getOneParticipant avec req.body ', req.body);
-    console.log('Entrée dans getOneParticipant avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans getOneParticipant avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans getOneParticipant avec req.params.id ', req.params.id)};
     
     participantModel.findOne({
 	_id: req.params.id
@@ -47,8 +47,8 @@ exports.getOneParticipant = (req, res, next) => {
 };
 
 exports.modifyParticipant = (req, res, next) => {
-    console.log('Entrée dans modifyParticipant avec req.body ', req.body);
-    console.log('Entrée dans modifyParticipant avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans modifyParticipant avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans modifyParticipant avec req.params.id ', req.params.id)};
     
     const participant = new participantModel({
 	_id: req.params.id, /* to keep the_id */
@@ -75,8 +75,8 @@ exports.modifyParticipant = (req, res, next) => {
 };
 
 exports.deleteParticipant = (req, res, next) => {
-    console.log('Entrée dans deleteParticipant avec req.body ', req.body);
-    console.log('Entrée dans deleteParticipant avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans deleteParticipant avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans deleteParticipant avec req.params.id ', req.params.id)};
     
     participantModel.deleteOne({_id: req.params.id})
 	.then(
@@ -95,7 +95,7 @@ exports.deleteParticipant = (req, res, next) => {
 };
 
 exports.getAllParticipant = (req, res, next) => {
-    console.log('Entrée dans getAllParticipant avec req.body ', req.body);
+    if (Debug.debug) {console.log('Entrée dans getAllParticipant avec req.body ', req.body)};
 
     participantModel.find()
 	.then(

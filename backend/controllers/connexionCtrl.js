@@ -4,20 +4,20 @@ const jwt = require('jsonwebtoken');
 const Debug = require('../models/debug');
 
 exports.signup = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.signup avec req.body',req.body);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.signup avec req.body',req.body)};}
 
     bcrypt.hash(req.body.password, 10)
 	.then(
 	    (a_password_hash) => {
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.signup a_password_hash', a_password_hash);}
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.signup req.body.password', req.body.password);}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.signup a_password_hash', a_password_hash)};}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.signup req.body.password', req.body.password)};}
 
 		const connexion = new connexionModel({
 		    email: req.body.email,
 		    password: a_password_hash
 		});
 
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.signup connexion', connexion);}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.signup connexion', connexion)};}
 		connexion.save() /* dans BD */
 		    .then(
 			() => {
@@ -27,8 +27,8 @@ exports.signup = (req, res, next) => {
 			})
 		    .catch(
 			(error) => {
-			    if (Debug.debug) {console.log('Dans connexionCtrl.js.signup a_password_hash', a_password_hash);}
-			    console.log('Dans connexionCtrl.js.signup Erreur', error);
+			    if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.signup a_password_hash', a_password_hash)};}
+			    if (Debug.debug) {console.log('Dans connexionCtrl.js.signup Erreur', error)};
 			    res.status(500).json({
 				error: error
 			    });
@@ -37,7 +37,7 @@ exports.signup = (req, res, next) => {
 	)
 	.catch(
 	    (error) => {
-		console.log('Dans connexionCtrl.js.signup Erreur', error);
+		if (Debug.debug) {console.log('Dans connexionCtrl.js.signup Erreur', error)};
 		res.status(550).json({
 		    error: error
 		});
@@ -45,25 +45,25 @@ exports.signup = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.login avec req.body',req.body);}
-    if (Debug.debug) {console.log('Dans connexionCtrl.js.login req.body.email', req.body.email);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.login avec req.body',req.body)};}
+    if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login req.body.email', req.body.email)};}
 
     connexionModel.findOne({ email: req.body.email }).
 	then( /* mongoose method */
 	    (une_connexion) => {
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.login une_connexion', une_connexion);}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login une_connexion', une_connexion)};}
 
 		if (!une_connexion) {
 		    return res.status(401).json({
 			error: new Error('Dans connexionCtrl.js.login Erreur : Connexion inconnue!')
 		    });
 		}
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.login req.body.password', req.body.password);}
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.login une_connexion.password', une_connexion.password);}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login req.body.password', req.body.password)};}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login une_connexion.password', une_connexion.password)};}
 		bcrypt.compare(req.body.password, une_connexion.password)
 		    .then(
 			(valid) => {
-			    if (Debug.debug) {console.log('Dans connexionCtrl.js.login bcrypt.compare est', valid);}
+			    if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login bcrypt.compare est', valid)};}
 			    
 			    if (!valid) {
 				return res.status(401).json({
@@ -76,7 +76,7 @@ exports.login = (req, res, next) => {
 				'RANDOM_TOKEN_SECRET',
 				{ expiresIn: '7d' });
 			    
-			    if (Debug.debug) {console.log('Dans connexionCtrl.js.login nouveau token', token);}
+			    if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login nouveau token', token)};}
 			    res.status(200).json({
 				connexionId: une_connexion._id,
 				token: token
@@ -84,7 +84,7 @@ exports.login = (req, res, next) => {
 			}
 		    ).catch(
 			(error) => {
-			    console.log('Dans connexionCtrl.js.login Erreur', error);
+			    if (Debug.debug) {console.log('Dans connexionCtrl.js.login Erreur', error)};
 			    res.status(500).json({
 				error: error
 			    });
@@ -93,7 +93,7 @@ exports.login = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.login email inconnu',req.body.email);}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login email inconnu',req.body.email)};}
 		res.status(500).json({
 		    error: error
 		});
@@ -102,7 +102,7 @@ exports.login = (req, res, next) => {
 };
 
 exports.createConnexionCtrl = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.createConnexionCtrl avec req.body ', req.body);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.createConnexionCtrl avec req.body ', req.body)};}
 
     const connexion = new connexionModel({
 	email: req.body.email,
@@ -118,7 +118,7 @@ exports.createConnexionCtrl = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		if (Debug.debug) {console.log('Dans connexionCtrl.js.createConnexionCtrl Erreur ', error);}
+		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.createConnexionCtrl Erreur ', error)};}
 		res.status(400).json({
 		    error: error
 		});
@@ -127,8 +127,8 @@ exports.createConnexionCtrl = (req, res, next) => {
 };
 
 exports.getOneConnexionCtrl = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.body ', req.body);}
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.params.id ', req.params.id);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.body ', req.body)};}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.params.id ', req.params.id)};}
     
     connexionModel.findOne({
 	_id: req.params.id
@@ -147,8 +147,8 @@ exports.getOneConnexionCtrl = (req, res, next) => {
 };
 
 exports.modifyConnexionCtrl = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.body ', req.body);}
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.params.id ', req.params.id);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.body ', req.body)};}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.params.id ', req.params.id)};}
     
     const connexion = new connexionModel({
 	_id: req.params.id, /* to keep the_id */
@@ -173,8 +173,8 @@ exports.modifyConnexionCtrl = (req, res, next) => {
 };
 
 exports.deleteConnexionCtrl = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.body ', req.body);}
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.params.id ', req.params.id);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.body ', req.body)};}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.params.id ', req.params.id)};}
     
     connexionModel.deleteOne({_id: req.params.id})
 	.then(
@@ -193,7 +193,7 @@ exports.deleteConnexionCtrl = (req, res, next) => {
 };
 
 exports.getAllConnexionCtrl = (req, res, next) => {
-    if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getAllConnexionCtrl avec req.body ', req.body);}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getAllConnexionCtrl avec req.body ', req.body)};}
 
     connexionModel.find()
 	.then(

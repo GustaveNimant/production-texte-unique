@@ -1,7 +1,8 @@
 const texteModel = require('../models/texteModel');
+const Debug = require('../models/debug');
 
 exports.createTexteCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.createTexteCtrl avec req.body ', req.body);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.createTexteCtrl avec req.body ', req.body)};
 
     const texte = new texteModel({
 	titre: req.body.titre,
@@ -22,7 +23,7 @@ exports.createTexteCtrl = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		console.log('Dans texteCtrl.js.createTexteCtrl Erreur ', error);
+		if (Debug.debug) {console.log('Dans texteCtrl.js.createTexteCtrl Erreur ', error)};
 		res.status(400).json({
 		    error: error
 		});
@@ -31,25 +32,25 @@ exports.createTexteCtrl = (req, res, next) => {
 };
 
 exports.createTexteWithImageCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.createTexteWithImageCtrl avec req.body ', req.body);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.createTexteWithImageCtrl avec req.body ', req.body)};
 
 /* multer provision */
     req.body.texte = JSON.parse(req.body.texte); /* string => JSON */
     const url = req.protocol + '://' + req.get('host');
 
-    console.log('Dans texteCtrl.js.createTexteWithImageCtrl url', url);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.createTexteWithImageCtrl url', url)};
     const imageUrl = url + '/images/' + req.file.filename;
 /* end of multer provision */
 
-    console.log('Dans texteCtrl.js.createTexteWithImageCtrl imageUrl', imageUrl);
-    console.log('Dans texteCtrl.js.createTexteWithImageCtrl req.body.texte', req.body.texte);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.createTexteWithImageCtrl imageUrl', imageUrl)};
+    if (Debug.debug) {console.log('Dans texteCtrl.js.createTexteWithImageCtrl req.body.texte', req.body.texte)};
 
     const o = {
 	titre:req.body.texte.titre,
 	contenu:req.body.texte.contenu,
 	auteurId:req.body.texte.auteurId
     };
-    console.log('o',o);
+    if (Debug.debug) {console.log('o',o)};
 
     const texte = new texteModel({
 	titre: req.body.texte.titre,
@@ -60,7 +61,7 @@ exports.createTexteWithImageCtrl = (req, res, next) => {
 	imageUrl: imageUrl
     });
 
-    console.log('Dans texteCtrl.js.createTexteWithImageCtrl texte', texte);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.createTexteWithImageCtrl texte', texte)};
     
     texte.save()
 	.then(
@@ -71,7 +72,7 @@ exports.createTexteWithImageCtrl = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		console.log('Dans texteCtrl.js.createTexteCtrl Erreur ', error);
+		if (Debug.debug) {console.log('Dans texteCtrl.js.createTexteCtrl Erreur ', error)};
 		res.status(400).json({
 		    error: error
 		});
@@ -80,8 +81,8 @@ exports.createTexteWithImageCtrl = (req, res, next) => {
 };
 
 exports.getOneTexteCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.body ', req.body);
-    console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.getOneTexteCtrl avec req.params.id ', req.params.id)};
     
     texteModel.findOne({
 	_id: req.params.id
@@ -100,8 +101,8 @@ exports.getOneTexteCtrl = (req, res, next) => {
 };
 
 exports.modifyTexteCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.modifyTexteCtrl avec req.body ', req.body);
-    console.log('Entrée dans texteCtrl.js.modifyTexteCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.modifyTexteCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.modifyTexteCtrl avec req.params.id ', req.params.id)};
     
     const texte = new texteModel({
 	_id: req.params.id, /* to keep the_id */
@@ -115,7 +116,7 @@ exports.modifyTexteCtrl = (req, res, next) => {
 	__v: req.body.__v
     });
 
-    console.log('Dans texteCtrl.js.modifyTexteCtrl texte ', texte);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.modifyTexteCtrl texte ', texte)};
     
     texteModel.updateOne({_id: req.params.id}, texte)  /* version updated ??? */
 	.then(
@@ -134,8 +135,8 @@ exports.modifyTexteCtrl = (req, res, next) => {
 };
 
 exports.deleteTexteCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.deleteTexteCtrl avec req.body ', req.body);
-    console.log('Entrée dans texteCtrl.js.deleteTexteCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.deleteTexteCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.deleteTexteCtrl avec req.params.id ', req.params.id)};
     
     texteModel.deleteOne({_id: req.params.id})
 	.then(
@@ -154,14 +155,14 @@ exports.deleteTexteCtrl = (req, res, next) => {
 };
 
 exports.deleteTexteWithImageCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.deleteTexteWithImageCtrl avec req.body ', req.body);
-    console.log('Entrée dans texteCtrl.js.deleteTexteWithImageCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.deleteTexteWithImageCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.deleteTexteWithImageCtrl avec req.params.id ', req.params.id)};
     
     texteModel.findOne({_id: req.params.id}).
 	then(
 	    (tex) => {
 		const filename = tex.imageUrl.split('/images/')[1];
-		console.log('Dans texteCtrl.js.deleteTexteWithImageCtrl filename', filename);
+		if (Debug.debug) {console.log('Dans texteCtrl.js.deleteTexteWithImageCtrl filename', filename)};
 
 		fs.unlink('images/' + filename, () => {
 		    texteModel.deleteOne({_id: req.params.id}).then(
@@ -183,7 +184,7 @@ exports.deleteTexteWithImageCtrl = (req, res, next) => {
 };
 
 exports.getAllTexteCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.getAllTexteCtrl avec req.body ', req.body);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.getAllTexteCtrl avec req.body ', req.body)};
 
     texteModel.find()
 	.then(
@@ -200,16 +201,16 @@ exports.getAllTexteCtrl = (req, res, next) => {
 };
 
 exports.modifyTexteWithImageCtrl = (req, res, next) => {
-    console.log('Entrée dans texteCtrl.js.modifyTexteWithImageCtrl avec req.body ', req.body);
-    console.log('Entrée dans texteCtrl.js.modifyTexteWithImageCtrl avec req.params.id ', req.params.id);
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.modifyTexteWithImageCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans texteCtrl.js.modifyTexteWithImageCtrl avec req.params.id ', req.params.id)};
     
     let texte = new texteModel({_id: req.params.id}); /* to keep the_id */
-    console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl texte', texte);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl texte', texte)};
 
-    console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl req.file', req.file);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl req.file', req.file)};
     if (req.file) {
 	const url = req.protocol + '://' + req.get('host');
-	console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl url', url);
+	if (Debug.debug) {console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl url', url)};
 
 	req.body.texte = JSON.parse(req.body.texte);
 	texte = {
@@ -234,7 +235,7 @@ exports.modifyTexteWithImageCtrl = (req, res, next) => {
 	    auteurId: req.body.auteurId
 	};
     }
-    console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl avant updateOne texte', texte);
+    if (Debug.debug) {console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl avant updateOne texte', texte)};
     texteModel.updateOne({_id: req.params.id}, texte)
 	.then(
 	    () => {
@@ -244,7 +245,7 @@ exports.modifyTexteWithImageCtrl = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl Erreur', error);
+		if (Debug.debug) {console.log('Dans texteCtrl.js.modifyTexteWithImageCtrl Erreur', error)};
 		res.status(400).json({
 		    error: error
 		});
