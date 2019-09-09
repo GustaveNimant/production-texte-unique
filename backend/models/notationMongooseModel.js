@@ -13,4 +13,4 @@ const notationSchema = new Schema({
 
 notationSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('notationModel', notationSchema);
+module.exports = mongoose.model('notationMongooseModel', notationSchema);

@@ -7,28 +7,29 @@
 	<div class="single-texte-info">
 	    <h2>{{ texte.titre }}</h2>
 	    <p>note : {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
-	    <p>Id : {{ texte._id }} ( {{ texte.__v }} ) </p>
+	    <p>TexteId : {{ texte.texteId }} ( {{ texte.version }} ) </p>
 	    <p>Shasum : {{texte.shasum}} </p>
 	    <p>Contenu : {{ texte.contenu }}</p>
-
+	    
 	    <button class="btn btn-success m-1"
 		    (click)="onNotate()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Noter</button>
 
 	    <button class="btn btn-success m-1"
-		    (click)="onModify()"
-		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier</button>
+		    (click)="onNewTexteVersion()"
+		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Créer une nouvelle version</button>
 
 	    <button class="btn btn-success m-1"
-		    (click)="onModifyWithImage()"
-		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier avec Image</button>
+		    (click)="onModifyTexte()"
+		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier l'enregistrement</button>
 
 	    <button class="btn btn-danger m-1"
 		    (click)="onDelete()"
 		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>
 	</div>
+	
 	<button class="btn btn-link"
-		(click)="onGoAllTexte()"><< Retour à la liste des Textes</button>
+		       (click)="onGoAllTexte()"><< Retour à la liste des Textes</button>
 
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans single-texte.component.html.<br>Erreur<br> {{ errorMessage }}</p>

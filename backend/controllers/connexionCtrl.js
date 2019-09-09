@@ -1,4 +1,4 @@
-const connexionModel = require('../models/connexionModel');
+const connexionMongooseModel = require('../models/connexionMongooseModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Debug = require('../models/debug');
@@ -12,7 +12,7 @@ exports.signup = (req, res, next) => {
 		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.signup a_password_hash', a_password_hash)};}
 		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.signup req.body.password', req.body.password)};}
 
-		const connexion = new connexionModel({
+		const connexion = new connexionMongooseModel({
 		    email: req.body.email,
 		    password: a_password_hash
 		});
@@ -48,7 +48,7 @@ exports.login = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.login avec req.body',req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login req.body.email', req.body.email)};}
 
-    connexionModel.findOne({ email: req.body.email }).
+    connexionMongooseModel.findOne({ email: req.body.email }).
 	then( /* mongoose method */
 	    (une_connexion) => {
 		if (Debug.debug) {if (Debug.debug) {console.log('Dans connexionCtrl.js.login une_connexion', une_connexion)};}
@@ -104,7 +104,7 @@ exports.login = (req, res, next) => {
 exports.createConnexionCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.createConnexionCtrl avec req.body ', req.body)};}
 
-    const connexion = new connexionModel({
+    const connexion = new connexionMongooseModel({
 	email: req.body.email,
 	password: req.body.password,
     });
@@ -130,7 +130,7 @@ exports.getOneConnexionCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getOneConnexionCtrl avec req.params.id ', req.params.id)};}
     
-    connexionModel.findOne({
+    connexionMongooseModel.findOne({
 	_id: req.params.id
     })
 	.then(
@@ -150,17 +150,17 @@ exports.modifyConnexionCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.modifyConnexionCtrl avec req.params.id ', req.params.id)};}
     
-    const connexion = new connexionModel({
+    const connexion = new connexionMongooseModel({
 	_id: req.params.id, /* to keep the_id */
 	email: req.body.email,
 	password: req.body.password,
     });
 
-    connexionModel.updateOne({_id: req.params.id}, connexion)
+    connexionMongooseModel.updateOne({_id: req.params.id}, connexion)
 	.then(
 	    () => {
 		res.status(201).json({
-		    message: 'connexionModel updated successfully!'
+		    message: 'connexionMongooseModel updated successfully!'
 		});
 	    }
 	).catch(
@@ -176,7 +176,7 @@ exports.deleteConnexionCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.deleteConnexionCtrl avec req.params.id ', req.params.id)};}
     
-    connexionModel.deleteOne({_id: req.params.id})
+    connexionMongooseModel.deleteOne({_id: req.params.id})
 	.then(
 	    () => {
 		res.status(200).json({
@@ -195,7 +195,7 @@ exports.deleteConnexionCtrl = (req, res, next) => {
 exports.getAllConnexionCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans connexionCtrl.js.getAllConnexionCtrl avec req.body ', req.body)};}
 
-    connexionModel.find()
+    connexionMongooseModel.find()
 	.then(
 	    (des_connexions) => {
 		res.status(200).json(des_connexions);

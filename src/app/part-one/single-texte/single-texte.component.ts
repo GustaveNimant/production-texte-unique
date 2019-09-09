@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { TexteModel } from '../../models/texte.model';
+import { TexteModel }       from '../../models/texte.model';
 import { TexteService }     from '../../services/texte.service';
 import { ConnexionService } from '../../services/connexion.service';
-import { StateService }      from '../../services/state.service';
+import { StateService }     from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -105,8 +105,12 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.router.navigate(['/part-four/new-notation/' + this.texte._id]);
     }
 
-    onModify() {
+    onModifyTexte() {
 	this.router.navigate(['/part-one/modify-texte/' + this.texte._id]);
+    }
+
+    onNewTexteVersion() {
+	this.router.navigate(['/part-one/new-texte-version/' + this.texte._id]);
     }
 
     onDelete() {

@@ -1,8 +1,11 @@
 export class ParticipantModel {
-    _id: string;
-    email: string;
+    nom: string;
+    prenom: string;
     pseudo: string;
+    email: string;
     password: string;
+    clePublique: string;
     connexionId: string;
-    _v: number;
+    _id: string;
+    __v: number;
 }

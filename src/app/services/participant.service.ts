@@ -16,57 +16,10 @@ export class ParticipantService {
 	console.log('Entrée dans constructor');
     };
 
-    private participants: ParticipantModel[] = [
-	{
-	    _id: '324sdfmoih3',
-	    email: 'emile.achadde@free.fr',
-	    pseudo: 'emile',
-	    password: 'azerty',
-	    connexionId: '324connexion3',
-	    _v: 0
-	},
-    ];
+    private participants: ParticipantModel[] = [];
 
     public participants$ = new Subject<ParticipantModel[]>();
 
-    getParticipants() {
-	console.log('Entrée dans getParticipants avec uri', this.uri_all);
-
-	this.http.get(this.uri_all).subscribe(
-	    (par_a: ParticipantModel[]) => {
-		if (par_a) {
-		    this.participants = par_a;
-		    this.emitParticipants();
-		}
-	    },
-	    (error) => {
-		console.log('Dans getParticipants Erreur:', error);
-	    },
-	    () => {console.log('getParticipants fini !')}
-	);
-    }
-
-    emitParticipants() {
-	console.log('Entrée dans emitParticipant avec participants', this.participants);
-	this.participants$.next(this.participants);
-    }
-
-    getParticipantById(id: string) {
-	console.log('Entrée dans getParticipantById avec id', id);
-
-	return new Promise(
-	    (resolve, reject) => {
-		this.http.get(this.uri_all + id).subscribe(
-		    (response) => {
-			resolve(response);
-		    },
-		    (error) => {
-			reject(error);
-		    }
-		);
-	    });
-    }
-    
     createNewParticipant(participant: ParticipantModel) {
 	console.log('Entrée dans createNewParticipant avec participant', participant);
 
@@ -88,26 +41,44 @@ export class ParticipantService {
 	});
     }
 
-    createNewParticipantWithFile(participant: ParticipantModel, image: File) { /* pas d'image */
-	console.log('Entrée dans createNewParticipantWithFile avec participant', participant);
-
-	return new Promise((resolve, reject) => {
-	    
-	    const participantData = new FormData();
-	    participantData.append('participant', JSON.stringify(participant));
-	    participantData.append('image', image, participant.pseudo);
-	    
-	    this.http.post(this.uri_new, participantData).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    reject(error);
-		}
-	    );
-	});
+    emitParticipants() {
+	console.log('Entrée dans emitParticipant avec participants', this.participants);
+	this.participants$.next(this.participants);
     }
 
+    getParticipants() {
+	console.log('Entrée dans getParticipants avec uri', this.uri_all);
+
+	this.http.get(this.uri_all).subscribe(
+	    (par_a: ParticipantModel[]) => {
+		if (par_a) {
+		    this.participants = par_a;
+		    this.emitParticipants();
+		}
+	    },
+	    (error) => {
+		console.log('Dans getParticipants Erreur:', error);
+	    },
+	    () => {console.log('getParticipants fini !')}
+	);
+    }
+
+    getParticipantById(id: string) {
+	console.log('Entrée dans getParticipantById avec id', id);
+
+	return new Promise(
+	    (resolve, reject) => {
+		this.http.get(this.uri_all + id).subscribe(
+		    (response) => {
+			resolve(response);
+		    },
+		    (error) => {
+			reject(error);
+		    }
+		);
+	    });
+    }
+    
     modifyParticipant(id: string, participant: ParticipantModel) {
 	console.log('Entrée dans modifyParticipant avec id',id, 'et participant', participant);
 

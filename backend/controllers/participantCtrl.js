@@ -1,12 +1,16 @@
-const participantModel = require('../models/participantModel');
+const participantMongooseModel = require('../models/participantMongooseModel');
+const Debug = require('../models/debug');
 
 exports.createParticipant = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans createParticipant avec req.body ', req.body)};
 
-    const participant = new participantModel({
+    const participant = new participantMongooseModel({
+	nom: req.body.nom,
+	prenom: req.body.prenom,
 	pseudo: req.body.pseudo,
 	email: req.body.email,
-	cle_publique: req.body.cle_publique,
+	password: req.body.password,
+	clePublique: req.body.clePublique,
 	connexionId: req.body.connexionId
     });
     
@@ -30,7 +34,7 @@ exports.getOneParticipant = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans getOneParticipant avec req.body ', req.body)};
     if (Debug.debug) {console.log('Entrée dans getOneParticipant avec req.params.id ', req.params.id)};
     
-    participantModel.findOne({
+    participantMongooseModel.findOne({
 	_id: req.params.id
     })
 	.then(
@@ -50,19 +54,21 @@ exports.modifyParticipant = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans modifyParticipant avec req.body ', req.body)};
     if (Debug.debug) {console.log('Entrée dans modifyParticipant avec req.params.id ', req.params.id)};
     
-    const participant = new participantModel({
-	_id: req.params.id, /* to keep the_id */
+    const participant = new participantMongooseModel({
+	nom: req.body.nom,
+	prenom: req.body.prenom,
 	pseudo: req.body.pseudo,
 	email: req.body.email,
-	cle_publique: req.body.cle_publique,
-	connexionId: req.body.connexionId
+	clePublique: req.body.clePublique,
+	connexionId: req.body.connexionId,
+	_id: req.params.id, /* to keep the_id */
     });
 
-    participantModel.updateOne({_id: req.params.id}, participant)
+    participantMongooseModel.updateOne({_id: req.params.id}, participant)
 	.then(
 	    () => {
 		res.status(201).json({
-		    message: 'participantModel updated successfully!'
+		    message: 'participantMongooseModel updated successfully!'
 		});
 	    }
 	).catch(
@@ -78,7 +84,7 @@ exports.deleteParticipant = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans deleteParticipant avec req.body ', req.body)};
     if (Debug.debug) {console.log('Entrée dans deleteParticipant avec req.params.id ', req.params.id)};
     
-    participantModel.deleteOne({_id: req.params.id})
+    participantMongooseModel.deleteOne({_id: req.params.id})
 	.then(
 	    () => {
 		res.status(200).json({
@@ -97,7 +103,7 @@ exports.deleteParticipant = (req, res, next) => {
 exports.getAllParticipant = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans getAllParticipant avec req.body ', req.body)};
 
-    participantModel.find()
+    participantMongooseModel.find()
 	.then(
 	    (des_participants) => {
 		res.status(200).json(des_participants);

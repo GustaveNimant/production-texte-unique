@@ -17,26 +17,6 @@ export class TexteService {
 
     public textes$ = new Subject<TexteModel[]>();
 
-    emitTexte() {
-	console.log('Entrée dans emitTexte avec les textes', this.textes);
-	this.textes$.next(this.textes);
-    }
-
-    getTexteById(id: string) {
-	console.log('Entrée dans getTexteById avec id', id);
-
-	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + id).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    reject(error);
-		}
-	    );
-	});
-    }
-
     createNewTexte(texte: TexteModel) {
 	console.log('Entrée dans createNewTexte avec texte', texte);
 
@@ -57,6 +37,56 @@ export class TexteService {
 	});
     }
     
+    createNewTexteVersion(id: string, texte: TexteModel) { /* id  conservé */
+	console.log('Entrée dans createNewTexteVersion avec id',id, 'et texte', texte);
+
+	return new Promise((resolve, reject) => {
+	    this.http.post(this.uri_all + id, texte).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
+
+    deleteTexte(id: string) {
+	console.log('Entrée dans deleteTexte avec id',id);
+
+	return new Promise((resolve, reject) => {
+	    this.http.delete(this.uri_all + id).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
+
+    emitTexte() {
+	console.log('Entrée dans emitTexte avec les textes', this.textes);
+	this.textes$.next(this.textes);
+    }
+
+    getTexteById(id: string) {
+	console.log('Entrée dans getTexteById avec id', id);
+
+	return new Promise((resolve, reject) => {
+	    this.http.get(this.uri_all + id).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
+
     getTextes() {
 	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
 
@@ -87,27 +117,12 @@ export class TexteService {
 	});
 	
     }
-    
+
     modifyTexte(id: string, texte: TexteModel) { /* update id ? */
 	console.log('Entrée dans modifyTexte avec id',id, 'et texte', texte);
 
 	return new Promise((resolve, reject) => {
 	    this.http.put(this.uri_all + id, texte).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    reject(error);
-		}
-	    );
-	});
-    }
-
-    deleteTexte(id: string) {
-	console.log('Entrée dans deleteTexte avec id',id);
-
-	return new Promise((resolve, reject) => {
-	    this.http.delete(this.uri_all + id).subscribe(
 		(response) => {
 		    resolve(response);
 		},

@@ -11,4 +11,4 @@ const connexionSchema = new Schema({
 
 connexionSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('connexionModel', connexionSchema);
+module.exports = mongoose.model('connexionMongooseModel', connexionSchema);

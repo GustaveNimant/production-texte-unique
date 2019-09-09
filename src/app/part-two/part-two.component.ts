@@ -10,18 +10,19 @@ import { ConnexionService } from '../services/connexion.service';
 
 export class PartTwoComponent implements OnInit, OnDestroy {
 
-    constructor(private state: StateService,
-		private auth: ConnexionService) {
+    constructor(private stateService: StateService,
+		private connexionService: ConnexionService) {
 	console.log('Entrée dans constructor');
     }
     
     ngOnInit() {
-	this.auth.isAuth$.next(false);
-	this.auth.connexionId = '';
-	this.auth.token = '';
+	this.connexionService.isAuth$.next(false);
+	this.connexionService.connexionId = '';
+	this.connexionService.token = '';
 	
-	this.state.part$.next(2);
-	this.state.part = 2;
+	this.stateService.part$.next(2);
+	this.stateService.part = 2;
+	console.log('Dans ngOnInit part assigné à', this.stateService.part);
     }
     
     ngOnDestroy() {

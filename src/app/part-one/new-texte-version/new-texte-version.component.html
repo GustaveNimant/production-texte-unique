@@ -1,21 +1,15 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
+    <ul>
+	<li> Titre : {{texte.titre}} </li>
+	<li>Note : {{texte.noteMoyenne}} ({{texte.noteEcartType}})</li>
+	<li>Shasum de l'enregistrement précédent : {{texte.shasum}}</li>
+	<li>id de l'enregistrement : {{texte.texteId}}</li>
+	<li>version du texte : {{texte.version}}</li>
+	<li>ObjectId : {{texte._id}}</li>
+    </ul>
     <form [formGroup]="texteForm">
-	<div class="form-group">
-	    <label for="titre">Titre</label>
-	    <input type="text"
-		   placeholder="Titre de l'enregistrement ?"
-		   id="titre"
-		   formControlName="titre"
-		   class="form-control">
-	</div>
-	<div class="form-group">
-	    <label for="noteMoyenne">Note moyenne</label>
-	    <input type="number"
-		   id="noteMoyenne"
-		   class="form-control"
-		   formControlName="noteMoyenne" min="0">
-	</div>
+
 	<div class="form-group">
 	    <label for="contenu">Description</label>
 	    <textarea name="contenu"
@@ -25,16 +19,9 @@
                       formControlName="contenu"
                       placeholder="Entrer votre texte ici ..."></textarea>
 	</div>
-	<div class="form-group">
-	    <label for="shasum">Shasum du texte</label>
-	    <input type="text"
-		   id="shasum"
-		   formControlName="shasum"
-		   class="form-control">
-	</div>
 	
-	<button class="btn btn-success" (click)="onModifyTexte()"
-		[disabled]="texteForm.invalid">Modifier</button>
+	<button class="btn btn-success" (click)="onNewTexteVersion()"
+		       [disabled]="texteForm.invalid">Sauver la version</button>
 	
 	<p class="alert-danger" *ngIf="errorMessage"><br>
 	    Il faut <a class="header-link"

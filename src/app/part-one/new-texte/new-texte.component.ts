@@ -48,6 +48,8 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    noteMoyenne: [4],
 	    noteEcartType: [5],
 	    auteurId: ["someAuteurId_0"],
+	    texteId: ["someTexteId"],
+	    version: [0],
 	});
 	
 	this.partSub = this.stateService.part$.subscribe(
@@ -71,6 +73,8 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
 	texte.auteurId = this.texteForm.get('auteurId').value;
+	texte.version = this.texteForm.get('version').value;
+	texte.texteId = new Date().getTime().toString(); 
 
 	texte._id = new Date().getTime().toString();
 

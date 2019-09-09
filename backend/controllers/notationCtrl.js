@@ -1,4 +1,4 @@
-const notationModel = require('../models/notationModel');
+const notationMongooseModel = require('../models/notationMongooseModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Debug = require('../models/debug');
@@ -6,7 +6,7 @@ const Debug = require('../models/debug');
 exports.createNotationCtrl = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans notationCtrl.js.createNotationCtrl avec req.body ', req.body)};
 
-    const notation = new notationModel({
+    const notation = new notationMongooseModel({
 	participantId: req.body.participantId,
 	texteId: req.body.texteId,
 	note: req.body.note,
@@ -34,7 +34,7 @@ exports.getOneNotationCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.params.id ', req.params.id)};}
     
-    notationModel.findOne({
+    notationMongooseModel.findOne({
 	_id: req.params.id
     })
 	.then(
@@ -56,7 +56,7 @@ exports.deleteNotationCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.params.id ', req.params.id)};}
     
-    notationModel.deleteOne({_id: req.params.id})
+    notationMongooseModel.deleteOne({_id: req.params.id})
 	.then(
 	    () => {
 		res.status(200).json({
@@ -75,7 +75,7 @@ exports.deleteNotationCtrl = (req, res, next) => {
 exports.getAllNotationCtrl = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getAllNotationCtrl avec req.body ', req.body)};
 
-    notationModel.find()
+    notationMongooseModel.find()
 	.then(
 	    (not_a) => {
 		if (Debug.debug) {console.log('Dans notationCtrl.js.getAllNotationCtrl not_a', not_a)};

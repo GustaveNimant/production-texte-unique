@@ -4,15 +4,23 @@
     <div class="single-participant-pane">
 
 	<div class="single-participant-info">
-	    <p>email {{ participant.email }}<p>
-		<p>pseudo {{ participant.pseudo }}</p>
-		<p>id {{ participant._id }}</p>
-		<button class="btn btn-success m-1" (click)="onModify()"
-			[disabled]="part != 2 && participantId !== participant?.participantId">Modifier</button>
-		<button class="btn btn-danger m-1" (click)="onDelete()"
-			[disabled]="part != 2 && participantId !== participant?.participantId">Supprimer</button>
+
+	    <ul>
+		<li>Participant : {{ participantModel.prenom }} {{ participantModel.nom }} </li>
+		<li>email {{ participantModel.email }}</li>
+		<li>pseudo {{ participantModel.pseudo }}</li>
+		<li>ConnexionId {{ participantModel.connexionId }}</li>
+		<li>id {{ participantModel._id }} V_{{ participantModel.__v }}</li>
+	    </ul>
+
+	    <button class="btn btn-success m-1" (click)="onModify()"
+		    [disabled]="part != 2 && participantId !== participant?.participantId">Modifier</button>
+	    
+	    <button class="btn btn-danger m-1" (click)="onDelete()"
+		    [disabled]="part != 2 && participantId !== participant?.participantId">Supprimer</button>
 	</div>
+	
 	<button class="btn btn-link"
-		(click)="onGoBack()"><< Retour à la liste des Participants</button>
+		       (click)="onGoBack()"><< Retour à la liste des Participants</button>
     </div>
 </div>

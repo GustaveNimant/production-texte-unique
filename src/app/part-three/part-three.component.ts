@@ -7,6 +7,7 @@ import { ConnexionService } from '../services/connexion.service';
   templateUrl: './part-three.component.html',
   styleUrls: ['./part-three.component.scss']
 })
+
 export class PartThreeComponent implements OnInit, OnDestroy {
 
     constructor(private stateService: StateService,
