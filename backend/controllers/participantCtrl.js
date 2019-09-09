@@ -23,6 +23,7 @@ exports.createParticipant = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
+		if (Debug.debug) {console.log('Dans participantCtrl.js.createParticipantCtrl Erreur ', error)};
 		res.status(400).json({
 		    error: error
 		});
