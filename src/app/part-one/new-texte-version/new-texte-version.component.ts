@@ -34,14 +34,7 @@ export class NewTexteVersionComponent implements OnInit {
 
 	this.loading = true;
 	this.texteForm = this.formBuilder.group({
-	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
-	    shasum: [null, Validators.required],
-	    noteMoyenne: [0, Validators.required],
-	    noteEcartType: [0, Validators.required],
-	    auteurId: [null, Validators.required],
-	    texteId: [null, Validators.required],
-	    version: [0, Validators.required],
 	});
 
 	this.partSub = this.stateService.part$.subscribe(
@@ -63,16 +56,7 @@ export class NewTexteVersionComponent implements OnInit {
 		    (tex: TexteModel) => {
 			console.log('Dans ngOnInit tex',tex);
 			this.texte = tex;
-			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
-
-			this.texteForm.get('shasum').setValue(this.texte.shasum);
-			this.texteForm.get('noteMoyenne').setValue(this.texte.noteMoyenne);
-			this.texteForm.get('noteEcartType').setValue(this.texte.noteEcartType);
-			this.texteForm.get('auteurId').setValue(this.texte.auteurId);
-			this.texteForm.get('texteId').setValue(this.texte.texteId);
-		/* Calcul des nouvelles valeurs */
-			this.texteForm.get('version').setValue(this.texte.version +1);
 			this.loading = false;
 		    }
 		);
@@ -86,26 +70,20 @@ export class NewTexteVersionComponent implements OnInit {
 
 //	const salt = bcrypt.genSaltSync(10);
 //	console.log('salt', salt);
-//	texte.shasum = bcrypt.hashSync(req.body.contenu, salt); 
+//	texte.shasum = bcrypt.hashSync(this.texte.contenu, salt); 
 
-
-	const texte = new TexteModel();
-
-	texte.titre = this.texteForm.get('titre').value;
-	texte.contenu = this.texteForm.get('contenu').value;
-	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
-	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
-	texte.shasum = this.texteForm.get('shasum').value;
-	texte.auteurId = this.texteForm.get('auteurId').value;
-	texte.texteId = this.texteForm.get('texteId').value;
-	texte.version = this.texteForm.get('version').value;
-
-	texte._id = this.texte._id;
-	texte.__v = (this.texte.__v +1);
-
-	console.log('Dans onNewTexteVersion texte', texte);
+	let texteNew = new TexteModel();
+        texteNew = this.texte;
 	
-	this.texteService.createNewTexteVersion(this.texte._id, texte).then(
+	texteNew.contenu = this.texteForm.get('contenu').value;
+	texteNew.version = this.texte.version +1;
+
+	texteNew._id = this.texte._id;
+	texteNew.__v = (this.texte.__v +1);
+
+	console.log('Dans onNewTexteVersion texteNew', texteNew);
+	
+	this.texteService.createNewTexteVersion(this.texte._id, texteNew).then(
 		() => {
 		this.texteForm.reset();
 		this.loading = false;
