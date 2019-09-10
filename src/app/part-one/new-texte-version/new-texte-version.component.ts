@@ -5,6 +5,7 @@ import { TexteModel } from '../../models/texte.model';
 import { StateService }  from '../../services/state.service';
 import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
+import { createSha } from '../../models/outils';
 
 @Component({
     selector: 'app-new-texte-version',
@@ -68,13 +69,11 @@ export class NewTexteVersionComponent implements OnInit {
 	console.log('Entrée dans onNewTexteVersion');
 	this.loading = true;
 
-//	const salt = bcrypt.genSaltSync(10);
-//	console.log('salt', salt);
-//	texte.shasum = bcrypt.hashSync(this.texte.contenu, salt); 
 
 	let texteNew = new TexteModel();
         texteNew = this.texte;
-	
+
+	texteNew.shasum = createSha (this.texte.contenu, 'SHA-256', 'TEXT', 'HEX');
 	texteNew.contenu = this.texteForm.get('contenu').value;
 	texteNew.version = this.texte.version +1;
 

@@ -16,10 +16,6 @@ exports.createTexteVersionCtrl = (req, res, next) => {
 	version: req.body.version,
     });
 
-    const salt = bcrypt.genSaltSync(10);
-    console.log('salt', salt);
-    texte.shasum = bcrypt.hashSync(req.body.contenu, salt); 
-
     texte.save()
 	.then(
 	    () => {
