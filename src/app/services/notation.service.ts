@@ -3,7 +3,6 @@ import { HttpClient }    from '@angular/common/http';
 import { NotationModel } from '../models/notation.model';
 import { Subject }       from 'rxjs';
 
-
 @Injectable({
     providedIn: 'root'
 })

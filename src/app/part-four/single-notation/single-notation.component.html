@@ -1,12 +1,12 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 <div *ngIf="debug">Debug:Dans single-notation.component.html</div>
 <div *ngIf="!loading">
-    <div class="notation-pane">
+    <div class="single-notation-pane">
 
-	<div class="notation-info">
-	    <p>texteId {{ notation.texteId }}<p>
-		<p>participantId {{ notation.participantId }}</p>
-		<p>id {{ notation._id }}</p>
+	<div class="single-notation-info">
+	    <p>Id du texte {{ notation.texteId }}<p>
+		<p>Id du participant {{ notation.participantId }}</p>
+		<p>Id courant {{ notation._id }}</p>
 		<p>note {{ notation.note }}</p>
 		<p>date {{ notation.date }}</p>
 		<button class="btn btn-danger m-1" (click)="onDelete()"
