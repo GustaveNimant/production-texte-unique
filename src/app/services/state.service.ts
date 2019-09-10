@@ -17,6 +17,9 @@ export class StateService {
     public currentUrl$ = new BehaviorSubject<string>('');
     public currentUrl = '';
 
+    public currentTexteId$ = new BehaviorSubject<string>('');
+    public currentTexteId = '';
+
     public currentConnexionId$ = new BehaviorSubject<string>('');
     public currentConnexionId = '';
     

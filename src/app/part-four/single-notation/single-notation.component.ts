@@ -45,7 +45,10 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 			    this.loading = false;
 			    this.notation = not;
 			}
-		    );
+		    ).catch(
+			(error) => {
+			    console.log('Dans ngOnInit Erreur', error);
+			});
 	    }
 	);
 	

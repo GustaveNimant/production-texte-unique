@@ -86,6 +86,21 @@ export class NotationService {
 	});
     }
 
+    getNotationsByTexteId(texteId: string) {
+	console.log('Entrée dans getNotationsByTexteId avec texteId', texteId);
+
+	return new Promise((resolve, reject) => {
+	    this.http.get(this.uri_all + 'sum/' + texteId).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
+
     deleteNotation(id: string) {
 	console.log('Entrée dans deleteNotation avec id',id);
 

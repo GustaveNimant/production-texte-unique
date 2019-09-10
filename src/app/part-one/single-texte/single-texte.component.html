@@ -12,20 +12,19 @@
 	    <p>Contenu : {{ texte.contenu }}</p>
 	    
 	    <button class="btn btn-success m-1"
-		    (click)="onNotate()"
-		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Noter</button>
+		    (click)="onNotate()">Noter</button>
 
 	    <button class="btn btn-success m-1"
-		    (click)="onNewTexteVersion()"
-		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Créer une nouvelle version</button>
+		    (click)="onAverageNote()">Calculer la note moyenne</button>
 
 	    <button class="btn btn-success m-1"
-		    (click)="onModifyTexte()"
-		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Modifier l'enregistrement</button>
+		    (click)="onNewTexteVersion()">Créer une nouvelle version</button>
+
+	    <button class="btn btn-success m-1"
+		    (click)="onModifyTexte()">Modifier l'enregistrement</button>
 
 	    <button class="btn btn-danger m-1"
-		    (click)="onDelete()"
-		    [disabled]="part != 1 && auteurId !== texte?.auteurId">Supprimer</button>
+		    (click)="onDelete()">Supprimer</button>
 	</div>
 	
 	<button class="btn btn-link"

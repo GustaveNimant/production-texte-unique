@@ -25,6 +25,7 @@ import { PartFourComponent }              from './part-four/part-four.component'
 import { ListNotationComponent }          from './part-four/list-notation/list-notation.component';
 import { NewNotationComponent }           from './part-four/new-notation/new-notation.component';
 import { SingleNotationComponent }        from './part-four/single-notation/single-notation.component';
+import { SumNotationComponent }           from './part-four/sum-notation/sum-notation.component';
 
 import { PartFiveComponent }              from './part-five/part-five.component';
 import { ListConnexionComponent }         from './part-five/list-connexion/list-connexion.component';
@@ -76,6 +77,7 @@ const routes: Routes = [
 	  { path: 'new-notation/:id', component: NewNotationComponent},
 	  { path: 'list-notation', component: ListNotationComponent},
 	  { path: 'single-notation/:id', component: SingleNotationComponent},
+	  { path: 'sum-notation/:texteId', component: SumNotationComponent},
 	  { path: '', pathMatch: 'full', redirectTo: '' }, 
 	  { path: '**', redirectTo: 'list-notation' }
       ]

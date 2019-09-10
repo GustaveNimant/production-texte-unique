@@ -24,6 +24,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public trace: boolean;
 
     private currentUrl: string;
+    private currentTexteId: string;
 
     private partSub: Subscription;
     private isAuthSub: Subscription;
@@ -57,6 +58,10 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 			    this.loading = false;
 			    this.texte = tex;
 			    console.log('Dans ngOnInit texte',this.texte);
+			    this.currentTexteId = this.texte.texteId;
+			    this.stateService.currentTexteId$.next(this.currentTexteId);
+			    console.log('Dans ngOnInit currentTexteId', this.currentTexteId);
+
 			}
 		    ).catch(
 			(error) => {
@@ -103,6 +108,11 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     onNotate() {
 	console.log('Entrée dans onNotate navigation vers /part-four/new-notation/'+this.texte._id);
 	this.router.navigate(['/part-four/new-notation/' + this.texte._id]);
+    }
+
+    onAverageNote() {
+	console.log('Entrée dans onAverageNote navigation vers /part-four/sum-notation/'+this.texte._id);
+	this.router.navigate(['/part-four/sum-notation/' + this.texte.texteId]);
     }
 
     onModifyTexte() {

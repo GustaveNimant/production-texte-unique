@@ -89,3 +89,23 @@ exports.getAllNotationCtrl = (req, res, next) => {
 	    }
 	);
 };
+
+exports.getNotationsByTexteIdCtrl = (req, res, next) => {
+    
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getNotationsByTexteIdCtrl avec req.params ', req.params)};
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getNotationsByTexteIdCtrl avec req.params.texteId ', req.params.texteId)};
+
+    notationMongooseModel.find(req.params)
+	.then(
+	    (not_a) => {
+		if (Debug.debug) {console.log('Dans notationCtrl.js.getNotationsByTexteIdCtrl not_a', not_a)};
+		res.status(200).json(not_a);
+		}
+	).catch(
+	    (error) => {
+		res.status(400).json({
+		    error: error
+		});
+	    }
+	);
+};

@@ -38,6 +38,7 @@ import { PartFourComponent }        from './part-four/part-four.component';
 import { ListNotationComponent }    from './part-four/list-notation/list-notation.component';
 import { NewNotationComponent }     from './part-four/new-notation/new-notation.component';
 import { SingleNotationComponent }  from './part-four/single-notation/single-notation.component';
+import { SumNotationComponent }     from './part-four/sum-notation/sum-notation.component';
 
 import { PartFiveComponent }        from './part-five/part-five.component';
 import { ListConnexionComponent }   from './part-five/list-connexion/list-connexion.component';
@@ -45,7 +46,6 @@ import { NewConnexionComponent }    from './part-five/new-connexion/new-connexio
 import { SingleConnexionComponent } from './part-five/single-connexion/single-connexion.component';
 
 import { LoginComponent }           from './login/login.component';
-
 
 @NgModule({
     declarations: [
@@ -76,6 +76,7 @@ import { LoginComponent }           from './login/login.component';
 	ModifyButComponent,
 	ListButComponent,
 	SingleButComponent,
+	SumNotationComponent,
     ],
     imports: [
 	BrowserModule,

@@ -21,10 +21,12 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
     private partSub: Subscription;
     private currentConnexionIdSub: Subscription;
+    private currentTexteIdSub: Subscription;
     
     private texteId: string;
     private participantId: string;
     private currentDate: string;
+    private currentTexteId: string;
     
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
@@ -43,17 +45,21 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	
 	this.stateService.mode$.next('form');
 
-	this.activatedRoute.params.subscribe(
-	    (params: Params) => {
-		console.log('Dans ngOnInit params', params);
-		if (params.id) {
-		this.texteId = params.id;
+    	this.currentTexteIdSub = this.stateService.currentTexteId$.subscribe(
+	    (id) => {
+		console.log('Dans ngOnInit currentTexteId >', id,'<');
+		if (id) {
+		    this.currentTexteId = id;
 		} else {
 		    this.router.navigate(['/part-one/list-texte']);
 		}
+	    }, 
+	    (error) => {
+		console.log('Dans ngOnInit Erreur', error);
 	    }
-	);
 
+	);
+	
 	this.notationForm = this.formBuilder.group({
 	    note: [6],
 	});
@@ -87,7 +93,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
 	const notation = new NotationModel();
 	
-	notation.texteId = this.texteId;
+	notation.texteId = this.currentTexteId;
 	notation.participantId = this.participantId;
 	notation.date = this.currentDate;
 
