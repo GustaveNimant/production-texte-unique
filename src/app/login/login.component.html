@@ -3,7 +3,7 @@
 <div *ngIf="debug">Debug:Dans connexions-liste.component.html:loading = {{loading}}</div>
 
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
-    <form [formGroup]="connexionForm">
+    <form [formGroup]="loginForm">
 	<div class="form-group">
 	    <label for="email">Email</label>
 	    <input type="text"
@@ -12,6 +12,7 @@
 		   formControlName="email"
 		   class="form-control">
 	</div>
+
 	<div class="form-group">
 	    <label for="password">Password</label>
 	    <input type="password"
@@ -20,9 +21,11 @@
 		   formControlName="password"
 		   class="form-control">
 	</div>
+
 	<button class="btn btn-primary"
 		(click)="onLogin()"
-		[disabled]="connexionForm.invalid">Login</button>
+		[disabled]="loginForm.invalid">Login</button>
+	
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans login.component.html.<br>Erreur lors du Login<br> {{ errorMessage }}</p>
     </form>

@@ -56,39 +56,19 @@ export class ConnexionService {
 	});
     }
 
-    login(connexion: ConnexionModel) {
-	console.log('Entrée dans login avec connexion',connexion);
+    deleteConnexion(id: string) {
+	console.log('Entrée dans deleteConnexion avec id',id);
 
-	const uri_login = this.uri_all + 'login';
-	
 	return new Promise((resolve, reject) => {
-	    this.http.post(uri_login, connexion)
-		.subscribe(
-		    (authData: /* get authData from middleware/auth.js from 3000 */
-		     { token: string,
-		       connexionId: string
-		     }) => {
-			 console.log('Dans login.subscribe authData',authData);
-
-			 this.token = authData.token;
-			 this.connexionId = authData.connexionId;
-			 this.isAuth$.next(true);
-			 console.log('Dans login.subscribe isAuth$ assigné à true');
-			 resolve();
-		     },
-		    (error) => {
-			console.log('Dans login.subscribe Erreur', error, ' pour uri_login', uri_login);
-			reject(error);
-		    }
-		);
+	    this.http.delete(this.uri_all + id).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
 	});
-    }
-
-    logout() {
-	console.log('Entering in logout');
-	this.isAuth$.next(false);
-	this.connexionId = null;
-	this.token = null;
     }
 
     emitConnexion() {
@@ -127,11 +107,11 @@ export class ConnexionService {
 	});
     }
 
-    deleteConnexion(id: string) {
-	console.log('Entrée dans deleteConnexion avec id',id);
+    getConnexionByEmail(email: string) {
+	console.log('Entrée dans getConnexionById avec email', email);
 
 	return new Promise((resolve, reject) => {
-	    this.http.delete(this.uri_all + id).subscribe(
+	    this.http.get(this.uri_all + '/email/' + email).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -140,6 +120,41 @@ export class ConnexionService {
 		}
 	    );
 	});
+    }
+
+    login(connexion: ConnexionModel) {
+	console.log('Entrée dans login avec connexion',connexion);
+
+	const uri_login = this.uri_all + 'login';
+	
+	return new Promise((resolve, reject) => {
+	    this.http.post(uri_login, connexion)
+		.subscribe(
+		    (authData: /* get authData from middleware/auth.js from 3000 */
+		     { token: string,
+		       connexionId: string
+		     }) => {
+			 console.log('Dans login.subscribe authData',authData);
+
+			 this.token = authData.token;
+			 this.connexionId = authData.connexionId;
+			 this.isAuth$.next(true);
+			 console.log('Dans login.subscribe isAuth$ assigné à true');
+			 resolve();
+		     },
+		    (error) => {
+			console.log('Dans login.subscribe Erreur', error, ' pour uri_login', uri_login);
+			reject(error);
+		    }
+		);
+	});
+    }
+
+    logout() {
+	console.log('Entering in logout');
+	this.isAuth$.next(false);
+	this.connexionId = null;
+	this.token = null;
     }
 
 }

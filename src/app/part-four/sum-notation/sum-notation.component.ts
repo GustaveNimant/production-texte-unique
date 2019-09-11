@@ -24,10 +24,11 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     private currentConnexionIdSub: Subscription;
 
     public currentConnexionId: string;
-    public texteId: string;
-    public sum: number;
-    public average: number;
-    public rms: number;
+    public participantCount: number;
+    public texteObjectId: string;
+    public sum: string;
+    public average: string;
+    public rms: string;
 
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
@@ -41,8 +42,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
-	let note_a = [];
-	
+	let note_a:number[] = [];
 	
 	this.loading = true;
 	
@@ -51,59 +51,62 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		console.log('Dans ngOnInit params', params);
-		if (params.texteId) {
-		    this.texteId = params.texteId;
-		    this.notationService.getNotationsByTexteId(params.texteId)
+		if (params.texteObjectId) {
+		    this.texteObjectId = params.texteObjectId;
+		    this.notationService.getNotationsByTexteObjectId(params.texteObjectId)
 			.then(
 			    (not_a) => {
 				this.loading = false;
 				console.log('Dans ngOnInit liste des notations not_a',not_a);
-				for( let i = 0; i < not_a.length; i++ ){
-                       		    note_a[i] = not_a[i].note;
+
+                                for (let i in not_a) {
+				    note_a[i] = not_a[i].note;
 				}				
 				console.log('Dans ngOnInit liste des notes note_a',note_a);
 
-				this.sum = sumOfArray(note_a);
-				this.average = averageOfArray(note_a);
-				this.rms = rmsOfArray(note_a);
+				this.participantCount = note_a.length;
+				
+				this.average = (averageOfArray(note_a).toFixed(1)).toString();
+				this.rms = (rmsOfArray(note_a).toFixed(1)).toString();
+				this.sum = (sumOfArray(note_a)).toString();
 				console.log('Dans ngOnInit rms des notes note_a',this.rms);
 			    }
-			)
-			.catch(
-			    (error) => {
-				console.log('Dans ngOnInit Erreur', error);
-				console.log('Dans ngOnInit Erreur.status', error.status);
-				this.loading = false;
-				this.errorMessage = error.message;
-			    }
-			);
+				)
+				    .catch(
+					(error) => {
+					    console.log('Dans ngOnInit Erreur', error);
+					    console.log('Dans ngOnInit Erreur.status', error.status);
+					    this.loading = false;
+					    this.errorMessage = error.message;
+					}
+				    );
 		} else {
 		    console.log('Dans ngOnInit Erreur pour params.id', params.id);
 		    this.router.navigate(['/part-one/list-texte']);
 		}
 	    }
-	);
+			);
 
-	this.partSub = this.stateService.part$.subscribe(
-	    (part) => {
-		this.part = part;
-	    }
-	);
-
-    	this.currentConnexionIdSub = this.stateService.currentConnexionId$.subscribe(
-	    (id) => {
-		console.log('Dans ngOnInit currentConnexionId >', id,'<');
-		if (id) {
-		    this.currentConnexionId = id;
-		} else {
-		    this.router.navigate(['/login']);
+	    this.partSub = this.stateService.part$.subscribe(
+		(part) => {
+		    this.part = part;
 		}
-	    }, 
-	    (error) => {
-		console.log('Dans ngOnInit Erreur', error);
-	    }
+	    );
 
-	);
+    	    this.currentConnexionIdSub = this.stateService.currentConnexionId$.subscribe(
+		(id) => {
+		    console.log('Dans ngOnInit currentConnexionId >', id,'<');
+		    if (id) {
+			this.currentConnexionId = id;
+		    } else {
+			this.router.navigate(['/login']);
+		    }
+		}, 
+		(error) => {
+		    console.log('Dans ngOnInit Erreur', error);
+		}
+
+	    );
     }
 
     onGoBack() {

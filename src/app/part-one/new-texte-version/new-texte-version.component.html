@@ -3,10 +3,9 @@
     <ul>
 	<li> Titre : {{texte.titre}} </li>
 	<li>Note : {{texte.noteMoyenne}} ({{texte.noteEcartType}})</li>
-	<li>Shasum de l'enregistrement précédent : {{texte.shasum}}</li>
-	<li>id de l'enregistrement : {{texte.texteId}}</li>
-	<li>version du texte : {{texte.version}}</li>
-	<li>ObjectId : {{texte._id}}</li>
+	<li>Shasum du contenu précédent : {{texte.shasum}}</li>
+	<li>Id du contenu : {{texte.texteContenuId}} ({{texte.version}})</li>
+	<li>ObjectId : {{texte._id}} ({{texte.__v}})</li>
     </ul>
     <form [formGroup]="texteForm">
 

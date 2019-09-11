@@ -8,7 +8,7 @@ const texteSchema = new Schema({
     noteMoyenne: { type: Number, required: true },
     noteEcartType: { type: Number, required: true },
     auteurId: { type: String, required: true },
-    texteId: { type: String, required: true },
+    texteContenuId: { type: String, required: true },
     version: { type: Number, required: true },
 },{
     collection : 'texte_with_versions_c'

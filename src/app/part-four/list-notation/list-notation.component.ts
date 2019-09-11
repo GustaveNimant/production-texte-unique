@@ -54,9 +54,9 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	);
 
 	this.notationsSub = this.notationService.notations$.subscribe(
-	    (con_a) => {
-		console.log('Dans ngOnInit con_a',con_a);
-		this.notations = con_a; /* on charge les notations ici */
+	    (not_a) => {
+		console.log('Dans ngOnInit not_a',not_a);
+		this.notations = not_a; /* on charge les notations ici */
 		this.loading = false;
 	    },
 	    (error) => {

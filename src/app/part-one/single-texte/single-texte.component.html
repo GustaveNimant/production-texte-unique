@@ -6,8 +6,9 @@
 
 	<div class="single-texte-info">
 	    <h2>{{ texte.titre }}</h2>
-	    <p>note : {{ texte?.noteMoyenne }} ({{ texte?.noteEcartType }}) </p>
-	    <p>TexteId : {{ texte.texteId }} ( {{ texte.version }} ) </p>
+	    <p>note : {{ texte.noteMoyenne }} ({{ texte.noteEcartType }}) </p>
+	    <p>Id du contenu : {{ texte.texteContenuId }} ( {{ texte.version }} ) </p>
+	    <p>ObjectId : {{ texte.texteObjectId }} ( {{ texte.__v }} ) </p>
 	    <p>Sha256 de la version précédente : {{texte.shasum}} </p>
 	    <p>Contenu : {{ texte.contenu }}</p>
 	    

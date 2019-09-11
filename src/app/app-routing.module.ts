@@ -77,7 +77,7 @@ const routes: Routes = [
 	  { path: 'new-notation/:id', component: NewNotationComponent},
 	  { path: 'list-notation', component: ListNotationComponent},
 	  { path: 'single-notation/:id', component: SingleNotationComponent},
-	  { path: 'sum-notation/:texteId', component: SumNotationComponent},
+	  { path: 'sum-notation/:texteObjectId', component: SumNotationComponent},
 	  { path: '', pathMatch: 'full', redirectTo: '' }, 
 	  { path: '**', redirectTo: 'list-notation' }
       ]

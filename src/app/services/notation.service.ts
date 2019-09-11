@@ -86,11 +86,11 @@ export class NotationService {
 	});
     }
 
-    getNotationsByTexteId(texteId: string) {
-	console.log('Entrée dans getNotationsByTexteId avec texteId', texteId);
+    getNotationsByTexteObjectId(texteObjectId: string) {
+	console.log('Entrée dans getNotationsByTexteObjectId avec texteObjectId', texteObjectId);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + 'sum/' + texteId).subscribe(
+	    this.http.get(this.uri_all + 'sum/' + texteObjectId).subscribe(
 		(response) => {
 		    resolve(response);
 		},

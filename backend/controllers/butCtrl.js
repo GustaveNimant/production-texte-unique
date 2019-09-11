@@ -5,7 +5,7 @@ exports.createButCtrl = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans butCtrl.js.createButCtrl avec req.body ', req.body)};
 
     const but = new butMongooseModel({
-	texteId: req.body.texteId,
+	texteObjectId: req.body.texteObjectId,
 	assertionList: req.body.assertionList,
     });
     
@@ -89,7 +89,7 @@ exports.modifyButCtrl = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans butCtrl.js.modifyButCtrl avec req.params.id ', req.params.id)};
     
     const but = new butMongooseModel({
-	texteId: req.body.texteId,
+	texteObjectId: req.body.texteObjectId,
 	assertionList: req.body.assertionList,
 	_id: req.params.id, /* to keep the_id */
 	__v: req.body.__v

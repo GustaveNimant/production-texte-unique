@@ -5,8 +5,8 @@ export class TexteModel {
     noteMoyenne: number;
     noteEcartType: number;
     auteurId: string;
-    texteId: string;
+    texteContenuId: string;
     version: number;
-    _id: string;
+    _id: string; /* texteObjectId*/
     __v: number;
 }

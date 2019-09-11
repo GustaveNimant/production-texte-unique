@@ -37,11 +37,12 @@ export class TexteService {
 	});
     }
     
-    createNewTexteVersion(id: string, texte: TexteModel) { /* id  conservé */
-	console.log('Entrée dans createNewTexteVersion avec id',id, 'et texte', texte);
+    createNewTexteVersion(texteObjectId: string, texte: TexteModel) { /* texteObjectId  conservé */
+	console.log('Entrée dans createNewTexteVersion avec texteObjectId',texteObjectId);
+	console.log('Entrée dans createNewTexteVersion avec texte', texte);
 
 	return new Promise((resolve, reject) => {
-	    this.http.post(this.uri_all + id, texte).subscribe(
+	    this.http.post(this.uri_all + texteObjectId, texte).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -52,11 +53,11 @@ export class TexteService {
 	});
     }
 
-    deleteTexte(id: string) {
-	console.log('Entrée dans deleteTexte avec id',id);
+    deleteTexte(texteObjectId: string) {
+	console.log('Entrée dans deleteTexte avec texteObjectId',texteObjectId);
 
 	return new Promise((resolve, reject) => {
-	    this.http.delete(this.uri_all + id).subscribe(
+	    this.http.delete(this.uri_all + texteObjectId).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -72,11 +73,11 @@ export class TexteService {
 	this.textes$.next(this.textes);
     }
 
-    getTexteById(id: string) {
-	console.log('Entrée dans getTexteById avec id', id);
+    getTexteByObjectId(texteObjectId: string) {
+	console.log('Entrée dans getTexteByObjectId avec texteObjectId', texteObjectId);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + id).subscribe(
+	    this.http.get(this.uri_all + texteObjectId).subscribe(
 		(response) => {
 		    resolve(response);
 		},

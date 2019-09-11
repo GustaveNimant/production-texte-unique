@@ -1,6 +1,6 @@
 import * as jsSHA from 'jssha';
 
-export function sumOfArray (num_a : [number]) : number {
+export function sumOfArray (num_a :number[]) : number {
     let sum = 0;
     for( let i = 0; i < num_a.length; i++ ){
 	sum += num_a[i];
@@ -8,7 +8,7 @@ export function sumOfArray (num_a : [number]) : number {
     return sum;
 }
 
-export function sumROfArray (num_a : [number]) : number {
+export function sumROfArray (num_a : number[]) : number {
     let sum = 0;
     if (num_a.length)
     {
@@ -17,13 +17,13 @@ export function sumROfArray (num_a : [number]) : number {
     return sum;
 }
 
-export function averageOfArray (num_a : [number]) : number {
+export function averageOfArray (num_a : number[]) : number {
     let sum = sumOfArray (num_a);
     let average = sum / num_a.length;
     return average;
 }
 
-export function varianceOfArray (num_a : [number]) : number {
+export function varianceOfArray (num_a : number[]) : number {
     let average = averageOfArray (num_a);
     let sum2 = 0;
     let variance = 0;
@@ -34,7 +34,7 @@ export function varianceOfArray (num_a : [number]) : number {
     return variance;
 }
 
-export function rmsOfArray (num_a : [number]) : number {
+export function rmsOfArray (num_a : number[]) : number {
     let variance = varianceOfArray (num_a);
     let rms = Math.sqrt (variance);
     return rms

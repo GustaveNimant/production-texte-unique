@@ -54,7 +54,7 @@ export class ModifyTexteComponent implements OnInit {
 	    (par) => {
 		console.log('Dans ngOnInit par',par);
 		/* Improve calculer la noteMoyenne pour cet id avec list-notation */
-		this.texteService.getTexteById(par.id).then(
+		this.texteService.getTexteByObjectId(par.id).then(
 		    (tex: TexteModel) => {
 			console.log('Dans ngOnInit tex',tex);
 			this.texte = tex;

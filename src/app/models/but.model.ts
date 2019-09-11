@@ -1,5 +1,5 @@
 export class ButModel {
-    texteId: string;
+    texteObjectId: string;
     assertionList: [string];
     _id: string;
     __v: number;

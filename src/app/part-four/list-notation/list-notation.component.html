@@ -8,10 +8,6 @@
    *ngIf="notations.length <= 0 && !loading">
     La collection notation_c dans la base de données est vide !</p>
 
-<p class="text-center" 
-   *ngIf="notations.length <= 0">
-    La collection notation_C dans la base de données est vide !</p>
-
 <div class="notation-grid"
      *ngIf="notations.length >= 0">
     <div class="notation-pane"
@@ -19,11 +15,11 @@
 	 (click)="onNotationClicked(une_notation._id)">
 
 	<div class="notation-info">
-	    <p>Id du texte {{ une_notation.texteId }}<p>
+	    <p>ObjectId du texte : {{ une_notation.texteObjectId }}<p>
 		<p>Id du participant {{ une_notation.participantId }}</p>
 		<p>Note : {{ une_notation.note }}</p>
 		<p>Date : {{ une_notation.date }}</p>
-		<p>Id de la notation : {{ une_notation._id }} ( {{ une_notation.__v }} )</p>
+		<p>ObjectId de la notation : {{ une_notation._id }} ( {{ une_notation.__v }} )</p>
 	</div>
     </div>
 </div>

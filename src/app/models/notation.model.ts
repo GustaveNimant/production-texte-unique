@@ -1,6 +1,6 @@
 export class NotationModel {
     _id: string;
-    texteId: string;
+    texteObjectId: string;
     participantId: string;
     note: number;
     date: string;

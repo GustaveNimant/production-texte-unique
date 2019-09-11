@@ -21,12 +21,13 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
     private partSub: Subscription;
     private currentConnexionIdSub: Subscription;
-    private currentTexteIdSub: Subscription;
     
-    private texteId: string;
     private participantId: string;
     private currentDate: string;
-    private currentTexteId: string;
+
+    private currentTexteObjectIdSub: Subscription;
+    private currentTexteObjectId: string;
+    private texteObjectId: string;
     
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
@@ -40,28 +41,24 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
+	this.activatedRoute.params.subscribe(
+	    (params: Params) => {
+		console.log('Dans ngOnInit params', params);
+		if (params.id) {
+		    this.texteObjectId = params.id;
+		} else {
+		    this.router.navigate(['/part-one/list-texte']);
+		}
+	    }
+	);
+
 	this.currentDate = new Date().toString();
 	console.log('Dans ngOnInit currentDate', this.currentDate);
 	
 	this.stateService.mode$.next('form');
 
-    	this.currentTexteIdSub = this.stateService.currentTexteId$.subscribe(
-	    (id) => {
-		console.log('Dans ngOnInit currentTexteId >', id,'<');
-		if (id) {
-		    this.currentTexteId = id;
-		} else {
-		    this.router.navigate(['/part-one/list-texte']);
-		}
-	    }, 
-	    (error) => {
-		console.log('Dans ngOnInit Erreur', error);
-	    }
-
-	);
-	
-	this.notationForm = this.formBuilder.group({
-	    note: [6],
+ 	this.notationForm = this.formBuilder.group({
+	    note: [1],
 	});
 	
 	this.partSub = this.stateService.part$.subscribe(
@@ -72,7 +69,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
     	this.currentConnexionIdSub = this.stateService.currentConnexionId$.subscribe(
 	    (id) => {
-		console.log('Dans ngOnInit id >', id,'<');
+		console.log('Dans ngOnInit currentConnexionId >', id,'<');
 		if (id) {
 		    this.participantId = id;
 		} else {
@@ -93,7 +90,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
 	const notation = new NotationModel();
 	
-	notation.texteId = this.currentTexteId;
+	notation.texteObjectId = this.texteObjectId;
 	notation.participantId = this.participantId;
 	notation.date = this.currentDate;
 

@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 const uniqueValidator = require('mongoose-unique-validator');
     
 const notationSchema = new Schema({
-    texteId: { type: String},
+    texteObjectId: { type: String},
     participantId: { type: String},
     note: { type: Number},
     date: { type: String}, /* créée par Service */

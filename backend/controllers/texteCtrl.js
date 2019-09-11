@@ -12,7 +12,7 @@ exports.createTexteVersionCtrl = (req, res, next) => {
 	noteMoyenne: req.body.noteMoyenne,
 	noteEcartType: req.body.noteEcartType,
 	auteurId: req.body.auteurId,
-	texteId: req.body.texteId,
+	texteContenuId: req.body.texteContenuId,
 	version: req.body.version,
     });
 
@@ -43,7 +43,7 @@ exports.createTexteCtrl = (req, res, next) => {
 	noteMoyenne: req.body.noteMoyenne,
 	noteEcartType: req.body.noteEcartType,
 	auteurId: req.body.auteurId,
-	texteId: req.body.texteId,
+	texteContenuId: req.body.texteContenuId,
 	version: req.body.version,
     });
     
@@ -134,7 +134,7 @@ exports.modifyTexteCtrl = (req, res, next) => {
 	noteMoyenne: req.body.noteMoyenne,
 	noteEcartType: req.body.noteEcartType,
 	auteurId: req.body.auteurId,
-	texteId: req.body.texteId,
+	texteContenuId: req.body.texteContenuId,
 	version: req.body.version,
     });
 
