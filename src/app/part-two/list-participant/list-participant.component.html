@@ -9,10 +9,11 @@
 
 <p class="text-center"
    *ngIf="participants.length <= 0 && !loading">
-    La base de données est vide !</p>
+    La collection participant_c de la base de données est vide !</p>
 
 <div class="participant-grid"
      *ngIf="participants.length >= 0">
+    
     <div class="participant-pane"
 	 *ngFor="let un_participant of participants"
 	 (click)="onParticipantClicked(un_participant._id)">

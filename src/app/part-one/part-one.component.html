@@ -3,20 +3,17 @@
 <h2>
     Les textes
     <ul>
-	<li	*ngIf="(!isAuth)">
-	    <a
-		routerLink="/login"
-		routerLinkActive="active">S'enregistrer</a>
-	</li>
-	<li>
-	    <a
-		routerLink="/part-one/list-texte"
-		routerLinkActive="active">Afficher la liste des textes</a>
+	<li *ngIf="(!isAuth)">
+	    <a routerLink="/login"
+	       routerLinkActive="active">Login (pour entrer un nouveau texte)</a>
 	</li>
 	<li *ngIf="(isAuth)">
-	    <a
-		routerLink="/part-one/new-texte"
-		routerLinkActive="active">Entrer un nouveau texte</a>
+	    <a routerLink="/part-one/new-texte"
+	       routerLinkActive="active">Entrer un nouveau texte</a>
+	</li>
+	<li>
+	    <a routerLink="/part-one/list-texte"
+	       routerLinkActive="active">Afficher la liste des textes</a>
 	</li>
     </ul>
 </h2>

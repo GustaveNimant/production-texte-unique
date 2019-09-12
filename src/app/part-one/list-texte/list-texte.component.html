@@ -6,7 +6,9 @@
    *ngIf="textes.length <= 0 && !loading">
     La collection texte_with_versions_c de la base de données est vide !</p>
 
-<div class="texte-grid" *ngIf="textes.length >= 0">
+<div class="texte-grid"
+     *ngIf="textes.length >= 0">
+
     <div class="texte-pane"
 	 *ngFor="let un_texte of textes"
 	 [ngClass]="{'open': un_texte._id === chosenId}"
