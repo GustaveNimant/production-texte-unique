@@ -84,9 +84,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 		    console.log('Dans onLogin part', this.part);
 		    this.loginForm.reset();
 		    this.loading = false;
-		    console.log('Dans onLogin currentUrl', this.currentUrl);
+		    console.log('Dans onLogin currentUrl >', this.currentUrl);
 
-		    if (this.currentUrl) {
+		    if (this.currentUrl && this.currentUrl != '/login') {
 			this.router.navigate([this.currentUrl]);
 		    } else {
 			this.router.navigate(['/main-menu']);
@@ -108,7 +108,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 			    break;
 		    }
 		    console.log('Dans onLogin Erreur', error);
-		    console.log('Dans onLogin Erreur.status', error.status);
 		    this.errorMessage = this.errorSubMessage + ' '+ error.message;
 		    this.loading = false;
 		}

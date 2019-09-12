@@ -2,7 +2,9 @@
 
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="connexionForm">
-	<h3>Créez une nouvelle connexion</h3>
+
+	<h3>Enregistrez une nouvelle connexion</h3>
+
 	<div class="form-group">
 	    <label for="email">Email</label>
 	    <input type="text"
@@ -22,7 +24,9 @@
 	<button class="btn btn-primary"
 		(click)="onSubmit()"
 		[disabled]="connexionForm.invalid">Submit</button>
+
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans new-connexion.component.html.<br>Erreur lors de la création de la connexion:<br> {{ errorMessage }}</p>
+
     </form>
 </div>
