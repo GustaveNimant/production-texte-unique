@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dbConfig = require('./models/dbConfig');
 
-const connexionRoutes  = require('./routes/connexion.routes');
+const compteRoutes  = require('./routes/compte.routes');
 const butRoutes  = require('./routes/but.routes');
 const notationRoutes  = require('./routes/notation.routes');
 const participantRoutes  = require('./routes/participant.routes');
@@ -23,7 +23,7 @@ app.use((req, res, next) => { /* no route : applies to all incoming requests */
 
 app.use(bodyParser.json());              /* reception de la requête sous forme d'Objet JSON */
 
-app.use('/api/all-connexions', connexionRoutes);
+app.use('/api/all-comptes', compteRoutes);
 app.use('/api/all-buts', butRoutes);
 app.use('/api/all-notations', notationRoutes);
 app.use('/api/all-participants', participantRoutes); 

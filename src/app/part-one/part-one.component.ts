@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
-import { ConnexionService } from '../services/connexion.service';
+import { CompteService } from '../services/compte.service';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -18,7 +18,7 @@ export class PartOneComponent implements OnInit {
     private currentUrl: string;
 
     constructor(private stateService: StateService,
-		private connexionService: ConnexionService,
+		private compteService: CompteService,
 		private router: Router)
 		{
 		    console.log('Entrée dans constructor');
@@ -32,7 +32,7 @@ export class PartOneComponent implements OnInit {
 
 	this.titre = "Les textes"
 
-	this.isAuthSub = this.connexionService.isAuth$.subscribe(
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
 		console.log('Dans ngOnInit isAuth', this.isAuth);

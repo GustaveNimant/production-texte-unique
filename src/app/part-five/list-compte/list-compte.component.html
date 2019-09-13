@@ -1,0 +1,24 @@
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<div *ngIf="debug">Debug:Dans list-comptee.component.html:loading = {{loading}}</div>
+<div *ngIf="debug">Debug:Dans list-comptee.component.html:nombre de comptes = {{comptes.length}}</div>
+
+<p class="text-center"
+   *ngIf="comptes.length <= 0 && !loading">
+    La collection compte_c de la base de données est vide !</p>
+
+<h3>Liste des comptes</h3>
+<div class="compte-grid"
+     *ngIf="comptes.length >= 0">
+    <div class="compte-pane"
+	 *ngFor="let un_compte of comptes"
+	 (click)="onCompteClicked(un_compte._id)">
+	<div class="compte-info">
+	    <p>
+		pseudo : {{ un_compte.pseudo }}<br>
+		email : {{ un_compte.email }}<br>
+		Id du compte : {{ un_compte._id }}<br>
+	    </p>
+	</div>
+    </div>
+</div>

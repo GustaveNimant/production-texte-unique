@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }       from 'rxjs';
 import { StateService }       from '../services/state.service';
-import { ConnexionService }  from '../services/connexion.service';
+import { CompteService }  from '../services/compte.service';
 import { Router }             from '@angular/router';
 import { partStringOfNumber } from '../models/outils';
 
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
-		private connexionService: ConnexionService,
+		private compteService: CompteService,
 		private router: Router)
 		{ 
 		    console.log('Entrée dans constructor');
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.isAuthSub = this.connexionService.isAuth$.subscribe(
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
 		console.log('Dans ngOnInit isAuth', this.isAuth);
@@ -60,7 +60,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     onLogout() {
 	console.log('Entrée dans onLogout avec partString', this.partString);
-	this.connexionService.logout();
+	this.compteService.logout();
 	this.router.navigate(['/main-menu']);
     }
     

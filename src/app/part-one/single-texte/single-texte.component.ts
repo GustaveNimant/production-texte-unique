@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { TexteModel }       from '../../models/texte.model';
 import { TexteService }     from '../../services/texte.service';
-import { ConnexionService } from '../../services/connexion.service';
+import { CompteService } from '../../services/compte.service';
 import { StateService }     from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -32,7 +32,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private texteService: TexteService,
-		private connexionService: ConnexionService) { }
+		private compteService: CompteService) { }
 
     ngOnInit() {
 	this.debug = this.stateService.debug;
@@ -46,7 +46,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.loading = true;
 
 	this.stateService.mode$.next('single-texte');
-	this.auteurId = this.connexionService.connexionId ? this.connexionService.connexionId : 'connexionID40282382';
+	this.auteurId = this.compteService.userId ? this.compteService.userId : 'compteID40282382';
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
@@ -79,12 +79,12 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		this.auteurId = this.connexionService.connexionId;
+		this.auteurId = this.compteService.userId;
 	    }
 	);
 	console.log('Dans ngOnInit part',this.part);
 
-	this.isAuthSub = this.connexionService.isAuth$.subscribe(
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
 		console.log('Dans ngOnInit isAuth', this.isAuth);

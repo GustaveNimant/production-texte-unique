@@ -2,13 +2,14 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const uniqueValidator = require('mongoose-unique-validator');
     
-const connexionSchema = new Schema({
+const compteSchema = new Schema({
+    pseudo: { type: String, required: true},
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true }
 },{
-    collection : 'connexion_c'			    
+    collection : 'compte_c'			    
 });
 
-connexionSchema.plugin(uniqueValidator);
+compteSchema.plugin(uniqueValidator);
 
-module.exports = mongoose.model('connexionMongooseModel', connexionSchema);
+module.exports = mongoose.model('compteMongooseModel', compteSchema);

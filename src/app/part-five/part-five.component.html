@@ -1,21 +1,18 @@
 <app-main-menu></app-main-menu>
 <h2>
-    Les connexions
+    Les comptes
     <ul>
-	<li	*ngIf="(!isAuth)">
-	    <a
-		routerLink="/login"
-			    routerLinkActive="active">Login</a>
+	<li *ngIf="(!isAuth)">
+	    <a routerLink="/login"
+	       routerLinkActive="active">Login</a>
 	</li>
 	<li>
-	    <a
-		routerLink="/part-five/list-connexion"
-			    routerLinkActive="active">Afficher la liste des connexions</a>
+	    <a routerLink="/part-five/list-compte"
+	       routerLinkActive="active">Afficher la liste des comptes</a>
 	</li>
 	<li *ngIf="(isAuth)">
-	    <a
-		routerLink="/part-five/new-connexion"
-			    routerLinkActive="active">Entrer une nouvelle connexion</a>
+	    <a routerLink="/part-five/new-compte"
+	       routerLinkActive="active">Entrer un nouveau compte</a>
 	</li>
     </ul>
 </h2>

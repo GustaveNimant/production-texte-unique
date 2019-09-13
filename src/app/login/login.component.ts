@@ -1,9 +1,9 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router }                       from '@angular/router';
-import { ConnexionModel }               from '../models/connexion.model';
+import { CompteModel }               from '../models/compte.model';
 import { partStringOfNumber }           from '../models/outils';
-import { ConnexionService }            from '../services/connexion.service';
+import { CompteService }            from '../services/compte.service';
 import { StateService }                 from '../services/state.service';
 import { Subscription }                 from 'rxjs';
 
@@ -19,25 +19,27 @@ export class LoginComponent implements OnInit, OnDestroy {
     public loading = false;
     public part: number;
     public currentUrl: string;
+    public currentEmail: string;
     public partString: string;
-    public connexionId: string;
+    public userId: string;
     public errorMessage: string;
     public errorSubMessage: string;
 
     private partSub: Subscription;
     private currentUrlSub: Subscription;
+    private currentSub: Subscription;
 
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
-		private connexionService: ConnexionService){
+		private compteService: CompteService){
 	console.log('Entrée dans constructor');
     }
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
-	this.connexionService.isAuth$.next(true);
+	this.compteService.isAuth$.next(true);
 
 	this.stateService.mode$.next('form');
 
@@ -69,16 +71,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 	
 	this.loading = true;
 
-	const connexion = new ConnexionModel();
-	connexion.email = this.loginForm.get('email').value;
-	connexion.password = this.loginForm.get('password').value;
-	connexion._id = new Date().getTime().toString();
+	const email = this.loginForm.get('email').value;
+	const password = this.loginForm.get('password').value;
 
-	console.log('Dans onLogin connexion', connexion);
+	console.log('Dans onLogin email', email);
+	console.log('Dans onLogin password', password);
 	
-	this.stateService.currentConnexionId$.next(connexion._id);
+	this.stateService.currentEmail$.next(email);
 	
-	this.connexionService.login(connexion)
+	this.compteService.login(email, password)
 	    .then(
 		() => {
 		    console.log('Dans onLogin part', this.part);
@@ -100,8 +101,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 			    this.errorSubMessage = 'Dans backend lancer nodemon server';
 			    break;
 			case 401:
-			    this.errorSubMessage = 'Créer la connexion avec ces paramètres';
-			    this.router.navigate(['/part-five/new-connexion']);
+			    this.errorSubMessage = 'Créer la compte avec ces paramètres';
+			    this.router.navigate(['/part-five/new-compte']);
 			    break;
 			default:
 			    this.errorMessage = error.message;

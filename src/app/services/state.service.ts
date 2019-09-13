@@ -14,18 +14,21 @@ export class StateService {
     public debug$ = new BehaviorSubject<boolean>(true);
     public debug = false;
 
-    public currentUrl$ = new BehaviorSubject<string>('');
-    public currentUrl = '';
-
+    public currentEmail$ = new BehaviorSubject<string>('');
+    public currentEmail = '';
+    
+    public currentParticipantId$ = new BehaviorSubject<string>('');
+    public currentParticipantId = '';
+    
     public currentTexteContenuId$ = new BehaviorSubject<string>('');
     public currentTexteContenuId = '';
 
     public currentTexteObjectId$ = new BehaviorSubject<string>('');
     public currentTexteObjectId = '';
 
-    public currentConnexionId$ = new BehaviorSubject<string>('');
-    public currentConnexionId = '';
-    
+    public currentUrl$ = new BehaviorSubject<string>('');
+    public currentUrl = '';
+
     debugSwitch() {
 	console.log('Entrée dans debugSwitch');
 	this.debug = !this.debug;

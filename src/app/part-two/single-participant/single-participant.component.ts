@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ParticipantModel } from '../../models/participant.model';
 import { ParticipantService } from '../../services/participant.service';
-import { ConnexionService }   from '../../services/connexion.service';
+import { CompteService }   from '../../services/compte.service';
 import { StateService }       from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -24,7 +24,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private participantService: ParticipantService,
-		private connexionService: ConnexionService) {
+		private compteService: CompteService) {
 	console.log('Entrée dans constructor');
     }
     
@@ -32,7 +32,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans ngOnInit');
 	this.loading = true;
 	this.stateService.mode$.next('single-participant');
-	this.participantId = this.connexionService.connexionId ? this.connexionService.connexionId : 'participantID40282382';
+	this.participantId = this.compteService.userId ? this.compteService.userId : 'participantID40282382';
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		this.participantService.getParticipantById(params.id)
@@ -49,7 +49,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	    (num) => {
 		console.log('Dans ngOnInit num',num);
 		this.part = num;
-		this.participantId = this.connexionService.connexionId;
+		this.participantId = this.compteService.userId;
 	    }
 	);
     }

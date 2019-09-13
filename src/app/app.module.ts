@@ -1,6 +1,6 @@
 import { MatProgressSpinnerModule } from '@angular/material';
 
-import { ConnexionInterceptor }     from './interceptors/connexion-interceptor';
+import { CompteInterceptor }     from './interceptors/compte-interceptor';
 
 import { AppRoutingModule }         from './app-routing.module';
 import { BrowserAnimationsModule }          from '@angular/platform-browser/animations';
@@ -41,9 +41,9 @@ import { SingleNotationComponent }  from './part-four/single-notation/single-not
 import { SumNotationComponent }     from './part-four/sum-notation/sum-notation.component';
 
 import { PartFiveComponent }        from './part-five/part-five.component';
-import { ListConnexionComponent }   from './part-five/list-connexion/list-connexion.component';
-import { NewConnexionComponent }    from './part-five/new-connexion/new-connexion.component';
-import { SingleConnexionComponent } from './part-five/single-connexion/single-connexion.component';
+import { ListCompteComponent }   from './part-five/list-compte/list-compte.component';
+import { NewCompteComponent }    from './part-five/new-compte/new-compte.component';
+import { SingleCompteComponent } from './part-five/single-compte/single-compte.component';
 
 import { LoginComponent }           from './login/login.component';
 
@@ -51,14 +51,14 @@ import { LoginComponent }           from './login/login.component';
     declarations: [
 	AppComponent,
 	HeaderComponent,
-	ListConnexionComponent,
+	ListCompteComponent,
 	ListNotationComponent,
 	ListParticipantComponent,
 	ListTexteComponent,
 	LoginComponent,
 	MainMenuComponent,
 	ModifyTexteComponent,
-	NewConnexionComponent,
+	NewCompteComponent,
 	NewNotationComponent,
 	NewParticipantComponent,
 	NewTexteComponent,
@@ -67,7 +67,7 @@ import { LoginComponent }           from './login/login.component';
 	PartOneComponent,
 	PartThreeComponent,
 	PartTwoComponent,
-	SingleConnexionComponent,
+	SingleCompteComponent,
 	SingleNotationComponent,
 	SingleParticipantComponent,
 	SingleTexteComponent,
@@ -90,7 +90,7 @@ import { LoginComponent }           from './login/login.component';
     providers: [
 	{
 	    provide: HTTP_INTERCEPTORS,
-	    useClass: ConnexionInterceptor,
+	    useClass: CompteInterceptor,
 	    multi: true
 	}
     ],

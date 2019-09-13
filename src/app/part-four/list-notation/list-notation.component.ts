@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ConnexionService } from '../../services/connexion.service';
+import { CompteService } from '../../services/compte.service';
 import { StateService }      from '../../services/state.service';
 import { NotationService }  from '../../services/notation.service';
 import { NotationModel } from '../../models/notation.model';
@@ -26,7 +26,7 @@ export class ListNotationComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
-		private connexionService: ConnexionService,
+		private compteService: CompteService,
 		private notationService: NotationService, 
 		private router: Router) {
     	console.log('Entrée dans constructor');
@@ -65,7 +65,7 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	    () => {console.log('Dans notationsSub fini !')}
 	);
 
-	this.isAuthSub = this.connexionService.isAuth$.subscribe(
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les notations */
 		this.isAuth = boo;
 	    }

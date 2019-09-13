@@ -26,7 +26,7 @@ export class NotationService {
 				resolve(response);
 			    },
 			    (error) => {
-				console.log('Dans createNewNotation Erreur de connexion', error);
+				console.log('Dans createNewNotation Erreur de compte', error);
 				reject(error);
 			    },
 			    () => {

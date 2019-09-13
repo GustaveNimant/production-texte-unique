@@ -2,13 +2,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { StateService } from './state.service';
-import { ConnexionService } from './connexion.service';
+import { CompteService } from './compte.service';
 
 @Injectable()
 
-export class ConnexionGuard implements CanActivate {
+export class CompteGuard implements CanActivate {
 
-    constructor(private connexionService: ConnexionService,
+    constructor(private compteService: CompteService,
 		private stateService: StateService,
 		private router: Router) {
         console.log('Entrée dans constructor avec stateService', stateService);
@@ -20,7 +20,7 @@ export class ConnexionGuard implements CanActivate {
 		    return Observable.create(
 			(observer) => {
 			    console.log('Dans canActivate observer',observer);
-			    this.connexionService.isAuth$.subscribe(
+			    this.compteService.isAuth$.subscribe(
 				(auth) => {
 				    console.log('Dans canActivate auth',auth);
 				    if (!auth) {
@@ -28,8 +28,8 @@ export class ConnexionGuard implements CanActivate {
 					    (num) => {
 						console.log('Dans canActivate num',num);
 						if (num === 5) {
-						    this.router.navigate(['/part-five/all-connexions/single-connexion']);
-						    this.router.navigate(['/part-five/all-connexions/new-connexion']);
+						    this.router.navigate(['/part-five/all-comptes/single-compte']);
+						    this.router.navigate(['/part-five/all-comptes/new-compte']);
 						} else if (num === 1) {
 						    console.log('Dans canActivate aller à login');
 						    this.router.navigate(['/login']);

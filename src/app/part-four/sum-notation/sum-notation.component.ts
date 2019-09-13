@@ -21,9 +21,8 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     public errorMessage: string;
 
     private partSub: Subscription;
-    private currentConnexionIdSub: Subscription;
-
-    public currentConnexionId: string;
+    private currentParticipantIdSub: Subscription;
+    public currentParticipantId: string;
     public participantCount: number;
     public texteObjectId: string;
     public sum: string;
@@ -93,11 +92,11 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 		}
 	    );
 
-    	    this.currentConnexionIdSub = this.stateService.currentConnexionId$.subscribe(
+    	    this.currentParticipantIdSub = this.stateService.currentParticipantId$.subscribe(
 		(id) => {
-		    console.log('Dans ngOnInit currentConnexionId >', id,'<');
+		    console.log('Dans ngOnInit currentParticipantId >', id,'<');
 		    if (id) {
-			this.currentConnexionId = id;
+			this.currentParticipantId = id;
 		    } else {
 			this.router.navigate(['/login']);
 		    }

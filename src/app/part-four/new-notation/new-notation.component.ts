@@ -20,14 +20,13 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     public errorMessage: string;
 
     private partSub: Subscription;
-    private currentConnexionIdSub: Subscription;
-    
-    private participantId: string;
+    private currentParticipantIdSub: Subscription;
+    private currentParticipantId: string;
+
     private currentDate: string;
 
     private currentTexteObjectIdSub: Subscription;
     private currentTexteObjectId: string;
-    private texteObjectId: string;
     
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
@@ -45,7 +44,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	    (params: Params) => {
 		console.log('Dans ngOnInit params', params);
 		if (params.id) {
-		    this.texteObjectId = params.id;
+		    this.currentTexteObjectId = params.id;
 		} else {
 		    this.router.navigate(['/part-one/list-texte']);
 		}
@@ -67,11 +66,11 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-    	this.currentConnexionIdSub = this.stateService.currentConnexionId$.subscribe(
+    	this.currentParticipantIdSub = this.stateService.currentParticipantId$.subscribe(
 	    (id) => {
-		console.log('Dans ngOnInit currentConnexionId >', id,'<');
+		console.log('Dans ngOnInit currentParticipantId >', id,'<');
 		if (id) {
-		    this.participantId = id;
+		    this.currentParticipantId = id;
 		} else {
 		    this.router.navigate(['/login']);
 		}
@@ -90,8 +89,8 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
 	const notation = new NotationModel();
 	
-	notation.texteObjectId = this.texteObjectId;
-	notation.participantId = this.participantId;
+	notation.texteObjectId = this.currentTexteObjectId;
+	notation.participantId = this.currentParticipantId;
 	notation.date = this.currentDate;
 
 	notation.note = this.notationForm.get('note').value;

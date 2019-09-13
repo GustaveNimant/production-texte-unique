@@ -41,6 +41,20 @@ export class ParticipantService {
 	});
     }
 
+    deleteParticipant(id: string) {
+	console.log('Entrée dans deleteParticipant avec id',id);
+
+	return new Promise((resolve, reject) => {
+	    this.http.delete(this.uri_all + id).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
     emitParticipants() {
 	console.log('Entrée dans emitParticipant avec participants', this.participants);
 	this.participants$.next(this.participants);
@@ -94,18 +108,4 @@ export class ParticipantService {
 	});
     }
 
-    deleteParticipant(id: string) {
-	console.log('Entrée dans deleteParticipant avec id',id);
-
-	return new Promise((resolve, reject) => {
-	    this.http.delete(this.uri_all + id).subscribe(
-		(response) => {
-		    resolve(response);
-		},
-		(error) => {
-		    reject(error);
-		}
-	    );
-	});
-    }
 }

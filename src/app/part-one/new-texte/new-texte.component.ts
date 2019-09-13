@@ -1,9 +1,10 @@
 import { Router }                             from '@angular/router';
 import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CompteModel }        from '../../models/compte.model';
 import { TexteModel }        from '../../models/texte.model';
-import { TexteService }     from '../../services/texte.service';
-import { ConnexionService } from '../../services/connexion.service';
+import { TexteService }      from '../../services/texte.service';
+import { CompteService }     from '../../services/compte.service';
 import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -15,23 +16,27 @@ import { Subscription } from 'rxjs';
 
 export class NewTexteComponent implements OnInit, OnDestroy {
 
-    public texteForm: FormGroup;
-    public loading = false;
-    public part: number;
-    public errorMessage: string;
-    public debug: boolean;
+    private texteForm: FormGroup;
+    private loading = false;
+    private part: number;
+    private errorMessage: string;
+    private debug: boolean;
     
     private partSub: Subscription;
+    private currentEmailSub: Subscription;
+    private currentEmail: string;
 
+    private currentCompte = new CompteModel();
+    
     constructor(
 	private formBuilder: FormBuilder,
 	private stateService: StateService,
 	private texteService: TexteService,
-	private connexionService: ConnexionService,
+	private compteService: CompteService,
     	private router: Router)
-		{
-		    console.log('Entrée dans constructor');
-		}
+	{
+	    console.log('Entrée dans constructor');
+	}
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
@@ -41,22 +46,46 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	this.debug = this.stateService.debug;
     	console.log('Dans ngOnInit debug', this.debug);
 
-	this.texteForm = this.formBuilder.group({
-	    titre: [null],
-	    contenu: [null],
-	    shasum: ["someShasum_0"],
-	    noteMoyenne: [4],
-	    noteEcartType: [5],
-	    auteurId: ["someAuteurId_0"],
-	    texteContenuId: ["someTexteId"],
-	    version: [0],
-	});
-	
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
 		this.part = num;
 	    }
 	);
+
+	this.currentEmailSub = this.stateService.currentEmail$.subscribe(
+	    (id) => { 
+		this.currentEmail = id;
+		console.log('Dans ngOnInit currentEmail', this.currentEmail);
+	    },
+	    (error) => {
+		console.log('Dans ngOnInit currentEmailSub Erreur',error);
+	    }
+	);
+
+	this.compteService.getCompteByEmail (this.currentEmail)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans ngOnInit getCompteByEmail com', com);
+		    this.currentCompte = com;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans ngOnInit getCompteByEmail Erreur', error);
+		}
+	    );
+
+	/* initialisation */
+	this.texteForm = this.formBuilder.group({
+	    titre: [null],
+	    contenu: [null],
+	    shasum: ['valeur initiale'],
+	    noteMoyenne: [0],
+	    noteEcartType: [0],
+	    auteurId: ['someID'],
+	    texteContenuId: ['someContentId'],
+	    version: [0],
+	});
+	
     }
 
     onSubmit() {
@@ -72,7 +101,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	texte.shasum = this.texteForm.get('shasum').value;
 	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
 	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
-	texte.auteurId = this.texteForm.get('auteurId').value;
+	texte.auteurId = this.currentCompte._id;
 	texte.version = this.texteForm.get('version').value;
 	texte.texteContenuId = 'TCId' + (new Date().getTime().toString()); 
 

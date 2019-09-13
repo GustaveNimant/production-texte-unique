@@ -12,7 +12,7 @@
     Les notes des versions du Texte
 </h2>
 <h2 class="header-title" *ngIf="part == 5">
-    Les Connexions
+    Les Comptes
 </h2>
 
 <div *ngIf="debug">Debug:Dans header.component.html part = {{part}}</div>
@@ -41,7 +41,7 @@
 	<li class="header-navigation-item"
 	    *ngIf="(!isAuth)">
 	    <a class="header-link"
-	       routerLink="/part-five/new-connexion"
+	       routerLink="/part-five/new-compte"
 	       routerLinkActive="active">S'enregistrer</a>
 	</li>
 	<li class="header-navigation-item">

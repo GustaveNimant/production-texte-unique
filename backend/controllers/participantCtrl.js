@@ -11,7 +11,7 @@ exports.createParticipant = (req, res, next) => {
 	email: req.body.email,
 	password: req.body.password,
 	clePublique: req.body.clePublique,
-	connexionId: req.body.connexionId
+	userId: req.body.userId
     });
     
     participant.save()
@@ -61,7 +61,7 @@ exports.modifyParticipant = (req, res, next) => {
 	pseudo: req.body.pseudo,
 	email: req.body.email,
 	clePublique: req.body.clePublique,
-	connexionId: req.body.connexionId,
+	userId: req.body.userId,
 	_id: req.params.id, /* to keep the_id */
     });
 

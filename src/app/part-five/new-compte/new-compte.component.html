@@ -1,9 +1,18 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
-    <form [formGroup]="connexionForm">
+    <form [formGroup]="compteForm">
 
-	<h3>Enregistrez une nouvelle connexion</h3>
+	<h3>Créez un compte</h3>
+
+	<div class="form-group">
+	    <label for="pseudo">Pseudo</label>
+	    <input type="text"
+		   placeholder="Entrer un pseudo ..."
+		   id="pseudo"
+		   formControlName="pseudo"
+		   class="form-control">
+	</div>
 
 	<div class="form-group">
 	    <label for="email">Email</label>
@@ -13,6 +22,7 @@
 		   formControlName="email"
 		   class="form-control">
 	</div>
+
 	<div class="form-group">
 	    <label for="password">Password</label>
 	    <input type="password"
@@ -23,10 +33,10 @@
 	</div>
 	<button class="btn btn-primary"
 		(click)="onSubmit()"
-		[disabled]="connexionForm.invalid">Submit</button>
+		[disabled]="compteForm.invalid">Submit</button>
 
 	<p class="alert-danger"
-	   *ngIf="errorMessage">Dans new-connexion.component.html.<br>Erreur lors de la création de la connexion:<br> {{ errorMessage }}</p>
+	   *ngIf="errorMessage">Dans new-compte.component.html.<br>Erreur lors de la création de la compte:<br> {{ errorMessage }}</p>
 
     </form>
 </div>

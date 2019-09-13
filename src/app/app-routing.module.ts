@@ -28,13 +28,13 @@ import { SingleNotationComponent }        from './part-four/single-notation/sing
 import { SumNotationComponent }           from './part-four/sum-notation/sum-notation.component';
 
 import { PartFiveComponent }              from './part-five/part-five.component';
-import { ListConnexionComponent }         from './part-five/list-connexion/list-connexion.component';
-import { NewConnexionComponent }          from './part-five/new-connexion/new-connexion.component';
-import { SingleConnexionComponent }       from './part-five/single-connexion/single-connexion.component';
+import { ListCompteComponent }         from './part-five/list-compte/list-compte.component';
+import { NewCompteComponent }          from './part-five/new-compte/new-compte.component';
+import { SingleCompteComponent }       from './part-five/single-compte/single-compte.component';
 
 import { LoginComponent } from './login/login.component';
 
-import { ConnexionGuard }                 from './services/connexion-guard.service';
+import { CompteGuard }                 from './services/compte-guard.service';
 
 
 const routes: Routes = [
@@ -51,9 +51,9 @@ const routes: Routes = [
     },
     { path: 'part-two', component: PartTwoComponent,
       children: [
-	  //      { path: 'new-participant', component: NewParticipantComponent, canActivate: [ConnexionGuard] },
-	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [ConnexionGuard] },
-	  //      { path: 'single-participant/:id', component: SingleParticipantComponent, canActivate: [ConnexionGuard] },
+	  //      { path: 'new-participant', component: NewParticipantComponent, canActivate: [CompteGuard] },
+	  //	  { path: 'modify-participant/:id', component: ModifyParticipantComponent, canActivate: [CompteGuard] },
+	  //      { path: 'single-participant/:id', component: SingleParticipantComponent, canActivate: [CompteGuard] },
 	  { path: 'new-participant', component: NewParticipantComponent},
 	  { path: 'list-participant', component: ListParticipantComponent },
 	  { path: 'single-participant/:id', component: SingleParticipantComponent },
@@ -64,9 +64,9 @@ const routes: Routes = [
     { path: 'part-three', component: PartThreeComponent,
       children: [
 	  { path: 'new-but', component: NewButComponent},
-	  { path: 'list-but', component: ListButComponent, canActivate: [ConnexionGuard] },
-	  { path: 'single-but/:id', component: SingleButComponent, canActivate: [ConnexionGuard] },
-	  { path: 'modify-but/:id', component: ModifyButComponent, canActivate: [ConnexionGuard] },
+	  { path: 'list-but', component: ListButComponent, canActivate: [CompteGuard] },
+	  { path: 'single-but/:id', component: SingleButComponent, canActivate: [CompteGuard] },
+	  { path: 'modify-but/:id', component: ModifyButComponent, canActivate: [CompteGuard] },
 	  { path: '', pathMatch: 'full', redirectTo: 'list-but' },
 	  { path: '**', redirectTo: 'list-but' }
       ]
@@ -84,11 +84,11 @@ const routes: Routes = [
     },
     { path: 'part-five', component: PartFiveComponent,
       children: [
-	  { path: 'new-connexion', component: NewConnexionComponent},
-	  { path: 'list-connexion', component: ListConnexionComponent },
-	  { path: 'single-connexion/:id', component: SingleConnexionComponent },
-	  { path: '', pathMatch: 'full', redirectTo: 'list-connexion' }, 
-	  { path: '**', redirectTo: 'list-connexion' }
+	  { path: 'new-compte', component: NewCompteComponent},
+	  { path: 'list-compte', component: ListCompteComponent },
+	  { path: 'single-compte/:id', component: SingleCompteComponent },
+	  { path: '', pathMatch: 'full', redirectTo: 'list-compte' }, 
+	  { path: '**', redirectTo: 'list-compte' }
       ]
     },
     { path: 'login', component: LoginComponent },
@@ -105,7 +105,7 @@ const routes: Routes = [
 	RouterModule
     ],
     providers: [
-	ConnexionGuard
+	CompteGuard
     ]
 })
 export class AppRoutingModule {}

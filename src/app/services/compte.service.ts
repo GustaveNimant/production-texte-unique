@@ -3,61 +3,61 @@ import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { ConnexionModel } from '../models/connexion.model';
+import { CompteModel } from '../models/compte.model';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class ConnexionService {
+export class CompteService {
 
     isAuth$ = new BehaviorSubject<boolean>(false);
-    token: string; /* utilisé dans intercept */
-    connexionId: string;
+    token: string;  /* utilisé dans intercept */
+    userId: string; /* utilisé dans intercept */
 
-    uri_all = 'http://localhost:3000/api/all-connexions/';
+    uri_all = 'http://localhost:3000/api/all-comptes/';
 
     constructor(private router: Router,
 		private http: HttpClient) {
 	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
     }
 
-    private connexions: ConnexionModel[] = [];
+    private comptes: CompteModel[] = [];
 
-    public connexions$ = new Subject<ConnexionModel[]>();
+    public comptes$ = new Subject<CompteModel[]>();
 
-    createNewConnexion(connexion: ConnexionModel) { /* signup */
-	console.log('Entrée dans createNewConnexion avec connexion ', connexion);
+    createNewCompte(compte: CompteModel) { /* signup */
+	console.log('Entrée dans createNewCompte avec compte ', compte);
 
 	const uri_signup = this.uri_all + 'signup';
 
 	return new Promise((resolve, reject) => {
-	    this.http.post(uri_signup, connexion) /* utilise connexionCtrl.js.signup */
+	    this.http.post(uri_signup, compte) /* utilise compteCtrl.js.signup */
 		.subscribe(
 		    (resp) => {
-			this.login (connexion)
+			this.login (compte.email, compte.password)
 			    .then(
 				(res) => {
 				    resolve(res);
 				},
 			    ).catch (
 				(error) => {
-				    console.log('Dans createNewConnexion Erreur', error)
+				    console.log('Dans createNewCompte Erreur', error)
 				    reject(error);
 				}
 			    );
 		    },
 		    (error) => {
-			console.log('Dans createNewConnexion Erreur, error')
+			console.log('Dans createNewCompte Erreur, error')
 			reject(error);
 		    }
 		);
-	    console.log('Sortie de createNewConnexion');
+	    console.log('Sortie de createNewCompte');
 	});
     }
 
-    deleteConnexion(id: string) {
-	console.log('Entrée dans deleteConnexion avec id',id);
+    deleteCompte(id: string) {
+	console.log('Entrée dans deleteCompte avec id',id);
 
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + id).subscribe(
@@ -71,29 +71,29 @@ export class ConnexionService {
 	});
     }
 
-    emitConnexion() {
-	console.log('Entrée dans emitConnexion avec les connexions', this.connexions);
-	this.connexions$.next(this.connexions);
+    emitCompte() {
+	console.log('Entrée dans emitCompte avec les comptes', this.comptes);
+	this.comptes$.next(this.comptes);
     }
 
-    getConnexions() {
-	console.log('Entrée dans getConnexions avec uri_all', this.uri_all);
+    getComptes() {
+	console.log('Entrée dans getComptes avec uri_all', this.uri_all);
 	this.http.get(this.uri_all).subscribe(
-	    (con_a: ConnexionModel[]) => {
+	    (con_a: CompteModel[]) => {
 		if (con_a) {
-		    this.connexions = con_a;
-		    this.emitConnexion();
+		    this.comptes = con_a;
+		    this.emitCompte();
 		}
 	    },
 	    (error) => {
-		console.log('Dans getConnexions Erreur:', error);
+		console.log('Dans getComptes Erreur:', error);
 	    },
-	    () => {console.log('Dans getConnexions fini !')}
+	    () => {console.log('Dans getComptes fini !')}
 	);
     }
 
-    getConnexionById(id: string) {
-	console.log('Entrée dans getConnexionById avec id', id);
+    getCompteById(id: string) {
+	console.log('Entrée dans getCompteById avec id', id);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + id).subscribe(
@@ -107,11 +107,11 @@ export class ConnexionService {
 	});
     }
 
-    getConnexionByEmail(email: string) {
-	console.log('Entrée dans getConnexionById avec email', email);
+    getCompteByEmail(email: string) {
+	console.log('Entrée dans getCompteById avec email', email);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + '/email/' + email).subscribe(
+	    this.http.get(this.uri_all + email).subscribe(
 		(response) => {
 		    resolve(response);
 		},
@@ -122,24 +122,27 @@ export class ConnexionService {
 	});
     }
 
-    login(connexion: ConnexionModel) {
-	console.log('Entrée dans login avec connexion',connexion);
+    login(email:string, password:string) {
+	console.log('Entrée dans login avec email',email);
+	console.log('Entrée dans login avec password',password);
 
 	const uri_login = this.uri_all + 'login';
 	
 	return new Promise((resolve, reject) => {
-	    this.http.post(uri_login, connexion)
+	    this.http.post(uri_login,
+			   {email: email, password: password})
 		.subscribe(
 		    (authData: /* get authData from middleware/auth.js from 3000 */
 		     { token: string,
-		       connexionId: string
+		       userId: string
 		     }) => {
 			 console.log('Dans login.subscribe authData',authData);
 
 			 this.token = authData.token;
-			 this.connexionId = authData.connexionId;
+			 this.userId = authData.userId;
 			 this.isAuth$.next(true);
 			 console.log('Dans login.subscribe isAuth$ assigné à true');
+			 console.log('Dans login.subscribe userId assigné à',this.userId);
 			 resolve();
 		     },
 		    (error) => {
@@ -153,7 +156,7 @@ export class ConnexionService {
     logout() {
 	console.log('Entering in logout');
 	this.isAuth$.next(false);
-	this.connexionId = null;
+	this.userId = null;
 	this.token = null;
     }
 

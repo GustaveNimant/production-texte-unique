@@ -4,7 +4,7 @@ import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
 import { TexteModel } from '../../models/texte.model';
 import { Router } from '@angular/router';
-import { ConnexionService } from '../../services/connexion.service';
+import { CompteService } from '../../services/compte.service';
 
 @Component({
     selector: 'app-list-texte',
@@ -26,7 +26,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
     
     constructor(private stateService: StateService,
-		private connexionService: ConnexionService,
+		private compteService: CompteService,
 		private texteService: TexteService,
 		private router: Router) { }
 
@@ -55,7 +55,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	this.isAuthSub = this.connexionService.isAuth$.subscribe(
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
 		console.log('Dans ngOnInit isAuth', this.isAuth);

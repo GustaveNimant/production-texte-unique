@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
-import { ConnexionService } from '../services/connexion.service';
+import { CompteService } from '../services/compte.service';
 
 @Component({
     selector: 'app-part-five',
@@ -10,20 +10,20 @@ import { ConnexionService } from '../services/connexion.service';
 
 export class PartFiveComponent implements OnInit, OnDestroy {
 
-    constructor(private state: StateService,
-		private auth: ConnexionService) { }
+    constructor(private stateService: StateService,
+		private compteService: CompteService) { }
     
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	
-	this.auth.isAuth$.next(false);
-	this.auth.connexionId = '';
-	this.auth.token = '';
-	console.log('Dans ngOnInit initialisation isAuth$ connexionId token');
+	this.compteService.isAuth$.next(false);
+	this.compteService.userId = '';
+	this.compteService.token = '';
+	console.log('Dans ngOnInit initialisation isAuth$ userId token');
 	
-	this.state.part$.next(5);
-	this.state.part = 5;
-	console.log('Dans ngOnInit part assigné à', this.state.part);
+	this.stateService.part$.next(5);
+	this.stateService.part = 5;
+	console.log('Dans ngOnInit part assigné à', this.stateService.part);
     }
     
     ngOnDestroy() {

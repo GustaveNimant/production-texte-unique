@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotationModel }     from '../../models/notation.model';
 import { NotationService }  from '../../services/notation.service';
-import { ConnexionService } from '../../services/connexion.service';
+import { CompteService } from '../../services/compte.service';
 import { StateService }      from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
@@ -24,7 +24,7 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private notationService: NotationService,
-		private connexionService: ConnexionService)
+		private compteService: CompteService)
 		{
 		    console.log('Entrée dans constructor');
 		};
