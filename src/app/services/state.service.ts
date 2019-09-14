@@ -12,7 +12,7 @@ export class StateService {
     public mode$ = new BehaviorSubject<string>('');
 
     public debug$ = new BehaviorSubject<boolean>(true);
-    public debug = false;
+    public debug = true;
 
     public currentEmail$ = new BehaviorSubject<string>('');
     public currentEmail = '';

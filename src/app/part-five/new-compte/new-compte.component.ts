@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService }                 from '../../services/state.service';
+import { Component, OnDestroy, OnInit }       from '@angular/core';
+import { ActivatedRoute, Params, Router }     from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Subscription }               from 'rxjs';
 import { CompteModel }                from '../../models/compte.model';
-import { Router }                       from '@angular/router';
-import { Subscription }                 from 'rxjs';
-import { CompteService }            from '../../services/compte.service';
+import { CompteService }              from '../../services/compte.service';
+import { StateService }               from '../../services/state.service';
 
 @Component({
     selector: 'app-new-compte',
@@ -20,10 +20,12 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     public errorMessage: string;
 
     private partSub: Subscription;
-
+    private currentEmail: string ='';
+    
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
+		private activatedRoute: ActivatedRoute,
 		private compteService: CompteService,
 		private stateService: StateService)
 		{
@@ -35,6 +37,17 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 	
 	this.state.mode$.next('form');
 
+	this.activatedRoute.params.subscribe(
+	    (params: Params) => {
+		console.log('Dans ngOnInit params', params);
+		if (params.id) {
+		    this.currentEmail = params.id;
+		} 
+	    }
+	);
+
+	console.log('Dans ngOnInit currentEmail', this.currentEmail);
+	
 	this.compteForm = this.formBuilder.group({
 	    pseudo: [null, Validators.required],
 	    email: [null, Validators.required, Validators.email],
@@ -59,9 +72,10 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 	compte.password = this.compteForm.get('password').value;
 	compte._id = new Date().getTime().toString();
 
-	this.stateService.currentParticipantId$.next(compte._id);
-
 	console.log('Dans onSubmit compte', compte);
+	
+	this.stateService.currentParticipantId$.next(compte._id);
+	console.log('Dans onSubmit currentParticipantId', compte._id);
 	
 	this.compteService.createNewCompte(compte)
 	    .then(

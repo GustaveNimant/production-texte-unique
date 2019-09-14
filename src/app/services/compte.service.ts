@@ -18,9 +18,11 @@ export class CompteService {
     uri_all = 'http://localhost:3000/api/all-comptes/';
 
     constructor(private router: Router,
-		private http: HttpClient) {
-	console.log('Entrée dans constructor avec router ', router, ' http client ',http)
-    }
+		private http: HttpClient)
+		{
+		    console.log('Entrée dans constructor avec router ', router)
+		    console.log('Entrée dans constructor avec http client ',http)
+		}
 
     private comptes: CompteModel[] = [];
 
@@ -108,7 +110,7 @@ export class CompteService {
     }
 
     getCompteByEmail(email: string) {
-	console.log('Entrée dans getCompteById avec email', email);
+	console.log('Entrée dans getCompteByEmail avec email', email);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + email).subscribe(
@@ -116,10 +118,27 @@ export class CompteService {
 		    resolve(response);
 		},
 		(error) => {
+		    console.log('Dans getCompteByEmail Erreur', error);
 		    reject(error);
 		}
 	    );
 	});
+    }
+
+    getCompteIdByEmail(email: string) {
+	console.log('Entrée dans getCompteIdByEmail avec email', email);
+
+	this.getCompteByEmail (email)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans onLogin getCompteIdByEmail com', com);
+		    return com._id;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans onLogin getCompteIdByEmail Erreur', error);
+		}
+	    );
     }
 
     login(email:string, password:string) {
@@ -127,7 +146,7 @@ export class CompteService {
 	console.log('Entrée dans login avec password',password);
 
 	const uri_login = this.uri_all + 'login';
-	
+
 	return new Promise((resolve, reject) => {
 	    this.http.post(uri_login,
 			   {email: email, password: password})
@@ -141,12 +160,13 @@ export class CompteService {
 			 this.token = authData.token;
 			 this.userId = authData.userId;
 			 this.isAuth$.next(true);
-			 console.log('Dans login.subscribe isAuth$ assigné à true');
-			 console.log('Dans login.subscribe userId assigné à',this.userId);
+			 console.log('Dans login.subscribe token', this.token);
+			 console.log('Dans login.subscribe userId', this.userId);
+			 console.log('Dans login.subscribe isAuth$', this.isAuth$);
 			 resolve();
 		     },
 		    (error) => {
-			console.log('Dans login.subscribe Erreur', error, ' pour uri_login', uri_login);
+			console.log('Dans login.subscribe Erreur', error, 'pour uri_login', uri_login);
 			reject(error);
 		    }
 		);

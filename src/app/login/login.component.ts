@@ -102,7 +102,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 			    break;
 			case 401:
 			    this.errorSubMessage = 'Créer la compte avec ces paramètres';
-			    this.router.navigate(['/part-five/new-compte']);
+			    console.log('Dans onLogin.login navigation vers','/part-five/new-compte' + '/' + email);
+			    this.router.navigate(['/part-five/new-compte' + '/' + email]);
 			    break;
 			default:
 			    this.errorMessage = error.message;
@@ -113,6 +114,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 		    this.loading = false;
 		}
 	    );
+
     }
 
     ngOnDestroy() {

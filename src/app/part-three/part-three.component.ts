@@ -14,7 +14,7 @@ export class PartThreeComponent implements OnInit, OnDestroy {
 		private compteService: CompteService) { }
     
     ngOnInit() {
-	this.compteService.isAuth$.next(false);
+//	this.compteService.isAuth$.next(false);
 	this.compteService.userId = '';
 	this.compteService.token = '';
 	

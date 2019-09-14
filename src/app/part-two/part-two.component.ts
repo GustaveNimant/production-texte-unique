@@ -16,7 +16,7 @@ export class PartTwoComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
-	this.compteService.isAuth$.next(false);
+//	this.compteService.isAuth$.next(false);
 	this.compteService.userId = '';
 	this.compteService.token = '';
 	

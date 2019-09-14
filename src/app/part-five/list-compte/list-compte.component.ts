@@ -21,12 +21,14 @@ export class ListCompteComponent implements OnInit, OnDestroy {
     private comptesSub: Subscription;
     private partSub: Subscription;
 
-    constructor(private stateService: StateService,           /* BehaviorSubjects */
-		private compteService: CompteService, /* Subjects */
-		private router: Router) {
-    	console.log('Entrée dans constructor');
-    }
-
+    constructor(
+	private compteService: CompteService,
+	private stateService: StateService, 
+	private router: Router)
+	{
+    	    console.log('Entrée dans constructor');
+	}
+    
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 
@@ -36,6 +38,9 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	console.log('Dans ngOnInit debug', this.debug);
 	
 	this.stateService.mode$.next('list');
+
+	this.stateService.currentUrl$.next(this.router.url);
+	console.log('Dans ngOnInit this.router.url',this.router.url);
 
 	this.comptesSub = this.compteService.comptes$.subscribe(
 	    (com_a) => {

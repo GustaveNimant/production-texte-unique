@@ -13,12 +13,14 @@ import { Subscription } from 'rxjs';
 
 export class SingleCompteComponent implements OnInit, OnDestroy {
 
-    public compte: CompteModel;
-    public loading: boolean;
-    public userId: string;
-    public part: number;
-
+    private compte: CompteModel;
+    private loading: boolean;
+    private userId: string;
+    private part: number;
+    private isAuth: boolean;
+    
     private partSub: Subscription;
+    private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
 		private router: Router,
@@ -59,6 +61,14 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit.partSub userId', this.userId);
 	    }
 	);
+
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
+	    (boo) => {
+		this.isAuth = boo;
+		console.log('Dans ngOnInit isAuth', this.isAuth);
+	    }
+	);
+
     };
 
     onGoBack() {

@@ -26,6 +26,7 @@ export class PartOneComponent implements OnInit {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
+
 	this.stateService.part$.next(1);
 	this.stateService.part = 1;
 	console.log('Dans ngOnInit part assigné à', this.stateService.part);
@@ -39,9 +40,8 @@ export class PartOneComponent implements OnInit {
 	    }
 	);
 
-	this.currentUrl = this.router.url;
-	this.stateService.currentUrl$.next(this.currentUrl);
-	console.log('Dans ngOnInit currentUrl', this.currentUrl);
+	this.stateService.currentUrl$.next(this.router.url);
+	console.log('Dans ngOnInit this.router.url', this.router.url);
 	
     }
 

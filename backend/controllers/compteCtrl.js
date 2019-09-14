@@ -2,6 +2,7 @@ const compteMongooseModel = require('../models/compteMongooseModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Debug = require('../models/debug');
+const validateEmail = require('../models/outils');
 
 exports.createCompteCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.createCompteCtrl avec req.body ', req.body)};}
@@ -66,26 +67,24 @@ exports.getAllCompteCtrl = (req, res, next) => {
 	);
 };
 
-function validateEmail(email) {
-    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-}
-
 exports.getOneCompteByAnyIdCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.params.id ', req.params.id)};}
 
     let str = req.params.id;
+    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl str',str)};}
     if (validateEmail(str)) {
 	compteMongooseModel.findOne({
 	    email: str
 	})
 	    .then(
 		(compte) => {
+		    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl compte',compte)};}
 		    res.status(200).json(compte);
 		}
 	    ).catch(
 		(error) => {
+		    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl Erreur',error)};}
 		    res.status(404).json({
 			error: error
 		    });

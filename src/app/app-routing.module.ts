@@ -85,6 +85,7 @@ const routes: Routes = [
     { path: 'part-five', component: PartFiveComponent,
       children: [
 	  { path: 'new-compte', component: NewCompteComponent},
+	  { path: 'new-compte/:id', component: NewCompteComponent},
 	  { path: 'list-compte', component: ListCompteComponent },
 	  { path: 'single-compte/:id', component: SingleCompteComponent },
 	  { path: '', pathMatch: 'full', redirectTo: 'list-compte' }, 

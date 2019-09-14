@@ -16,7 +16,7 @@ export class PartFiveComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	
-	this.compteService.isAuth$.next(false);
+//	this.compteService.isAuth$.next(false);
 	this.compteService.userId = '';
 	this.compteService.token = '';
 	console.log('Dans ngOnInit initialisation isAuth$ userId token');
