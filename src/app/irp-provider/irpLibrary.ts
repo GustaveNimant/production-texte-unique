@@ -1,7 +1,8 @@
 import * as manLib from './managementLibrary';
 
 function irp_is_providable_of_irp_key (irp_key, caller) {
-    let here = getFuncName();
+    //    let here = manLib.getFuncName();
+    let here = 'irp_is_providable_of_irp_key';
     manLib.entering_in_function (here + " (" + irp_key + ", "+ caller +")");
     
     let irp_build = irp_key + "_build";
@@ -45,14 +46,15 @@ function provideAPlusB () {
     return result;
 }
 
-function irpProvide (irp_key, caller) {
-    let here = getFuncName();
+export function irp_provide (irp_key, caller) {
+    //    let here = manLib.getFuncName();
+    let here = 'irp_provide';
     manLib.entering_in_function (here);
 
     let build_irp_key = 'build'+irp_key+ '()';
     let result = eval (build_irp_key);
-    return result;
 
     manLib.exiting_from_function (here);
+    return result;
 }
 

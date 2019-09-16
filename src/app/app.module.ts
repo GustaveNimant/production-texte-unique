@@ -46,11 +46,13 @@ import { NewCompteComponent }    from './part-five/new-compte/new-compte.compone
 import { SingleCompteComponent } from './part-five/single-compte/single-compte.component';
 
 import { LoginComponent }           from './login/login.component';
+import { IrpProviderComponent }     from './irp-provider/irp-provider.component';
 
 @NgModule({
     declarations: [
 	AppComponent,
 	HeaderComponent,
+	IrpProviderComponent,
 	ListCompteComponent,
 	ListNotationComponent,
 	ListParticipantComponent,
