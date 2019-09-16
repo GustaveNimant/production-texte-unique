@@ -36,6 +36,7 @@ import { LoginComponent } from './login/login.component';
 
 import { CompteGuard }                 from './services/compte-guard.service';
 import { IrpProviderComponent }        from './irp-provider/irp-provider.component';
+import { IrpProviderResultComponent }        from './irp-provider/irp-provider-result/irp-provider-result.component';
 
 const routes: Routes = [
     { path: 'part-one', component: PartOneComponent,
@@ -94,6 +95,7 @@ const routes: Routes = [
     },
     { path: 'login', component: LoginComponent },
     { path: 'irp-provider', component: IrpProviderComponent },
+    { path: 'irp-provider-result', component: IrpProviderResultComponent },
     { path: 'main-menu', component: MainMenuComponent },
     { path: '', pathMatch: 'full', component: MainMenuComponent },
     { path: '**', redirectTo: '' }

@@ -47,6 +47,7 @@ import { SingleCompteComponent } from './part-five/single-compte/single-compte.c
 
 import { LoginComponent }           from './login/login.component';
 import { IrpProviderComponent }     from './irp-provider/irp-provider.component';
+import { IrpProviderResultComponent } from './irp-provider/irp-provider-result/irp-provider-result.component';
 
 @NgModule({
     declarations: [
@@ -79,6 +80,7 @@ import { IrpProviderComponent }     from './irp-provider/irp-provider.component'
 	ListButComponent,
 	SingleButComponent,
 	SumNotationComponent,
+	IrpProviderResultComponent,
     ],
     imports: [
 	BrowserModule,
