@@ -49,7 +49,7 @@ function provideAPlusB () {
 export function irp_provide (irp_key, caller) {
     //    let here = manLib.getFuncName();
     let here = 'irp_provide';
-    manLib.entering_in_function (here);
+    manLib.entering_in_function (here + '(' + irp_key + ', ' + caller +')');
 
     let build_irp_key = 'build'+irp_key+ '()';
     let result = eval (build_irp_key);
