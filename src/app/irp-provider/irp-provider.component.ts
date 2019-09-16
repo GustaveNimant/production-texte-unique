@@ -37,39 +37,6 @@ export class IrpProviderComponent implements OnInit {
 	this.result = irpLib.irp_provide('APlusB', 'ngOnInit');
 	console.log('Dans ngOnInit result=',this.result);
 
-	function buildA () {
-	    let result = 4;
-	    return result;
-	}
-
-	function buildB () {
-	    let result = 5;
-	    return result;
-	}
-
-	function buildAPlusB() {
-	    let a = irpLib.irp_provide('A', 'buildAPlusB');
-	    let b = irpLib.irp_provide('B', 'buildAPlusB');
-
-	    let result = a + b;
-	    return result;
-	}
-
-	function provideA () {
-	    let result = buildA ()
-	    return result;
-	}
-
-	function provideB () {
-	    let result = buildB ()
-	    return result;
-	}
-
-	function provideAPlusB () {
-	    let result = buildAPlusB();
-	    return result;
-	}
-
     }
 
     ngOnDestroy() {
