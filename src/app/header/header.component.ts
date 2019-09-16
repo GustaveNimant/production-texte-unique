@@ -83,6 +83,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	console.log('Dans onTraceSwitch trace', this.trace);
     }
 
+    onIrpProvider() {
+	console.log('Entrée dans onIrpProvider');
+	this.router.navigate(['/irp-provider']);
+    }
+
     ngOnDestroy() {
 	console.log('Entrée dans ngOnDestroy');
 	this.modeSub.unsubscribe();

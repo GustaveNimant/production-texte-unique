@@ -24,6 +24,10 @@
 	    <button class="btn btn-danger" *ngIf="trace" (click)="onTraceSwitch()">Fin de Trace</button>
 	    <button class="btn btn-success" *ngIf="!trace" (click)="onTraceSwitch()">Trace</button>
 	</li>
+	<li class="header-navigation-item">
+	    <button class="btn btn-primary"
+		    (click)="onIrpProvider()">Irp<br>Provider</button>
+	</li>
     </ul>
 
     <ul class="header-navigation nav-end">

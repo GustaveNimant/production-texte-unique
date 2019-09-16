@@ -59,6 +59,7 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
 	this.result = irpLib.irp_provide(this.objectName, 'onSubmit');
 	console.log('Dans ngOnInit result=',this.result);
 
+	
     }
     
     ngOnDestroy() {
