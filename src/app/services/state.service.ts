@@ -20,6 +20,9 @@ export class StateService {
     public currentParticipantId$ = new BehaviorSubject<string>('');
     public currentParticipantId = '';
     
+    public currentPseudo$ = new BehaviorSubject<string>('');
+    public currentPseudo = '';
+    
     public currentTexteContenuId$ = new BehaviorSubject<string>('');
     public currentTexteContenuId = '';
 

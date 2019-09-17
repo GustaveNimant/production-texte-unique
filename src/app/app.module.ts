@@ -48,6 +48,8 @@ import { SingleCompteComponent } from './part-five/single-compte/single-compte.c
 import { LoginComponent }           from './login/login.component';
 import { IrpProviderComponent }     from './irp-provider/irp-provider.component';
 import { IrpProviderResultComponent } from './irp-provider/irp-provider-result/irp-provider-result.component';
+import { IrpProviderCurrentEmailComponent } from './irp-provider/irp-provider-current-email/irp-provider-current-email.component';
+import { IrpProviderCurrentCompteComponent } from './irp-provider/irp-provider-current-compte/irp-provider-current-compte.component';
 
 @NgModule({
     declarations: [
@@ -81,6 +83,8 @@ import { IrpProviderResultComponent } from './irp-provider/irp-provider-result/i
 	SingleButComponent,
 	SumNotationComponent,
 	IrpProviderResultComponent,
+	IrpProviderCurrentEmailComponent,
+	IrpProviderCurrentCompteComponent,
     ],
     imports: [
 	BrowserModule,

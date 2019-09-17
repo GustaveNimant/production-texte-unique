@@ -5,7 +5,7 @@
 	       routerLink="/part-five/new-compte"
 	       routerLinkActive="active">Créer<br>un compte</a>
 	</li>
-	<li class="header-navigation-item">
+	<li class="header-navigation-item" *ngIf="(!isAuth)">
 	    <a class="header-link"
 	       routerLink="/login"
 	       routerLinkActive="active">Login</a>
@@ -14,6 +14,9 @@
 	    <a class="header-link"
 	       style="cursor: pointer"
 	       (click)="onLogout()">Logout</a>
+	</li>
+	<li class="header-navigation-item" *ngIf="(isAuth)">
+	    Vous ếtes {{pseudo}}
 	</li>
 	<li class="header-navigation-item">
 	    <button class="btn btn-danger" *ngIf="debug" (click)="onDebugSwitch()">Fin de Debug</button>

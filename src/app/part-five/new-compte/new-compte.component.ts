@@ -22,7 +22,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
     private currentEmail: string ='';
     
-    constructor(private state: StateService,
+    constructor(
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
@@ -35,7 +35,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
 	
-	this.state.mode$.next('form');
+	this.stateService.mode$.next('form');
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
@@ -54,7 +54,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
 	
-	this.partSub = this.state.part$.subscribe(
+	this.partSub = this.stateService.part$.subscribe(
 	    (part) => {
 		this.part = part;
 	    }
@@ -73,10 +73,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 	compte._id = new Date().getTime().toString();
 
 	console.log('Dans onSubmit compte', compte);
-	
-	this.stateService.currentParticipantId$.next(compte._id);
-	console.log('Dans onSubmit currentParticipantId', compte._id);
-	
+
 	this.compteService.createNewCompte(compte)
 	    .then(
 		() => {

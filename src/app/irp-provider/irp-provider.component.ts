@@ -24,6 +24,8 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
     private irpProviderForm: FormGroup;
     private objectName: string;
     public loading = false;
+    
+    private here:string;
 
     constructor(
 	private stateService: StateService,
@@ -66,6 +68,12 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
 
 	this.router.navigate(['/irp-provider-result']);
 	
+    }
+
+    buildCurrentCompte () {
+	this.here = 'buildCurrentCompte';
+	console.log('Entrée dans',this.here);
+	this.router.navigate(['/irp-provider-current-compte']);
     }
     
     ngOnDestroy() {

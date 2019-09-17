@@ -37,10 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	console.log('%cEntrée dans %cngOnInit','color: #00aa00','color: #0000aa');;
 
 	this.compteService.isAuth$.next(true);
-
 	this.stateService.mode$.next('form');
 
 	this.loginForm = this.formBuilder.group({
@@ -67,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     onLogin() {
-	console.log('Entrée dans onLogin');
+	console.log('%cEntrée dans %conLogin','color: #00aa00','color: #0000aa');;
 	
 	this.loading = true;
 
@@ -79,17 +78,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 	
 	this.stateService.currentEmail$.next(email);
 	
-	const id = this.compteService.getCompteIdByEmail(email);
-	console.log('Dans onLogin id', id);
-//	this.stateService.currentParticipantId$.next(id);
-	
 	this.compteService.login(email, password)
 	    .then(
 		() => {
-		    console.log('Dans onLogin part', this.part);
 		    this.loginForm.reset();
 		    this.loading = false;
-		    console.log('Dans onLogin currentUrl >', this.currentUrl);
+		    console.log('Dans onLogin currentUrl >', this.currentUrl,'<');
 
 		    if (this.currentUrl && this.currentUrl != '/login') {
 			this.router.navigate([this.currentUrl]);
@@ -123,7 +117,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 	this.partSub.unsubscribe();
+	console.log('%cDans ngOnDestroy partSub unsubscribe','color=#aa0000');
 	this.currentUrlSub.unsubscribe();
+	console.log('%cDans ngOnDestroy currentUrlSub unsubscribe','color=#aa0000');
     }
 
 }

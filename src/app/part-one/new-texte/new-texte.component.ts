@@ -53,8 +53,8 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	);
 
 	this.currentEmailSub = this.stateService.currentEmail$.subscribe(
-	    (id) => { 
-		this.currentEmail = id;
+	    (str) => { 
+		this.currentEmail = str;
 		console.log('Dans ngOnInit currentEmail', this.currentEmail);
 	    },
 	    (error) => {

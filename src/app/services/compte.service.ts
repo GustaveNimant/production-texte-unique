@@ -24,10 +24,13 @@ export class CompteService {
 		    console.log('Entrée dans constructor avec http client ',http)
 		}
 
-    private comptes: CompteModel[] = [];
+    private compte_a: CompteModel[] = [];
+    public compte_a$ = new BehaviorSubject<CompteModel[]>([]);
 
-    public comptes$ = new Subject<CompteModel[]>();
+    private currentCompte = new CompteModel();
+    public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
 
+    
     createNewCompte(compte: CompteModel) { /* signup */
 	console.log('Entrée dans createNewCompte avec compte ', compte);
 
@@ -74,8 +77,8 @@ export class CompteService {
     }
 
     emitCompte() {
-	console.log('Entrée dans emitCompte avec les comptes', this.comptes);
-	this.comptes$.next(this.comptes);
+	console.log('Entrée dans emitCompte avec les comptes', this.compte_a);
+	this.compte_a$.next(this.compte_a);
     }
 
     getComptes() {
@@ -83,7 +86,7 @@ export class CompteService {
 	this.http.get(this.uri_all).subscribe(
 	    (con_a: CompteModel[]) => {
 		if (con_a) {
-		    this.comptes = con_a;
+		    this.compte_a = con_a;
 		    this.emitCompte();
 		}
 	    },
@@ -137,6 +140,22 @@ export class CompteService {
 	    ).catch (
 		(error) => {
 		    console.log('Dans onLogin getCompteIdByEmail Erreur', error);
+		}
+	    );
+    }
+
+    getComptePseudoByEmail(email: string) {
+	console.log('Entrée dans getComptePseudoByEmail avec email', email);
+
+	this.getCompteByEmail (email)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans onLogin getComptePseudoByEmail com', com);
+		    return com.pseudo;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans onLogin getComptePseudoByEmail Erreur', error);
 		}
 	    );
     }

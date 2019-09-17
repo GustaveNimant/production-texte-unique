@@ -21,9 +21,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public trace: boolean;
     
     private modeSub: Subscription;
+    private currentPseudoSub: Subscription;
     private partSub: Subscription;
     private isAuthSub: Subscription;
 
+    private pseudo: string;
+    
     constructor(private stateService: StateService,
 		private compteService: CompteService,
 		private router: Router)
@@ -38,6 +41,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	    (mod) => {
 		this.mode = mod;
 		console.log('Dans ngOnInit mode',this.mode);
+	    }
+	);
+
+	this.currentPseudoSub = this.stateService.currentPseudo$.subscribe(
+	    (str) => {
+		this.pseudo = str;
+		console.log('Dans ngOnInit pseudo',this.pseudo);
 	    }
 	);
 

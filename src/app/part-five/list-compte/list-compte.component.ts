@@ -13,12 +13,12 @@ import { Router } from '@angular/router';
 
 export class ListCompteComponent implements OnInit, OnDestroy {
 
-    public comptes: CompteModel[] = [];
+    public compte_a: CompteModel[] = [];
     public part: number;
     public loading: boolean;
     public debug: boolean;
     
-    private comptesSub: Subscription;
+    private compte_aSub: Subscription;
     private partSub: Subscription;
 
     constructor(
@@ -42,7 +42,7 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	this.stateService.currentUrl$.next(this.router.url);
 	console.log('Dans ngOnInit this.router.url',this.router.url);
 
-	this.comptesSub = this.compteService.comptes$.subscribe(
+	this.compte_aSub = this.compteService.compte_a$.subscribe(
 	    (com_a) => {
 		console.log('Dans ngOnInit com_a',com_a);
 		this.loading = false;
@@ -50,7 +50,7 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 		    console.log('Dans ngOnInit naviagtion vers /part-five/new-compte/');
 		    this.router.navigate(['/part-five/new-compte/']);
 		} else {
-		    this.comptes = com_a;
+		    this.compte_a = com_a;
 		}
 	    }
 	);
@@ -74,8 +74,7 @@ export class ListCompteComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-	console.log('Entrée dans ngOnDestroy');
-	this.comptesSub.unsubscribe();
+	console.log('%cEntrée dans %cngOnDestroy','color:#00aa00','color:#aa0000');
 	this.partSub.unsubscribe();
     }
 

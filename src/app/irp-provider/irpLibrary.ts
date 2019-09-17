@@ -1,4 +1,5 @@
 import * as manLib from './managementLibrary';
+import * as IrpProviderComponent from './irp-provider.component';
 
 function irp_is_providable_of_irp_key (irp_key, caller) {
     //    let here = manLib.getFuncName();
@@ -47,11 +48,12 @@ function provideAPlusB () {
 }
 
 export function irp_provide (irp_key, caller) {
-    //    let here = manLib.getFuncName();
     let here = 'irp_provide';
     manLib.entering_in_function (here + '(' + irp_key + ', ' + caller +')');
 
-    let build_irp_key = 'build'+irp_key+ '()';
+    let build_irp_key = 'IrpProviderComponent.build'+irp_key+ '()';
+    console.log('Dans ',here,'build_irp_key',build_irp_key);
+    
     let result = eval (build_irp_key);
 
     manLib.exiting_from_function (here);
