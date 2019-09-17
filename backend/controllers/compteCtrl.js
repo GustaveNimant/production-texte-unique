@@ -5,7 +5,7 @@ const Debug = require('../models/debug');
 const validateEmail = require('../models/outils');
 
 exports.createCompteCtrl = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.createCompteCtrl avec req.body ', req.body)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.createCompteCtrl avec req.body ', req.body)};
 
     const compte = new compteMongooseModel({
 	pseudo: req.body.pseudo,
@@ -22,7 +22,7 @@ exports.createCompteCtrl = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.createCompteCtrl Erreur ', error)};}
+		if (Debug.debug) {console.log('Dans compteCtrl.js.createCompteCtrl Erreur ', error)};
 		res.status(400).json({
 		    error: error
 		});
@@ -31,8 +31,8 @@ exports.createCompteCtrl = (req, res, next) => {
 };
 
 exports.deleteCompteCtrl = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.deleteCompteCtrl avec req.body ', req.body)};}
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.deleteCompteCtrl avec req.params.id ', req.params.id)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.deleteCompteCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.deleteCompteCtrl avec req.params.id ', req.params.id)};
     
     compteMongooseModel.deleteOne({_id: req.params.id})
 	.then(
@@ -51,7 +51,7 @@ exports.deleteCompteCtrl = (req, res, next) => {
 };
 
 exports.getAllCompteCtrl = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getAllCompteCtrl avec req.body ', req.body)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getAllCompteCtrl avec req.body ', req.body)};
 
     compteMongooseModel.find()
 	.then(
@@ -68,23 +68,22 @@ exports.getAllCompteCtrl = (req, res, next) => {
 };
 
 exports.getOneCompteByAnyIdCtrl = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.body ', req.body)};}
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.params.id ', req.params.id)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.params.id ', req.params.id)};
 
     let str = req.params.id;
-    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl str',str)};}
     if (validateEmail(str)) {
 	compteMongooseModel.findOne({
 	    email: str
 	})
 	    .then(
 		(compte) => {
-		    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl compte',compte)};}
+		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl email compte',compte)};
 		    res.status(200).json(compte);
 		}
 	    ).catch(
 		(error) => {
-		    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl Erreur',error)};}
+		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl emailErreur',error)};
 		    res.status(404).json({
 			error: error
 		    });
@@ -97,10 +96,12 @@ exports.getOneCompteByAnyIdCtrl = (req, res, next) => {
 	})
 	    .then(
 		(compte) => {
+		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl _id compte',compte)};
 		    res.status(200).json(compte);
 		}
 	    ).catch(
 		(error) => {
+		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl _id Erreur',error)};
 		    res.status(404).json({
 			error: error
 		    });
@@ -110,25 +111,25 @@ exports.getOneCompteByAnyIdCtrl = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.login avec req.body',req.body)};}
-    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login req.body.email', req.body.email)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.login avec req.body',req.body)};
+    if (Debug.debug) {console.log('Dans compteCtrl.js.login req.body.email', req.body.email)};
 
     compteMongooseModel.findOne({ email: req.body.email }).
 	then( /* mongoose method */
 	    (un_compte) => {
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login un_compte', un_compte)};}
+		if (Debug.debug) {console.log('Dans compteCtrl.js.login un_compte', un_compte)};
 
 		if (!un_compte) {
 		    return res.status(401).json({
 			error: new Error('Dans compteCtrl.js.login Erreur : Compte inconnu!')
 		    });
 		}
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login req.body.password', req.body.password)};}
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login un_compte.password', un_compte.password)};}
+		if (Debug.debug) {console.log('Dans compteCtrl.js.login req.body.password', req.body.password)};
+		if (Debug.debug) {console.log('Dans compteCtrl.js.login un_compte.password', un_compte.password)};
 		bcrypt.compare(req.body.password, un_compte.password)
 		    .then(
 			(valid) => {
-			    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login bcrypt.compare est', valid)};}
+			    if (Debug.debug) {console.log('Dans compteCtrl.js.login bcrypt.compare est', valid)};
 			    
 			    if (!valid) {
 				return res.status(401).json({
@@ -141,7 +142,7 @@ exports.login = (req, res, next) => {
 				'RANDOM_TOKEN_SECRET',
 				{ expiresIn: '7d' });
 			    
-			    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login nouveau token', token)};}
+			    if (Debug.debug) {console.log('Dans compteCtrl.js.login nouveau token', token)};
 			    res.status(200).json({
 				userId: un_compte._id,
 				token: token
@@ -158,7 +159,7 @@ exports.login = (req, res, next) => {
 	    }
 	).catch(
 	    (error) => {
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.login email inconnu',req.body.email)};}
+		if (Debug.debug) {console.log('Dans compteCtrl.js.login email inconnu',req.body.email)};
 		res.status(500).json({
 		    error: error
 		});
@@ -167,8 +168,8 @@ exports.login = (req, res, next) => {
 };
 
 exports.modifyCompteCtrl = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.modifyCompteCtrl avec req.body ', req.body)};}
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.modifyCompteCtrl avec req.params.id ', req.params.id)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.modifyCompteCtrl avec req.body ', req.body)};
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.modifyCompteCtrl avec req.params.id ', req.params.id)};
     
     const compte = new compteMongooseModel({
 	_id: req.params.id, /* to keep the_id */
@@ -194,13 +195,13 @@ exports.modifyCompteCtrl = (req, res, next) => {
 };
 
 exports.signup = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans compteCtrl.js.signup avec req.body',req.body)};}
+    if (Debug.debug) {console.log('Entrée dans compteCtrl.js.signup avec req.body',req.body)};
 
     bcrypt.hash(req.body.password, 10)
 	.then(
 	    (a_password_hash) => {
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.signup a_password_hash', a_password_hash)};}
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.signup req.body.password', req.body.password)};}
+		if (Debug.debug) {console.log('Dans compteCtrl.js.signup a_password_hash', a_password_hash)};
+		if (Debug.debug) {console.log('Dans compteCtrl.js.signup req.body.password', req.body.password)};
 
 		const compte = new compteMongooseModel({
 		    pseudo: req.body.pseudo,
@@ -208,7 +209,7 @@ exports.signup = (req, res, next) => {
 		    password: a_password_hash
 		});
 
-		if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.signup compte', compte)};}
+		if (Debug.debug) {console.log('Dans compteCtrl.js.signup compte', compte)};
 		compte.save() /* dans BD */
 		    .then(
 			() => {
@@ -218,7 +219,7 @@ exports.signup = (req, res, next) => {
 			})
 		    .catch(
 			(error) => {
-			    if (Debug.debug) {if (Debug.debug) {console.log('Dans compteCtrl.js.signup a_password_hash', a_password_hash)};}
+			    if (Debug.debug) {console.log('Dans compteCtrl.js.signup a_password_hash', a_password_hash)};
 			    if (Debug.debug) {console.log('Dans compteCtrl.js.signup Erreur', error)};
 			    res.status(500).json({
 				error: error

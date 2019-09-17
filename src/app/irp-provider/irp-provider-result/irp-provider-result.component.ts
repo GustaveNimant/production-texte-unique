@@ -19,13 +19,15 @@ export class IrpProviderResultComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+	console.log('Entrée dans ngOnInit');
+	
 	this.irpResultSub = this.stateService.irpResult$.subscribe(
 	    (str) => {
 		console.log('Dans ngOnInit str',str);
 		this.irpResult = str;
 	    }
 	);
-  }
+    }
 
     ngOnDestroy() {
 	this.irpResultSub.unsubscribe();
