@@ -159,6 +159,10 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 	this.partSub.unsubscribe();
+	this.currentEmailSub.unsubscribe();
+	this.isAuthSub.unsubscribe();
+	this.currentParticipantIdSub.unsubscribe();
+	this.currentTexteObjectIdSub.unsubscribe();
     }
 
 }

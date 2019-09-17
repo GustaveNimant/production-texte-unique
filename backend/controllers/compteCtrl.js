@@ -72,18 +72,19 @@ exports.getOneCompteByAnyIdCtrl = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans compteCtrl.js.getOneCompteByAnyIdCtrl avec req.params.id ', req.params.id)};
 
     let str = req.params.id;
+    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl str',str)};
     if (validateEmail(str)) {
 	compteMongooseModel.findOne({
 	    email: str
 	})
 	    .then(
 		(compte) => {
-		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl email compte',compte)};
+		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl compte',compte)};
 		    res.status(200).json(compte);
 		}
 	    ).catch(
 		(error) => {
-		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl emailErreur',error)};
+		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl Erreur',error)};
 		    res.status(404).json({
 			error: error
 		    });
@@ -96,12 +97,10 @@ exports.getOneCompteByAnyIdCtrl = (req, res, next) => {
 	})
 	    .then(
 		(compte) => {
-		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl _id compte',compte)};
 		    res.status(200).json(compte);
 		}
 	    ).catch(
 		(error) => {
-		    if (Debug.debug) {console.log('Dans compteCtrl.js.getOneCompteByAnyIdCtrl _id Erreur',error)};
 		    res.status(404).json({
 			error: error
 		    });

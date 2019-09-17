@@ -79,6 +79,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	
 	this.stateService.currentEmail$.next(email);
 	
+	const id = this.compteService.getCompteIdByEmail(email);
+	console.log('Dans onLogin id', id);
+//	this.stateService.currentParticipantId$.next(id);
+	
 	this.compteService.login(email, password)
 	    .then(
 		() => {
