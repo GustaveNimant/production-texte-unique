@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { StateService }      from '../../services/state.service';
-
-import { CompteModel } from '../../models/compte.model';
-import { CompteService }     from '../../services/compte.service';
-import * as IrpLib from '../../irp-provider/irpLibrary';
+import { Subscription }  from 'rxjs';
+import { CompteModel }   from '../../models/compte.model';
+import { CompteService }      from '../../services/compte.service';
+import { StateService }       from '../../services/state.service';
+import { IrpProviderService } from '../../services/irp-provider.service';
 
 @Component({
     selector: 'app-irp-provider-current-compte',
@@ -19,43 +18,55 @@ export class IrpProviderCurrentCompteComponent implements OnInit {
     private currentCompte = new CompteModel();
     private loading: boolean;
     private currentEmail: string;
-    
+
     constructor(
 	private compteService: CompteService,
-	private stateService: StateService)
+	private stateService: StateService,
+	private irpProviderService: IrpProviderService)
 	{
 	    console.log('Entrée dans constructor');
 	}
     
     ngOnInit() {
-	this.here = 'ngOnInit';
-	console.log('Entrée dans', this.here);
+	let here = 'ngOnInit';
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
+
+	this.currentEmail = this.irpProviderService.irpProvide ('currentEmail', here);
+	console.log('%cDans ngOnInit','color:#00aa00', 'irpProvide (currentEmail) >', this.currentEmail),'<';
 	
 	this.currentCompteSub = this.compteService.currentCompte$.subscribe(
-	      (com) => {
-		this.currentCompte = com;
-		console.log('Dans ngOnInit currentCompte', this.currentCompte);
-	      },
-	    (error) => {
-		this.currentEmail = IrpLib.irp_provide ('currentEmail', this.here);
+	    (com) => {
+		console.log('%cDans ngOnInit', 'color:#00aa00','subscribe => com', com);
 
-		this.compteService.getCompteByEmail(this.currentEmail)
-		    .then(
-			(com: CompteModel) => {
-			    console.log('Dans ngOnInit getCompteIdByEmail com', com);
-			    this.loading = false;
-			    this.currentCompte = com;
-			    this.compteService.currentCompte$.next(this.currentCompte);
-			    
-			}
-		    ).catch (
-			(error) => {
-			    console.log('Dans ngOnInit currentParticipantIdSub getCompteByEmail Erreur', error);
-			}
-		    );
+		if (com) {
+		    this.currentCompte = com;
+		    console.log('%cDans ngOnInit currentCompte', 'color:#00aa00', this.currentCompte);
+		    console.log('pseudo', this.currentCompte.pseudo);
+		    if (this.currentCompte.pseudo == undefined ) {
+			alert ('pseudo undefined');
+		    }
+		} else {
+		    this.compteService.getCompteByEmail(this.currentEmail)
+			.then(
+			    (com: CompteModel) => {
+				console.log('Dans ngOnInit getCompteIdByEmail com', com);
+				this.loading = false;
+				this.currentCompte = com;
+				this.compteService.currentCompte$.next(this.currentCompte);
+				
+			    }
+			).catch (
+			    (error) => {
+				console.log('Dans ngOnInit currentParticipantIdSub getCompteByEmail Erreur', error);
+			    }
+			);
+		} // <= else 
+	    },
+	    (error) => {
+		console.log('Dans ngOnInit currentParticipantIdSub getCompteByEmail Erreur', error);
 	    }
-	)
-    } // ngOnInit
-}
+	); // <= subscribe
+    } // <= ngOnInit
+} // <= class

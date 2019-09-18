@@ -29,7 +29,6 @@ export class CompteService {
 
     private currentCompte = new CompteModel();
     public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
-
     
     createNewCompte(compte: CompteModel) { /* signup */
 	console.log('Entrée dans createNewCompte avec compte ', compte);

@@ -66,7 +66,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     onLogin() {
-	console.log('%cEntrée dans %conLogin','color: #00aa00','color: #0000aa');;
+	let here = 'onLogin';
+	console.log('%cEntrée dans %c','color: #00aa00','color: #0000aa', here);;
 	
 	this.loading = true;
 
@@ -117,9 +118,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
 	this.partSub.unsubscribe();
-	console.log('%cDans ngOnDestroy partSub unsubscribe','color=#aa0000');
+	console.log('%cDans ngOnDestroy partSub unsubscribe','color:#aa0000');
 	this.currentUrlSub.unsubscribe();
-	console.log('%cDans ngOnDestroy currentUrlSub unsubscribe','color=#aa0000');
+	console.log('%cDans ngOnDestroy currentUrlSub unsubscribe','color:#aa0000');
     }
 
 }

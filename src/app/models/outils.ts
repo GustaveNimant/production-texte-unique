@@ -1,5 +1,9 @@
 import * as jsSHA from 'jssha';
 
+export function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export function sumOfArray (num_a :number[]) : number {
     let sum = 0;
     for( let i = 0; i < num_a.length; i++ ){

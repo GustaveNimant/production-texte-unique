@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit }       from '@angular/core';
-import { StateService }      from '../services/state.service';
-import { Subscription } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router }                             from '@angular/router';
+import { StateService }       from '../services/state.service';
+import { IrpProviderService } from '../services/irp-provider.service';
+import { Subscription } from 'rxjs';
 
 import * as manLib from './managementLibrary';
-import * as irpLib from './irpLibrary';
 
 @Component({
     selector: 'app-irp-provider',
@@ -28,18 +28,21 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
     private here:string;
 
     constructor(
+	private irpProviderService: IrpProviderService,
 	private stateService: StateService,
 	private formBuilder: FormBuilder,
-	private router: Router){
-	console.log('Entrée dans constructor');
-    }
+	private router: Router)
+	{
+	    let here = 'constructor';
+	    console.log('%cEntrée dans','color:#0000aa', here);
+	}
     
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = 'ngOnInit';
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.debugSub = this.stateService.debug$.subscribe(
 	    (boo) => {
-		console.log('Dans ngOnInit boo',boo);
 		this.debug = boo;
 		console.log('Dans ngOnInit debug', this.debug);
 	    }
@@ -52,33 +55,27 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-	console.log('Entrée dans onSubmit');
+	let here = 'onSubmit'
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.loading = true;
 	
 	this.objectName = this.irpProviderForm.get('objectName').value;
-	console.log('Dans onSubmit objectName', this.objectName);
+	console.log('Dans', here, 'irpProviderForm => objectName', this.objectName);
+
+	this.irpResult = this.irpProviderService.irpProvide(this.objectName, here);
+	console.log('Dans', here, 'irpResult=',this.irpResult);
+
+	this.irpProviderForm.reset();
 
 	this.loading = false;
-	
-	this.irpResult = irpLib.irp_provide(this.objectName, 'onSubmit');
-	console.log('Dans ngOnInit irpResult=',this.irpResult);
-
-	this.stateService.irpResult$.next(this.irpResult);
-
-	this.router.navigate(['/irp-provider-result']);
-	
     }
 
-    buildCurrentCompte () {
-	this.here = 'buildCurrentCompte';
-	console.log('Entrée dans',this.here);
-	this.router.navigate(['/irp-provider-current-compte']);
-    }
-    
     ngOnDestroy() {
-	console.log('Entrée dans ngOnDestroy');
+	let here = 'ngOnDestroy';
+	console.log('%cEntrée dans','color:#aa0000', here);
 	this.debugSub.unsubscribe();
+	console.log('Dans',here,'unsubscribe debugSub');
     }
 
 }
