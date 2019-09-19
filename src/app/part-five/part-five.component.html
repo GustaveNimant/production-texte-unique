@@ -6,13 +6,13 @@
 	    <a routerLink="/login"
 	       routerLinkActive="active">Login</a>
 	</li>
-	<li>
-	    <a routerLink="/part-five/list-compte"
-	       routerLinkActive="active">Afficher la liste des comptes</a>
-	</li>
 	<li *ngIf="(isAuth)">
 	    <a routerLink="/part-five/new-compte"
 	       routerLinkActive="active">Entrer un nouveau compte</a>
+	</li>
+	<li>
+	    <a routerLink="/part-five/list-compte"
+	       routerLinkActive="active">Afficher la liste des comptes</a>
 	</li>
     </ul>
 </h2>

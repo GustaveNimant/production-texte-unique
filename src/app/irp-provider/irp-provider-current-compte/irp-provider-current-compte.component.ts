@@ -34,6 +34,7 @@ export class IrpProviderCurrentCompteComponent implements OnInit {
 	this.loading = true;
 
 	this.currentEmail = this.irpProviderService.irpProvide ('currentEmail', here);
+ 
 	console.log('%cDans ngOnInit','color:#00aa00', 'irpProvide (currentEmail) >', this.currentEmail),'<';
 	
 	this.currentCompteSub = this.compteService.currentCompte$.subscribe(

@@ -10,7 +10,8 @@ import * as outils from '../models/outils';
 export class IrpProviderService {
 
     constructor(
-	private router: Router
+	private router: Router,
+	private irpRegisterService: IrpRegisterService,
     )
     {
 	let here = 'constructor';
@@ -39,11 +40,11 @@ export class IrpProviderService {
 	return here + ' done'
     }
 
-    irpProvide (irp_key, caller):string {
+    irpProvide (irpKey, caller):string {
 	let here = 'irpProvide';
-	manLib.entering_in_function (here + '(' + irp_key + ', ' + caller +')');
+	manLib.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
 
-	let IrpKey = outils.capitalize(irp_key); 
+	let IrpKey = outils.capitalize(irpKey); 
 	let buildIrpKey = 'this.build'+IrpKey+ '()';
 	console.log('Dans ',here,'buildIrpKey',buildIrpKey);
 

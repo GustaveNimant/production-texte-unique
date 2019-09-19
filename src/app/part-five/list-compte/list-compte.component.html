@@ -1,17 +1,17 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-<div *ngIf="debug">Debug:Dans list-comptee.component.html:loading = {{loading}}</div>
-<div *ngIf="debug">Debug:Dans list-comptee.component.html:nombre de comptes = {{comptes.length}}</div>
+<div *ngIf="debug">Debug:Dans list-compte.component.html:loading = {{loading}}</div>
+<div *ngIf="debug">Debug:Dans list-compte.component.html:nombre de comptes = {{compte_a.length}}</div>
 
 <p class="text-center"
-   *ngIf="comptes.length <= 0 && !loading">
+   *ngIf="compte_a.length <= 0 && !loading">
     La collection compte_c de la base de données est vide !</p>
 
 <h3>Liste des comptes</h3>
 <div class="compte-grid"
-     *ngIf="comptes.length >= 0">
+     *ngIf="compte_a.length >= 0">
     <div class="compte-pane"
-	 *ngFor="let un_compte of comptes"
+	 *ngFor="let un_compte of compte_a"
 	 (click)="onCompteClicked(un_compte._id)">
 	<div class="compte-info">
 	    <p>
