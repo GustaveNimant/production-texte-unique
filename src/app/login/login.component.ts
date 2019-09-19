@@ -5,6 +5,7 @@ import { CompteModel }               from '../models/compte.model';
 import { partStringOfNumber }           from '../models/outils';
 import { CompteService }            from '../services/compte.service';
 import { StateService }                 from '../services/state.service';
+import { IrpRegisterService }   from '../services/irp-register.service';
 import { Subscription }                 from 'rxjs';
 
 @Component({
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
+		private irpRegisterService: IrpRegisterService,
 		private compteService: CompteService){
 	console.log('Entrée dans constructor');
     }
@@ -77,7 +79,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 	console.log('Dans onLogin email', email);
 	console.log('Dans onLogin password', password);
 	
-	this.stateService.currentEmail$.next(email);
+//Tentative	this.stateService.currentEmail$.next(email);
+	let irpRegister = this.irpRegisterService.irpRegister;
+        let irpKey = 'CurrentEmail';
+	let irpVal = email;
+	this.irpRegisterService.irpStore(irpKey, irpVal, here);
+	this.irpRegisterService.irpRegister$.next(irpRegister)
 	
 	this.compteService.login(email, password)
 	    .then(

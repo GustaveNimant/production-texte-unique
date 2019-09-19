@@ -64,7 +64,7 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
 	console.log('Dans', here, 'irpProviderForm => objectName', this.objectName);
 
 	this.irpResult = this.irpProviderService.irpProvide(this.objectName, here);
-	console.log('Dans', here, 'irpResult=',this.irpResult);
+	console.log('Dans', here, 'irpResult >',this.irpResult,'<');
 
 	this.irpProviderForm.reset();
 
