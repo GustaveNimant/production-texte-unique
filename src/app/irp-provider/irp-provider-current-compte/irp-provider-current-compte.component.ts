@@ -5,6 +5,9 @@ import { CompteService }      from '../../services/compte.service';
 import { StateService }       from '../../services/state.service';
 import { IrpProviderService } from '../../services/irp-provider.service';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-irp-provider-current-compte',
     templateUrl: './irp-provider-current-compte.component.html',
@@ -28,7 +31,7 @@ export class IrpProviderCurrentCompteComponent implements OnInit {
 	}
     
     ngOnInit() {
-	let here = 'ngOnInit';
+	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
@@ -39,30 +42,30 @@ export class IrpProviderCurrentCompteComponent implements OnInit {
 	
 	this.currentCompteSub = this.compteService.currentCompte$.subscribe(
 	    (com) => {
-		console.log('%cDans ngOnInit', 'color:#00aa00','subscribe => com', com);
+		console.log('%cDans ngOnInit', 'color:#00aa00','currentCompteSub subscribe => com', com);
 
 		if (com) {
 		    this.currentCompte = com;
 		    console.log('%cDans ngOnInit currentCompte', 'color:#00aa00', this.currentCompte);
 		    console.log('pseudo', this.currentCompte.pseudo);
 		    if (this.currentCompte.pseudo == undefined ) {
-			alert ('pseudo undefined');
+			this.compteService.getCompteByEmail(this.currentEmail)
+			    .then(
+				(com: CompteModel) => {
+				    console.log('Dans',here,'getCompteIdByEmail com', com);
+				    this.loading = false;
+				    this.currentCompte = com;
+				    this.compteService.currentCompte$.next(this.currentCompte);
+				    
+				}
+			    ).catch (
+				(error) => {
+				    console.log('Dans',here,'currentParticipantIdSub getCompteByEmail Erreur',error);
+				}
+			    );
 		    }
 		} else {
-		    this.compteService.getCompteByEmail(this.currentEmail)
-			.then(
-			    (com: CompteModel) => {
-				console.log('Dans ngOnInit getCompteIdByEmail com', com);
-				this.loading = false;
-				this.currentCompte = com;
-				this.compteService.currentCompte$.next(this.currentCompte);
-				
-			    }
-			).catch (
-			    (error) => {
-				console.log('Dans ngOnInit currentParticipantIdSub getCompteByEmail Erreur', error);
-			    }
-			);
+		    alert(here +': ajouter du code!')
 		} // <= else 
 	    },
 	    (error) => {

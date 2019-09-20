@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { IrpRegisterService } from './irp-register.service';  
-import * as manLib from '../irp-provider/managementLibrary';
-import * as outils from '../models/outils';
+
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
 
 @Injectable({
     providedIn: 'root'
@@ -15,62 +16,63 @@ export class IrpProviderService {
 	private irpRegisterService: IrpRegisterService,
     )
     {
-	let here = 'constructor';
+	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
     }
 
-    buildCurrentEmail () {
-	let here = 'buildCurrentEmail';
-	manLib.entering_in_function (here + '()');
+    currentEmailBuild () {
+	let here = O.functionName ();
+	M.entering_in_function (here + '()');
 
 	let url = '/irp-provider-current-email';
 	console.log('Dans',here,'navigation vers',url);
 	this.router.navigate([url]);
 
-	manLib.exiting_from_function (here);	
+	M.exiting_from_function (here);	
 	return here + ' done'
     }
 
-    buildCurrentCompte () {
-	let here = 'buildCurrentCompte';
-	manLib.entering_in_function (here + '()');
+    currentCompteBuild () {
+	let here = O.functionName ();
+	M.entering_in_function (here + '()');
 
 	let url = '/irp-provider-current-compte';
 	console.log('Dans',here,'navigation vers', url);
 	this.router.navigate([url]);
 
-	manLib.exiting_from_function (here);	
+	M.exiting_from_function (here);	
 	return here + ' done'
     }
 
     irpBuild (irpKey, caller):any {
-	let here = 'irpBuild';
-	manLib.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
+	let here = O.functionName ();
+	M.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
 
-	let buildIrpKey = 'this.build'+irpKey+ '()';
-	console.log('Dans ',here,'buildIrpKey',buildIrpKey);
+	let irpKeyBuild = 'this.'+irpKey+ 'Build()';
+	console.log('Dans ',here,'irpKeyBuild',irpKeyBuild);
 
 	let result ='';
-	console.log('Dans ',here,'typeof',buildIrpKey,' ',typeof(buildIrpKey));
+	console.log('Dans ',here,'typeof',irpKeyBuild,' ',typeof(irpKeyBuild));
 
 	try {
-	    let result = eval (buildIrpKey);
+	    let result = eval (irpKeyBuild);
 	} catch (error) {
-	    let result = 'La fonction ' + buildIrpKey + 'n\'existe pas';
+	    let result = 'La fonction ' + irpKeyBuild + 'n\'existe pas';
 	    alert (result)
 	}
 
 	if (!result) {
 	    alert ('Dans ' + here +' le résultat est vide!');
 	}
+	
 	console.log('Dans',here,'result >',result,'<');
-	manLib.exiting_from_function (here);	
+	M.exiting_from_function (here);	
 	return result;
     }
     
     irpBuildAndStore (irpKey, caller):any {
-	let here = 'irpProvide';
-	manLib.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
+	let here = O.functionName ();
+	M.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
 
 	let irpVal = this.irpBuild (irpKey, here);
 	console.log('Dans ',here,'irpVal',irpVal);
@@ -78,25 +80,28 @@ export class IrpProviderService {
 	this.irpRegisterService.irpStore (irpKey, irpVal, here);
 	console.log ('Dans',here,'irpKey',irpKey,' a été enregistrée avec irpVal>',irpVal,'<');
 
-	manLib.exiting_from_function (here);	
+	M.exiting_from_function (here);	
 	return irpVal;
     }
     
     irpProvide (irpKey, caller):any {
-	let here = 'irpProvide';
-	manLib.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
-	
-	let IrpKey = outils.capitalize(irpKey);
+	let here = O.functionName ();
+	M.entering_in_function (here + '(' + irpKey + ', ' + caller +')');
 
-	if (this.irpRegisterService.irpIsStored(IrpKey, here)) {
-	    let result = this.irpRegisterService.irpRetrieve(IrpKey, here);
+
+	if (irpKey == O.capitalize(irpKey)){
+	    alert ('irpKey >'+irpKey+'< ne doit pas être capitalisée!')
+	}
+
+	if (this.irpRegisterService.irpIsStored(irpKey, here)) {
+	    let result = this.irpRegisterService.irpRetrieve(irpKey, here);
 	    console.log('Dans',here,'isStored result >',result,'<');
-	    manLib.exiting_from_function (here);	
+	    M.exiting_from_function (here);	
 	    return result;
 	} else {
-	    let result = this.irpBuildAndStore(IrpKey, here);
+	    let result = this.irpBuildAndStore(irpKey, here);
 	    console.log('Dans',here,'isBuilt result >',result,'<');
-	    manLib.exiting_from_function (here);	
+	    M.exiting_from_function (here);	
 	    return result;
 	}
 	

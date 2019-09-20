@@ -160,8 +160,9 @@ export class CompteService {
     }
 
     login(email:string, password:string) {
-	console.log('Entrée dans login avec email',email);
-	console.log('Entrée dans login avec password',password);
+	let here ='login';
+	console.log('Entrée dans',here,'avec email',email);
+	console.log('Entrée dans',here,'avec password',password);
 
 	const uri_login = this.uri_all + 'login';
 

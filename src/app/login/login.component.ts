@@ -7,6 +7,7 @@ import { CompteService }            from '../services/compte.service';
 import { StateService }                 from '../services/state.service';
 import { IrpRegisterService }   from '../services/irp-register.service';
 import { Subscription }                 from 'rxjs';
+import * as O from '../models/outils';
 
 @Component({
     selector: 'app-login',
@@ -34,13 +35,15 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private irpRegisterService: IrpRegisterService,
-		private compteService: CompteService){
-	console.log('Entrée dans constructor');
-    }
+		private compteService: CompteService)
+		{
+		    let here = O.functionName();
+		    console.log('%cEntrée dans','color: #00aa00', here);;
+		}
 
     ngOnInit() {
-	console.log('%cEntrée dans %cngOnInit','color: #00aa00','color: #0000aa');;
-
+	let here = O.functionName();
+	console.log('%cEntrée dans','color: #00aa00', here);;
 	this.compteService.isAuth$.next(true);
 	this.stateService.mode$.next('form');
 
@@ -68,8 +71,8 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     onLogin() {
-	let here = 'onLogin';
-	console.log('%cEntrée dans %c','color: #00aa00','color: #0000aa', here);;
+	let here = O.functionName();
+	console.log('%cEntrée dans','color: #00aa00', here);;
 	
 	this.loading = true;
 
@@ -78,10 +81,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 	console.log('Dans onLogin email', email);
 	console.log('Dans onLogin password', password);
-	
-//Tentative	this.stateService.currentEmail$.next(email);
+
 	let irpRegister = this.irpRegisterService.irpRegister;
-        let irpKey = 'CurrentEmail';
+        let irpKey = 'currentEmail'; /* Improve */
 	let irpVal = email;
 	this.irpRegisterService.irpStore(irpKey, irpVal, here);
 	this.irpRegisterService.irpRegister$.next(irpRegister)
@@ -124,8 +126,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
+	let here = O.functionName();
+	console.log('%cEntrée dans','color: #aa0000', here);	
 	this.partSub.unsubscribe();
-	console.log('%cDans ngOnDestroy partSub unsubscribe','color:#aa0000');
+	console.log('%cDans '+here+' %cpartSub %cunsubscribe','color:#00aa00','color:#aa0000','color:#00aa00');
 	this.currentUrlSub.unsubscribe();
 	console.log('%cDans ngOnDestroy currentUrlSub unsubscribe','color:#aa0000');
     }

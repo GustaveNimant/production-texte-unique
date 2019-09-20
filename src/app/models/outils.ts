@@ -1,5 +1,23 @@
 import * as jsSHA from 'jssha';
 
+export function errorStack () {
+    var stack = new Error().stack;
+    return stack;
+}
+
+export function functionName () {
+    var stack = new Error().stack,
+	caller = (stack.split('\n')[1].trim()).split('@')[0];
+    return caller;
+}
+
+export function functionNameForbidden () {
+    var ownName = arguments.callee.toString();
+    ownName = ownName.substr('function '.length);        // trim off "function "
+    ownName = ownName.substr(0, ownName.indexOf('('));        // trim off everything after the function name
+    return ownName;
+}
+
 export function capitalize(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }

@@ -3,6 +3,10 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StateService } from '../../services/state.service';
 import { IrpRegisterService }   from '../../services/irp-register.service';
+
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-irp-provider-current-email',
     templateUrl: './irp-provider-current-email.component.html',
@@ -25,11 +29,10 @@ export class IrpProviderCurrentEmailComponent implements OnInit, OnDestroy {
 	}
     
     ngOnInit() {
-	let here = 'ngOnInit';
+	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
 	/* récupère currentEmail initialisé par login */
-	// Tentative	this.currentEmailSub = this.stateService.currentEmail$.subscribe(
 	this.irpRegisterService.irpRegister$.subscribe(
 	    (reg) => {
 		this.currentRegister = reg;
