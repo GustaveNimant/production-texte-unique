@@ -1,0 +1,8 @@
+import * as M from '../../managementLibrary';
+import * as O from '../../models/outils';
+
+let here = O.functionName ();
+console.log('%cEntrée dans','color:#00aa00', here);
+
+console.log('Dans '+here+' %cpartSub.unsubscribe','color:#aa0000');
+	

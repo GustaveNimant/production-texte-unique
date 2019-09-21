@@ -6,6 +6,9 @@ import { CompteModel }                from '../../models/compte.model';
 import { CompteService }              from '../../services/compte.service';
 import { StateService }               from '../../services/state.service';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-new-compte',
     templateUrl: './new-compte.component.html',
@@ -33,7 +36,8 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 		}
     
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.stateService.mode$.next('form');
 
@@ -62,7 +66,8 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-	console.log('Entrée dans onSubmit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.loading = true;
 

@@ -5,6 +5,9 @@ import { Subscription } from 'rxjs';
 import { CompteModel } from '../../models/compte.model';
 import { Router } from '@angular/router';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-list-compte',
     templateUrl: './list-compte.component.html',
@@ -30,7 +33,8 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	}
     
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
 
@@ -66,16 +70,21 @@ export class ListCompteComponent implements OnInit, OnDestroy {
     }
 
     onCompteClicked(id: string) {
-	console.log('Entrée dans onCompteClicked avec id', id);
-	console.log('Entrée dans onCompteClicked avec part', this.part);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
+	console.log('Entrée dans',here,'avec id', id);
+	console.log('Entrée dans',here,'avec part', this.part);
 	
-	console.log('Entrée dans onCompteClicked navigation vers ', '/part-five/single-compte/' + id);
+	console.log('Dans onCompteClicked navigation vers ', '/part-five/single-compte/' + id);
 	this.router.navigate(['/part-five/single-compte/' + id]);
     }
 
     ngOnDestroy() {
-	console.log('%cEntrée dans %cngOnDestroy','color:#00aa00','color:#aa0000');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00',here);
 	this.partSub.unsubscribe();
+	console.log('Dans '+here+' %cpartSub.unsubscribe','color:#aa0000');
     }
 
 }

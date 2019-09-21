@@ -1,0 +1,76 @@
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
+import { CompteModel } from '../models/compte.model';
+
+import { IrpRegisterService } from './irp-register.service';
+
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
+
+@Injectable({
+    providedIn: 'root'
+})
+
+export class CompteProviderService {
+
+    private currentEmail: string = '';
+
+    constructor(
+	private compteService: compteService,
+	private irpRegisterService: IrpRegisterService)
+	{
+	    let here = O.functionName ();
+	    console.log('%cEntrée dans','color:#00aa00', here);
+	}
+    
+    currentCompteBuild (objectName:string):<currentCompte> {
+	let here = O.functionName ();
+	M.entering_in_function (here + '()');
+
+	this.loading = true;
+
+	this.currentEmail = this.irpProviderService.irpProvide ('currentEmail', here);
+	console.log('%cDans ngOnInit','color:#00aa00', 'irpProvide (currentEmail) >',this.currentEmail),'<';
+	
+	this.getCompteByEmail(this.currentEmail)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans',here,'getCompteIdByEmail com', com);
+		    this.loading = false;
+		    M.exiting_from_function (here);
+		    return com;
+		}
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,'currentParticipantIdSub getCompteByEmail Erreur',error);
+		}
+	    );
+    } // currentCompteBuild
+
+    currentCompteBuildAndStored (objectName:string) {
+	let here = O.functionName ();
+	M.entering_in_function (here + '('+objectName+')');
+
+	this.currentCompte = this.currentCompteBuild(objectName);
+	this.irpRegisterService.store (objectName, this.currentCompte, here);
+	M.exiting_from_function (here);
+    }
+    
+    irpProvide(objectName:string, caller:string):<currentCompte> {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00',here,'avec objectName',objectName,' appelé par',caller);
+	
+	if (this.irpRegisterService.irpIsStored(objectName, here)) {
+	    this.irpResult = this.irpRegister(objectName);
+	    console.log('%cSortie de','color:#0000aa',here,'irpResult',irpResult);
+	    return irpResult;
+	} else {	    
+	    this.irpResult = this.currentCompteBuildAndStore(objectName);
+	    console.log('%cSortie de','color:#0000aa',here,'irpResult',irpResult);
+	    return irpResult;
+	}
+	M.exiting_from_function (here);
+    }
+
+}

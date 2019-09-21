@@ -1,11 +1,13 @@
 import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router }                             from '@angular/router';
-import { StateService }       from '../services/state.service';
-import { IrpProviderService } from '../services/irp-provider.service';
+import { StateService }          from '../services/state.service';
+import { DataProviderService }   from '../services/data-provider.service';
+
 import { Subscription } from 'rxjs';
 
-import * as manLib from './managementLibrary';
+import * as M from './managementLibrary';
+import * as O from '../models/outils';
 
 @Component({
     selector: 'app-irp-provider',
@@ -28,13 +30,13 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
     private here:string;
 
     constructor(
-	private irpProviderService: IrpProviderService,
+	private dataProviderService: DataProviderService,
 	private stateService: StateService,
 	private formBuilder: FormBuilder,
 	private router: Router)
 	{
 	    let here = 'constructor';
-	    console.log('%cEntrée dans','color:#0000aa', here);
+	    console.log('%cEntrée dans','color:#00aa00', here);
 	}
     
     ngOnInit() {
@@ -63,9 +65,7 @@ export class IrpProviderComponent implements OnInit, OnDestroy {
 	this.objectName = this.irpProviderForm.get('objectName').value;
 	console.log(here, 'irpProviderForm => objectName', this.objectName);
 
-	this.irpResult = this.irpProviderService.irpProvide(this.objectName, here);
-	console.log(here,': "'+this.objectName+'" => >'+this.irpResult+'<');
-
+	this.irpResult = this.dataProviderService.dataProvide(this.objectName, here);
 	this.irpProviderForm.reset();
 
 	this.loading = false;

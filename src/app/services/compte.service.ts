@@ -5,6 +5,9 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CompteModel } from '../models/compte.model';
 
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -15,6 +18,13 @@ export class CompteService {
     token: string;  /* utilisé dans intercept */
     userId: string; /* utilisé dans intercept */
 
+    private compte_a: CompteModel[] = [];
+    public compte_a$ = new BehaviorSubject<CompteModel[]>([]);
+
+    private currentCompte = new CompteModel();
+    public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
+    private loading:boolean = false;
+    
     uri_all = 'http://localhost:3000/api/all-comptes/';
 
     constructor(private router: Router,
@@ -24,12 +34,6 @@ export class CompteService {
 		    console.log('Entrée dans constructor avec http client ',http)
 		}
 
-    private compte_a: CompteModel[] = [];
-    public compte_a$ = new BehaviorSubject<CompteModel[]>([]);
-
-    private currentCompte = new CompteModel();
-    public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
-    
     createNewCompte(compte: CompteModel) { /* signup */
 	console.log('Entrée dans createNewCompte avec compte ', compte);
 
@@ -73,7 +77,7 @@ export class CompteService {
 		}
 	    );
 	});
-    }
+    } // deleteCompte
 
     emitCompte() {
 	console.log('Entrée dans emitCompte avec les comptes', this.compte_a);
