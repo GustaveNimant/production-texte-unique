@@ -1,5 +1,8 @@
 import * as jsSHA from 'jssha';
 
+export function unsubscribeLog (here:string, what:string) {
+    return console.log('%cDans '+here+' %c'+what+' %cunsubscribe','color:#00aa00','color:#aa0000','color:#00aa00')
+}
 export function errorStack () {
     var stack = new Error().stack;
     return stack;

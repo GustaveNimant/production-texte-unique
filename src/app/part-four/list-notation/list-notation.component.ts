@@ -6,6 +6,9 @@ import { NotationService }  from '../../services/notation.service';
 import { NotationModel } from '../../models/notation.model';
 import { Subscription } from 'rxjs';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-list-notation',
     templateUrl: './list-notation.component.html',
@@ -29,33 +32,35 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 		private compteService: CompteService,
 		private notationService: NotationService, 
 		private router: Router) {
-    	console.log('Entrée dans constructor');
+	let here = O.functionName();
+	console.log('%cEntrée dans','color: #aa0000', here);	
     }
 
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName();
+	console.log('%cEntrée dans','color: #aa0000', here);	
 
 	this.loading = true;
 
 	this.debug = this.stateService.debug;
-	console.log('Dans ngOnInit debug', this.debug);
+	console.log('Dans',here,'debug', this.debug);
 	
 	this.stateService.mode$.next('list');
 
 	this.currentUrl = this.router.url;
 	this.stateService.currentUrl$.next(this.currentUrl);
-	console.log('Dans ngOnInit currentUrl', this.currentUrl);
+	console.log('Dans',here,'currentUrl', this.currentUrl);
 
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
-		console.log('Dans ngOnInit num',num);
+		console.log('Dans',here,'num',num);
 		this.part = num;
 	    }
 	);
 
 	this.notationsSub = this.notationService.notations$.subscribe(
 	    (not_a) => {
-		console.log('Dans ngOnInit not_a',not_a);
+		console.log('Dans',here,'not_a',not_a);
 		this.notations = not_a; /* on charge les notations ici */
 		this.loading = false;
 	    },
@@ -80,17 +85,23 @@ export class ListNotationComponent implements OnInit, OnDestroy {
     }
 
     onNotationClicked(id: string) {
-	console.log('Entrée dans onNotationClicked avec id', id);
-	console.log('Entrée dans onNotationClicked avec part', this.part);
+	let here = O.functionName();
+	console.log('Entrée dans',here,'avec id', id);
+	console.log('Entrée dans',here,'avec part', this.part);
 	
-	console.log('Entrée dans onNotationClicked navigation vers ', '/part-four/single-notation/' + id);
+	console.log('Entrée dans',here,'navigation vers ', '/part-four/single-notation/' + id);
 	this.router.navigate(['/part-four/single-notation/' + id]);
     }
 
     ngOnDestroy() {
-	console.log('Entrée dans ngOnDestroy');
+	let here = O.functionName();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.notationsSub.unsubscribe();
+	O.unsubscribeLog(here, 'notationsSub');
+
 	this.partSub.unsubscribe();
+	O.unsubscribeLog(here, 'partSub');
     }
 
 }

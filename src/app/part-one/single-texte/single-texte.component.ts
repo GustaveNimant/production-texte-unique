@@ -6,6 +6,9 @@ import { CompteService } from '../../services/compte.service';
 import { StateService }     from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-single-texte',
     templateUrl: './single-texte.component.html',
@@ -32,16 +35,23 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private texteService: TexteService,
-		private compteService: CompteService) { }
+		private compteService: CompteService)
+		{
+		    let here = O.functionName ();
+		    console.log('%cEntrée dans','color:#00aa00', here);
+		}
 
     ngOnInit() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	
 	this.debug = this.stateService.debug;
 	console.log('Entrée dans ngOnInit');
-	console.log('Dans ngOnInit avec debug', this.debug);
+	console.log('Dans',here,' avec debug', this.debug);
 
 	this.currentUrl = this.router.url;
 	this.stateService.currentUrl$.next(this.currentUrl);
-	console.log('Dans ngOnInit currentUrl', this.currentUrl);
+	console.log('Dans',here,' currentUrl', this.currentUrl);
 
 	this.loading = true;
 
@@ -50,13 +60,13 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
-		console.log('Dans ngOnInit params', params);
+		console.log('Dans',here,' params', params);
 		this.texteService.getTexteByObjectId(params.id)
 		    .then(
 			(tex: TexteModel) => {
 			    this.loading = false;
 			    this.texte = tex;
-			    console.log('Dans ngOnInit tex',tex);
+			    console.log('Dans',here,' tex',tex);
 			}
 		    ).catch(
 			(error) => {
@@ -68,7 +78,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 				    this.errorMessage = error.message;
 				    break;
 			    }
-			    console.log('Dans ngOnInit Erreur', error);
+			    console.log('Dans',here,' Erreur', error);
 			    this.loading = false;
 			}
 		    );
@@ -77,19 +87,20 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
-		console.log('Dans ngOnInit num',num);
+		console.log('Dans',here,' num',num);
 		this.part = num;
 		this.auteurId = this.compteService.userId;
 	    }
 	);
-	console.log('Dans ngOnInit part',this.part);
+	console.log('Dans',here,' part',this.part);
 
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
-		console.log('Dans ngOnInit isAuth', this.isAuth);
+		console.log('Dans',here,' isAuth', this.isAuth);
 	    }
 	);
+	M.exiting_from_function (here);	
     }
 
     onGoBack() {

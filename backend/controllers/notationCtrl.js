@@ -7,7 +7,9 @@ exports.createNotationCtrl = (req, res, next) => {
     if (Debug.debug) {console.log('Entrée dans notationCtrl.js.createNotationCtrl avec req.body ', req.body)};
 
     const notation = new notationMongooseModel({
+	participantPseudo: req.body.participantPseudo,
 	participantId: req.body.participantId,
+	texteTitre: req.body.texteTitre,
 	texteObjectId: req.body.texteObjectId,
 	note: req.body.note,
 	date: req.body.date,

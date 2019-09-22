@@ -3,7 +3,9 @@
 <div *ngIf="!loading" class="col-sm-6 offset-sm-3 mt-2">
     <form [formGroup]="notationForm">
 	<ul>
+	    <li> Titre du texte : {{currentTexteTitre}}</li>
 	    <li> ObjectId du texte : {{currentTexteObjectId}}</li>
+	    <li> Pseudo du participant : {{currentParticipantPseudo}}</li>
 	    <li> Id du participant : {{currentParticipantId}}</li>
 	    <li> Date : {{currentDate}}</li>
 	</ul>

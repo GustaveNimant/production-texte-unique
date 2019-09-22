@@ -11,8 +11,6 @@ import * as O from '../models/outils';
 
 export class DataProviderService {
 
-    private where:string ='';
-
     constructor(
 	private router: Router,
 	private irpRegisterService: IrpRegisterService,

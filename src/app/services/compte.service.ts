@@ -30,12 +30,15 @@ export class CompteService {
     constructor(private router: Router,
 		private http: HttpClient)
 		{
-		    console.log('Entrée dans constructor avec router ', router)
-		    console.log('Entrée dans constructor avec http client ',http)
+		    let here = O.functionName ();
+
+		    console.log('Entrée dans',here,'avec router', router)
+		    console.log('Entrée dans',here,'avec http client',http)
 		}
 
     createNewCompte(compte: CompteModel) { /* signup */
-	console.log('Entrée dans createNewCompte avec compte ', compte);
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec compte ', compte);
 
 	const uri_signup = this.uri_all + 'signup';
 
@@ -65,7 +68,8 @@ export class CompteService {
     }
 
     deleteCompte(id: string) {
-	console.log('Entrée dans deleteCompte avec id',id);
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec id',id);
 
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + id).subscribe(
@@ -79,18 +83,23 @@ export class CompteService {
 	});
     } // deleteCompte
 
-    emitCompte() {
-	console.log('Entrée dans emitCompte avec les comptes', this.compte_a);
+    emitCompte(caller) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec les comptes', this.compte_a);
+	console.log(here,'appelé par',caller);
 	this.compte_a$.next(this.compte_a);
     }
 
-    getComptes() {
-	console.log('Entrée dans getComptes avec uri_all', this.uri_all);
+    getComptes(caller) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
+	console.log(here,'appelé par',caller);
+
 	this.http.get(this.uri_all).subscribe(
 	    (con_a: CompteModel[]) => {
 		if (con_a) {
 		    this.compte_a = con_a;
-		    this.emitCompte();
+		    this.emitCompte(here);
 		}
 	    },
 	    (error) => {
@@ -159,6 +168,23 @@ export class CompteService {
 	    ).catch (
 		(error) => {
 		    console.log('Dans onLogin getComptePseudoByEmail Erreur', error);
+		}
+	    );
+    }
+
+    getComptePseudoById(id: string) {
+	let here = O.functionName();
+	console.log('Entrée dans',here,' avec id', id);
+
+	this.getCompteById (id)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans onLogin',here,'com', com);
+		    return com.pseudo;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans onLogin',here,'Erreur', error);
 		}
 	    );
     }

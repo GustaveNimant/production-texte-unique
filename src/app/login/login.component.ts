@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	console.log('Dans onLogin email', email);
 	console.log('Dans onLogin password', password);
 
+	/* Irp Data */
 	let irpRegister = this.irpRegisterService.irpRegister;
         let irpKey = 'currentEmail'; /* Improve */
 	let irpVal = email;
@@ -129,9 +130,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	let here = O.functionName();
 	console.log('%cEntrée dans','color: #aa0000', here);	
 	this.partSub.unsubscribe();
-	console.log('%cDans '+here+' %cpartSub %cunsubscribe','color:#00aa00','color:#aa0000','color:#00aa00');
+	O.unsubscribeLog(here, 'partSub');
+	
 	this.currentUrlSub.unsubscribe();
-	console.log('%cDans ngOnDestroy currentUrlSub unsubscribe','color:#aa0000');
+	O.unsubscribeLog(here, 'currentUrlSub');
     }
 
 }

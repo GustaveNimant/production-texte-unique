@@ -44,14 +44,14 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	this.stateService.mode$.next('list');
 
 	this.stateService.currentUrl$.next(this.router.url);
-	console.log('Dans ngOnInit this.router.url',this.router.url);
+	console.log('Dans',here,'this.router.url',this.router.url);
 
 	this.compte_aSub = this.compteService.compte_a$.subscribe(
 	    (com_a) => {
 		console.log('Dans ngOnInit com_a',com_a);
 		this.loading = false;
 		if (com_a.length <= 0) {
-		    console.log('Dans ngOnInit naviagtion vers /part-five/new-compte/');
+		    console.log('Dans',here,'navigation vers /part-five/new-compte/');
 		    this.router.navigate(['/part-five/new-compte/']);
 		} else {
 		    this.compte_a = com_a;
@@ -66,7 +66,7 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.compteService.getComptes();
+	this.compteService.getComptes(here);
     }
 
     onCompteClicked(id: string) {

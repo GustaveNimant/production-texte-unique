@@ -2,11 +2,18 @@ import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router }     from '@angular/router';
 import { CompteModel }        from '../../models/compte.model';
+import { TexteModel }        from '../../models/texte.model';
 import { NotationModel }                      from '../../models/notation.model';
 import { NotationService }                   from '../../services/notation.service';
 import { StateService }                       from '../../services/state.service';
+import { CompteService }       from '../../services/compte.service';
+import { TexteService }       from '../../services/texte.service';
+import { DataProviderService } from '../../services/data-provider.service';
+
 import { Subscription }                       from 'rxjs';
-import { CompteService }     from '../../services/compte.service';
+
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
 
 @Component({
     selector: 'app-new-notation',
@@ -26,12 +33,16 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
     private currentParticipantIdSub: Subscription;
     private currentParticipantId: string;
+    private currentParticipantPseudo: string;
 
     private currentDate: string;
     private currentCompte = new CompteModel();
-    
+
     private currentTexteObjectIdSub: Subscription;
     private currentTexteObjectId: string;
+
+    private currentTexte = new TexteModel();
+    private currentTexteTitre: string;
     private currentEmail: string;
     private isAuth: boolean;
     
@@ -39,29 +50,47 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
+		private dataProviderService: DataProviderService,
 		private compteService: CompteService,
+		private texteService: TexteService,
 		private notationService: NotationService)
 		{
 		    console.log('Entrée dans constructor');
 		}
     
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
+	/* Une notation se fait en cliquant sur un Texte */
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
-		console.log('Dans ngOnInit params', params);
+		console.log('Dans',here,' params', params);
 		if (params.id) {
 		    this.currentTexteObjectId = params.id;
-		    console.log('Dans ngOnInit currentTexteObjectId', this.currentTexteObjectId);
+		    console.log('Dans',here,' currentTexteObjectId', this.currentTexteObjectId);
 		} else {
 		    this.router.navigate(['/part-one/list-texte']);
 		}
 	    }
 	);
 
+	this.texteService.getTexteByObjectId (this.currentTexteObjectId)
+	    .then(
+		(tex: TexteModel) => {
+		    console.log('Dans',here,' getTexteIdByObjectId tex', tex);
+		    this.currentTexte = tex;
+		    this.currentTexteTitre = tex.titre;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,'getTexteByObjectId Erreur', error);
+		}
+	    );
+
+	
 	this.currentDate = new Date().toString();
-	console.log('Dans ngOnInit currentDate', this.currentDate);
+	console.log('Dans',here,' currentDate', this.currentDate);
 	
 	this.stateService.mode$.next('form');
 
@@ -78,61 +107,42 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
-		console.log('Dans ngOnInit isAuth', this.isAuth);
+		console.log('Dans',here,' isAuth', this.isAuth);
 	    }
 	);
 
-	this.currentEmailSub = this.stateService.currentEmail$.subscribe(
-	    (str) => {
-		this.currentEmail = str;
-		console.log('Dans ngOnInit currentEmail', this.currentEmail);
-	    }, (error) => {
-		console.log('Dans ngOnInit currentEmailSub Erreur', error);
-	    }
-	);
+	/* Pseudo et Id à partir de Email */
+	
+	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
+	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
 
-    	this.currentParticipantIdSub = this.stateService.currentParticipantId$.subscribe(
-	    (id) => {
-		console.log('Dans ngOnInit currentParticipantId >', id,'<');
-		if (id) {
-		    this.currentParticipantId = id;
-		    console.log('Dans ngOnInit currentParticipantId', this.currentParticipantId);
-		} else {
-		    if (this.currentEmail) {
-			console.log('Dans ngOnInit currentParticipantIdSub currentEmail', this.currentEmail);
-
-			this.compteService.getCompteByEmail (this.currentEmail)
-			    .then(
-				(com: CompteModel) => {
-				    console.log('Dans ngOnInit getCompteIdByEmail com', com);
-				    this.currentCompte = com;
-				    this.currentParticipantId = com._id;
-				},
-			    ).catch (
-				(error) => {
-				    console.log('Dans ngOnInit currentParticipantIdSub getCompteByEmail Erreur', error);
-				}
-			    );
-		    } else {
-			console.log('Dans ngOnInit currentParticipantIdSub navigation vers /login');
-			this.router.navigate(['/login']);
-		    }
+	this.compteService.getCompteByEmail (this.currentEmail)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans',here,' getCompteIdByEmail com', com);
+		    this.currentCompte = com;
+		    this.currentParticipantPseudo = com.pseudo;
+		    this.currentParticipantId = com._id;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,' currentParticipantIdSub getCompteByEmail Erreur', error);
 		}
-	    }, 
-	    (error) => {
-		console.log('Dans ngOnInit Erreur', error);
-	    }
-	);
+	    );
+	M.exiting_from_function (here);	
     }
 
     onSubmit() {
-	console.log('Entrée dans onSubmit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.loading = true;
 
 	const notation = new NotationModel();
 	
+	notation.texteTitre = this.currentTexteTitre;
 	notation.texteObjectId = this.currentTexteObjectId;
+	notation.participantPseudo = this.currentParticipantPseudo;
 	notation.participantId = this.currentParticipantId;
 	notation.date = this.currentDate;
 
@@ -155,10 +165,16 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		    this.errorMessage = error.message;
 		}
 	    );
+	M.exiting_from_function (here);	
     }
 
     ngOnDestroy() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.partSub.unsubscribe();
+	O.unsubscribeLog(here, 'partSub');
+	M.exiting_from_function (here);	
 	//	this.currentEmailSub.unsubscribe();
 	//	this.isAuthSub.unsubscribe();
 	//	this.currentParticipantIdSub.unsubscribe();
