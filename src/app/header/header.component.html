@@ -16,7 +16,7 @@
 	       (click)="onLogout()">Logout</a>
 	</li>
 	<li class="header-navigation-item" *ngIf="(isAuth)">
-	    Vous ếtes {{pseudo}}
+	    Vous ếtes<br>{{pseudo}}
 	</li>
 	<li class="header-navigation-item">
 	    <button class="btn btn-danger" *ngIf="debug" (click)="onDebugSwitch()">Fin de Debug</button>

@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 
+import { Subscription } from 'rxjs';
+
 import * as M from '../irp-provider/managementLibrary';
 import * as O from '../models/outils';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class IrpRegisterService {
 
+    private irpRegisterSub: Subscription;
     public irpRegister$ = new BehaviorSubject<any>('');
     public irpRegister = new Object();
 
@@ -22,19 +25,22 @@ export class IrpRegisterService {
 	this.irpRegister[irpKey] = irpVal;
 	console.log(here,': irpRegister["'+irpKey+'"] <= "'+irpVal+'"');
 
-	    M.exiting_from_function (here)
+	M.exiting_from_function (here)
     }
 
     irpIsStored (irpKey, caller):boolean {
 	let here = O.functionName ();
 	M.entering_in_function (here + ' : (' + irpKey + ', ' + caller +')')
 
-	this.irpRegister$.subscribe(
+	this.irpRegisterSub = this.irpRegister$.subscribe(
 	    (reg) => {
 		this.irpRegister = reg;
 		console.log(here,': subscribe irpRegisterService => irpRegister >',this.irpRegister,'<');
 		if (reg == '') {
-		    alert(here+' irpRegister est vide!');
+		    alert(here+': irpRegister est vide!');
+		    this.irpRegisterSub.unsubscribe();
+		    O.unsubscribeLog(here, 'currentRegisterSub');
+		    return false;
 		}
 	    },
 	    (error) => {

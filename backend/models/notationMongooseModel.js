@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-//const uniqueValidator = require('mongoose-unique-validator');
     
 const notationSchema = new Schema({
     texteTitre: { type: String, required: true},
@@ -12,7 +11,5 @@ const notationSchema = new Schema({
 },{
     collection : 'notation_c'			    
 });
-
-//notationSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('notationMongooseModel', notationSchema);

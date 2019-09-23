@@ -75,13 +75,15 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 		this.isAuth = boo;
 	    }
 	);
-	console.log('Dans ngOnInit isAuth', this.isAuth);
+
+	console.log('Dans',here,' isAuth', this.isAuth);
 	if (!this.isAuth) {
 	    this.router.navigate(['/login']);
 	}
-	console.log('Dans ngOnInit before getNotations loading', this.loading);
+
+	console.log('Dans',here,' before getNotations loading', this.loading);
 	this.notationService.getNotations();
-	console.log('Dans ngOnInit after  getNotations loading', this.loading);
+	console.log('Dans',here,' after  getNotations loading', this.loading);
     }
 
     onNotationClicked(id: string) {

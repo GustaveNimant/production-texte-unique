@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	let here = O.functionName();
 	console.log('%cEntrée dans','color: #00aa00', here);;
+
 	this.compteService.isAuth$.next(true);
 	this.stateService.mode$.next('form');
 

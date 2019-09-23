@@ -1,9 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription }       from 'rxjs';
-import { StateService }       from '../services/state.service';
-import { CompteService }  from '../services/compte.service';
+import { StateService }        from '../services/state.service';
+import { CompteService }       from '../services/compte.service';
+import { DataProviderService } from '../services/data-provider.service';
 import { Router }             from '@angular/router';
 import { partStringOfNumber } from '../models/outils';
+import { CompteModel } from '../models/compte.model';
+import { IrpRegisterService } from '../services/irp-register.service';  
+
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
 
 @Component({
     selector: 'app-header',
@@ -25,29 +31,32 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
     private isAuthSub: Subscription;
 
-    private pseudo: string;
+    private irpRegisterSub: Subscription;
+    private irpRegister= new Object();
     
+    private currentEmail: string;
+    private pseudo: string;
+
+    private currentCompte = new CompteModel();
+
     constructor(private stateService: StateService,
+		private irpRegisterService: IrpRegisterService,
+		private dataProviderService: DataProviderService,
 		private compteService: CompteService,
 		private router: Router)
-		{ 
-		    console.log('Entrée dans constructor');
+		{
+		    let here = O.functionName ();
+		    console.log('%cEntrée dans','color:#00aa00', here);
 		};
     
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.modeSub = this.stateService.mode$.subscribe(
 	    (mod) => {
 		this.mode = mod;
 		console.log('Dans ngOnInit mode',this.mode);
-	    }
-	);
-
-	this.currentPseudoSub = this.stateService.currentPseudo$.subscribe(
-	    (str) => {
-		this.pseudo = str;
-		console.log('Dans ngOnInit pseudo',this.pseudo);
 	    }
 	);
 
@@ -66,6 +75,42 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit isAuth', this.isAuth);
 	    }
 	);
+
+	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
+	    (reg) => {
+		this.irpRegister = reg;
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
+		this.currentEmail = reg['currentEmail'];
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
+		
+		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
+		    console.log('Dans',here,'navigation vers /login');
+		    this.router.navigate(['/login']);
+		}
+	    },
+	    (error) => {
+		console.log('%cDans ngOnInit naviguer vers login?','#aa0000');
+		console.log('Dans ngOnInit currentEmailSub Erreur',error);
+	    }
+	);
+
+	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
+
+	this.compteService.getCompteByEmail (this.currentEmail)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans',here,' getCompteIdByEmail com', com);
+		    this.currentCompte = com;
+		    this.pseudo = com.pseudo;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,'getCompteByEmail Erreur', error);
+		}
+	    );
+	console.log('Dans',here,'from DataProvider pseudo',this.pseudo);
+
+	M.exiting_from_function (here);	
     }
 
     onLogout() {
