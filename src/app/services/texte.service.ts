@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { TexteModel } from '../models/texte.model';
 import { Subject } from 'rxjs';
 
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -74,11 +77,13 @@ export class TexteService {
     }
 
     getTexteByObjectId(texteObjectId: string) {
-	console.log('Entrée dans getTexteByObjectId avec texteObjectId', texteObjectId);
+	let here = O.functionName();
+	console.log('Entrée dans',here,'avec texteObjectId', texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + texteObjectId).subscribe(
 		(response) => {
+		    console.log(here,'response',response);
 		    resolve(response);
 		},
 		(error) => {

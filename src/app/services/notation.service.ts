@@ -3,6 +3,9 @@ import { HttpClient }    from '@angular/common/http';
 import { NotationModel } from '../models/notation.model';
 import { Subject }       from 'rxjs';
 
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
+
 @Injectable({
     providedIn: 'root'
 })
@@ -45,7 +48,7 @@ export class NotationService {
 		(not_a: NotationModel[]) => {
 		    if (not_a) {
 			this.notations = not_a;
-			this.emitNotation();
+			this.emitNotations();
 		    }
 		},
 		(error) => {
@@ -66,8 +69,8 @@ export class NotationService {
 	});
     }
     
-    emitNotation() {
-	console.log('Entrée dans emitNotation avec les notations', this.notations);
+    emitNotations() {
+	console.log('Entrée dans emitNotations avec les notations', this.notations);
 	this.notations$.next(this.notations);
     }
 
@@ -87,11 +90,13 @@ export class NotationService {
     }
 
     getNotationsByTexteObjectId(texteObjectId: string) {
-	console.log('Entrée dans getNotationsByTexteObjectId avec texteObjectId', texteObjectId);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here,'avec texteObjectId', texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + 'sum/' + texteObjectId).subscribe(
 		(response) => {
+		    console.log(here,'response',response);
 		    resolve(response);
 		},
 		(error) => {

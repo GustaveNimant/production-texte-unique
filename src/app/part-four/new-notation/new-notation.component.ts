@@ -83,7 +83,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	this.texteService.getTexteByObjectId (this.currentTexteObjectId)
 	    .then(
 		(tex: TexteModel) => {
-		    console.log('Dans',here,' getTexteIdByObjectId tex', tex);
+		    console.log('Dans',here,'getTexteIdByObjectId tex', tex);
 		    this.currentTexte = tex;
 		    this.currentTexteTitre = tex.titre;
 		},
@@ -118,29 +118,8 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
 	/* Pseudo et Id à partir de Email */
 	
-	//	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
-	//	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
-	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
-	    (reg) => {
-		this.irpRegister = reg;
-		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
-		this.currentEmail = reg['currentEmail'];
-		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
-
-		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
-		    console.log('Dans',here,'navigation vers /login');
-		    this.router.navigate(['/login']);
-		}
-	    },
-	    (error) => {
-		console.log('%cDans',here,'naviguer vers login?','#aa0000');
-		console.log('Dans',here,'currentEmailSub Erreur',error);
-	    }
-	);
-
-	console.log('Dans',here,'from irpRegisterService currentEmail',this.currentEmail);
-
-
+	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
+	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
 	this.compteService.getCompteByEmail (this.currentEmail)
 	    .then(
 		(com: CompteModel) => {
@@ -170,7 +149,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	notation.participantPseudo = this.currentParticipantPseudo;
 	notation.participantId = this.currentParticipantId;
 	notation.date = this.currentDate;
-
+	
 	notation.note = this.notationForm.get('note').value;
 	console.log('Dans onSubmit notation', notation);
 	
@@ -179,7 +158,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		() => {
 		    this.notationForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-four/list-notation']);
+		    this.router.navigate(['/part-one/single-texte/'+this.currentTexteObjectId]);
 		}
 	    )
 	    .catch(

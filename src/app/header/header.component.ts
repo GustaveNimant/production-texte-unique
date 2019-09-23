@@ -87,24 +87,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
-	    (reg) => {
-		this.irpRegister = reg;
-		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
-		this.currentEmail = reg['currentEmail'];
-		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
-
-		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
-		    console.log('Dans',here,'navigation vers /login');
-		    this.router.navigate(['/login']);
-		}
-	    },
-	    (error) => {
-		console.log('%cDans',here,'naviguer vers login?','#aa0000');
-		console.log('Dans',here,'currentEmailSub Erreur',error);
-	    }
-	);
-
+	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
+	
 	console.log('Dans',here,'from irpRegisterService currentEmail',this.currentEmail);
 
 	this.compteService.getCompteByEmail (this.currentEmail)
@@ -128,8 +112,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	this.irpRegisterSub.unsubscribe();
-	O.unsubscribeLog(here, 'currentUrlSub');
+//	this.irpRegisterSub.unsubscribe();
+//	O.unsubscribeLog(here, 'currentUrlSub');
 
     this.compteService.logout();
     this.router.navigate(['/main-menu']);

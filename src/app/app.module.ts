@@ -47,8 +47,6 @@ import { SingleCompteComponent } from './part-five/single-compte/single-compte.c
 
 import { LoginComponent }           from './login/login.component';
 import { IrpProviderComponent }     from './irp-provider/irp-provider.component';
-import { IrpProviderResultComponent } from './irp-provider/irp-provider-result/irp-provider-result.component';
-import { IrpProviderCurrentEmailComponent } from './irp-provider/irp-provider-current-email/irp-provider-current-email.component';
 
 @NgModule({
     declarations: [
@@ -81,8 +79,6 @@ import { IrpProviderCurrentEmailComponent } from './irp-provider/irp-provider-cu
 	ListButComponent,
 	SingleButComponent,
 	SumNotationComponent,
-	IrpProviderResultComponent,
-	IrpProviderCurrentEmailComponent,
     ],
     imports: [
 	BrowserModule,

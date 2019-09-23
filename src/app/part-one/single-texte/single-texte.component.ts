@@ -66,7 +66,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 			(tex: TexteModel) => {
 			    this.loading = false;
 			    this.texte = tex;
-			    console.log('Dans',here,' tex',tex);
+			    console.log('Dans',here,'getTexteByObjectId tex',tex);
 			}
 		    ).catch(
 			(error) => {

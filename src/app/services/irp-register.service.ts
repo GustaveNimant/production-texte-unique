@@ -21,10 +21,18 @@ export class IrpRegisterService {
     irpStore (irpKey, irpVal, caller) {
 	let here = O.functionName ();
 	M.entering_in_function (here + '(' + irpKey + ', ' + caller +')')
+	console.log(here,'irpVal',irpVal);
+
+	console.log(here,'irpRegister',this.irpRegister);
 	
+	if (this.irpRegister == undefined || this.irpRegister == "") {
+	    this.irpRegister = new Object();
+	    alert ('irpRegister undefined');
+	}
 	this.irpRegister[irpKey] = irpVal;
 	console.log(here,': irpRegister["'+irpKey+'"] <= "'+irpVal+'"');
-
+	
+	
 	M.exiting_from_function (here)
     }
 
@@ -38,8 +46,8 @@ export class IrpRegisterService {
 		console.log(here,': subscribe irpRegisterService => irpRegister >',this.irpRegister,'<');
 		if (reg == '') {
 		    alert(here+': irpRegister est vide!');
-		    this.irpRegisterSub.unsubscribe();
-		    O.unsubscribeLog(here, 'currentRegisterSub');
+//		    this.irpRegisterSub.unsubscribe();
+//		    O.unsubscribeLog(here, 'currentRegisterSub');
 		    return false;
 		}
 	    },
