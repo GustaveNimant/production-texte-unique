@@ -105,7 +105,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
+	console.log('Dans',here,'from irpRegisterService currentEmail',this.currentEmail);
 
 	this.compteService.getCompteByEmail (this.currentEmail)
 	    .then(
@@ -119,13 +119,18 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		    console.log('Dans',here,'getCompteByEmail Erreur', error);
 		}
 	    );
-	console.log('Dans',here,'from DataProvider pseudo',this.pseudo);
+	console.log('Dans',here,'from getCompteByEmail pseudo',this.pseudo);
 
 	M.exiting_from_function (here);
     }
 
-onLogout() {
-    console.log('Entrée dans onLogout avec partString', this.partString);
+    onLogout() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
+	this.irpRegisterSub.unsubscribe();
+	O.unsubscribeLog(here, 'currentUrlSub');
+
     this.compteService.logout();
     this.router.navigate(['/main-menu']);
 }

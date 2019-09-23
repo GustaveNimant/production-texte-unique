@@ -9,6 +9,7 @@ import { StateService }                       from '../../services/state.service
 import { CompteService }       from '../../services/compte.service';
 import { TexteService }       from '../../services/texte.service';
 import { DataProviderService } from '../../services/data-provider.service';
+import { IrpRegisterService } from '../../services/irp-register.service';
 
 import { Subscription }                       from 'rxjs';
 
@@ -41,6 +42,9 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     private currentTexteObjectIdSub: Subscription;
     private currentTexteObjectId: string;
 
+    private irpRegisterSub: Subscription;
+    private irpRegister= new Object();
+	
     private currentTexte = new TexteModel();
     private currentTexteTitre: string;
     private currentEmail: string;
@@ -50,6 +54,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
+		private irpRegisterService: IrpRegisterService,
 		private dataProviderService: DataProviderService,
 		private compteService: CompteService,
 		private texteService: TexteService,
@@ -113,8 +118,28 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
 	/* Pseudo et Id à partir de Email */
 	
-	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
-	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
+	//	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
+	//	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
+	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
+	    (reg) => {
+		this.irpRegister = reg;
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
+		this.currentEmail = reg['currentEmail'];
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
+
+		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
+		    console.log('Dans',here,'navigation vers /login');
+		    this.router.navigate(['/login']);
+		}
+	    },
+	    (error) => {
+		console.log('%cDans',here,'naviguer vers login?','#aa0000');
+		console.log('Dans',here,'currentEmailSub Erreur',error);
+	    }
+	);
+
+	console.log('Dans',here,'from irpRegisterService currentEmail',this.currentEmail);
+
 
 	this.compteService.getCompteByEmail (this.currentEmail)
 	    .then(
