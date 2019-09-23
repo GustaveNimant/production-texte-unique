@@ -6,7 +6,7 @@ import { DataProviderService } from '../services/data-provider.service';
 import { Router }             from '@angular/router';
 import { partStringOfNumber } from '../models/outils';
 import { CompteModel } from '../models/compte.model';
-import { IrpRegisterService } from '../services/irp-register.service';  
+import { IrpRegisterService } from '../services/irp-register.service';
 
 import * as M from '../irp-provider/managementLibrary';
 import * as O from '../models/outils';
@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public isAuth: boolean;
     public debug: boolean;
     public trace: boolean;
-    
+
     private modeSub: Subscription;
     private currentPseudoSub: Subscription;
     private partSub: Subscription;
@@ -33,7 +33,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
     private irpRegisterSub: Subscription;
     private irpRegister= new Object();
-    
+
     private currentEmail: string;
     private pseudo: string;
 
@@ -48,7 +48,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		    let here = O.functionName ();
 		    console.log('%cEntrée dans','color:#00aa00', here);
 		};
-    
+
     ngOnInit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		console.log('Dans',here,'partString', this.partString);
 	    }
 	);
-	
+
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
@@ -78,13 +78,22 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	console.log('Dans',here,'pseudo', this.pseudo);
 
 	if (this.pseudo == undefined) {
+	    this.onGetPseudo ();
+	}
+	M.exiting_from_function (here);
+    }
+
+    onGetPseudo () {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
 	    (reg) => {
 		this.irpRegister = reg;
 		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
 		this.currentEmail = reg['currentEmail'];
 		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
-		
+
 		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
 		    console.log('Dans',here,'navigation vers /login');
 		    this.router.navigate(['/login']);
@@ -111,45 +120,45 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	    );
 	console.log('Dans',here,'from DataProvider pseudo',this.pseudo);
-	}
-	M.exiting_from_function (here);	
+
+	M.exiting_from_function (here);
     }
 
-    onLogout() {
-	console.log('Entrée dans onLogout avec partString', this.partString);
-	this.compteService.logout();
-	this.router.navigate(['/main-menu']);
-    }
-    
-    onBackToMainMenu() {
-	console.log('Entrée dans onBackToMainMenu');
-	this.router.navigate(['/main-menu']);
-    }
+onLogout() {
+    console.log('Entrée dans onLogout avec partString', this.partString);
+    this.compteService.logout();
+    this.router.navigate(['/main-menu']);
+}
 
-    onDebugSwitch() {
-	console.log('Entrée dans onDebugSwitch');
-	this.stateService.debugSwitch();
-	this.debug = this.stateService.debug;
-	console.log('Dans onDebugSwitch debug', this.debug);
-    }
+onBackToMainMenu() {
+    console.log('Entrée dans onBackToMainMenu');
+    this.router.navigate(['/main-menu']);
+}
 
-    onTraceSwitch() {
-	console.log('Entrée dans onTraceSwitch');
-	this.stateService.traceSwitch();
-	this.trace = this.stateService.trace;
-	console.log('Dans onTraceSwitch trace', this.trace);
-    }
+onDebugSwitch() {
+    console.log('Entrée dans onDebugSwitch');
+    this.stateService.debugSwitch();
+    this.debug = this.stateService.debug;
+    console.log('Dans onDebugSwitch debug', this.debug);
+}
 
-    onIrpProvider() {
-	console.log('Entrée dans onIrpProvider');
-	this.router.navigate(['/irp-provider']);
-    }
+onTraceSwitch() {
+    console.log('Entrée dans onTraceSwitch');
+    this.stateService.traceSwitch();
+    this.trace = this.stateService.trace;
+    console.log('Dans onTraceSwitch trace', this.trace);
+}
 
-    ngOnDestroy() {
-	console.log('Entrée dans ngOnDestroy');
-	this.modeSub.unsubscribe();
-	this.partSub.unsubscribe();
-	//	this.isAuthSub.unsubscribe();
-    }
-    
+onIrpProvider() {
+    console.log('Entrée dans onIrpProvider');
+    this.router.navigate(['/irp-provider']);
+}
+
+ngOnDestroy() {
+    console.log('Entrée dans ngOnDestroy');
+    this.modeSub.unsubscribe();
+    this.partSub.unsubscribe();
+    //	this.isAuthSub.unsubscribe();
+}
+
 }
