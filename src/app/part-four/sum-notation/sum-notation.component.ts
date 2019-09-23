@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router }     from '@angular/router';
 import { NotationModel }                      from '../../models/notation.model';
+import { TexteModel }        from '../../models/texte.model';
 import { NotationService }                    from '../../services/notation.service';
+import { TexteService }       from '../../services/texte.service';
 import { StateService }                       from '../../services/state.service';
 import { Subscription }                       from 'rxjs';
 import { sumOfArray, averageOfArray, varianceOfArray, rmsOfArray }  from '../../models/outils';
@@ -26,6 +28,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     private partSub: Subscription;
     private participantCount: number;
     private texteObjectId: string;
+    private texteTitre: string;
     private sum: string;
     private average: string;
     private rms: string;
@@ -34,6 +37,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     private currentUrlSub: Subscription;
 
     constructor(private stateService: StateService,
+		private texteService: TexteService,
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
@@ -72,6 +76,20 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 		console.log('Dans',here,'params', params);
 		if (params.texteObjectId) {
 		    this.texteObjectId = params.texteObjectId;
+
+		    this.texteService.getTexteByObjectId (this.texteObjectId)
+			.then(
+			    (tex: TexteModel) => {
+				console.log('Dans',here,'getTexteIdByObjectId tex', tex);
+				this.texteTitre = tex.titre;
+			    },
+			).catch (
+			    (error) => {
+				console.log('Dans',here,'getTexteByObjectId Erreur', error);
+			    }
+			);
+
+
 		    this.notationService.getNotationsByTexteObjectId(params.texteObjectId)
 			.then(
 			    (not_a) => {

@@ -4,12 +4,12 @@
     <div class="sum-notation-pane">
 
 	<div class="sum-notation-info">
-	    <p>ObjectId du texte {{ texteObjectId }}<p>
-		<p>nombre de participants {{ participantCount }} </p>
-		<p>noteMoyenne {{ average }} &#177; {{ rms }}</p>
-		
-		<button class="btn btn-danger m-1" (click)="onDelete()"
-			       [disabled]="part != 4">Supprimer</button>
+	    <p>Titre : {{ texteTitre }}</p>	
+	    <p>nombre de participants : {{ participantCount }} </p>
+	    <p>noteMoyenne : {{ average }} &#177; {{ rms }}</p>
+	    
+	    <button class="btn btn-danger m-1" (click)="onDelete()"
+			   [disabled]="part != 4">Supprimer</button>
 	</div>
 	<button class="btn btn-link"
 		(click)="onGoBack()"><< Retour à la liste des Notations</button>
