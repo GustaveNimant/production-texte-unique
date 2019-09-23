@@ -44,7 +44,6 @@ export class DataProviderService {
 		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
 		    console.log('Dans',here,'navigation vers /login');
 		    this.router.navigate(['/login']);
-		    alert ('ICI');
 		}
 	    },
 	    (error) => {
@@ -68,9 +67,6 @@ export class DataProviderService {
 	try {
 	    let result = eval (irpKeyBuild);
 	    console.log('Dans',here,'result >',result,'<');
-	    if (!result) {
-		alert ('dans ' + here +' le résultat est vide!');
-	    }
 	    M.exiting_from_function (here);	
 	    return result;
 	} catch (error) {
