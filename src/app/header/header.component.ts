@@ -56,26 +56,28 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	this.modeSub = this.stateService.mode$.subscribe(
 	    (mod) => {
 		this.mode = mod;
-		console.log('Dans ngOnInit mode',this.mode);
+		console.log('Dans',here,'mode',this.mode);
 	    }
 	);
 
 	this.partSub = this.stateService.part$.subscribe(
 	    (num) => {
-		console.log('Dans ngOnInit num',num);
+		console.log('Dans',here,'num',num);
 		this.part = num;
 		this.partString = partStringOfNumber(num);
-		console.log('Dans ngOnInit partString', this.partString);
+		console.log('Dans',here,'partString', this.partString);
 	    }
 	);
 	
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
-		console.log('Dans ngOnInit isAuth', this.isAuth);
 	    }
 	);
+	console.log('Dans',here,'isAuth', this.isAuth);
+	console.log('Dans',here,'pseudo', this.pseudo);
 
+	if (this.pseudo == undefined) {
 	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
 	    (reg) => {
 		this.irpRegister = reg;
@@ -89,8 +91,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	    },
 	    (error) => {
-		console.log('%cDans ngOnInit naviguer vers login?','#aa0000');
-		console.log('Dans ngOnInit currentEmailSub Erreur',error);
+		console.log('%cDans',here,'naviguer vers login?','#aa0000');
+		console.log('Dans',here,'currentEmailSub Erreur',error);
 	    }
 	);
 
@@ -109,7 +111,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		}
 	    );
 	console.log('Dans',here,'from DataProvider pseudo',this.pseudo);
-
+	}
 	M.exiting_from_function (here);	
     }
 

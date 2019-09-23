@@ -6,7 +6,12 @@ import { TexteModel }        from '../../models/texte.model';
 import { TexteService }      from '../../services/texte.service';
 import { CompteService }     from '../../services/compte.service';
 import { StateService }      from '../../services/state.service';
+import { IrpRegisterService } from '../../services/irp-register.service';  
+
 import { Subscription } from 'rxjs';
+
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
 
 @Component({
     selector: 'app-new-texte',
@@ -26,20 +31,26 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     private currentEmailSub: Subscription;
     private currentEmail: string;
 
+    private irpRegisterSub: Subscription;
+    private irpRegister= new Object();
+    
     private currentCompte = new CompteModel();
     
     constructor(
 	private formBuilder: FormBuilder,
 	private stateService: StateService,
+	private irpRegisterService: IrpRegisterService,
 	private texteService: TexteService,
 	private compteService: CompteService,
     	private router: Router)
 	{
-	    console.log('Entrée dans constructor');
+	    let here = O.functionName ();
+	    console.log('%cEntrée dans','color:#00aa00', here);
 	}
 
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.stateService.mode$.next('form');
 
@@ -52,15 +63,25 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	this.currentEmailSub = this.stateService.currentEmail$.subscribe(
-	    (str) => { 
-		this.currentEmail = str;
-		console.log('Dans ngOnInit currentEmail', this.currentEmail);
+	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
+	    (reg) => {
+		this.irpRegister = reg;
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
+		this.currentEmail = reg['currentEmail'];
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
+		
+		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
+		    console.log('Dans',here,'navigation vers /login');
+		    this.router.navigate(['/login']);
+		}
 	    },
 	    (error) => {
-		console.log('Dans ngOnInit currentEmailSub Erreur',error);
+		console.log('%cDans',here,'naviguer vers login?','#aa0000');
+		console.log('Dans',here,'currentEmailSub Erreur',error);
 	    }
 	);
+
+	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
 
 	this.compteService.getCompteByEmail (this.currentEmail)
 	    .then(
