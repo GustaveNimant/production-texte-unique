@@ -2,9 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../../services/state.service';
 import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
-import { TexteModel } from '../../models/texte.model';
 import { Router } from '@angular/router';
+import { TexteModel }    from '../../models/texte.model';
 import { CompteService } from '../../services/compte.service';
+
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
 
 @Component({
     selector: 'app-list-texte',
@@ -14,7 +17,6 @@ import { CompteService } from '../../services/compte.service';
 
 export class ListTexteComponent implements OnInit, OnDestroy {
 
-    public part: number;
     public loading: boolean;
     public isAuth: boolean;
 
@@ -22,7 +24,6 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     
     public textes: TexteModel[] = [];
     private textesSub: Subscription;
-    private partSub: Subscription;
     private isAuthSub: Subscription;
     
     constructor(private stateService: StateService,
@@ -48,13 +49,6 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-	    }
-	);
-
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
@@ -72,10 +66,13 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-	console.log('Entrée dans ngOnDestroy');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	
 	this.textesSub.unsubscribe();
-	this.partSub.unsubscribe();
-	console.log('Dans ngOnDestroy partSub.unsubscribe');
+	
+	O.unsubscribeLog(here, 'textesSub');
+	M.exiting_from_function (here);
     }
 
 }

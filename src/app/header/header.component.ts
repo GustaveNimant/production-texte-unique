@@ -4,7 +4,6 @@ import { StateService }        from '../services/state.service';
 import { CompteService }       from '../services/compte.service';
 import { DataProviderService } from '../services/data-provider.service';
 import { Router }             from '@angular/router';
-import { partStringOfNumber } from '../models/outils';
 import { CompteModel } from '../models/compte.model';
 import { IrpRegisterService } from '../services/irp-register.service';
 
@@ -20,15 +19,12 @@ import * as O from '../models/outils';
 export class HeaderComponent implements OnInit, OnDestroy {
 
     public mode: string;
-    public part: number;
-    public partString: string;
     public isAuth: boolean;
     public debug: boolean;
     public trace: boolean;
 
     private modeSub: Subscription;
     private currentPseudoSub: Subscription;
-    private partSub: Subscription;
     private isAuthSub: Subscription;
 
     private irpRegisterSub: Subscription;
@@ -57,15 +53,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	    (mod) => {
 		this.mode = mod;
 		console.log('Dans',here,'mode',this.mode);
-	    }
-	);
-
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans',here,'num',num);
-		this.part = num;
-		this.partString = partStringOfNumber(num);
-		console.log('Dans',here,'partString', this.partString);
 	    }
 	);
 
@@ -146,7 +133,6 @@ onIrpProvider() {
 ngOnDestroy() {
     console.log('Entrée dans ngOnDestroy');
     this.modeSub.unsubscribe();
-    this.partSub.unsubscribe();
     //	this.isAuthSub.unsubscribe();
 }
 

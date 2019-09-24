@@ -2,11 +2,12 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router }                       from '@angular/router';
 import { CompteModel }               from '../models/compte.model';
-import { partStringOfNumber }           from '../models/outils';
 import { CompteService }            from '../services/compte.service';
 import { StateService }                 from '../services/state.service';
 import { IrpRegisterService }   from '../services/irp-register.service';
 import { Subscription }                 from 'rxjs';
+
+import * as M from '../irp-provider/managementLibrary';
 import * as O from '../models/outils';
 
 @Component({
@@ -19,15 +20,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     public loginForm: FormGroup;
     public loading = false;
-    public part: number;
     public currentUrl: string;
     public currentEmail: string;
-    public partString: string;
     public userId: string;
     public errorMessage: string;
     public errorSubMessage: string;
 
-    private partSub: Subscription;
     private currentUrlSub: Subscription;
     private currentSub: Subscription;
 
@@ -53,15 +51,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
 	
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-		this.partString = partStringOfNumber(num);
-		console.log('Dans ngOnInit partString', this.partString);
-	    }
-	);
-
     	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {
 		console.log('Dans ngOnInit url',url);
@@ -130,8 +119,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 	let here = O.functionName();
 	console.log('%cEntrée dans','color: #aa0000', here);	
-	this.partSub.unsubscribe();
-	O.unsubscribeLog(here, 'partSub');
 	
 	this.currentUrlSub.unsubscribe();
 	O.unsubscribeLog(here, 'currentUrlSub');

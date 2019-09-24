@@ -22,10 +22,8 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 
     private notationForm: FormGroup;
     private loading = false;
-    private part: number;
     private errorMessage: string;
 
-    private partSub: Subscription;
     private participantCount: number;
     private texteObjectId: string;
     private texteTitre: string;
@@ -56,12 +54,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 	this.loading = true;
 
 	this.stateService.mode$.next('form');
-
-	this.partSub = this.stateService.part$.subscribe(
-	    (part) => {
-		this.part = part;
-	    }
-	);
 
 	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {
@@ -131,7 +123,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 			);
 		} else {
 		    console.log('Dans',here,'Erreur pour params.id', params.id);
-		    this.router.navigate(['/part-one/list-texte']);
+		    this.router.navigate(['/textes/list-texte']);
 		}
 	    }
 	);
@@ -139,14 +131,13 @@ export class SumNotationComponent implements OnInit, OnDestroy {
     }
 
     onGoBack() {
-	this.router.navigate(['/part-four/list-notation']);
+	this.router.navigate(['/notations/list-notation']);
     };
 
     ngOnDestroy() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	this.partSub.unsubscribe();
     }
 
 }

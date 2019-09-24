@@ -19,7 +19,6 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     public texte: TexteModel;
     public loading: boolean;
     public auteurId: string;
-    public part: number;
     public isAuth: boolean;
     public errorMessage: string;
 
@@ -28,7 +27,6 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 
     private currentUrl: string;
 
-    private partSub: Subscription;
     private isAuthSub: Subscription;
     
     constructor(private stateService: StateService,
@@ -85,15 +83,6 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans',here,' num',num);
-		this.part = num;
-		this.auteurId = this.compteService.userId;
-	    }
-	);
-	console.log('Dans',here,' part',this.part);
-
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
@@ -112,13 +101,13 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onNotate() {
-	console.log('Entrée dans onNotate navigation vers /part-four/new-notation/'+this.texte._id);
-	this.router.navigate(['/part-four/new-notation/' + this.texte._id]);
+	console.log('Entrée dans onNotate navigation vers /notations/new-notation/'+this.texte._id);
+	this.router.navigate(['/notations/new-notation/' + this.texte._id]);
     }
 
     onAverageNote() {
-	console.log('Entrée dans onAverageNote navigation vers /part-four/sum-notation/'+this.texte._id);
-	this.router.navigate(['/part-four/sum-notation/' + this.texte._id]);
+	console.log('Entrée dans onAverageNote navigation vers /notations/sum-notation/'+this.texte._id);
+	this.router.navigate(['/notations/sum-notation/' + this.texte._id]);
     }
 
     onModifyTexte() {
@@ -140,7 +129,8 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
     
     ngOnDestroy() {
-	this.partSub.unsubscribe();
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
     }
 
 }

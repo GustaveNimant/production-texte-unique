@@ -19,10 +19,8 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 
     public compteForm: FormGroup;
     public loading = false;
-    public part: number;
     public errorMessage: string;
 
-    private partSub: Subscription;
     private currentEmail: string ='';
     
     constructor(
@@ -58,11 +56,6 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
 	
-	this.partSub = this.stateService.part$.subscribe(
-	    (part) => {
-		this.part = part;
-	    }
-	);
     }
 
     onSubmit() {
@@ -105,7 +98,6 @@ export class NewCompteComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-	this.partSub.unsubscribe();
     }
 
 }

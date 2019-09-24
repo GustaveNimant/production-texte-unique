@@ -7,6 +7,9 @@ import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
 import { createSha } from '../../models/outils';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-new-texte-version',
     templateUrl: './new-texte-version.component.html',
@@ -19,9 +22,7 @@ export class NewTexteVersionComponent implements OnInit {
     texteForm: FormGroup;
     loading = false;
     errorMessage: string;
-    part: number;
 
-    private partSub: Subscription;
     private texteVersion: number;
     
     constructor(private formBuilder: FormBuilder,
@@ -31,20 +32,14 @@ export class NewTexteVersionComponent implements OnInit {
 		private texteService: TexteService) { }
 
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
 	this.texteForm = this.formBuilder.group({
 	    contenu: [null, Validators.required],
 	});
 
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-	    }
-	);
-	
 	this.stateService.mode$.next('form');
 
 	this.route.params.subscribe(
@@ -66,7 +61,9 @@ export class NewTexteVersionComponent implements OnInit {
     }
 
     onNewTexteVersion() {
-	console.log('Entrée dans onNewTexteVersion');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 	this.loading = true;
 
 

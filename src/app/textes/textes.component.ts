@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./textes.component.scss']
 })
 
-export class PartOneComponent implements OnInit {
+export class TextesComponent implements OnInit {
 
     public titre: string;
     public isAuth: boolean;
@@ -26,10 +26,6 @@ export class PartOneComponent implements OnInit {
 
     ngOnInit() {
 	console.log('Entrée dans ngOnInit');
-
-	this.stateService.part$.next(1);
-	this.stateService.part = 1;
-	console.log('Dans ngOnInit part assigné à', this.stateService.part);
 
 	this.titre = "Les textes"
 

@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './modify-but.component.html',
   styleUrls: ['./modify-but.component.scss']
 })
+
 export class ModifyButComponent implements OnInit {
 
   constructor() { }

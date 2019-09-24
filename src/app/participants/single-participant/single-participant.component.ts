@@ -6,19 +6,20 @@ import { CompteService }   from '../../services/compte.service';
 import { StateService }       from '../../services/state.service';
 import { Subscription } from 'rxjs';
 
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
+
 @Component({
     selector: 'app-single-participant',
     templateUrl: './single-participant.component.html',
     styleUrls: ['./single-participant.component.scss']
 })
+
 export class SingleParticipantComponent implements OnInit, OnDestroy {
 
     public participantModel: ParticipantModel;
     public loading: boolean;
     public participantId: string;
-    public part: number;
-
-    private partSub: Subscription;
 
     constructor(private stateService: StateService,
 		private router: Router,
@@ -45,13 +46,6 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 		    );
 	    }
 	);
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-		this.participantId = this.compteService.userId;
-	    }
-	);
     }
 
     onGoBack() {
@@ -73,6 +67,8 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-    this.partSub.unsubscribe();
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
   }
 }

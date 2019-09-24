@@ -26,10 +26,8 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
     public notationForm: FormGroup;
     public loading = false;
-    public part: number;
     public errorMessage: string;
 
-    private partSub: Subscription;
     private currentEmailSub: Subscription;
     private isAuthSub: Subscription;
     private currentParticipantIdSub: Subscription;
@@ -75,7 +73,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		    this.currentTexteObjectId = params.id;
 		    console.log('Dans',here,' currentTexteObjectId', this.currentTexteObjectId);
 		} else {
-		    this.router.navigate(['/part-one/list-texte']);
+		    this.router.navigate(['/textes/list-texte']);
 		}
 	    }
 	);
@@ -102,12 +100,6 @@ export class NewNotationComponent implements OnInit, OnDestroy {
  	this.notationForm = this.formBuilder.group({
 	    note: [1],
 	});
-	
-	this.partSub = this.stateService.part$.subscribe(
-	    (part) => {
-		this.part = part;
-	    }
-	);
 	
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
@@ -158,7 +150,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		() => {
 		    this.notationForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-one/single-texte/'+this.currentTexteObjectId]);
+		    this.router.navigate(['/textes/single-texte/'+this.currentTexteObjectId]);
 		}
 	    )
 	    .catch(
@@ -176,8 +168,6 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	this.partSub.unsubscribe();
-	O.unsubscribeLog(here, 'partSub');
 	M.exiting_from_function (here);	
 	//	this.currentEmailSub.unsubscribe();
 	//	this.isAuthSub.unsubscribe();

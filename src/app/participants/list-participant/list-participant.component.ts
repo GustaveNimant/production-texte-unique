@@ -14,12 +14,10 @@ import { Subscription } from 'rxjs';
 export class ListParticipantComponent implements OnInit, OnDestroy {
 
     public participants: ParticipantModel[] = [];
-    public part: number;
     public loading: boolean;
     public debug: boolean;
 
     private participantsSub: Subscription;
-    private partSub: Subscription;
 
     constructor(private stateService: StateService,               /* BehaviorSubjects */
 		private participantService: ParticipantService, /* Subjects */
@@ -42,17 +40,11 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
 		this.loading = false;
 	    }
 	);
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) =>{
-		this.part = num;
-	    }
-	);
 	this.participantService.getParticipants();
     }
 
     onParticipantClicked(id: string) {
 	console.log('Entrée dans onParticipantClicked avec id', id);
-	console.log('Entrée dans onParticipantClicked avec part', this.part);
 	console.log('Entrée dans onParticipantClicked navigation vers ', '/participants/single-participant/' + id);
 	this.router.navigate(['/participants/single-participant/' + id]);
     }
@@ -60,7 +52,6 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 	console.log('Entrée dans ngOnDestroy');
 	this.participantsSub.unsubscribe();
-	this.partSub.unsubscribe();
     }
 
 }

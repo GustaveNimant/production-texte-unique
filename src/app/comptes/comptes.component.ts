@@ -8,7 +8,7 @@ import { CompteService } from '../services/compte.service';
     styleUrls: ['./comptes.component.scss']
 })
 
-export class PartFiveComponent implements OnInit, OnDestroy {
+export class ComptesComponent implements OnInit, OnDestroy {
 
     constructor(private stateService: StateService,
 		private compteService: CompteService) { }
@@ -21,9 +21,6 @@ export class PartFiveComponent implements OnInit, OnDestroy {
 	this.compteService.token = '';
 	console.log('Dans ngOnInit initialisation isAuth$ userId token');
 	
-	this.stateService.part$.next(5);
-	this.stateService.part = 5;
-	console.log('Dans ngOnInit part assigné à', this.stateService.part);
     }
     
     ngOnDestroy() {

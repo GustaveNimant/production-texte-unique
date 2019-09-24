@@ -68,7 +68,7 @@ export function rmsOfArray (num_a : number[]) : number {
 export function partStringOfNumber(num : number) : string {
     switch (num) {
 	case 1:
-	    return 'part-one';
+	    return 'textes';
 	    break;
 	case 2:
 	    return 'participants';
@@ -77,7 +77,7 @@ export function partStringOfNumber(num : number) : string {
 	    return 'buts';
 	    break;
 	case 4:
-	    return 'part-four';
+	    return 'notations';
 	    break;
 	case 5:
 	    return 'comptes';

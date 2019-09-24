@@ -16,9 +16,6 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 
     public notation: NotationModel;
     public loading: boolean;
-    public part: number;
-
-    private partSub: Subscription;
 
     constructor(private state: StateService,
 		private router: Router,
@@ -52,20 +49,14 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.partSub = this.state.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-	    }
-	);
     };
 
     onGoBack() {
-	this.router.navigate(['/part-four/list-notation']);
+	this.router.navigate(['/notations/list-notation']);
     };
 
     onModify() {
-	this.router.navigate(['/part-four/list-notation/']);
+	this.router.navigate(['/notations/list-notation/']);
     };
 
     onDelete() {
@@ -73,13 +64,13 @@ export class SingleNotationComponent implements OnInit, OnDestroy {
 	this.notationService.deleteNotation(this.notation._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/part-four/list-notation']);
+		this.router.navigate(['/notations/list-notation']);
 	    }
 	);
     };
 
     ngOnDestroy() {
-	this.partSub.unsubscribe();
+
   };
 
 };

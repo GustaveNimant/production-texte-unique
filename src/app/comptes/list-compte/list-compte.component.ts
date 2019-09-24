@@ -17,12 +17,10 @@ import * as O from '../../models/outils';
 export class ListCompteComponent implements OnInit, OnDestroy {
 
     public compte_a: CompteModel[] = [];
-    public part: number;
     public loading: boolean;
     public debug: boolean;
     
     private compte_aSub: Subscription;
-    private partSub: Subscription;
 
     constructor(
 	private compteService: CompteService,
@@ -58,13 +56,6 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 		}
 	    }
 	);
-
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-	    }
-	);
 	
 	this.compteService.getComptes(here);
     }
@@ -74,7 +65,6 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	console.log('%cEntrée dans','color:#00aa00', here);
 
 	console.log('Entrée dans',here,'avec id', id);
-	console.log('Entrée dans',here,'avec part', this.part);
 	
 	console.log('Dans onCompteClicked navigation vers ', '/comptes/single-compte/' + id);
 	this.router.navigate(['/comptes/single-compte/' + id]);
@@ -83,8 +73,6 @@ export class ListCompteComponent implements OnInit, OnDestroy {
     ngOnDestroy() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00',here);
-	this.partSub.unsubscribe();
-	console.log('Dans '+here+' %cpartSub.unsubscribe','color:#aa0000');
     }
 
 }

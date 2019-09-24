@@ -4,6 +4,9 @@ import { Observable } from 'rxjs';
 import { StateService } from './state.service';
 import { CompteService } from './compte.service';
 
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
+
 @Injectable()
 
 export class CompteGuard implements CanActivate {
@@ -24,18 +27,8 @@ export class CompteGuard implements CanActivate {
 				(auth) => {
 				    console.log('Dans canActivate auth',auth);
 				    if (!auth) {
-					this.stateService.part$.subscribe(
-					    (num) => {
-						console.log('Dans canActivate num',num);
-						if (num === 5) {
-						    this.router.navigate(['/comptes/all-comptes/single-compte']);
-						    this.router.navigate(['/comptes/all-comptes/new-compte']);
-						} else if (num === 1) {
-						    console.log('Dans canActivate aller à login');
-						    this.router.navigate(['/login']);
-						}
-					    }
-					);
+					console.log('Dans canActivate aller à login');
+					this.router.navigate(['/login']);
 				    }
 				    observer.next(true);
 				}
@@ -43,4 +36,5 @@ export class CompteGuard implements CanActivate {
 			}
 		    );
 		}
+    
 }

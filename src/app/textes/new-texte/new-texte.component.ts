@@ -23,11 +23,9 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 
     private texteForm: FormGroup;
     private loading = false;
-    private part: number;
     private errorMessage: string;
     private debug: boolean;
     
-    private partSub: Subscription;
     private currentEmailSub: Subscription;
     private currentEmail: string;
 
@@ -56,12 +54,6 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 
 	this.debug = this.stateService.debug;
     	console.log('Dans ngOnInit debug', this.debug);
-
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		this.part = num;
-	    }
-	);
 
 	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
 	    (reg) => {
@@ -148,7 +140,6 @@ export class NewTexteComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-	this.partSub.unsubscribe();
     }
 
 }

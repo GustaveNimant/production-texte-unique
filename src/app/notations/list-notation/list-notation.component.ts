@@ -18,14 +18,12 @@ import * as O from '../../models/outils';
 export class ListNotationComponent implements OnInit, OnDestroy {
 
     public notations: NotationModel[] = [];
-    public part: number;
     public loading: boolean;
     public debug: boolean;
     public isAuth: boolean;
 
     private currentUrl: string;
     private notationsSub: Subscription;
-    private partSub: Subscription;
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
@@ -50,13 +48,6 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	this.currentUrl = this.router.url;
 	this.stateService.currentUrl$.next(this.currentUrl);
 	console.log('Dans',here,'currentUrl', this.currentUrl);
-
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans',here,'num',num);
-		this.part = num;
-	    }
-	);
 
 	this.notationsSub = this.notationService.notations$.subscribe(
 	    (not_a) => {
@@ -89,10 +80,8 @@ export class ListNotationComponent implements OnInit, OnDestroy {
     onNotationClicked(id: string) {
 	let here = O.functionName();
 	console.log('Entrée dans',here,'avec id', id);
-	console.log('Entrée dans',here,'avec part', this.part);
-	
-	console.log('Entrée dans',here,'navigation vers ', '/part-four/single-notation/' + id);
-	this.router.navigate(['/part-four/single-notation/' + id]);
+	console.log('Entrée dans',here,'navigation vers ', '/notations/single-notation/' + id);
+	this.router.navigate(['/notations/single-notation/' + id]);
     }
 
     ngOnDestroy() {
@@ -102,8 +91,6 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	this.notationsSub.unsubscribe();
 	O.unsubscribeLog(here, 'notationsSub');
 
-	this.partSub.unsubscribe();
-	O.unsubscribeLog(here, 'partSub');
     }
 
 }

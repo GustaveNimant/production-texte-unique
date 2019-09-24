@@ -15,7 +15,7 @@ import { AppComponent } from './app.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HeaderComponent } from './header/header.component';
 
-import { PartOneComponent }               from './textes/textes.component';
+import { TextesComponent }               from './textes/textes.component';
 
 import { ListTexteComponent }             from './textes/list-texte/list-texte.component';
 import { ModifyTexteComponent }           from './textes/modify-texte/modify-texte.component';
@@ -23,24 +23,24 @@ import { NewTexteComponent }              from './textes/new-texte/new-texte.com
 import { NewTexteVersionComponent }       from './textes/new-texte-version/new-texte-version.component';
 import { SingleTexteComponent }           from './textes/single-texte/single-texte.component';
 
-import { PartTwoComponent }           from './participants/participants.component';
+import { ParticipantsComponent }           from './participants/participants.component';
 import { SingleParticipantComponent } from './participants/single-participant/single-participant.component';
 import { NewParticipantComponent }    from './participants/new-participant/new-participant.component';
 import { ListParticipantComponent }   from './participants/list-participant/list-participant.component';
 
-import { PartThreeComponent }       from './buts/buts.component';
+import { ButsComponent }       from './buts/buts.component';
 import { ListButComponent }         from './buts/list-but/list-but.component';
 import { ModifyButComponent }       from './buts/modify-but/modify-but.component';
 import { NewButComponent }          from './buts/new-but/new-but.component';
 import { SingleButComponent }       from './buts/single-but/single-but.component';
 
-import { PartFourComponent }        from './part-four/part-four.component';
-import { ListNotationComponent }    from './part-four/list-notation/list-notation.component';
-import { NewNotationComponent }     from './part-four/new-notation/new-notation.component';
-import { SingleNotationComponent }  from './part-four/single-notation/single-notation.component';
-import { SumNotationComponent }     from './part-four/sum-notation/sum-notation.component';
+import { NotationsComponent }        from './notations/notations.component';
+import { ListNotationComponent }    from './notations/list-notation/list-notation.component';
+import { NewNotationComponent }     from './notations/new-notation/new-notation.component';
+import { SingleNotationComponent }  from './notations/single-notation/single-notation.component';
+import { SumNotationComponent }     from './notations/sum-notation/sum-notation.component';
 
-import { PartFiveComponent }        from './comptes/comptes.component';
+import { ComptesComponent }        from './comptes/comptes.component';
 import { ListCompteComponent }      from './comptes/list-compte/list-compte.component';
 import { NewCompteComponent }       from './comptes/new-compte/new-compte.component';
 import { SingleCompteComponent }    from './comptes/single-compte/single-compte.component';
@@ -64,11 +64,11 @@ import { IrpProviderComponent }     from './irp-provider/irp-provider.component'
 	NewNotationComponent,
 	NewParticipantComponent,
 	NewTexteComponent,
-	PartFiveComponent,
-	PartFourComponent,
-	PartOneComponent,
-	PartThreeComponent,
-	PartTwoComponent,
+	ComptesComponent,
+	NotationsComponent,
+	TextesComponent,
+	ButsComponent,
+	ParticipantsComponent,
 	SingleCompteComponent,
 	SingleNotationComponent,
 	SingleParticipantComponent,

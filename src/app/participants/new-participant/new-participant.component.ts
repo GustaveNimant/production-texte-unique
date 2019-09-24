@@ -2,10 +2,13 @@ import { Component, OnDestroy, OnInit }       from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router }                             from '@angular/router';
 import { ParticipantModel }             from '../../models/participant.model';
-import { CompteService }            from '../../services/compte.service';
-import { ParticipantService }          from '../../services/participant.service';
+import { CompteService }                from '../../services/compte.service';
+import { ParticipantService }           from '../../services/participant.service';
 import { StateService }                 from '../../services/state.service';
-import { Subscription }                 from 'rxjs';
+import { Subscription } from 'rxjs';
+
+import * as M from '../../irp-provider/managementLibrary';
+import * as O from '../../models/outils';
 
 @Component({
     selector: 'app-new-participant',
@@ -17,11 +20,8 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
 
     public participantForm: FormGroup;
     public loading = false;
-    public part: number;
     public userId: string;
     public errorMessage: string;
-
-    private partSub: Subscription;
 
     constructor(private state: StateService,
 		private formBuilder: FormBuilder,
@@ -42,12 +42,7 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
 	    clePublique: [null, Validators.required],
 	    userId: [null, Validators.required],
 	});
-	this.partSub = this.state.part$.subscribe(
-	    (part) => {
-		this.part = part;
-	    }
-	);
-	this.userId = this.part == 2 ? this.compteService.userId : 'participantID40282382';
+
     }
 
     onSubmit() {
@@ -87,7 +82,9 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-	this.partSub.unsubscribe();
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
     }
 
 }

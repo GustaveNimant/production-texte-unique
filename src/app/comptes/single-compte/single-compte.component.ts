@@ -16,10 +16,8 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
     private compte: CompteModel;
     private loading: boolean;
     private userId: string;
-    private part: number;
     private isAuth: boolean;
     
-    private partSub: Subscription;
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
@@ -53,15 +51,6 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.partSub = this.stateService.part$.subscribe(
-	    (num) => {
-		console.log('Dans ngOnInit num',num);
-		this.part = num;
-		this.userId = this.compteService.userId;
-		console.log('Dans ngOnInit.partSub userId', this.userId);
-	    }
-	);
-
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
@@ -90,7 +79,6 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
     };
 
     ngOnDestroy() {
-    this.partSub.unsubscribe();
   };
 
 };

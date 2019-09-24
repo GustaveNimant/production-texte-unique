@@ -2,13 +2,16 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StateService } from '../services/state.service';
 import { CompteService } from '../services/compte.service';
 
+import * as M from '../irp-provider/managementLibrary';
+import * as O from '../models/outils';
+
 @Component({
     selector: 'app-participants',
     templateUrl: './participants.component.html',
     styleUrls: ['./participants.component.scss']
 })
 
-export class PartTwoComponent implements OnInit, OnDestroy {
+export class ParticipantsComponent implements OnInit, OnDestroy {
 
     constructor(private stateService: StateService,
 		private compteService: CompteService) {
@@ -16,16 +19,17 @@ export class PartTwoComponent implements OnInit, OnDestroy {
     }
     
     ngOnInit() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
 //	this.compteService.isAuth$.next(false);
 	this.compteService.userId = '';
 	this.compteService.token = '';
 	
-	this.stateService.part$.next(2);
-	this.stateService.part = 2;
-	console.log('Dans ngOnInit part assigné à', this.stateService.part);
     }
     
     ngOnDestroy() {
+
     }
     
 }
