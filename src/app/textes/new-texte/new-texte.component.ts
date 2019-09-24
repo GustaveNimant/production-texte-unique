@@ -135,7 +135,7 @@ export class NewTexteComponent implements OnInit, OnDestroy {
 		() => {
 		    this.texteForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-one/list-texte']);
+		    this.router.navigate(['/textes/list-texte']);
 		}
 	    )
 	    .catch(

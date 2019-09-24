@@ -108,7 +108,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onGoAllTexte() {
-	this.router.navigate(['/part-one/all-texte']);
+	this.router.navigate(['/textes/all-texte']);
     }
 
     onNotate() {
@@ -122,11 +122,11 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onModifyTexte() {
-	this.router.navigate(['/part-one/modify-texte/' + this.texte._id]);
+	this.router.navigate(['/textes/modify-texte/' + this.texte._id]);
     }
 
     onNewTexteVersion() {
-	this.router.navigate(['/part-one/new-texte-version/' + this.texte._id]);
+	this.router.navigate(['/textes/new-texte-version/' + this.texte._id]);
     }
 
     onDelete() {
@@ -134,7 +134,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.texteService.deleteTexte(this.texte._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/part-one/all-texte']);
+		this.router.navigate(['/textes/all-texte']);
 	    }
 	);
     }

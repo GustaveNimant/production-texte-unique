@@ -68,7 +68,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
     onTexteClicked(id: string) {
 	console.log('Entrée dans onTexteClicked avec id',id);
-	this.router.navigate(['/part-one/single-texte/' + id]);
+	this.router.navigate(['/textes/single-texte/' + id]);
     }
 
     ngOnDestroy() {

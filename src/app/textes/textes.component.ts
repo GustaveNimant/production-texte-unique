@@ -5,9 +5,9 @@ import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-part-one',
-  templateUrl: './part-one.component.html',
-  styleUrls: ['./part-one.component.scss']
+  selector: 'app-textes',
+  templateUrl: './textes.component.html',
+  styleUrls: ['./textes.component.scss']
 })
 
 export class PartOneComponent implements OnInit {

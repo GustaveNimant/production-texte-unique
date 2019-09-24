@@ -3,12 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { MainMenuComponent }     from './main-menu/main-menu.component';
 
-import { PartOneComponent }               from './part-one/part-one.component';
-import { ListTexteComponent }             from './part-one/list-texte/list-texte.component';
-import { ModifyTexteComponent }           from './part-one/modify-texte/modify-texte.component';
-import { NewTexteComponent }              from './part-one/new-texte/new-texte.component';
-import { NewTexteVersionComponent }       from './part-one/new-texte-version/new-texte-version.component';
-import { SingleTexteComponent }           from './part-one/single-texte/single-texte.component';
+import { PartOneComponent }               from './textes/textes.component';
+import { ListTexteComponent }             from './textes/list-texte/list-texte.component';
+import { ModifyTexteComponent }           from './textes/modify-texte/modify-texte.component';
+import { NewTexteComponent }              from './textes/new-texte/new-texte.component';
+import { NewTexteVersionComponent }       from './textes/new-texte-version/new-texte-version.component';
+import { SingleTexteComponent }           from './textes/single-texte/single-texte.component';
 
 import { PartTwoComponent }               from './part-two/part-two.component';
 import { ListParticipantComponent }       from './part-two/list-participant/list-participant.component';
@@ -38,7 +38,7 @@ import { CompteGuard }                 from './services/compte-guard.service';
 import { IrpProviderComponent }        from './irp-provider/irp-provider.component';
 
 const routes: Routes = [
-    { path: 'part-one', component: PartOneComponent,
+    { path: 'textes', component: PartOneComponent,
       children: [
 	  { path: 'new-texte', component: NewTexteComponent},
 	  { path: 'single-texte/:id', component: SingleTexteComponent },

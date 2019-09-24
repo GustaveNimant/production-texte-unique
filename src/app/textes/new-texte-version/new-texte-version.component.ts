@@ -5,13 +5,15 @@ import { TexteModel } from '../../models/texte.model';
 import { StateService }  from '../../services/state.service';
 import { TexteService } from '../../services/texte.service';
 import { Subscription } from 'rxjs';
+import { createSha } from '../../models/outils';
 
 @Component({
-    selector: 'app-modify-texte',
-    templateUrl: './modify-texte.component.html',
-    styleUrls: ['./modify-texte.component.scss']
+    selector: 'app-new-texte-version',
+    templateUrl: './new-texte-version.component.html',
+    styleUrls: ['./new-texte-version.component.scss']
 })
-export class ModifyTexteComponent implements OnInit {
+
+export class NewTexteVersionComponent implements OnInit {
 
     texte: TexteModel;
     texteForm: FormGroup;
@@ -33,12 +35,7 @@ export class ModifyTexteComponent implements OnInit {
 
 	this.loading = true;
 	this.texteForm = this.formBuilder.group({
-	    titre: [null, Validators.required],
 	    contenu: [null, Validators.required],
-	    shasum: [null, Validators.required],
-	    noteMoyenne: [0, Validators.required],
-	    noteEcartType: [0, Validators.required],
-	    auteurId: [null, Validators.required],
 	});
 
 	this.partSub = this.stateService.part$.subscribe(
@@ -53,17 +50,14 @@ export class ModifyTexteComponent implements OnInit {
 	this.route.params.subscribe(
 	    (par) => {
 		console.log('Dans ngOnInit par',par);
+		
 		/* Improve calculer la noteMoyenne pour cet id avec list-notation */
+
 		this.texteService.getTexteByObjectId(par.id).then(
 		    (tex: TexteModel) => {
 			console.log('Dans ngOnInit tex',tex);
 			this.texte = tex;
-			this.texteForm.get('titre').setValue(this.texte.titre);
 			this.texteForm.get('contenu').setValue(this.texte.contenu);
-			this.texteForm.get('shasum').setValue(this.texte.shasum);
-			this.texteForm.get('noteMoyenne').setValue(this.texte.noteMoyenne);
-			this.texteForm.get('noteEcartType').setValue(this.texte.noteEcartType);
-			this.texteForm.get('auteurId').setValue(this.texte.auteurId);
 			this.loading = false;
 		    }
 		);
@@ -71,32 +65,31 @@ export class ModifyTexteComponent implements OnInit {
 	);
     }
 
-    onModifyTexte() { /* modifier seulement le Texte */
-	console.log('Entrée dans onModifyTexte');
+    onNewTexteVersion() {
+	console.log('Entrée dans onNewTexteVersion');
 	this.loading = true;
 
-	const texte = new TexteModel();
 
-	texte.titre = this.texteForm.get('titre').value;
-	texte.contenu = this.texteForm.get('contenu').value;
-	texte.noteMoyenne = this.texteForm.get('noteMoyenne').value;
-	texte.noteEcartType = this.texteForm.get('noteEcartType').value;
-	texte.shasum = this.texteForm.get('shasum').value;
-	texte.auteurId = this.texteForm.get('auteurId').value;
+	let texteNew = new TexteModel();
+        texteNew = this.texte;
 
-	texte._id = this.texte._id;
-	texte.__v = (this.texte.__v +1);
+	texteNew.shasum = createSha (this.texte.contenu, 'SHA-256', 'TEXT', 'HEX');
+	texteNew.contenu = this.texteForm.get('contenu').value;
+	texteNew.version = this.texte.version +1;
 
-	console.log('Dans onModifyTexte texte', texte);
+	texteNew._id = this.texte._id;
+	texteNew.__v = (this.texte.__v +1);
+
+	console.log('Dans onNewTexteVersion texteNew', texteNew);
 	
-	this.texteService.createNewTexte(texte).then(
+	this.texteService.createNewTexteVersion(this.texte._id, texteNew).then(
 		() => {
 		this.texteForm.reset();
 		this.loading = false;
-		this.router.navigate(['/part-one/list-texte']);
+		this.router.navigate(['/textes/list-texte']);
 	    },
 	    (error) => {
-		console.log('Dans onModifyTexte Erreur', error.status);
+		console.log('Dans onNewTexteVersion Erreur', error.status);
 		this.loading = false;
 		this.errorMessage = error.message;
 	    }
