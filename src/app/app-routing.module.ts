@@ -27,10 +27,10 @@ import { NewNotationComponent }           from './part-four/new-notation/new-not
 import { SingleNotationComponent }        from './part-four/single-notation/single-notation.component';
 import { SumNotationComponent }           from './part-four/sum-notation/sum-notation.component';
 
-import { PartFiveComponent }              from './part-five/part-five.component';
-import { ListCompteComponent }         from './part-five/list-compte/list-compte.component';
-import { NewCompteComponent }          from './part-five/new-compte/new-compte.component';
-import { SingleCompteComponent }       from './part-five/single-compte/single-compte.component';
+import { PartFiveComponent }              from './comptes/comptes.component';
+import { ListCompteComponent }         from './comptes/list-compte/list-compte.component';
+import { NewCompteComponent }          from './comptes/new-compte/new-compte.component';
+import { SingleCompteComponent }       from './comptes/single-compte/single-compte.component';
 
 import { LoginComponent } from './login/login.component';
 
@@ -82,7 +82,7 @@ const routes: Routes = [
 	  { path: '**', redirectTo: 'list-notation' }
       ]
     },
-    { path: 'part-five', component: PartFiveComponent,
+    { path: 'comptes', component: PartFiveComponent,
       children: [
 	  { path: 'new-compte', component: NewCompteComponent},
 	  { path: 'new-compte/:id', component: NewCompteComponent},

@@ -2,7 +2,7 @@
     <ul class="header-navigation">
 	<li class="header-navigation-item" *ngIf="(!isAuth)">
 	    <a class="header-link"
-	       routerLink="/part-five/new-compte"
+	       routerLink="/comptes/new-compte"
 	       routerLinkActive="active">Créer<br>un compte</a>
 	</li>
 	<li class="header-navigation-item" *ngIf="(!isAuth)">
@@ -42,7 +42,6 @@
     
 </header>
 
-<div *ngIf="debug">Debug:Dans header.component.html part = {{part}}</div>
 <div *ngIf="debug">Debug:Dans header.component.html isAuth = {{isAuth}}</div>
 
 

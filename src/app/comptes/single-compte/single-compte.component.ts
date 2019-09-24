@@ -72,11 +72,11 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
     };
 
     onGoBack() {
-	this.router.navigate(['/part-five/list-comptes']);
+	this.router.navigate(['/comptes/list-comptes']);
     };
 
     onModify() {
-	this.router.navigate(['/part-five/list-comptes/']);
+	this.router.navigate(['/comptes/list-comptes/']);
     };
 
     onDelete() {
@@ -84,7 +84,7 @@ export class SingleCompteComponent implements OnInit, OnDestroy {
 	this.compteService.deleteCompte(this.compte._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/part-five/list-comptes']);
+		this.router.navigate(['/comptes/list-comptes']);
 	    }
 	);
     };

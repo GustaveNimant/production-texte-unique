@@ -3,9 +3,9 @@ import { StateService } from '../services/state.service';
 import { CompteService } from '../services/compte.service';
 
 @Component({
-    selector: 'app-part-five',
-    templateUrl: './part-five.component.html',
-    styleUrls: ['./part-five.component.scss']
+    selector: 'app-comptes',
+    templateUrl: './comptes.component.html',
+    styleUrls: ['./comptes.component.scss']
 })
 
 export class PartFiveComponent implements OnInit, OnDestroy {

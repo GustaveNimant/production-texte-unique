@@ -84,7 +84,7 @@ export class NewCompteComponent implements OnInit, OnDestroy {
 		() => {
 		    this.compteForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-five/list-compte']);
+		    this.router.navigate(['/comptes/list-compte']);
 		    }
 	    )
 	    .catch(

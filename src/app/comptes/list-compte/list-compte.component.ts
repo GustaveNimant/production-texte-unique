@@ -51,8 +51,8 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit com_a',com_a);
 		this.loading = false;
 		if (com_a.length <= 0) {
-		    console.log('Dans',here,'navigation vers /part-five/new-compte/');
-		    this.router.navigate(['/part-five/new-compte/']);
+		    console.log('Dans',here,'navigation vers /comptes/new-compte/');
+		    this.router.navigate(['/comptes/new-compte/']);
 		} else {
 		    this.compte_a = com_a;
 		}
@@ -76,8 +76,8 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	console.log('Entrée dans',here,'avec id', id);
 	console.log('Entrée dans',here,'avec part', this.part);
 	
-	console.log('Dans onCompteClicked navigation vers ', '/part-five/single-compte/' + id);
-	this.router.navigate(['/part-five/single-compte/' + id]);
+	console.log('Dans onCompteClicked navigation vers ', '/comptes/single-compte/' + id);
+	this.router.navigate(['/comptes/single-compte/' + id]);
     }
 
     ngOnDestroy() {

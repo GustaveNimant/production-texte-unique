@@ -28,8 +28,8 @@ export class CompteGuard implements CanActivate {
 					    (num) => {
 						console.log('Dans canActivate num',num);
 						if (num === 5) {
-						    this.router.navigate(['/part-five/all-comptes/single-compte']);
-						    this.router.navigate(['/part-five/all-comptes/new-compte']);
+						    this.router.navigate(['/comptes/all-comptes/single-compte']);
+						    this.router.navigate(['/comptes/all-comptes/new-compte']);
 						} else if (num === 1) {
 						    console.log('Dans canActivate aller à login');
 						    this.router.navigate(['/login']);

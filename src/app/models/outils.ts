@@ -80,10 +80,10 @@ export function partStringOfNumber(num : number) : string {
 	    return 'part-four';
 	    break;
 	case 5:
-	    return 'part-five';
+	    return 'comptes';
 	    break;
 	default:
-	    return 'part-five';
+	    return 'comptes';
 	    break;
     }
 }
