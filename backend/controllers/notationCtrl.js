@@ -32,28 +32,6 @@ exports.createNotationCtrl = (req, res, next) => {
 	);
 };
 
-exports.getOneNotationCtrl = (req, res, next) => {
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.body ', req.body)};}
-    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.params.id ', req.params.id)};}
-    
-    notationMongooseModel.findOne({
-	_id: req.params.id
-    })
-	.then(
-	    (not) => {
-		if (Debug.debug) {console.log('Dans notationCtrl.js.getOneNotationCtrl not', not)};
-		res.status(200).json(not);
-		
-	    }
-	).catch(
-	    (error) => {
-		res.status(404).json({
-		    error: error
-		});
-	    }
-	);
-};
-
 exports.deleteNotationCtrl = (req, res, next) => {
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.body ', req.body)};}
     if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.deleteNotationCtrl avec req.params.id ', req.params.id)};}
@@ -92,6 +70,28 @@ exports.getAllNotationCtrl = (req, res, next) => {
 	);
 };
 
+exports.getOneNotationCtrl = (req, res, next) => {
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.body ', req.body)};}
+    if (Debug.debug) {if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getOneNotationCtrl avec req.params.id ', req.params.id)};}
+    
+    notationMongooseModel.findOne({
+	_id: req.params.id
+    })
+	.then(
+	    (not) => {
+		if (Debug.debug) {console.log('Dans notationCtrl.js.getOneNotationCtrl not', not)};
+		res.status(200).json(not);
+		
+	    }
+	).catch(
+	    (error) => {
+		res.status(404).json({
+		    error: error
+		});
+	    }
+	);
+};
+
 exports.getNotationsByTexteObjectIdCtrl = (req, res, next) => {
     
     if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getNotationsByTexteObjectIdCtrl avec req.params ', req.params)};
@@ -102,6 +102,33 @@ exports.getNotationsByTexteObjectIdCtrl = (req, res, next) => {
 	    (not_a) => {
 		if (Debug.debug) {console.log('Dans notationCtrl.js.getNotationsByTexteObjectIdCtrl not_a', not_a)};
 		res.status(200).json(not_a);
+		}
+	).catch(
+	    (error) => {
+		res.status(400).json({
+		    error: error
+		});
+	    }
+	);
+};
+
+exports.getNotationsByTexteObjectIdAndParticipantIdCtrl = (req, res, next) => {
+    
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getNotationsByTexteObjectIdAndParticipantIdCtrl avec req.params ', req.params)};
+
+    
+    texteObjectId = (req.params.TexteObjectIdAndParticipantId).split(':')[0];
+    participantId = (req.params.TexteObjectIdAndParticipantId).split(':')[1];
+    
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getNotationsByTexteObjectIdAndParticipantIdCtrl avec req.params.texteObjectId ', texteObjectId)};
+    if (Debug.debug) {console.log('Entrée dans notationCtrl.js.getNotationsByTexteObjectIdAndParticipantIdCtrl avec req.params.participantId ', participantId)};
+
+    notationMongooseModel.find({texteObjectId: texteObjectId, participantId: participantId})
+	.then(
+	    (not_a) => {
+		if (Debug.debug) {console.log('Dans notationCtrl.js.getNotationsByTexteObjectIdAndParticipantIdCtrl not_a', not_a)};
+		boo = (not_a.length > 0);
+		res.status(200).json(boo);
 		}
 	).catch(
 	    (error) => {

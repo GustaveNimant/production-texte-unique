@@ -30,24 +30,26 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 
     private currentEmailSub: Subscription;
     private isAuthSub: Subscription;
-    private currentParticipantIdSub: Subscription;
+
     private currentParticipantId: string;
     private currentParticipantPseudo: string;
 
     private currentDate: string;
     private currentCompte = new CompteModel();
 
-    private currentTexteObjectIdSub: Subscription;
+    private currentTexteAuteurId: string;
     private currentTexteObjectId: string;
 
     private irpRegisterSub: Subscription;
     private irpRegister= new Object();
-	
+
     private currentTexte = new TexteModel();
     private currentTexteTitre: string;
     private currentEmail: string;
     private isAuth: boolean;
-    
+
+    private existsNotation: boolean = false;
+
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
 		private router: Router,
@@ -60,10 +62,40 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		{
 		    console.log('Entrée dans constructor');
 		}
-    
+
     ngOnInit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
+
+	this.currentDate = new Date().toString();
+	console.log('Dans',here,' currentDate', this.currentDate);
+
+	this.stateService.mode$.next('form');
+
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
+	    (boo) => {
+		this.isAuth = boo;
+		console.log('Dans',here,' isAuth', this.isAuth);
+	    }
+	);
+	/* Pseudo et Id à partir de Email */
+
+	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
+	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
+
+	this.compteService.getCompteByEmail (this.currentEmail)
+	    .then(
+		(com: CompteModel) => {
+		    console.log('Dans',here,' getCompteIdByEmail com', com);
+		    this.currentCompte = com;
+		    this.currentParticipantPseudo = com.pseudo;
+		    this.currentParticipantId = com._id;
+		},
+	    ).catch (
+		(error) => {
+		    console.log('Dans',here,'getCompteByEmail Erreur', error);
+		}
+	    );
 
 	/* Une notation se fait en cliquant sur un Texte */
 	this.activatedRoute.params.subscribe(
@@ -84,6 +116,8 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		    console.log('Dans',here,'getTexteIdByObjectId tex', tex);
 		    this.currentTexte = tex;
 		    this.currentTexteTitre = tex.titre;
+		    this.onExistNotation ();
+		    console.log('Dans',here,'getTexteIdByObjectId sortie');
 		},
 	    ).catch (
 		(error) => {
@@ -91,41 +125,45 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		}
 	    );
 
-	
-	this.currentDate = new Date().toString();
-	console.log('Dans',here,' currentDate', this.currentDate);
-	
-	this.stateService.mode$.next('form');
+	console.log('Dans',here,'existsNotation',this.existsNotation);
+
+	if (this.existsNotation) {
+	    console.log('Dans',here,'la notation existe');
+	    alert('Dans '+here+' la notation existe!');
+	} else {
 
  	this.notationForm = this.formBuilder.group({
 	    note: [1],
 	});
-	
-	this.isAuthSub = this.compteService.isAuth$.subscribe(
-	    (boo) => {
-		this.isAuth = boo;
-		console.log('Dans',here,' isAuth', this.isAuth);
-	    }
-	);
 
-	/* Pseudo et Id à partir de Email */
+	}
+	M.exiting_from_function (here);
+    }
+
+    onExistNotation () {
+	let here = O.functionName();
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
-	this.currentEmail = this.dataProviderService.dataProvide ('currentEmail', here);
-	console.log('Dans',here,'from DataProvider currentEmail',this.currentEmail);
-	this.compteService.getCompteByEmail (this.currentEmail)
+	this.currentTexteObjectId = this.currentTexte._id;
+	this.currentParticipantId = this.currentParticipantId;
+	console.log('Dans',here,'currentTexteObjectId',this.currentTexteObjectId);
+	console.log('Dans',here,'currentParticipantId',this.currentParticipantId);
+	
+	this.notationService.existsNotationByTextIdAndParticipantId (this.currentTexteObjectId, this.currentParticipantId)
 	    .then(
-		(com: CompteModel) => {
-		    console.log('Dans',here,' getCompteIdByEmail com', com);
-		    this.currentCompte = com;
-		    this.currentParticipantPseudo = com.pseudo;
-		    this.currentParticipantId = com._id;
+		(boo) => {
+		    console.log('Dans',here,'existsNotationByTextIdByParticipantId',boo);
+		    this.existsNotation = boo;
 		},
-	    ).catch (
+	    )
+	    .catch (
 		(error) => {
-		    console.log('Dans',here,' currentParticipantIdSub getCompteByEmail Erreur', error);
+		    console.log('Dans onSubmit Erreur', error);
+		    console.log('Dans onSubmit Erreur.status', error.status);
+		    this.loading = false;
+		    this.errorMessage = error.message;
 		}
 	    );
-	M.exiting_from_function (here);	
     }
 
     onSubmit() {
@@ -135,16 +173,16 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	this.loading = true;
 
 	const notation = new NotationModel();
-	
+
 	notation.texteTitre = this.currentTexteTitre;
 	notation.texteObjectId = this.currentTexteObjectId;
 	notation.participantPseudo = this.currentParticipantPseudo;
 	notation.participantId = this.currentParticipantId;
 	notation.date = this.currentDate;
-	
+
 	notation.note = this.notationForm.get('note').value;
 	console.log('Dans onSubmit notation', notation);
-	
+
 	this.notationService.createNewNotation(notation)
 	    .then(
 		() => {
@@ -161,18 +199,19 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		    this.errorMessage = error.message;
 		}
 	    );
-	M.exiting_from_function (here);	
+	console.log('%cSortie de','color:#00aa00', here);
+	M.exiting_from_function (here);
     }
 
-    ngOnDestroy() {
-	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here);
+ngOnDestroy() {
+    let here = O.functionName ();
+    console.log('%cEntrée dans','color:#00aa00', here);
 
-	M.exiting_from_function (here);	
-	//	this.currentEmailSub.unsubscribe();
-	//	this.isAuthSub.unsubscribe();
-	//	this.currentParticipantIdSub.unsubscribe();
-	//	this.currentTexteObjectIdSub.unsubscribe();
-    }
+    M.exiting_from_function (here);
+    //	this.currentEmailSub.unsubscribe();
+    //	this.isAuthSub.unsubscribe();
+    //	this.currentParticipantIdSub.unsubscribe();
+    //	this.currentTexteObjectIdSub.unsubscribe();
+}
 
 }

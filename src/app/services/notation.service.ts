@@ -39,6 +39,26 @@ export class NotationService {
 	});
     }
     
+    deleteNotation(id: string) {
+	console.log('Entrée dans deleteNotation avec id',id);
+
+	return new Promise((resolve, reject) => {
+	    this.http.delete(this.uri_all + id).subscribe(
+		(response) => {
+		    resolve(response);
+		},
+		(error) => {
+		    reject(error);
+		}
+	    );
+	});
+    }
+
+    emitNotations() {
+	console.log('Entrée dans emitNotations avec les notations', this.notations);
+	this.notations$.next(this.notations);
+    }
+
     getNotations() {
 	console.log('Entrée dans getNotations avec uri_all', this.uri_all);
 
@@ -69,11 +89,6 @@ export class NotationService {
 	});
     }
     
-    emitNotations() {
-	console.log('Entrée dans emitNotations avec les notations', this.notations);
-	this.notations$.next(this.notations);
-    }
-
     getNotationById(id: string) {
 	console.log('Entrée dans getNotationById avec id', id);
 
@@ -106,12 +121,14 @@ export class NotationService {
 	});
     }
 
-    deleteNotation(id: string) {
-	console.log('Entrée dans deleteNotation avec id',id);
+    existsNotationByTextIdAndParticipantId (texteObjectId: string, participantId:string) {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00',here,'avec texteObjectId',texteObjectId,'participantId',participantId);
 
 	return new Promise((resolve, reject) => {
-	    this.http.delete(this.uri_all + id).subscribe(
+	    this.http.get(this.uri_all + 'and/' + texteObjectId+':'+participantId).subscribe(
 		(response) => {
+		    console.log(here,'response',response);
 		    resolve(response);
 		},
 		(error) => {
@@ -119,6 +136,6 @@ export class NotationService {
 		}
 	    );
 	});
+	
     }
-
-}
+} // export

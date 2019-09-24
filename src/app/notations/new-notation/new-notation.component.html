@@ -19,7 +19,8 @@
 	</div>
 	<button class="btn btn-primary"
 		       (click)="onSubmit()"
-		       [disabled]="notationForm.invalid">Submit</button>
+		       [disabled]="notationForm.invalid"
+		       [disabled]="existsNotation">Submit</button>
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans new-notation.component.html.<br>Erreur lors de la création de la notation:<br> {{ errorMessage }}</p>
     </form>
