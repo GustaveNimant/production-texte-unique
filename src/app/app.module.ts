@@ -28,11 +28,11 @@ import { SingleParticipantComponent } from './participants/single-participant/si
 import { NewParticipantComponent }    from './participants/new-participant/new-participant.component';
 import { ListParticipantComponent }   from './participants/list-participant/list-participant.component';
 
-import { PartThreeComponent }       from './part-three/part-three.component';
-import { ListButComponent }         from './part-three/list-but/list-but.component';
-import { ModifyButComponent }       from './part-three/modify-but/modify-but.component';
-import { NewButComponent }          from './part-three/new-but/new-but.component';
-import { SingleButComponent }       from './part-three/single-but/single-but.component';
+import { PartThreeComponent }       from './buts/buts.component';
+import { ListButComponent }         from './buts/list-but/list-but.component';
+import { ModifyButComponent }       from './buts/modify-but/modify-but.component';
+import { NewButComponent }          from './buts/new-but/new-but.component';
+import { SingleButComponent }       from './buts/single-but/single-but.component';
 
 import { PartFourComponent }        from './part-four/part-four.component';
 import { ListNotationComponent }    from './part-four/list-notation/list-notation.component';

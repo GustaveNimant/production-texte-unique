@@ -74,7 +74,7 @@ export function partStringOfNumber(num : number) : string {
 	    return 'participants';
 	    break;
 	case 3:
-	    return 'part-three';
+	    return 'buts';
 	    break;
 	case 4:
 	    return 'part-four';
