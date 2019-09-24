@@ -55,11 +55,11 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
     }
 
     onGoBack() {
-	this.router.navigate(['/part-two/list-participant']);
+	this.router.navigate(['/participants/list-participant']);
     }
 
     onModify() {
-	this.router.navigate(['/part-two/modify-participant/' + this.participantModel._id]);
+	this.router.navigate(['/participants/modify-participant/' + this.participantModel._id]);
     }
 
     onDelete() {
@@ -67,7 +67,7 @@ export class SingleParticipantComponent implements OnInit, OnDestroy {
 	this.participantService.deleteParticipant(this.participantModel._id).then(
 	    () => {
 		this.loading = false;
-			this.router.navigate(['/part-two/list-participant']);
+			this.router.navigate(['/participants/list-participant']);
 	    }
 	);
     }

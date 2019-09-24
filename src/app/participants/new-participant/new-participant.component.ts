@@ -74,7 +74,7 @@ export class NewParticipantComponent implements OnInit, OnDestroy {
 		() => {
 		    this.participantForm.reset();
 		    this.loading = false;
-		    this.router.navigate(['/part-two/list-participant']);
+		    this.router.navigate(['/participants/list-participant']);
 		}
 	    )
 	    .catch(

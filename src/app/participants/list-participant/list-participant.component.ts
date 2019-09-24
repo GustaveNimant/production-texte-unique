@@ -53,8 +53,8 @@ export class ListParticipantComponent implements OnInit, OnDestroy {
     onParticipantClicked(id: string) {
 	console.log('Entrée dans onParticipantClicked avec id', id);
 	console.log('Entrée dans onParticipantClicked avec part', this.part);
-	console.log('Entrée dans onParticipantClicked navigation vers ', '/part-two/single-participant/' + id);
-	this.router.navigate(['/part-two/single-participant/' + id]);
+	console.log('Entrée dans onParticipantClicked navigation vers ', '/participants/single-participant/' + id);
+	this.router.navigate(['/participants/single-participant/' + id]);
     }
 
     ngOnDestroy() {

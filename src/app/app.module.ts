@@ -23,10 +23,10 @@ import { NewTexteComponent }              from './textes/new-texte/new-texte.com
 import { NewTexteVersionComponent }       from './textes/new-texte-version/new-texte-version.component';
 import { SingleTexteComponent }           from './textes/single-texte/single-texte.component';
 
-import { PartTwoComponent }           from './part-two/part-two.component';
-import { SingleParticipantComponent } from './part-two/single-participant/single-participant.component';
-import { NewParticipantComponent }    from './part-two/new-participant/new-participant.component';
-import { ListParticipantComponent }   from './part-two/list-participant/list-participant.component';
+import { PartTwoComponent }           from './participants/participants.component';
+import { SingleParticipantComponent } from './participants/single-participant/single-participant.component';
+import { NewParticipantComponent }    from './participants/new-participant/new-participant.component';
+import { ListParticipantComponent }   from './participants/list-participant/list-participant.component';
 
 import { PartThreeComponent }       from './part-three/part-three.component';
 import { ListButComponent }         from './part-three/list-but/list-but.component';
