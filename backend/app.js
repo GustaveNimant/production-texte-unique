@@ -23,11 +23,11 @@ app.use((req, res, next) => { /* no route : applies to all incoming requests */
 
 app.use(bodyParser.json());              /* reception de la requête sous forme d'Objet JSON */
 
-app.use('/api/all-comptes', compteRoutes);
-app.use('/api/all-buts', butRoutes);
-app.use('/api/all-notations', notationRoutes);
-app.use('/api/all-participants', participantRoutes); 
-app.use('/api/all-textes', texteRoutes); 
+app.use('/api/comptes', compteRoutes);
+app.use('/api/buts', butRoutes);
+app.use('/api/notations', notationRoutes);
+app.use('/api/participants', participantRoutes); 
+app.use('/api/textes', texteRoutes); 
 
 mongoose.connect(dbConfig.DB_URI, {
     useCreateIndex: true,
