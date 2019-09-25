@@ -42,14 +42,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 	let here = O.functionName();
 	console.log('%cEntrée dans','color: #00aa00', here);;
 
-	this.compteService.isAuth$.next(true);
 	this.stateService.mode$.next('form');
 
 	this.loginForm = this.formBuilder.group({
 	    email: [null, [Validators.required, Validators.email]],
 	    password: [null, [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)]]
 	});
-	
+
     	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {
 		this.currentUrl = url;
@@ -82,8 +81,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 		() => {
 		    this.loginForm.reset();
 		    this.loading = false;
-		    console.log('Dans onLogin currentUrl >', this.currentUrl,'<');
+		    
+		    this.compteService.isAuth$.next(true); /* Improve ? */
 
+		    console.log('Dans onLogin currentUrl >', this.currentUrl,'<');
 		    if (this.currentUrl && this.currentUrl != '/login') {
 			this.router.navigate([this.currentUrl]);
 		    } else {

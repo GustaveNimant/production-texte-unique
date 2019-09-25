@@ -43,6 +43,8 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	this.stateService.currentUrl$.next(this.router.url);
 	console.log('Dans',here,'this.router.url',this.router.url);
 
+	this.compteService.getComptes(here); /* Improve ?? */
+
 	this.compte_aSub = this.compteService.compte_a$.subscribe(
 	    (com_a) => {
 		console.log('Dans ngOnInit com_a',com_a);
@@ -56,7 +58,6 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	    }
 	);
 	
-	this.compteService.getComptes(here);
     }
 
     onCompteClicked(id: string) {

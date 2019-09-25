@@ -79,23 +79,27 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	
 	console.log('Dans',here,'from irpRegisterService currentEmail',this.currentEmail);
 
-	this.compteService.getCompteByEmail (this.currentEmail)
-	    .then(
-		(com: CompteModel) => {
-		    console.log('Dans',here,' getCompteIdByEmail com', com);
-		    this.currentCompte = com;
-		    this.pseudo = com.pseudo;
-		},
-	    ).catch (
-		(error) => {
-		    console.log('Dans',here,'getCompteByEmail Erreur', error);
-		}
-	    );
+	if (this.currentEmail == undefined) {
+	    this.pseudo = undefined;
+	} else {
+	    this.compteService.getCompteByEmail (this.currentEmail)
+		.then(
+		    (com: CompteModel) => {
+			console.log('Dans',here,' getCompteIdByEmail com', com);
+			this.currentCompte = com;
+			this.pseudo = com.pseudo;
+		    },
+		).catch (
+		    (error) => {
+			console.log('Dans',here,'getCompteByEmail Erreur', error);
+		    }
+		);
+	}
 	console.log('Dans',here,'from getCompteByEmail pseudo',this.pseudo);
-
+	
 	O.exiting_from_function (here);
     }
-
+    
     onLogout() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
