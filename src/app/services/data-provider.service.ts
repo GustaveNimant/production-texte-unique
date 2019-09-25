@@ -29,15 +29,12 @@ export class DataProviderService {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	// console.log('Dans',here,'navigation vers /irp-provider-current-email');
-	//	this.router.navigate(['/irp-provider-current-email']);
-
 	/* récupère currentEmail initialisé par login */
 	this.irpRegisterSub = this.irpRegisterService.irpRegister$.subscribe(
 	    (reg) => {
 		this.irpRegister = reg;
-		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister', this.irpRegister);
 		this.currentEmail = reg['currentEmail'];
+		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => irpRegister >', this.irpRegister,'<');
 		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
 		
 		if (reg == '' ||
@@ -53,7 +50,7 @@ export class DataProviderService {
 	    }
 	);
 
-	O.exiting_from_function_with_what (here,'with currentEmail',this.currentEmail);	
+	O.exiting_from_function_with_what (here,'currentEmail',this.currentEmail);	
 	return this.currentEmail;
     }
 

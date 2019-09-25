@@ -24,9 +24,12 @@ export class IrpRegisterService {
 
 	console.log(here,'irpRegister >',this.irpRegister,'<');
 	
-	if (this.irpRegister == undefined || this.irpRegister == "") {
+	if (this.irpRegister == undefined ||
+	    this.irpRegister == "") {
 	    this.irpRegister = new Object();
+	    console.log(here,'irpRegister créé');
 	}
+	
 	this.irpRegister[irpKey] = irpVal;
 	console.log(here,': irpRegister["'+irpKey+'"] <= "'+irpVal+'"');
 	
@@ -56,18 +59,17 @@ export class IrpRegisterService {
 	console.log(here,': irpRegister["',irpKey,'"] = >',this.irpRegister[irpKey],'<');
 	let result = this.irpRegister[irpKey] != undefined;
 	console.log(here,': result',result);
-	O.exiting_from_function (here)
+	O.exiting_from_function_with_what (here,'result',result)
 	return result;
 	
     }
 
     irpRetrieve (irpKey, caller):any {
 	let here = O.functionName ();
-	O.entering_in_function (here + '(' + irpKey + ', ' + caller +')')
+	O.entering_in_function (here + '("' + irpKey + '", ' + caller +')')
 
 	let result = this.irpRegister[irpKey];
-	console.log(here,': "'+irpKey+'" =>',result,'<');
-	O.exiting_from_function (here)
+	O.exiting_from_function_with_what (here,'result',result)
 	return result;
     }
 }

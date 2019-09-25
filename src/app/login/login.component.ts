@@ -66,11 +66,13 @@ export class LoginComponent implements OnInit, OnDestroy {
 	const email = this.loginForm.get('email').value;
 	const password = this.loginForm.get('password').value;
 
-	console.log('Dans onLogin email', email);
-	console.log('Dans onLogin password', password);
+	console.log('Dans',here,'email', email);
+	console.log('Dans',here,'password', password);
 
 	/* Irp Data */
 	let irpRegister = this.irpRegisterService.irpRegister;
+	console.log('Dans',here,'irpRegister',irpRegister);
+
         let irpKey = 'currentEmail'; /* Improve */
 	let irpVal = email;
 	this.irpRegisterService.irpStore(irpKey, irpVal, here);
