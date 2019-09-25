@@ -7,10 +7,9 @@ import { NotationService }                    from '../../services/notation.serv
 import { TexteService }       from '../../services/texte.service';
 import { StateService }                       from '../../services/state.service';
 import { Subscription }                       from 'rxjs';
-import { sumOfArray, averageOfArray, varianceOfArray, rmsOfArray }  from '../../models/outils';
+import { sumOfArray, averageOfArray, varianceOfArray, rmsOfArray }  from '../../outils/outils-statistics';
 
-import * as M from '../../irp-provider/managementLibrary';
-import * as O from '../../models/outils';
+import * as O from '../../outils/outils-management';
 
 @Component({
     selector: 'app-sum-notation',

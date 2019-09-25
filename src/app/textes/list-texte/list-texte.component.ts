@@ -6,8 +6,7 @@ import { Router } from '@angular/router';
 import { TexteModel }    from '../../models/texte.model';
 import { CompteService } from '../../services/compte.service';
 
-import * as M from '../../irp-provider/managementLibrary';
-import * as O from '../../models/outils';
+import * as O from '../../outils/outils-management';
 
 @Component({
     selector: 'app-list-texte',
@@ -72,7 +71,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	this.textesSub.unsubscribe();
 	
 	O.unsubscribeLog(here, 'textesSub');
-	M.exiting_from_function (here);
+	O.exiting_from_function (here);
     }
 
 }

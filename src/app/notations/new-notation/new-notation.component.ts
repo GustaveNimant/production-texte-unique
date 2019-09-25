@@ -13,8 +13,7 @@ import { IrpRegisterService } from '../../services/irp-register.service';
 
 import { Subscription }                       from 'rxjs';
 
-import * as M from '../../irp-provider/managementLibrary';
-import * as O from '../../models/outils';
+import * as O from '../../outils/outils-management';
 
 @Component({
     selector: 'app-new-notation',
@@ -48,7 +47,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
     private currentEmail: string;
     private isAuth: boolean;
 
-    private existsNotation: boolean = false;
+    private existsNotation:any; /* Improve boolean ? */
 
     constructor(private stateService: StateService,
 		private formBuilder: FormBuilder,
@@ -117,7 +116,6 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		    this.currentTexte = tex;
 		    this.currentTexteTitre = tex.titre;
 		    this.onExistNotation ();
-		    console.log('Dans',here,'getTexteIdByObjectId sortie');
 		},
 	    ).catch (
 		(error) => {
@@ -131,13 +129,11 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	    console.log('Dans',here,'la notation existe');
 	    alert('Dans '+here+' la notation existe!');
 	} else {
-
- 	this.notationForm = this.formBuilder.group({
-	    note: [1],
-	});
-
+ 	    this.notationForm = this.formBuilder.group({
+		note: [5],
+	    });
 	}
-	M.exiting_from_function (here);
+	O.exiting_from_function (here);
     }
 
     onExistNotation () {
@@ -153,6 +149,7 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 	    .then(
 		(boo) => {
 		    console.log('Dans',here,'existsNotationByTextIdByParticipantId',boo);
+		    console.log('typeof boo',typeof boo);
 		    this.existsNotation = boo;
 		},
 	    )
@@ -200,14 +197,14 @@ export class NewNotationComponent implements OnInit, OnDestroy {
 		}
 	    );
 	console.log('%cSortie de','color:#00aa00', here);
-	M.exiting_from_function (here);
+	O.exiting_from_function (here);
     }
 
 ngOnDestroy() {
     let here = O.functionName ();
     console.log('%cEntrée dans','color:#00aa00', here);
 
-    M.exiting_from_function (here);
+    O.exiting_from_function (here);
     //	this.currentEmailSub.unsubscribe();
     //	this.isAuthSub.unsubscribe();
     //	this.currentParticipantIdSub.unsubscribe();

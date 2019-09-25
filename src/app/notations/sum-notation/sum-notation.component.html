@@ -8,8 +8,7 @@
 	    <p>nombre de participants : {{ participantCount }} </p>
 	    <p>noteMoyenne : {{ average }} &#177; {{ rms }}</p>
 	    
-	    <button class="btn btn-danger m-1" (click)="onDelete()"
-			   [disabled]="part != 4">Supprimer</button>
+	    <button class="btn btn-danger m-1" (click)="onDelete()">Supprimer</button>
 	</div>
 	<button class="btn btn-link"
 		(click)="onGoBack()"><< Retour à la liste des Notations</button>

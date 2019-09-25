@@ -7,8 +7,7 @@ import { StateService }                 from '../services/state.service';
 import { IrpRegisterService }   from '../services/irp-register.service';
 import { Subscription }                 from 'rxjs';
 
-import * as M from '../irp-provider/managementLibrary';
-import * as O from '../models/outils';
+import * as O from '../outils/outils-management';
 
 @Component({
     selector: 'app-login',
@@ -53,9 +52,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	
     	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {
-		console.log('Dans ngOnInit url',url);
 		this.currentUrl = url;
-		console.log('Dans ngOnInit currentUrl', this.currentUrl);
+		console.log('Dans',here,'currentUrl', this.currentUrl);
 	    }
 	);
     }

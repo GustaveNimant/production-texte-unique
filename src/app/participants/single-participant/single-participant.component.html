@@ -13,11 +13,9 @@
 		<li>id {{ participantModel._id }} V_{{ participantModel.__v }}</li>
 	    </ul>
 
-	    <button class="btn btn-success m-1" (click)="onModify()"
-		    [disabled]="part != 2 && participantId !== participant?.participantId">Modifier</button>
+	    <button class="btn btn-success m-1" (click)="onModify()">Modifier</button>
 	    
-	    <button class="btn btn-danger m-1" (click)="onDelete()"
-		    [disabled]="part != 2 && participantId !== participant?.participantId">Supprimer</button>
+	    <button class="btn btn-danger m-1" (click)="onDelete()">Supprimer</button>
 	</div>
 	
 	<button class="btn btn-link"

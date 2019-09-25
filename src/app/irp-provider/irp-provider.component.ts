@@ -6,8 +6,7 @@ import { DataProviderService }   from '../services/data-provider.service';
 
 import { Subscription } from 'rxjs';
 
-import * as M from './managementLibrary';
-import * as O from '../models/outils';
+import * as O from '../outils/outils-management';
 
 @Component({
     selector: 'app-irp-provider',

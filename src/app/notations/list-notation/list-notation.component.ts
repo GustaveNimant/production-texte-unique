@@ -6,8 +6,7 @@ import { NotationService }  from '../../services/notation.service';
 import { NotationModel } from '../../models/notation.model';
 import { Subscription } from 'rxjs';
 
-import * as M from '../../irp-provider/managementLibrary';
-import * as O from '../../models/outils';
+import * as O from '../../outils/outils-management';
 
 @Component({
     selector: 'app-list-notation',

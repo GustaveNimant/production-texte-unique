@@ -3,8 +3,7 @@ import { BehaviorSubject, Subject } from 'rxjs';
 
 import { Subscription } from 'rxjs';
 
-import * as M from '../irp-provider/managementLibrary';
-import * as O from '../models/outils';
+import * as O from '../outils/outils-management';
 
 @Injectable({
     providedIn: 'root'
@@ -20,7 +19,7 @@ export class IrpRegisterService {
 
     irpStore (irpKey, irpVal, caller) {
 	let here = O.functionName ();
-	M.entering_in_function (here + '(' + irpKey + ', ' + caller +')')
+	O.entering_in_function (here + '(' + irpKey + ', ' + caller +')')
 	console.log(here,'irpVal',irpVal);
 
 	console.log(here,'irpRegister >',this.irpRegister,'<');
@@ -31,13 +30,12 @@ export class IrpRegisterService {
 	this.irpRegister[irpKey] = irpVal;
 	console.log(here,': irpRegister["'+irpKey+'"] <= "'+irpVal+'"');
 	
-	
-	M.exiting_from_function (here)
+	O.exiting_from_function (here)
     }
 
     irpIsStored (irpKey, caller):boolean {
 	let here = O.functionName ();
-	M.entering_in_function (here + ' : (' + irpKey + ', ' + caller +')')
+	O.entering_in_function (here + ' : (' + irpKey + ', ' + caller +')')
 
 	this.irpRegisterSub = this.irpRegister$.subscribe(
 	    (reg) => {
@@ -58,18 +56,18 @@ export class IrpRegisterService {
 	console.log(here,': irpRegister["',irpKey,'"] = >',this.irpRegister[irpKey],'<');
 	let result = this.irpRegister[irpKey] != undefined;
 	console.log(here,': result',result);
-	M.exiting_from_function (here)
+	O.exiting_from_function (here)
 	return result;
 	
     }
 
     irpRetrieve (irpKey, caller):any {
 	let here = O.functionName ();
-	M.entering_in_function (here + '(' + irpKey + ', ' + caller +')')
+	O.entering_in_function (here + '(' + irpKey + ', ' + caller +')')
 
 	let result = this.irpRegister[irpKey];
 	console.log(here,': "'+irpKey+'" =>',result,'<');
-	M.exiting_from_function (here)
+	O.exiting_from_function (here)
 	return result;
     }
 }

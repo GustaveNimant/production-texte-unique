@@ -7,8 +7,7 @@ import { Router }             from '@angular/router';
 import { CompteModel } from '../models/compte.model';
 import { IrpRegisterService } from '../services/irp-register.service';
 
-import * as M from '../irp-provider/managementLibrary';
-import * as O from '../models/outils';
+import * as O from '../outils/outils-management';
 
 @Component({
     selector: 'app-header',
@@ -52,22 +51,24 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	this.modeSub = this.stateService.mode$.subscribe(
 	    (mod) => {
 		this.mode = mod;
-		console.log('Dans',here,'mode',this.mode);
 	    }
 	);
-
+	console.log('Dans',here,'subscribe.mode',this.mode);
+	
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {
 		this.isAuth = boo;
 	    }
 	);
-	console.log('Dans',here,'isAuth', this.isAuth);
-	console.log('Dans',here,'pseudo', this.pseudo);
+	console.log('Dans',here,'subscribe.isAuth', this.isAuth);
 
+	console.log('Dans',here,'avant pseudo', this.pseudo);
 	if (this.pseudo == undefined) {
 	    this.onGetPseudo ();
 	}
-	M.exiting_from_function (here);
+	console.log('Dans',here,'après pseudo', this.pseudo);
+	
+	O.exiting_from_function (here);
     }
 
     onGetPseudo () {
@@ -92,18 +93,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
 	    );
 	console.log('Dans',here,'from getCompteByEmail pseudo',this.pseudo);
 
-	M.exiting_from_function (here);
+	O.exiting_from_function (here);
     }
 
     onLogout() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-//	this.irpRegisterSub.unsubscribe();
-//	O.unsubscribeLog(here, 'currentUrlSub');
+	//	this.irpRegisterSub.unsubscribe();
+	//	O.unsubscribeLog(here, 'currentUrlSub');
 
-    this.compteService.logout();
-    this.router.navigate(['/main-menu']);
+	this.compteService.logout();
+	console.log('Dans',here,'navigation vers /main-menu');
+	this.router.navigate(['/main-menu']);
 }
 
 onBackToMainMenu() {

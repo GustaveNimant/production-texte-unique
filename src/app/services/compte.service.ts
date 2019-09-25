@@ -5,8 +5,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { CompteModel } from '../models/compte.model';
 
-import * as M from '../irp-provider/managementLibrary';
-import * as O from '../models/outils';
+import * as O from '../outils/outils-management';
 
 @Injectable({
     providedIn: 'root'

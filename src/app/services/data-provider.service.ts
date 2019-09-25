@@ -4,8 +4,7 @@ import { IrpRegisterService } from './irp-register.service';
 
 import { Subscription } from 'rxjs';
 
-import * as M from '../irp-provider/managementLibrary';
-import * as O from '../models/outils';
+import * as O from '../outils/outils-management';
 
 @Injectable({
     providedIn: 'root'
@@ -41,7 +40,9 @@ export class DataProviderService {
 		this.currentEmail = reg['currentEmail'];
 		console.log('%cDans ngOnInit','color:#00aa00', 'irpRegisterService => currentEmail', this.currentEmail);
 		
-		if (reg == '' || reg == undefined || this.currentEmail == undefined) {
+		if (reg == '' ||
+		    reg == undefined ||
+		    this.currentEmail == undefined) {
 		    console.log('Dans',here,'navigation vers /login');
 		    this.router.navigate(['/login']);
 		}
@@ -52,8 +53,8 @@ export class DataProviderService {
 	    }
 	);
 
-	M.exiting_from_function (here);	
-	return here + ' done'
+	O.exiting_from_function_with_what (here,'with currentEmail',this.currentEmail);	
+	return this.currentEmail;
     }
 
     dataBuild (irpKey, caller):any {
@@ -67,7 +68,7 @@ export class DataProviderService {
 	try {
 	    let result = eval (irpKeyBuild);
 	    console.log('Dans',here,'result >',result,'<');
-	    M.exiting_from_function (here);	
+	    O.exiting_from_function (here);	
 	    return result;
 	} catch (error) {
 	    let result = here+': la fonction ' + irpKeyBuild + 'n\'existe pas';
@@ -86,7 +87,7 @@ export class DataProviderService {
 	this.irpRegisterService.irpStore (irpKey, irpVal, here);
 	console.log ('Dans',here,'irpKey',irpKey,' a été enregistrée avec irpVal>',irpVal,'<');
 
-	M.exiting_from_function (here);	
+	O.exiting_from_function (here);	
 	return irpVal;
     }
     
@@ -101,12 +102,12 @@ export class DataProviderService {
 	if (this.irpRegisterService.irpIsStored(irpKey, here)) {
 	    let result = this.irpRegisterService.irpRetrieve(irpKey, here);
 	    console.log('Dans',here,'isStored result >',result,'<');
-	    M.exiting_from_function (here);	
+	    O.exiting_from_function (here);	
 	    return result;
 	} else {
 	    let result = this.dataBuildAndStore(irpKey, here);
 	    console.log('Dans',here,'isBuilt result >',result,'<');
-	    M.exiting_from_function (here);	
+	    O.exiting_from_function (here);	
 	    return result;
 	}
 	
