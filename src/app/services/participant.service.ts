@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
 
 export class ParticipantService {
 
-    uri_all = 'http://localhost:3000/api/all-participants/';
+    uri_all = 'http://localhost:3000/api/participants/';
     uri_new = this.uri_all;
 
     constructor(private http: HttpClient) {

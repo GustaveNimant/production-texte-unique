@@ -96,7 +96,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onGoAllTexte() {
-	this.router.navigate(['/textes/all-texte']);
+	this.router.navigate(['/textes/list-texte']);
     }
 
     onNotate() {
@@ -122,7 +122,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.texteService.deleteTexte(this.texte._id).then(
 	    () => {
 		this.loading = false;
-		this.router.navigate(['/textes/all-texte']);
+		this.router.navigate(['/textes/list-texte']);
 	    }
 	);
     }

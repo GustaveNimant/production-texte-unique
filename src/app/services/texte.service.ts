@@ -11,7 +11,7 @@ import * as O from '../outils/outils-management';
 
 export class TexteService {
 
-    uri_all = 'http://localhost:3000/api/all-textes/';
+    uri_all = 'http://localhost:3000/api/textes/';
     
     constructor(private http: HttpClient){};
 

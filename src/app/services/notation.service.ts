@@ -11,7 +11,7 @@ import * as O from '../outils/outils-management';
 
 export class NotationService {
 
-    uri_all = 'http://localhost:3000/api/all-notations/';
+    uri_all = 'http://localhost:3000/api/notations/';
     
     constructor(private http: HttpClient){};
 

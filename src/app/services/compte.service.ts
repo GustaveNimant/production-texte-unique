@@ -24,7 +24,7 @@ export class CompteService {
     public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
     private loading:boolean = false;
     
-    uri_all = 'http://localhost:3000/api/all-comptes/';
+    uri_all = 'http://localhost:3000/api/comptes/';
 
     constructor(private router: Router,
 		private http: HttpClient)

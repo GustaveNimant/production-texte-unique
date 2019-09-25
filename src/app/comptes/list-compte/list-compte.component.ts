@@ -50,14 +50,13 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 		console.log('Dans ngOnInit com_a',com_a);
 		this.loading = false;
 		if (com_a.length <= 0) {
-		    console.log('Dans',here,'navigation vers /comptes/new-compte/');
+		    console.log('Dans',here,'aucun compte => navigation vers /comptes/new-compte/');
 		    this.router.navigate(['/comptes/new-compte/']);
 		} else {
 		    this.compte_a = com_a;
 		}
 	    }
 	);
-	
     }
 
     onCompteClicked(id: string) {
