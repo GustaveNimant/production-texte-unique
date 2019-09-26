@@ -108,7 +108,7 @@ export class NotationService {
 	console.log('%cEntrée dans','color:#00aa00', here,'avec texteObjectId', texteObjectId);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + 'sum/' + texteObjectId).subscribe(
+	    this.http.get(this.uri_all + 'byoid/' + texteObjectId).subscribe(
 		(response) => {
 		    console.log(here,'response',response);
 		    resolve(response);
@@ -125,7 +125,7 @@ export class NotationService {
 	console.log('%cEntrée dans','color:#00aa00',here,'avec texteObjectId',texteObjectId,'participantId',participantId);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + 'and/' + texteObjectId+':'+participantId).subscribe(
+	    this.http.get(this.uri_all + 'oandp/' + texteObjectId+':'+participantId).subscribe(
 		(response) => {
 		    console.log(here,'response',response);
 		    resolve(response);
