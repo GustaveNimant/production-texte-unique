@@ -18,32 +18,37 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
     public loading: boolean;
     public isAuth: boolean;
+    private isAuthSub: Subscription;
 
     currentUrl: string;
     
-    public textes: TexteModel[] = [];
-    private textesSub: Subscription;
-    private isAuthSub: Subscription;
+    public texte_a: TexteModel[] = [];
+    private texte_aSub: Subscription;
     
     constructor(private stateService: StateService,
 		private compteService: CompteService,
 		private texteService: TexteService,
-		private router: Router) { }
+		private router: Router)
+		{
+		    let here = O.functionName ();
+		    console.log('%cEntrée dans','color:#00aa00', here);
+		}
 
     ngOnInit() {
-	console.log('Entrée dans ngOnInit');
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
 	
 	this.loading = true;
 	this.stateService.mode$.next('list');
-
+	
 	this.currentUrl = this.router.url;
 	this.stateService.currentUrl$.next(this.currentUrl);
-	console.log('Dans ngOnInit currentUrl', this.currentUrl);
+	console.log('Dans',here,'currentUrl', this.currentUrl);
 
-	this.textesSub = this.texteService.textes$.subscribe(
+	this.texte_aSub = this.texteService.texte_a$.subscribe(
 	    (tex_a) => {
-		console.log('Dans ngOnInit tex_a',tex_a);
-		this.textes = tex_a;
+		console.log('Dans',here,'tex_a',tex_a);
+		this.texte_a = tex_a;
 		this.loading = false;
 	    }
 	);
@@ -60,7 +65,12 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     }
 
     onTexteClicked(id: string) {
-	console.log('Entrée dans onTexteClicked avec id',id);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('Entrée dans',here,'avec id', id);
+	
+	console.log('Dans',here,'navigation vers', '/textes/single-texte/' + id);
+
 	this.router.navigate(['/textes/single-texte/' + id]);
     }
 
@@ -68,9 +78,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 	
-	this.textesSub.unsubscribe();
+	this.texte_aSub.unsubscribe();
 	
-	O.unsubscribeLog(here, 'textesSub');
+	O.unsubscribeLog(here, 'texte_aSub');
 	O.exiting_from_function (here);
     }
 

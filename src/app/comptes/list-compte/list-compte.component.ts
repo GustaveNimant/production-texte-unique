@@ -15,39 +15,36 @@ import * as O from '../../outils/outils-management';
 
 export class ListCompteComponent implements OnInit, OnDestroy {
 
-    public compte_a: CompteModel[] = [];
     public loading: boolean;
     public debug: boolean;
     
+    public compte_a: CompteModel[] = [];
     private compte_aSub: Subscription;
 
-    constructor(
-	private compteService: CompteService,
-	private stateService: StateService, 
-	private router: Router)
-	{
-    	    console.log('Entrée dans constructor');
-	}
+    constructor(private compteService: CompteService,
+		private stateService: StateService, 
+		private router: Router)
+		{
+		    let here = O.functionName ();
+		    console.log('%cEntrée dans','color:#00aa00', here);   
+		}
     
     ngOnInit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
 	this.loading = true;
+	this.stateService.mode$.next('list');
 
 	this.debug = this.stateService.debug;
-	console.log('Dans ngOnInit debug', this.debug);
-	
-	this.stateService.mode$.next('list');
+	console.log('Dans',here,'debug', this.debug);
 
 	this.stateService.currentUrl$.next(this.router.url);
 	console.log('Dans',here,'this.router.url',this.router.url);
 
-	this.compteService.getComptes(here); /* Improve ?? */
-
 	this.compte_aSub = this.compteService.compte_a$.subscribe(
 	    (com_a) => {
-		console.log('Dans ngOnInit com_a',com_a);
+		console.log('Dans',here,'com_a',com_a);
 		this.loading = false;
 		if (com_a.length <= 0) {
 		    console.log('Dans',here,'aucun compte => navigation vers /comptes/new-compte/');
@@ -57,6 +54,9 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 		}
 	    }
 	);
+
+	this.compteService.getComptes(here); /* Improve ?? */
+
     }
 
     onCompteClicked(id: string) {
@@ -65,7 +65,7 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 
 	console.log('Entrée dans',here,'avec id', id);
 	
-	console.log('Dans onCompteClicked navigation vers ', '/comptes/single-compte/' + id);
+	console.log('Dans',here,'navigation vers', '/comptes/single-compte/' + id);
 	this.router.navigate(['/comptes/single-compte/' + id]);
     }
 

@@ -1,17 +1,17 @@
 <mat-spinner *ngIf="loading"></mat-spinner>
 
 <div *ngIf="debug">Debug:Dans list-texte.component.html:loading = {{loading}}</div>
-<div *ngIf="debug">Debug:Dans list-texte.component.html:nombre de textes = {{textes.length}}</div>
+<div *ngIf="debug">Debug:Dans list-texte.component.html:nombre de textes = {{texte_a.length}}</div>
 
 <p class="text-center"
-   *ngIf="textes.length <= 0 && !loading">
+   *ngIf="texte_a.length <= 0 && !loading">
     La collection texte_with_versions_c de la base de données est vide !</p>
 
 <div class="texte-grid"
-     *ngIf="textes.length >= 0">
+     *ngIf="texte_a.length >= 0">
 
     <div class="texte-pane"
-	 *ngFor="let un_texte of textes"
+	 *ngFor="let un_texte of texte_a"
 	 [ngClass]="{'open': un_texte._id === chosenId}"
 	 [ngStyle]="{'background-image': 'url(' + un_texte.shasum + ')'}"
 	 (click)="onTexteClicked(un_texte._id)">

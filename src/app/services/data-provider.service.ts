@@ -90,7 +90,7 @@ export class DataProviderService {
     
     dataProvide (irpKey, caller):any {
 	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('%cEntrée dans','color:#00aa00',here,'appelé par',caller);
 
 	if (irpKey == O.capitalize(irpKey)){
 	    alert ('irpKey >'+irpKey+'< ne doit pas être capitalisée!')

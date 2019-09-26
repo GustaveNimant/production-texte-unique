@@ -15,9 +15,9 @@ export class TexteService {
     
     constructor(private http: HttpClient){};
 
-    private textes: TexteModel[] = [];
+    private texte_a: TexteModel[] = [];
 
-    public textes$ = new Subject<TexteModel[]>();
+    public texte_a$ = new Subject<TexteModel[]>();
 
     createNewTexte(texte: TexteModel) {
 	console.log('Entrée dans createNewTexte avec texte', texte);
@@ -71,8 +71,8 @@ export class TexteService {
     }
 
     emitTexte() {
-	console.log('Entrée dans emitTexte avec les textes', this.textes);
-	this.textes$.next(this.textes);
+	console.log('Entrée dans emitTexte avec les textes', this.texte_a);
+	this.texte_a$.next(this.texte_a);
     }
 
     getTexteByObjectId(texteObjectId: string) {
@@ -100,7 +100,7 @@ export class TexteService {
 	    this.http.get(this.uri_all).subscribe(
 		(tex_a: TexteModel[]) => {
 		    if (tex_a) {
-			this.textes = tex_a;
+			this.texte_a = tex_a;
 			this.emitTexte();
 		    }
 		},

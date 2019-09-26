@@ -24,7 +24,7 @@ export class MainMenuComponent implements OnInit {
     onNavigate(endpoint: string) {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-	console.log('Dans',here,' navigation vers',endpoint);
+	console.log('Dans',here,'navigation vers',endpoint);
 	this.router.navigate([endpoint]);
     }
 }

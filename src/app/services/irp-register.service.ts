@@ -58,10 +58,9 @@ export class IrpRegisterService {
 
 	console.log(here,': irpRegister["',irpKey,'"] = >',this.irpRegister[irpKey],'<');
 	let result = this.irpRegister[irpKey] != undefined;
-	console.log(here,': result',result);
-	O.exiting_from_function_with_what (here,'result',result)
+
+	O.exiting_from_function_with_what (here,'result',result.toString())
 	return result;
-	
     }
 
     irpRetrieve (irpKey, caller):any {
