@@ -12,8 +12,6 @@
 
     <div class="texte-pane"
 	 *ngFor="let un_texte of texte_a"
-	 [ngClass]="{'open': un_texte._id === chosenId}"
-	 [ngStyle]="{'background-image': 'url(' + un_texte.shasum + ')'}"
 	 (click)="onTexteClicked(un_texte._id)">
 	<div class="texte-titre">
 	    <h3>

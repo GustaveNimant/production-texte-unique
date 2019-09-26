@@ -16,13 +16,13 @@ import * as O from '../../outils/outils-management';
 
 export class ListNotationComponent implements OnInit, OnDestroy {
 
-    public notations: NotationModel[] = [];
+    public notation_a: NotationModel[] = [];
     public loading: boolean;
     public debug: boolean;
     public isAuth: boolean;
 
     private currentUrl: string;
-    private notationsSub: Subscription;
+    private notation_aSub: Subscription;
     private isAuthSub: Subscription;
 
     constructor(private stateService: StateService,
@@ -48,16 +48,16 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	this.stateService.currentUrl$.next(this.currentUrl);
 	console.log('Dans',here,'currentUrl', this.currentUrl);
 
-	this.notationsSub = this.notationService.notations$.subscribe(
+	this.notation_aSub = this.notationService.notation_a$.subscribe(
 	    (not_a) => {
 		console.log('Dans',here,'not_a',not_a);
-		this.notations = not_a; /* on charge les notations ici */
+		this.notation_a = not_a; /* on charge les notations ici */
 		this.loading = false;
 	    },
 	    (error) => {
-		console.log('Dans notationsSub Erreur:', error);
+		console.log('Dans notation_aSub Erreur:', error);
 	    },
-	    () => {console.log('Dans notationsSub fini !')}
+	    () => {console.log('Dans notation_aSub fini !')}
 	);
 
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
@@ -87,8 +87,8 @@ export class ListNotationComponent implements OnInit, OnDestroy {
 	let here = O.functionName();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	this.notationsSub.unsubscribe();
-	O.unsubscribeLog(here, 'notationsSub');
+	this.notation_aSub.unsubscribe();
+	O.unsubscribeLog(here, 'notation_aSub');
 
     }
 

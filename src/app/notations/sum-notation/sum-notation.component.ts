@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit }       from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router }     from '@angular/router';
 import { NotationModel }                      from '../../models/notation.model';
 import { TexteModel }        from '../../models/texte.model';
@@ -19,7 +18,6 @@ import * as O from '../../outils/outils-management';
 
 export class SumNotationComponent implements OnInit, OnDestroy {
 
-    private notationForm: FormGroup;
     private loading = false;
     private errorMessage: string;
 
@@ -35,7 +33,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 
     constructor(private stateService: StateService,
 		private texteService: TexteService,
-		private formBuilder: FormBuilder,
 		private router: Router,
 		private activatedRoute: ActivatedRoute,
 		private notationService: NotationService)
@@ -51,8 +48,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 	let note_a:number[] = [];
 
 	this.loading = true;
-
-	this.stateService.mode$.next('form');
 
 	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
 	    (url) => {
@@ -79,7 +74,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 				console.log('Dans',here,'getTexteByObjectId Erreur', error);
 			    }
 			);
-
 
 		    this.notationService.getNotationsByTexteObjectId(params.texteObjectId)
 			.then(
@@ -122,6 +116,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 			);
 		} else {
 		    console.log('Dans',here,'Erreur pour params.id', params.id);
+		    console.log('Dans',here,'navigation vers textes/list-texte');
 		    this.router.navigate(['/textes/list-texte']);
 		}
 	    }
@@ -129,8 +124,18 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 
     }
 
-    onGoBack() {
+    onGoToNotationList() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('Dans',here,'navigation vers notations/list-notation');
 	this.router.navigate(['/notations/list-notation']);
+    };
+
+    onGoToTexteList() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('Dans',here,'navigation vers textes/list-texte');
+	this.router.navigate(['/textes/list-texte']);
     };
 
     ngOnDestroy() {

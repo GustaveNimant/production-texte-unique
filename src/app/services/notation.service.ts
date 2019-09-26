@@ -15,8 +15,8 @@ export class NotationService {
     
     constructor(private http: HttpClient){};
 
-    private notations: NotationModel[] = [];
-    public notations$ = new Subject<NotationModel[]>();
+    private notation_a: NotationModel[] = [];
+    public notation_a$ = new Subject<NotationModel[]>();
 
     createNewNotation(notation: NotationModel) {
 	console.log('Entrée dans createNewNotation avec notation', notation);
@@ -54,8 +54,8 @@ export class NotationService {
     }
 
     emitNotations() {
-	console.log('Entrée dans emitNotations avec les notations', this.notations);
-	this.notations$.next(this.notations);
+	console.log('Entrée dans emitNotations avec les notations', this.notation_a);
+	this.notation_a$.next(this.notation_a);
     }
 
     getNotations() {
@@ -66,7 +66,7 @@ export class NotationService {
 	    this.http.get(this.uri_all).subscribe(
 		(not_a: NotationModel[]) => {
 		    if (not_a) {
-			this.notations = not_a;
+			this.notation_a = not_a;
 			this.emitNotations();
 		    }
 		},
