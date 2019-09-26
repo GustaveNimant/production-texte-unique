@@ -24,13 +24,12 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
     private participantCount: number;
     private texteObjectId: string;
     private texteTitre: string;
-    private sum: string;
-    private average: string;
-    private rms: string;
 
     private currentUrl: string;
     private currentUrlSub: Subscription;
 
+    private notation_a: NotationModel[] = [];
+ 
     constructor(private stateService: StateService,
 		private texteService: TexteService,
 		private router: Router,
@@ -44,8 +43,6 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-
-	let note_a:number[] = [];
 
 	this.loading = true;
 
@@ -83,27 +80,12 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
 
 				console.log('Dans',here,'typeof not_a',typeof not_a);
                                 for (let i in not_a) {
-				    note_a[i] = not_a[i].note;
+				    this.notation_a[i] = not_a[i];
+				    console.log('Dans',here,'notation_a',this.notation_a[i]);
 				}
 				
-				this.participantCount = note_a.length;
+				this.participantCount = this.notation_a.length;
 				console.log('Dans',here,'participantCount',this.participantCount);
-				if (this.participantCount == 0){
-				    this.average = "0";
-				    this.rms = "0";
-				    this.sum = "0";
-				    alert(here+': Mettre une note à ce texte '+this.currentUrl+' ?');
-				    this.router.navigate([this.currentUrl]);
-				}
-				else {
-				    console.log('Dans',here,'liste des notes note_a',note_a);
-				    this.average = (averageOfArray(note_a).toFixed(1)).toString();
-				    this.rms = (rmsOfArray(note_a).toFixed(1)).toString();
-				    this.sum = (sumOfArray(note_a)).toString();
-				}
-				console.log('Dans',here,'somme des notes note_a',this.sum);
-				console.log('Dans',here,'moyenne des notes note_a',this.average);
-				console.log('Dans',here,'rms des notes note_a',this.rms);
 			    }
 			)
 			.catch(
