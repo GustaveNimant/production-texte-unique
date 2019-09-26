@@ -104,8 +104,18 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.router.navigate(['/notations/new-notation/' + this.texte._id]);
     }
 
+    onDisplayNotation() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('Dans',here,'navigation vers /notations/sum-notation/'+this.texte._id);
+
+	this.router.navigate(['/notations/sum-notation/' + this.texte._id]);
+    }
     onAverageNote() {
-	console.log('Entrée dans onAverageNote navigation vers /notations/sum-notation/'+this.texte._id);
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('Dans',here,'navigation vers /notations/sum-notation/'+this.texte._id);
+
 	this.router.navigate(['/notations/sum-notation/' + this.texte._id]);
     }
 
