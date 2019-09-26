@@ -22,6 +22,7 @@ import { NewButComponent }                from './buts/new-but/new-but.component
 import { SingleButComponent }             from './buts/single-but/single-but.component';
 
 import { NotationsComponent }             from './notations/notations.component';
+import { ByobjectidNotationComponent }    from './notations/byobjectid-notation/byobjectid-notation.component';
 import { ListNotationComponent }          from './notations/list-notation/list-notation.component';
 import { NewNotationComponent }           from './notations/new-notation/new-notation.component';
 import { SingleNotationComponent }        from './notations/single-notation/single-notation.component';
@@ -77,9 +78,10 @@ const routes: Routes = [
 	  { path: 'new-notation/:id', component: NewNotationComponent},
 	  { path: 'list-notation', component: ListNotationComponent},
 	  { path: 'single-notation/:id', component: SingleNotationComponent},
+	  { path: 'byobjectid-notation/:texteObjectId', component: ByobjectidNotationComponent},
 	  { path: 'sum-notation/:texteObjectId', component: SumNotationComponent},
 	  { path: '', pathMatch: 'full', redirectTo: '' }, 
-	  { path: '**', redirectTo: 'list-notation' }
+	  { path: '**', redirectTo: '' }
       ]
     },
     { path: 'comptes', component: ComptesComponent,

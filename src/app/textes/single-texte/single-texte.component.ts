@@ -104,13 +104,6 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.router.navigate(['/notations/new-notation/' + this.texte._id]);
     }
 
-    onDisplayNotation() {
-	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here);
-	console.log('Dans',here,'navigation vers /notations/sum-notation/'+this.texte._id);
-
-	this.router.navigate(['/notations/sum-notation/' + this.texte._id]);
-    }
     onAverageNote() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
@@ -119,6 +112,14 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.router.navigate(['/notations/sum-notation/' + this.texte._id]);
     }
 
+    onDisplayNotation() {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+	console.log('Dans',here,'navigation vers /notations/byobjectid-notation/'+this.texte._id);
+
+	this.router.navigate(['/notations/byobjectid-notation/' + this.texte._id]);
+    }
+    
     onModifyTexte() {
 	this.router.navigate(['/textes/modify-texte/' + this.texte._id]);
     }

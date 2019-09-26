@@ -34,11 +34,12 @@ import { ModifyButComponent }       from './buts/modify-but/modify-but.component
 import { NewButComponent }          from './buts/new-but/new-but.component';
 import { SingleButComponent }       from './buts/single-but/single-but.component';
 
-import { NotationsComponent }        from './notations/notations.component';
+import { NotationsComponent }       from './notations/notations.component';
 import { ListNotationComponent }    from './notations/list-notation/list-notation.component';
 import { NewNotationComponent }     from './notations/new-notation/new-notation.component';
 import { SingleNotationComponent }  from './notations/single-notation/single-notation.component';
 import { SumNotationComponent }     from './notations/sum-notation/sum-notation.component';
+import { ByobjectidNotationComponent }     from './notations/byobjectid-notation/byobjectid-notation.component';
 
 import { ComptesComponent }        from './comptes/comptes.component';
 import { ListCompteComponent }      from './comptes/list-compte/list-compte.component';
@@ -47,40 +48,39 @@ import { SingleCompteComponent }    from './comptes/single-compte/single-compte.
 
 import { LoginComponent }           from './login/login.component';
 import { IrpProviderComponent }     from './irp-provider/irp-provider.component';
-import { ByobjectidNotationComponent } from './notations/byobjectid-notation/byobjectid-notation.component';
 
 @NgModule({
     declarations: [
 	AppComponent,
+	ButsComponent,
+	ByobjectidNotationComponent,
+	ComptesComponent,
 	HeaderComponent,
 	IrpProviderComponent,
+	ListButComponent,
 	ListCompteComponent,
 	ListNotationComponent,
 	ListParticipantComponent,
 	ListTexteComponent,
 	LoginComponent,
 	MainMenuComponent,
+	ModifyButComponent,
 	ModifyTexteComponent,
+	NewButComponent,
 	NewCompteComponent,
 	NewNotationComponent,
 	NewParticipantComponent,
 	NewTexteComponent,
-	ComptesComponent,
+	NewTexteVersionComponent,
 	NotationsComponent,
-	TextesComponent,
-	ButsComponent,
 	ParticipantsComponent,
+	SingleButComponent,
 	SingleCompteComponent,
 	SingleNotationComponent,
 	SingleParticipantComponent,
 	SingleTexteComponent,
-	NewTexteVersionComponent,
-	NewButComponent,
-	ModifyButComponent,
-	ListButComponent,
-	SingleButComponent,
 	SumNotationComponent,
-	ByobjectidNotationComponent,
+	TextesComponent,
     ],
     imports: [
 	BrowserModule,
