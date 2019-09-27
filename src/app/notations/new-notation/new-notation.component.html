@@ -20,7 +20,16 @@
 	<button class="btn btn-primary"
 		       (click)="onSubmit()"
 		       [disabled]="notationForm.invalid"
-		       [disabled]="existsNotation">Submit</button>
+		       [disabled]="existsNotation">Submit
+	</button>
+	<br><br>
+	<p class="alert-danger"
+	   *ngIf="existsNotation">
+	    Vous avez déjà noté ce texte !
+	    <br>
+	    <a routerLink="/textes/list-texte"
+	       routerLinkActive="active"><<Retour à la liste des textes</a>
+	</p>
 	<p class="alert-danger"
 	   *ngIf="errorMessage">Dans new-notation.component.html.<br>Erreur lors de la création de la notation:<br> {{ errorMessage }}</p>
     </form>

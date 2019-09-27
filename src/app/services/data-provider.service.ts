@@ -18,13 +18,12 @@ export class DataProviderService {
 
     constructor(
 	private router: Router,
-	private irpRegisterService: IrpRegisterService,
-    )
-    {
-	let here = O.functionName ();
-	console.log('%cEntrée dans','color:#00aa00', here);
-    }
-
+	private irpRegisterService: IrpRegisterService)
+	{
+	    let here = O.functionName ();
+	    console.log('%cEntrée dans','color:#00aa00', here);
+	}
+    
     currentEmailBuild () {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
