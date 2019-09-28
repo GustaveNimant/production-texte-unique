@@ -20,7 +20,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     public isAuth: boolean;
     private isAuthSub: Subscription;
 
-    currentUrl: string;
+    private currentUrl: string;
     
     public texte_a: TexteModel[] = [];
     private texte_aSub: Subscription;
@@ -60,8 +60,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	console.log('Dans ngOnInit loading', this.loading);
-	this.texteService.getTextes(); /* afficher les textes */
+	console.log('Dans',here,'loading', this.loading);
+	this.texteService.getTextes(here); /* afficher les textes */
     }
 
     onTexteClicked(id: string) {

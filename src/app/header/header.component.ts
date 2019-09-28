@@ -7,6 +7,8 @@ import { Router }             from '@angular/router';
 import { CompteModel } from '../models/compte.model';
 import { IrpRegisterService } from '../services/irp-register.service';
 
+// import { CurrentCompteProviderService } from '../services/current-compte-provider.service';
+
 import * as O from '../outils/outils-management';
 
 @Component({
@@ -38,6 +40,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		private irpRegisterService: IrpRegisterService,
 		private dataProviderService: DataProviderService,
 		private compteService: CompteService,
+//		private currentCompteProviderService:CurrentCompteProviderService,
 		private router: Router)
 		{
 		    let here = O.functionName ();
@@ -64,6 +67,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 	console.log('Dans',here,'avant pseudo', this.pseudo);
 	if (this.pseudo == undefined) {
+	    //this.currentCompte = this.currentCompteProviderService.currentCompteBuild ();
+	    //this.pseudo = this.currentCompte.pseudo;
 	    this.onGetPseudo ();
 	}
 	console.log('Dans',here,'après pseudo', this.pseudo);

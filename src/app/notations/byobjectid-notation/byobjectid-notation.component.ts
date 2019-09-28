@@ -28,7 +28,7 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
     private currentUrl: string;
     private currentUrlSub: Subscription;
 
-    private notation_a: NotationModel[] = [];
+    private notation_a = new Array<NotationModel>();
  
     constructor(private stateService: StateService,
 		private texteService: TexteService,
@@ -77,8 +77,8 @@ export class ByobjectidNotationComponent implements OnInit, OnDestroy {
 			    (not_a) => {
 				this.loading = false;
 				console.log('Dans',here,'liste des notations not_a',not_a);
-
 				console.log('Dans',here,'typeof not_a',typeof not_a);
+				//this.notation_a = not_a;
                                 for (let i in not_a) {
 				    this.notation_a[i] = not_a[i];
 				    console.log('Dans',here,'notation_a',this.notation_a[i]);

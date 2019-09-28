@@ -82,7 +82,14 @@ export class CompteService {
 	});
     } // deleteCompte
 
-    emitCompte(caller) {
+    emitCurrentCompte(caller) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec currentCompte', this.currentCompte);
+	console.log(here,'appelé par',caller);
+	this.currentCompte$.next(this.currentCompte);
+    }
+
+    emitComptes(caller) {
 	let here = O.functionName ();
 	console.log('Entrée dans',here,'avec les comptes', this.compte_a);
 	console.log(here,'appelé par',caller);
@@ -98,41 +105,47 @@ export class CompteService {
 	    (con_a: CompteModel[]) => {
 		if (con_a) {
 		    this.compte_a = con_a;
-		    this.emitCompte(here);
+		    this.emitComptes(here);
 		}
 	    },
 	    (error) => {
-		console.log('Dans getComptes Erreur:', error);
+		console.log('Dans',here,'Erreur:', error);
 	    },
-	    () => {console.log('Dans getComptes fini !')}
+	    () => {console.log('Dans',here,'fini !')}
 	);
     }
 
-    getCompteById(id: string) {
-	console.log('Entrée dans getCompteById avec id', id);
+    getCompteByEmail(email: string) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec email', email);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + id).subscribe(
-		(response) => {
-		    resolve(response);
+	    this.http.get(this.uri_all + email).subscribe(
+		(com: CompteModel) => {
+		    console.log('Dans',here,'com',com);
+		    this.currentCompte = com;
+		    this.emitCurrentCompte(here);
+		    resolve(com);
 		},
 		(error) => {
+		    console.log('Dans getCompteByEmail Erreur', error);
 		    reject(error);
 		}
 	    );
 	});
     }
 
-    getCompteByEmail(email: string) {
-	console.log('Entrée dans getCompteByEmail avec email', email);
+    getCompteById(id: string) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec id', id);
 
 	return new Promise((resolve, reject) => {
-	    this.http.get(this.uri_all + email).subscribe(
+	    this.http.get(this.uri_all + id).subscribe(
 		(response) => {
+		    console.log('Dans',here,'response',response);
 		    resolve(response);
 		},
 		(error) => {
-		    console.log('Dans getCompteByEmail Erreur', error);
 		    reject(error);
 		}
 	    );

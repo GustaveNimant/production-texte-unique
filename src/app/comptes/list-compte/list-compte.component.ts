@@ -17,6 +17,10 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 
     public loading: boolean;
     public debug: boolean;
+    public isAuth: boolean;
+    private isAuthSub: Subscription;
+
+    private currentUrl: string;
     
     public compte_a: CompteModel[] = [];
     private compte_aSub: Subscription;
@@ -39,22 +43,26 @@ export class ListCompteComponent implements OnInit, OnDestroy {
 	this.debug = this.stateService.debug;
 	console.log('Dans',here,'debug', this.debug);
 
-	this.stateService.currentUrl$.next(this.router.url);
-	console.log('Dans',here,'this.router.url',this.router.url);
+	this.currentUrl = this.router.url;
+	this.stateService.currentUrl$.next(this.currentUrl);
+	console.log('Dans',here,'currentUrl', this.currentUrl);
 
 	this.compte_aSub = this.compteService.compte_a$.subscribe(
 	    (com_a) => {
 		console.log('Dans',here,'com_a',com_a);
 		this.loading = false;
-		if (com_a.length <= 0) {
-		    console.log('Dans',here,'aucun compte => navigation vers /comptes/new-compte/');
-		    this.router.navigate(['/comptes/new-compte/']);
-		} else {
-		    this.compte_a = com_a;
-		}
+		this.compte_a = com_a;
 	    }
 	);
 
+	this.isAuthSub = this.compteService.isAuth$.subscribe(
+	    (boo) => {  /* Pour afficher les textes */
+		this.isAuth = boo;
+		console.log('Dans ngOnInit isAuth', this.isAuth);
+	    }
+	);
+
+	console.log('Dans',here,'loading', this.loading);
 	this.compteService.getComptes(here); /* Improve ?? */
 
     }

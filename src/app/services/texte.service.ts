@@ -13,13 +13,17 @@ export class TexteService {
 
     uri_all = 'http://localhost:3000/api/textes/';
     
-    constructor(private http: HttpClient){};
+    constructor(private http: HttpClient)
+    {
+	let here = O.functionName ();
+    };
 
     private texte_a: TexteModel[] = [];
 
     public texte_a$ = new Subject<TexteModel[]>();
 
     createNewTexte(texte: TexteModel) {
+	let here = O.functionName ();
 	console.log('Entrée dans createNewTexte avec texte', texte);
 
 	return new Promise((resolve, reject) => {
@@ -40,6 +44,7 @@ export class TexteService {
     }
     
     createNewTexteVersion(texteObjectId: string, texte: TexteModel) { /* texteObjectId  conservé */
+	let here = O.functionName ();
 	console.log('Entrée dans createNewTexteVersion avec texteObjectId',texteObjectId);
 	console.log('Entrée dans createNewTexteVersion avec texte', texte);
 
@@ -56,7 +61,8 @@ export class TexteService {
     }
 
     deleteTexte(texteObjectId: string) {
-	console.log('Entrée dans deleteTexte avec texteObjectId',texteObjectId);
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec texteObjectId',texteObjectId);
 
 	return new Promise((resolve, reject) => {
 	    this.http.delete(this.uri_all + texteObjectId).subscribe(
@@ -70,8 +76,9 @@ export class TexteService {
 	});
     }
 
-    emitTexte() {
-	console.log('Entrée dans emitTexte avec les textes', this.texte_a);
+    emitTextes() {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec les textes', this.texte_a);
 	this.texte_a$.next(this.texte_a);
     }
 
@@ -92,8 +99,10 @@ export class TexteService {
 	});
     }
 
-    getTextes() {
-	console.log('Entrée dans getTextes avec uri_all', this.uri_all);
+    getTextes(caller) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec uri_all', this.uri_all);
+	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
 	    console.log('Dans getTextes resolve', resolve);
@@ -101,15 +110,15 @@ export class TexteService {
 		(tex_a: TexteModel[]) => {
 		    if (tex_a) {
 			this.texte_a = tex_a;
-			this.emitTexte();
+			this.emitTextes();
 		    }
 		},
 		(error) => {
-		    console.log('Dans getTextes Erreur', error);
-		    console.log('Dans getTextes error.status', error.status);
+		    console.log('Dans',here,'Erreur', error);
+		    console.log('Dans',here,'error.status', error.status);
 		    switch (error.status) {
 			case 0:
-			    console.log('Dans getTextes run nodemon server');
+			    console.log('Dans',here,'run nodemon server');
 			    break;
 			default:
 			    break;
