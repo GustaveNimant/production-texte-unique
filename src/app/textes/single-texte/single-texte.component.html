@@ -5,12 +5,12 @@
     <div class="single-texte-pane">
 
 	<div class="single-texte-info">
-	    <h2>{{ texte.titre }}</h2>
-	    <p>note : {{ texte.noteMoyenne }} ({{ texte.noteEcartType }}) </p>
-	    <p>Id du contenu : {{ texte.texteContenuId }} ( {{ texte.version }} ) </p>
-	    <p>ObjectId : {{ texte._id }} ( {{ texte.__v }} ) </p>
-	    <p>Sha256 de la version précédente : {{texte.shasum}} </p>
-	    <p>Contenu : {{ texte.contenu }}</p>
+	    <h2>{{ currentTexte.titre }}</h2>
+	    <p>note : {{ currentTexte.noteMoyenne }} ({{ currentTexte.noteEcartType }}) </p>
+	    <p>Id du contenu : {{ currentTexte.texteContenuId }} ( {{ currentTexte.version }} ) </p>
+	    <p>ObjectId : {{ currentTexte._id }} ( {{ currentTexte.__v }} ) </p>
+	    <p>Sha256 de la version précédente : {{currentTexte.shasum}} </p>
+	    <p>Contenu : {{ currentTexte.contenu }}</p>
 	    
 	    <button class="btn btn-success m-1"
 		    (click)="onNotate()">Noter</button>

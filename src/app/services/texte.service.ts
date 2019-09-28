@@ -19,10 +19,10 @@ export class TexteService {
 	let here = O.functionName ();
     };
 
-    private texte_a: TexteModel[] = [];
+    public texte_a: TexteModel[] = [];
     public texte_a$ = new Subject<TexteModel[]>();
 
-    private currentTexte = new TexteModel();
+    public currentTexte = new TexteModel();
     public currentTexte$ = new BehaviorSubject<TexteModel>(this.currentTexte)
     
     createNewTexte(texte: TexteModel) {

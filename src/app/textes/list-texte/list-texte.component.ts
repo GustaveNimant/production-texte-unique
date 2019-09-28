@@ -22,8 +22,8 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
     private currentUrl: string;
     
-    private texte_a: TexteModel[] = [];
-    private texte_aSub: Subscription;
+    public texte_a: TexteModel[] = [];
+    public texte_aSub: Subscription;
     
     constructor(private stateService: StateService,
 		private compteService: CompteService,

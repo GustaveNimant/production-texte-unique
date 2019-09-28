@@ -15,14 +15,16 @@ import * as O from '../../outils/outils-management';
 })
 export class SingleTexteComponent implements OnInit, OnDestroy {
 
-    public texte: TexteModel;
-    public loading: boolean;
-    public auteurId: string;
-    public isAuth: boolean;
-    public errorMessage: string;
+    private currentTexte: TexteModel;
+    private currentTexteSub: Subscription;
 
-    public debug: boolean;
-    public trace: boolean;
+    private loading: boolean;
+    private auteurId: string;
+    private isAuth: boolean;
+    private errorMessage: string;
+
+    private debug: boolean;
+    private trace: boolean;
 
     private currentUrl: string;
 
@@ -55,6 +57,15 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.stateService.mode$.next('single-texte');
 	this.auteurId = this.compteService.userId ? this.compteService.userId : 'compteID40282382';
 
+	
+	this.currentTexteSub = this.texteService.currentTexte$.subscribe(
+	    (tex) => {
+		console.log('Dans',here,'tex',tex);
+		this.currentTexte = tex;
+		this.loading = false;
+	    }
+	);
+	
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
 		console.log('Dans',here,' params', params);
@@ -62,7 +73,7 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 		    .then(
 			(tex: TexteModel) => {
 			    this.loading = false;
-			    this.texte = tex;
+			    this.currentTexte = tex;
 			    console.log('Dans',here,'getTexteByObjectId tex',tex);
 			}
 		    ).catch(
@@ -100,37 +111,37 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
     }
 
     onNotate() {
-	console.log('Entrée dans onNotate navigation vers /notations/new-notation/'+this.texte._id);
-	this.router.navigate(['/notations/new-notation/' + this.texte._id]);
+	console.log('Entrée dans onNotate navigation vers /notations/new-notation/'+this.currentTexte._id);
+	this.router.navigate(['/notations/new-notation/' + this.currentTexte._id]);
     }
 
     onAverageNote() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-	console.log('Dans',here,'navigation vers /notations/sum-notation/'+this.texte._id);
+	console.log('Dans',here,'navigation vers /notations/sum-notation/'+this.currentTexte._id);
 
-	this.router.navigate(['/notations/sum-notation/' + this.texte._id]);
+	this.router.navigate(['/notations/sum-notation/' + this.currentTexte._id]);
     }
 
     onDisplayNotation() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-	console.log('Dans',here,'navigation vers /notations/byobjectid-notation/'+this.texte._id);
+	console.log('Dans',here,'navigation vers /notations/byobjectid-notation/'+this.currentTexte._id);
 
-	this.router.navigate(['/notations/byobjectid-notation/' + this.texte._id]);
+	this.router.navigate(['/notations/byobjectid-notation/' + this.currentTexte._id]);
     }
     
     onModifyTexte() {
-	this.router.navigate(['/textes/modify-texte/' + this.texte._id]);
+	this.router.navigate(['/textes/modify-texte/' + this.currentTexte._id]);
     }
 
     onNewTexteVersion() {
-	this.router.navigate(['/textes/new-texte-version/' + this.texte._id]);
+	this.router.navigate(['/textes/new-texte-version/' + this.currentTexte._id]);
     }
 
     onDelete() {
 	this.loading = true;
-	this.texteService.deleteTexte(this.texte._id).then(
+	this.texteService.deleteTexte(this.currentTexte._id).then(
 	    () => {
 		this.loading = false;
 		this.router.navigate(['/textes/list-texte']);
