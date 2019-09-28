@@ -98,9 +98,12 @@ export class TexteService {
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + texteObjectId).subscribe(
-		(response) => {
-		    console.log(here,'response',response);
-		    resolve(response);
+		(tex:TexteModel) => {
+		    if (tex) {
+			this.emitCurrentTexte(here);
+			console.log(here,'tex',tex);
+		    }
+		    resolve(tex);
 		},
 		(error) => {
 		    reject(error);

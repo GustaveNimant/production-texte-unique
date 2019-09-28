@@ -55,16 +55,6 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 	this.loading = true;
 
 	this.stateService.mode$.next('single-texte');
-	this.auteurId = this.compteService.userId ? this.compteService.userId : 'compteID40282382';
-
-	
-	this.currentTexteSub = this.texteService.currentTexte$.subscribe(
-	    (tex) => {
-		console.log('Dans',here,'tex',tex);
-		this.currentTexte = tex;
-		this.loading = false;
-	    }
-	);
 	
 	this.activatedRoute.params.subscribe(
 	    (params: Params) => {
@@ -90,6 +80,14 @@ export class SingleTexteComponent implements OnInit, OnDestroy {
 			    this.loading = false;
 			}
 		    );
+	    }
+	);
+	
+	this.currentTexteSub = this.texteService.currentTexte$.subscribe(
+	    (tex) => {
+		console.log('Dans',here,'subscribe tex',tex);
+		this.currentTexte = tex;
+		this.loading = false;
 	    }
 	);
 	

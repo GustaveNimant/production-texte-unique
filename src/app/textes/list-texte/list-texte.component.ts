@@ -47,7 +47,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
 	this.texte_aSub = this.texteService.texte_a$.subscribe(
 	    (tex_a) => {
-		console.log('Dans',here,'tex_a',tex_a);
+		console.log('Dans',here,'subscribe tex_a',tex_a);
 		this.texte_a = tex_a;
 		this.loading = false;
 	    }
