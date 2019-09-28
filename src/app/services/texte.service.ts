@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { TexteModel } from '../models/texte.model';
 import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import * as O from '../outils/outils-management';
 
@@ -19,9 +20,11 @@ export class TexteService {
     };
 
     private texte_a: TexteModel[] = [];
-
     public texte_a$ = new Subject<TexteModel[]>();
 
+    private currentTexte = new TexteModel();
+    public currentTexte$ = new BehaviorSubject<TexteModel>(this.currentTexte)
+    
     createNewTexte(texte: TexteModel) {
 	let here = O.functionName ();
 	console.log('Entrée dans createNewTexte avec texte', texte);
@@ -76,7 +79,14 @@ export class TexteService {
 	});
     }
 
-    emitTextes() {
+    emitCurrentTexte(caller) {
+	let here = O.functionName ();
+	console.log('Entrée dans',here,'avec currentTexte', this.currentTexte);
+	console.log(here,'appelé par',caller);
+	this.currentTexte$.next(this.currentTexte);
+    }
+
+    emitTextes(caller) {
 	let here = O.functionName ();
 	console.log('Entrée dans',here,'avec les textes', this.texte_a);
 	this.texte_a$.next(this.texte_a);
@@ -105,12 +115,11 @@ export class TexteService {
 	console.log(here,'appelé par',caller);
 
 	return new Promise((resolve, reject) => {
-	    console.log('Dans getTextes resolve', resolve);
 	    this.http.get(this.uri_all).subscribe(
 		(tex_a: TexteModel[]) => {
 		    if (tex_a) {
 			this.texte_a = tex_a;
-			this.emitTextes();
+			this.emitTextes(here);
 		    }
 		},
 		(error) => {

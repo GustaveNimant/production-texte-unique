@@ -16,13 +16,13 @@ import * as O from '../../outils/outils-management';
 
 export class ListTexteComponent implements OnInit, OnDestroy {
 
-    public loading: boolean;
-    public isAuth: boolean;
+    private loading: boolean;
+    private isAuth: boolean;
     private isAuthSub: Subscription;
 
     private currentUrl: string;
     
-    public texte_a: TexteModel[] = [];
+    private texte_a: TexteModel[] = [];
     private texte_aSub: Subscription;
     
     constructor(private stateService: StateService,
