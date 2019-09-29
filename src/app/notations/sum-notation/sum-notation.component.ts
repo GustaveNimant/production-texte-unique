@@ -45,8 +45,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 
-	let note_a:number[] = [];
-
 	this.loading = true;
 
 	this.currentUrlSub = this.stateService.currentUrl$.subscribe(
@@ -80,6 +78,8 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 			    (not_a) => {
 				this.loading = false;
 				console.log('Dans',here,'liste des notations not_a',not_a);
+				let note_a:number[] = [];
+
                                 for (let i in not_a) {
 				    note_a[i] = not_a[i].note;
 				}
