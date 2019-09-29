@@ -2,6 +2,7 @@ import { Injectable }    from '@angular/core';
 import { HttpClient }    from '@angular/common/http';
 import { NotationModel } from '../models/notation.model';
 import { Subject }       from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 import * as O from '../outils/outils-management';
 
@@ -12,11 +13,11 @@ import * as O from '../outils/outils-management';
 export class NotationService {
 
     uri_all = 'http://localhost:3000/api/notations/';
-    
+
     constructor(private http: HttpClient){};
 
     private notation_a: NotationModel[] = [];
-    public notation_a$ = new Subject<NotationModel[]>();
+    public notation_a$ = new BehaviorSubject<NotationModel[]>(this.notation_a);
 
     createNewNotation(notation: NotationModel) {
 	console.log('Entrée dans createNewNotation avec notation', notation);
@@ -37,7 +38,7 @@ export class NotationService {
 		);
 	});
     }
-    
+
     deleteNotation(id: string) {
 	console.log('Entrée dans deleteNotation avec id',id);
 
@@ -87,7 +88,7 @@ export class NotationService {
 	    );
 	});
     }
-    
+
     getNotationById(id: string) {
 	console.log('Entrée dans getNotationById avec id', id);
 
@@ -109,15 +110,37 @@ export class NotationService {
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + 'byoid/' + texteObjectId).subscribe(
-		(response) => {
-		    console.log(here,'response',response);
-		    resolve(response);
+		(not_a: NotationModel[]) => {
+		    console.log(here,'not_a',not_a);
+		    this.notation_a$.next(not_a)
+		    resolve(not_a);
 		},
 		(error) => {
 		    reject(error);
 		}
 	    );
 	});
+    }
+
+    provideNotationsByTexteObjectId(texteObjectId: string) {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here,'avec texteObjectId', texteObjectId);
+
+	this.getNotationsByTexteObjectId(texteObjectId)
+	    .then(
+		(not_a) => {
+		    console.log('Dans',here,'liste des notations not_a',not_a);
+                    for (let i in not_a) {
+			this.notation_a[i] = not_a[i];
+		    }
+		}
+    	    )
+	    .catch(
+		(error) => {
+		    console.log('Dans',here,'Erreur', error);
+		    console.log('Dans',here,'Erreur.status', error.status);
+		}
+	    );
     }
 
     existsNotationByTextIdAndParticipantId (texteObjectId: string, participantId:string) {
@@ -135,6 +158,6 @@ export class NotationService {
 		}
 	    );
 	});
-	
+
     }
 } // export
