@@ -80,8 +80,6 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 			    (not_a) => {
 				this.loading = false;
 				console.log('Dans',here,'liste des notations not_a',not_a);
-
-				console.log('Dans',here,'typeof not_a',typeof not_a);
                                 for (let i in not_a) {
 				    note_a[i] = not_a[i].note;
 				}
