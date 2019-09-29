@@ -72,7 +72,7 @@ export class SumNotationComponent implements OnInit, OnDestroy {
 				console.log('Dans',here,'getTexteByObjectId Erreur', error);
 			    }
 			);
-
+		    
 		    this.notationService.getNotationsByTexteObjectId(params.texteObjectId)
 			.then(
 			    (not_a) => {
