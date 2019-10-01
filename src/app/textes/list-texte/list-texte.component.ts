@@ -1,10 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { StateService } from '../../services/state.service';
-import { TexteService } from '../../services/texte.service';
-import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 import { TexteModel }    from '../../models/texte.model';
+import { CompteModel }   from '../../models/compte.model';
 import { CompteService } from '../../services/compte.service';
+import { StateService }  from '../../services/state.service';
+import { TexteService }  from '../../services/texte.service';
+
+import { Subscription } from 'rxjs';
+import { filter, map, scan, take, tap, toArray } from 'rxjs/operators';
 
 import * as O from '../../outils/outils-management';
 
@@ -21,9 +24,21 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     private isAuthSub: Subscription;
 
     private currentUrl: string;
-    
-    public texte_a: TexteModel[] = [];
+
+    public currentTexte_a = new Array<TexteModel>();
+
+    public texte_a = new Array<TexteModel>();
     public texte_aSub: Subscription;
+
+    public currentPseudo: string;
+    public currentCompteSub: Subscription;
+    public currentCompte = new CompteModel();
+
+    private pseudo_a = new Array<string>();
+    private currentCompte_a = new Array<CompteModel>();
+
+    private compte_aSub:Subscription;
+
     
     constructor(private stateService: StateService,
 		private compteService: CompteService,
@@ -37,22 +52,14 @@ export class ListTexteComponent implements OnInit, OnDestroy {
     ngOnInit() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-	
+
 	this.loading = true;
 	this.stateService.mode$.next('list');
-	
+
 	this.currentUrl = this.router.url;
 	this.stateService.currentUrl$.next(this.currentUrl);
 	console.log('Dans',here,'currentUrl', this.currentUrl);
 
-	this.texte_aSub = this.texteService.texte_a$.subscribe(
-	    (tex_a) => {
-		console.log('Dans',here,'subscribe tex_a',tex_a);
-		this.texte_a = tex_a;
-		this.loading = false;
-	    }
-	);
-	
 	this.isAuthSub = this.compteService.isAuth$.subscribe(
 	    (boo) => {  /* Pour afficher les textes */
 		this.isAuth = boo;
@@ -60,27 +67,67 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 	    }
 	);
 
-	console.log('Dans',here,'loading', this.loading);
+	this.texte_aSub = this.texteService.texte_a$
+			      .subscribe(
+				  (tex_a) => {
+				      this.currentTexte_a = tex_a;
+				  },
+				  (error) =>
+				      {console.log(error)
+				      },
+				  () => {
+				      console.log('fait');
+				  }
+			      );
+
 	this.texteService.getTextes(here); /* afficher les textes */
+
+	this.compte_aSub = this.compteService.compte_a$
+			       .subscribe(
+				   (com_a) => {
+				       this.currentCompte_a = com_a;
+				   }
+			       );
+	
+	this.compteService.getComptes(here);
+	this.loading = false;
+
+    }
+
+    onAddPseudo () {
+	let here = O.functionName ();
+	console.log('%cEntrée dans','color:#00aa00', here);
+
+	console.log('Dans',here,' this.currentTexte_a=',this.currentTexte_a);
+	console.log('Dans',here,' this.currentCompte_a=',this.currentCompte_a);
+
+	for (let t in this.currentTexte_a) {
+	    let aId = this.currentTexte_a[t].auteurId;
+	    this.currentCompte = this.currentCompte_a.find( x => x._id == aId);
+	    this.currentPseudo = this.currentCompte.pseudo;
+	    this.currentTexte_a[t]['pseudo'] = this.currentPseudo;
+	    }
     }
 
     onTexteClicked(id: string) {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
 	console.log('Entrée dans',here,'avec id', id);
-	
-	console.log('Dans',here,'navigation vers', '/textes/single-texte/' + id);
 
+	console.log('Dans',here,'navigation vers', '/textes/single-texte/' + id);
 	this.router.navigate(['/textes/single-texte/' + id]);
     }
 
     ngOnDestroy() {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-	
+
+	this.compte_aSub.unsubscribe();
+	O.unsubscribeLog(here, 'compte_aSub');
+
 	this.texte_aSub.unsubscribe();
-	
 	O.unsubscribeLog(here, 'texte_aSub');
+
 	O.exiting_from_function (here);
     }
 

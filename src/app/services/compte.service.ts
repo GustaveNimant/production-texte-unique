@@ -17,11 +17,16 @@ export class CompteService {
     token: string;  /* utilisé dans intercept */
     userId: string; /* utilisé dans intercept */
 
-    private compte_a: CompteModel[] = [];
-    public compte_a$ = new BehaviorSubject<CompteModel[]>([]);
+    public compte_a: CompteModel[] = [];
+    public compte_a$ = new BehaviorSubject<CompteModel[]>(this.compte_a);
 
-    private currentCompte = new CompteModel();
+    public currentCompte = new CompteModel();
     public currentCompte$ = new BehaviorSubject<CompteModel>(this.currentCompte);
+//    public currentCompte$ = new Subject<CompteModel>();
+
+    private currentPseudo ='';
+    public currentPseudo$ = new BehaviorSubject<string>(this.currentPseudo);
+
     private loading:boolean = false;
     
     uri_all = 'http://localhost:3000/api/comptes/';
@@ -84,8 +89,8 @@ export class CompteService {
 
     emitCurrentCompte(caller) {
 	let here = O.functionName ();
-	console.log('Entrée dans',here,'avec currentCompte', this.currentCompte);
-	console.log(here,'appelé par',caller);
+	console.log('Entrée dans',here,'appelé par',caller);
+	console.log('Avec currentCompte', this.currentCompte);
 	this.currentCompte$.next(this.currentCompte);
     }
 
@@ -102,9 +107,9 @@ export class CompteService {
 	console.log(here,'appelé par',caller);
 
 	this.http.get(this.uri_all).subscribe(
-	    (con_a: CompteModel[]) => {
-		if (con_a) {
-		    this.compte_a = con_a;
+	    (com_a: CompteModel[]) => {
+		if (com_a) {
+		    this.compte_a = com_a;
 		    this.emitComptes(here);
 		}
 	    },
@@ -141,9 +146,13 @@ export class CompteService {
 
 	return new Promise((resolve, reject) => {
 	    this.http.get(this.uri_all + id).subscribe(
-		(response) => {
-		    console.log('Dans',here,'response',response);
-		    resolve(response);
+		(com: CompteModel) => {
+		    console.log('Dans',here,'com',com);
+		    if (com) {
+			this.currentCompte = com;
+			this.emitCurrentCompte(here);
+		    }
+		    resolve(com);
 		},
 		(error) => {
 		    reject(error);
@@ -191,7 +200,7 @@ export class CompteService {
 	this.getCompteById (id)
 	    .then(
 		(com: CompteModel) => {
-		    console.log('Dans onLogin',here,'com', com);
+		    console.log('Dans',here,'getCompteById com', com);
 		    return com.pseudo;
 		},
 	    ).catch (
