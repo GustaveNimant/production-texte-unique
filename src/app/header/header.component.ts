@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private irpRegister= new Object();
 
     private currentEmail: string;
-    private pseudo: string;
+    public pseudo: string;
 
     private currentCompte = new CompteModel();
 
@@ -45,8 +45,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 		//		private currentCompteProviderService:CurrentCompteProviderService,
 		private router: Router)
 		{
-		    let here = O.functionName ();
-		    console.log('%cEntrée dans','color:#00aa00', here);
+		    O.constructorLog(O.functionName());
 		};
 
     ngOnInit() {
