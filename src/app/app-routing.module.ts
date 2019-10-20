@@ -15,12 +15,6 @@ import { ListParticipantComponent }       from './participants/list-participant/
 import { NewParticipantComponent }        from './participants/new-participant/new-participant.component';
 import { SingleParticipantComponent }     from './participants/single-participant/single-participant.component';
 
-import { ButsComponent }                  from './buts/buts.component';
-import { ListButComponent }               from './buts/list-but/list-but.component';
-import { ModifyButComponent }             from './buts/modify-but/modify-but.component';
-import { NewButComponent }                from './buts/new-but/new-but.component';
-import { SingleButComponent }             from './buts/single-but/single-but.component';
-
 import { NotationsComponent }             from './notations/notations.component';
 import { ByobjectidNotationComponent }    from './notations/byobjectid-notation/byobjectid-notation.component';
 import { ListNotationComponent }          from './notations/list-notation/list-notation.component';
@@ -39,16 +33,6 @@ import { CompteGuard }                 from './services/compte-guard.service';
 import { IrpProviderComponent }        from './irp-provider/irp-provider.component';
 
 const routes: Routes = [
-    { path: 'buts', component: ButsComponent,
-      children: [
-	  { path: 'new-but', component: NewButComponent},
-	  { path: 'list-but', component: ListButComponent, canActivate: [CompteGuard] },
-	  { path: 'single-but/:id', component: SingleButComponent, canActivate: [CompteGuard] },
-	  { path: 'modify-but/:id', component: ModifyButComponent, canActivate: [CompteGuard] },
-	  { path: '', pathMatch: 'full', redirectTo: 'list-but' },
-	  { path: '**', redirectTo: 'list-but' }
-      ]
-    },
     { path: 'comptes', component: ComptesComponent,
       children: [
 	  { path: 'new-compte', component: NewCompteComponent},

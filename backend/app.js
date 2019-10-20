@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 const dbConfig = require('./models/dbConfig');
 
 const compteRoutes  = require('./routes/compte.routes');
-const butRoutes  = require('./routes/but.routes');
 const notationRoutes  = require('./routes/notation.routes');
 const participantRoutes  = require('./routes/participant.routes');
 const texteRoutes = require('./routes/texte.routes');
@@ -24,7 +23,6 @@ app.use((req, res, next) => { /* no route : applies to all incoming requests */
 app.use(bodyParser.json());              /* reception de la requête sous forme d'Objet JSON */
 
 app.use('/api/comptes', compteRoutes);
-app.use('/api/buts', butRoutes);
 app.use('/api/notations', notationRoutes);
 app.use('/api/participants', participantRoutes); 
 app.use('/api/textes', texteRoutes); 

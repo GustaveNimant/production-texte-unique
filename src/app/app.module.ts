@@ -28,12 +28,6 @@ import { SingleParticipantComponent } from './participants/single-participant/si
 import { NewParticipantComponent }    from './participants/new-participant/new-participant.component';
 import { ListParticipantComponent }   from './participants/list-participant/list-participant.component';
 
-import { ButsComponent }       from './buts/buts.component';
-import { ListButComponent }         from './buts/list-but/list-but.component';
-import { ModifyButComponent }       from './buts/modify-but/modify-but.component';
-import { NewButComponent }          from './buts/new-but/new-but.component';
-import { SingleButComponent }       from './buts/single-but/single-but.component';
-
 import { NotationsComponent }       from './notations/notations.component';
 import { ListNotationComponent }    from './notations/list-notation/list-notation.component';
 import { NewNotationComponent }     from './notations/new-notation/new-notation.component';
@@ -52,21 +46,17 @@ import { IrpProviderComponent }     from './irp-provider/irp-provider.component'
 @NgModule({
     declarations: [
 	AppComponent,
-	ButsComponent,
 	ByobjectidNotationComponent,
 	ComptesComponent,
 	HeaderComponent,
 	IrpProviderComponent,
-	ListButComponent,
 	ListCompteComponent,
 	ListNotationComponent,
 	ListParticipantComponent,
 	ListTexteComponent,
 	LoginComponent,
 	MainMenuComponent,
-	ModifyButComponent,
 	ModifyTexteComponent,
-	NewButComponent,
 	NewCompteComponent,
 	NewNotationComponent,
 	NewParticipantComponent,
@@ -74,7 +64,6 @@ import { IrpProviderComponent }     from './irp-provider/irp-provider.component'
 	NewTexteVersionComponent,
 	NotationsComponent,
 	ParticipantsComponent,
-	SingleButComponent,
 	SingleCompteComponent,
 	SingleNotationComponent,
 	SingleParticipantComponent,

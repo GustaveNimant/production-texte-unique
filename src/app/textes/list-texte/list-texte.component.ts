@@ -32,7 +32,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
     private verboseSub: Subscription;
     public verbose: boolean;
-    
+
     public texte_a = new Array<TexteModel>();
     private texte_aSub: Subscription;
 
@@ -70,7 +70,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
 	this.debug = this.stateService.debug;
 	console.log('Dans',here,'debug', this.debug);
-	
+
 	this.loading = true;
 	this.stateService.mode$.next('list');
 
@@ -107,12 +107,12 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 				  }
 			      );
 
-	
+
 	this.texteService.getTextes(here) /* afficher les textes */
-	    .then( 
+	    .then(
 		() => {
 		    this.loading = false;
-		    console.log('Dans',here,'getTextes then'); 
+		    console.log('Dans',here,'getTextes then');
 		    this.loading = false;
 		}
 	    ).catch(
@@ -122,7 +122,7 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 		}
 	    );
 
-	
+
 	this.compte_aSub = this.compteService.compte_a$
 			       .subscribe(
 				   (com_a) => {
@@ -130,21 +130,21 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 				       console.log('Dans',here,'subscribe com_a',com_a);
 				   }
 			       );
-	
+
 
 	this.compteService.getComptes(here) /* afficher les comptes */
-	    .then( 
-												() => {
-												    this.loading = false;
-												}
-											    ).catch(
-												(error) => {
-												    this.loading = false;
-												    this.errorMessage = error.message;
-												}
-											    );
+	    .then(
+		() => {
+		    this.loading = false;
+		}
+	    ).catch(
+		(error) => {
+		    this.loading = false;
+		    this.errorMessage = error.message;
+		}
+	    );
 
-	
+
 	this.notation_aSub = this.notationService.notation_a$
 				 .subscribe(
 				     (not_a) => {
@@ -152,9 +152,9 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 					 console.log('Dans',here,'subscribe notation_a',this.notation_a);
 				     }
 				 );
-	
+
 	this.notationService.getNotations(here) /* afficher les notations */
-	    .then( 
+	    .then(
 		() => {
 		    console.log('Dans',here,'getNotations then');
 		    this.loading = false;
@@ -177,14 +177,14 @@ export class ListTexteComponent implements OnInit, OnDestroy {
 
 	this.onAddPseudo ();
 	this.onAddAverageNote ();
-	
+
 	console.log('%cSortie de','color:#aa0000', here);
     }
-    
+
     onAddPseudo () {
 	let here = O.functionName ();
 	console.log('%cEntrée dans','color:#00aa00', here);
-	
+
 
 	for (let t in this.texte_a) {
 	    let aId = this.texte_a[t].auteurId;
